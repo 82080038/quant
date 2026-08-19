@@ -8,8 +8,9 @@
  * connectors (gradient arrows) between cards imply that price action
  * in earlier markets can lead later ones.
  *
- * Data source: /api/scheduler/sessions (10s polling).
+ * Data source: /api/scheduler/sessions-with-indices (10s polling).
  * DST-aware: open/close times auto-adjust when is_dst_active is true.
+ * Each card shows the exchange's major index symbol + change percentage.
  */
 
 import { useEffect, useState, useCallback, useRef, useMemo } from "react";
@@ -17,6 +18,17 @@ import { ChevronRight, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // ── Types ────────────────────────────────────────────────────────────────
+
+interface IndexData {
+  symbol: string;
+  name: string;
+  yahoo_ticker: string;
+  priority: number;
+  price: number | null;
+  change: number;
+  change_pct: number;
+  date?: string;
+}
 
 interface SessionStatus {
   market_code: string;
@@ -33,6 +45,7 @@ interface SessionStatus {
   has_dst: boolean;
   current_offset_hours: number;
   is_dst_active: boolean;
+  indices: IndexData[];
 }
 
 interface SessionsResponse {
@@ -90,7 +103,7 @@ export function ExchangeTimelineHeader() {
 
   const loadData = useCallback(async () => {
     try {
-      const res = await fetch("/api/scheduler/sessions");
+      const res = await fetch("/api/scheduler/sessions-with-indices");
       if (res.ok) {
         try { setData(await res.json()); } catch { /* keep prev */ }
       }
@@ -179,7 +192,7 @@ export function ExchangeTimelineHeader() {
               <div
                 className={cn(
                   "flex flex-col items-center justify-center px-2 py-0.5 rounded border transition-all duration-500 ease-in-out",
-                  "min-w-[58px] gap-0",
+                  "min-w-[72px] gap-0",
                   STATUS_BORDER[s.status] || STATUS_BORDER.CLOSED,
                   isOpen && "bg-green-500/5",
                   isPre && "bg-yellow-500/5",
@@ -201,13 +214,39 @@ export function ExchangeTimelineHeader() {
                   )}
                 </div>
 
-                {/* Bottom row: WIB times */}
-                <div className="flex items-center gap-0.5 mt-0.5">
-                  <span className="font-mono text-[8px] text-slate-400 leading-none">
+                {/* Index row: symbol + change% */}
+                {s.indices && s.indices.length > 0 && s.indices[0].price != null ? (
+                  <div className="flex items-center gap-1 mt-0.5 w-full justify-center">
+                    <span className="text-[8px] text-slate-300 font-semibold leading-none">
+                      {s.indices[0].symbol}
+                    </span>
+                    <span className={cn(
+                      "text-[8px] font-mono font-bold leading-none",
+                      s.indices[0].change_pct > 0
+                        ? "text-emerald-400"
+                        : s.indices[0].change_pct < 0
+                        ? "text-red-400"
+                        : "text-slate-400"
+                    )}>
+                      {s.indices[0].change_pct > 0 ? "+" : ""}
+                      {s.indices[0].change_pct.toFixed(2)}%
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-0.5 mt-0.5">
+                    <span className="font-mono text-[8px] text-slate-600 leading-none">
+                      {s.open_time_wib.slice(0, 5)}-{s.close_time_wib.slice(0, 5)}
+                    </span>
+                  </div>
+                )}
+
+                {/* Bottom row: WIB times (always visible) */}
+                <div className="flex items-center gap-0.5 mt-px">
+                  <span className="font-mono text-[7px] text-slate-500 leading-none">
                     {s.open_time_wib.slice(0, 5)}
                   </span>
-                  <span className="text-[7px] text-slate-600 leading-none">-</span>
-                  <span className="font-mono text-[8px] text-slate-400 leading-none">
+                  <span className="text-[6px] text-slate-700 leading-none">-</span>
+                  <span className="font-mono text-[7px] text-slate-500 leading-none">
                     {s.close_time_wib.slice(0, 5)}
                   </span>
                 </div>

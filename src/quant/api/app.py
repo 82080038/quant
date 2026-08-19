@@ -438,6 +438,87 @@ async def scheduler_sessions():
     }
 
 
+@app.get("/api/scheduler/sessions-with-indices")
+async def scheduler_sessions_with_indices():
+    """Return session status + major index prices for all exchanges."""
+    from datetime import datetime, timezone
+    from zoneinfo import ZoneInfo
+    from quant.core.session_orchestrator import GlobalSessionOrchestrator
+    orch = GlobalSessionOrchestrator()
+    now_utc = datetime.now(timezone.utc)
+    sessions = orch.get_all_sessions_status(now_utc)
+
+    # Fetch latest index data for each market
+    session_db = get_db()
+    try:
+        # Get all active indices
+        indices = session_db.execute(text("""
+            SELECT mi.market_code, mi.index_symbol, mi.index_name,
+                   mi.yahoo_ticker, mi.display_priority
+            FROM market_indices mi
+            WHERE mi.is_active = TRUE
+            ORDER BY mi.market_code, mi.display_priority
+        """)).fetchall()
+
+        # Build market_code → list of indices
+        indices_map: dict[str, list[dict]] = {}
+        for r in indices:
+            mc = r[0]
+            if mc not in indices_map:
+                indices_map[mc] = []
+            indices_map[mc].append({
+                "symbol": r[1],
+                "name": r[2],
+                "yahoo_ticker": r[3],
+                "priority": r[4],
+            })
+
+        # For each index, get latest 2 prices from stock_prices to compute change
+        for mc, idx_list in indices_map.items():
+            for idx in idx_list:
+                yt = idx["yahoo_ticker"]
+                try:
+                    prices = session_db.execute(text("""
+                        SELECT date, close FROM stock_prices
+                        WHERE ticker = :t
+                        ORDER BY date DESC LIMIT 2
+                    """), {"t": yt}).fetchall()
+                    if prices:
+                        idx["price"] = float(prices[0][1])
+                        idx["date"] = str(prices[0][0])
+                        if len(prices) > 1:
+                            prev_close = float(prices[1][1])
+                            change = idx["price"] - prev_close
+                            idx["change"] = round(change, 2)
+                            idx["change_pct"] = round((change / prev_close) * 100, 2) if prev_close else 0.0
+                        else:
+                            idx["change"] = 0.0
+                            idx["change_pct"] = 0.0
+                    else:
+                        idx["price"] = None
+                        idx["change"] = 0.0
+                        idx["change_pct"] = 0.0
+                except Exception:
+                    idx["price"] = None
+                    idx["change"] = 0.0
+                    idx["change_pct"] = 0.0
+    finally:
+        session_db.close()
+
+    # Merge index data into sessions
+    for s in sessions:
+        s["indices"] = indices_map.get(s["market_code"], [])
+
+    open_markets = [s for s in sessions if s["status"] == "OPEN"]
+    return {
+        "current_time_utc": now_utc.strftime("%H:%M:%S"),
+        "current_time_wib": now_utc.astimezone(ZoneInfo("Asia/Jakarta")).strftime("%H:%M:%S"),
+        "open_count": len(open_markets),
+        "total": len(sessions),
+        "sessions": sessions,
+    }
+
+
 @app.post("/api/scheduler/run")
 async def scheduler_run():
     """Trigger scheduler run for due tasks."""
