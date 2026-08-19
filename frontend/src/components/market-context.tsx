@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { throttle } from "@/lib/rate-limiter";
 
 interface ExchangeStatus {
   name: string;
@@ -108,7 +109,11 @@ export function MarketProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setNow(new Date());
-    const timer = setInterval(() => setNow(new Date()), 1000);
+    // Throttle clock updates to 500ms — prevents excessive re-renders when
+    // multiple components depend on MarketContext. The clock display only
+    // needs second-level precision, but we avoid 2x renders per second.
+    const throttledSetNow = throttle(() => setNow(new Date()), 500);
+    const timer = setInterval(throttledSetNow, 500);
     return () => clearInterval(timer);
   }, []);
 

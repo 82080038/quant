@@ -66,8 +66,9 @@ _BROWSER_HEADERS = {
     "Origin": "https://idx.co.id",
 }
 
-# Rate limit: idx.co.id is not designed for high-frequency API calls
-_RATE_LIMIT_SEC = 2.0
+# Adaptive rate limiter for idx.co.id (replaces static _RATE_LIMIT_SEC)
+from quant.core.rate_limiter import get_limiter
+_idx_limiter = get_limiter("idx", base_rate=0.5, burst=3, timeout=15)
 
 
 class IDXOfficialAdapter:
@@ -80,7 +81,7 @@ class IDXOfficialAdapter:
 
     def __init__(self) -> None:
         self._session: requests.Session | None = None
-        self._last_request_time: float = 0.0
+        self._limiter = _idx_limiter
 
     def _get_session(self):
         """Get or create a session with Cloudflare bypass."""
@@ -101,14 +102,12 @@ class IDXOfficialAdapter:
         return self._session
 
     def _rate_limit(self) -> None:
-        """Simple rate limiting to avoid being blocked."""
-        elapsed = time.time() - self._last_request_time
-        if elapsed < _RATE_LIMIT_SEC:
-            time.sleep(_RATE_LIMIT_SEC - elapsed)
-        self._last_request_time = time.time()
+        """Adaptive rate limiting — auto-adjusts based on server response."""
+        self._limiter.acquire_sync()
+        self._limiter.sleep_backoff_sync()
 
     def _fetch_json(self, url: str, params: dict) -> list[dict] | None:
-        """Fetch JSON from idx.co.id with rate limiting and error handling."""
+        """Fetch JSON from idx.co.id with adaptive rate limiting and error handling."""
         self._rate_limit()
         session = self._get_session()
 
@@ -118,12 +117,31 @@ class IDXOfficialAdapter:
             else:
                 resp = session.get(url, params=params, timeout=15, headers=_BROWSER_HEADERS)
 
-            if resp.status_code == 403:
-                logger.warning(
-                    "idx.co.id returned 403 (Cloudflare blocked) for %s",
-                    url,
-                )
+            status = resp.status_code
+            start = time.time()
+            latency_ms = (time.time() - start) * 1000
+
+            # Feed response back to limiter for adaptive adjustment
+            if status == 429:
+                self._limiter._async._total_429 += 1
+                self._limiter._async._total_errors += 1
+                self._limiter._async._apply_backoff()
+                self._limiter._async._decrease_rate(0.5)
+                logger.warning("idx.co.id returned 429 for %s — backing off", url)
                 return None
+            elif 500 <= status < 600:
+                self._limiter._async._total_errors += 1
+                self._limiter._async._apply_backoff()
+                self._limiter._async._decrease_rate(0.75)
+                logger.warning("idx.co.id returned %d for %s", status, url)
+                return None
+            elif status == 403:
+                logger.warning("idx.co.id returned 403 (Cloudflare blocked) for %s", url)
+                return None
+            else:
+                self._limiter._async._reset_backoff()
+                self._limiter._async._update_latency(latency_ms)
+
             resp.raise_for_status()
             data = resp.json()
             # idx.co.id returns DataTables format: {"data": [...], "recordsTotal": N}

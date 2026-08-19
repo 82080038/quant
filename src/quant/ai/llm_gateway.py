@@ -19,8 +19,11 @@ from typing import Any, Optional
 import requests
 
 from quant.core.config import config
+from quant.core.rate_limiter import get_limiter
 
 logger = logging.getLogger(__name__)
+
+_llm_limiter = get_limiter("llm", base_rate=0.5, burst=2, timeout=60)
 
 
 @dataclass
@@ -119,14 +122,28 @@ class LLMGateway:
 
         start = time.time()
         try:
+            _llm_limiter.acquire_sync()
+            _llm_limiter.sleep_backoff_sync()
             resp = requests.post(url, json=payload, timeout=self.timeout)
             latency = (time.time() - start) * 1000
 
+            if resp.status_code == 429:
+                _llm_limiter._async._total_429 += 1
+                _llm_limiter._async._apply_backoff()
+                _llm_limiter._async._decrease_rate(0.5)
+                return LLMResponse(
+                    text="", model=self.model, latency_ms=latency,
+                    success=False, error="HTTP 429: Rate limited by LLM provider",
+                )
             if resp.status_code != 200:
+                _llm_limiter._async._total_errors += 1
+                _llm_limiter._async._apply_backoff()
                 return LLMResponse(
                     text="", model=self.model, latency_ms=latency,
                     success=False, error=f"HTTP {resp.status_code}: {resp.text[:200]}",
                 )
+            _llm_limiter._async._reset_backoff()
+            _llm_limiter._async._update_latency(latency)
 
             data = resp.json()
             text = data.get("message", {}).get("content", "")

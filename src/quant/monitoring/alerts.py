@@ -19,6 +19,10 @@ from typing import Optional
 
 import requests
 
+from quant.core.rate_limiter import get_limiter
+
+_telegram_limiter = get_limiter("telegram", base_rate=1.0, burst=5, timeout=10)
+
 logger = logging.getLogger(__name__)
 
 
@@ -98,6 +102,8 @@ class AlertManager:
         text = f"{emoji} *{alert.title}*\n\n{alert.message}\n\n_{alert.timestamp}_"
 
         try:
+            _telegram_limiter.acquire_sync()
+            _telegram_limiter.sleep_backoff_sync()
             url = f"https://api.telegram.org/bot{self.telegram_bot_token}/sendMessage"
             payload = {
                 "chat_id": self.telegram_chat_id,

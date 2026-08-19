@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { getLimiter } from "@/lib/rate-limiter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Clock,
@@ -136,12 +137,13 @@ export default function SchedulerPage() {
   const loadStatus = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/scheduler/status");
+      const limiter = getLimiter("scheduler");
+      const res = await limiter.fetch("/api/scheduler/status");
       if (res.ok) {
         setStatus(await res.json());
       }
     } catch {
-      // ignore
+      // ignore — rate limiter handles backoff
     }
     setLoading(false);
   }, []);
@@ -154,7 +156,8 @@ export default function SchedulerPage() {
     setRunning(true);
     setRunResult(null);
     try {
-      const res = await fetch("/api/scheduler/run", { method: "POST" });
+      const limiter = getLimiter("scheduler");
+      const res = await limiter.fetch("/api/scheduler/run", { method: "POST" });
       if (res.ok) {
         const data = await res.json();
         const light = data.results?.map(
