@@ -27,12 +27,41 @@ CREATE TABLE sector_master (
     code VARCHAR(10)
 );
 
+-- ============================================================
+-- Asset Class Master (Migration 0010)
+-- Normalizes instruments.asset_class into FK for multi-asset trading
+-- ============================================================
+
+CREATE TABLE asset_classes (
+    code VARCHAR(20) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    market_hours_24h BOOLEAN NOT NULL DEFAULT FALSE,
+    holiday_calendar_source VARCHAR(50) DEFAULT 'exchange',
+    default_currency VARCHAR(3) DEFAULT 'USD',
+    default_data_source VARCHAR(50) DEFAULT 'yahoo_finance',
+    default_fetch_frequency VARCHAR(20) DEFAULT 'EOD',
+    is_tradeable BOOLEAN DEFAULT TRUE,
+    sort_order INTEGER DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+INSERT INTO asset_classes (code, name, description, market_hours_24h, holiday_calendar_source, default_currency, default_data_source, default_fetch_frequency, is_tradeable, sort_order) VALUES
+('equity',     'Equity / Stock',       'Individual stocks and ETFs',                     FALSE, 'exchange',       'IDR', 'yahoo_finance', 'EOD',          TRUE, 1),
+('index',      'Market Index',         'Benchmark indices (non-tradeable directly)',     FALSE, 'exchange',       'USD', 'yahoo_finance', 'EOD',          FALSE, 2),
+('forex',      'Foreign Exchange',     'Currency pairs (e.g. EUR/USD, USD/IDR)',          TRUE,  'central_bank',   'USD', 'yahoo_finance', 'EOD',          TRUE, 3),
+('commodity',  'Commodity',            'Gold, oil, CPO, agricultural products',           TRUE,  'exchange',       'USD', 'yahoo_finance', 'EOD',          TRUE, 4),
+('crypto',     'Cryptocurrency',       'Digital assets (BTC, ETH, etc.)',                 TRUE,  'none',           'USD', 'binance',       'INTRADAY_15M', TRUE, 5),
+('bond',       'Bond / Fixed Income',  'Government and corporate bonds',                  FALSE, 'central_bank',   'USD', 'yahoo_finance', 'EOD',          TRUE, 6),
+('macro_rate', 'Macro Economic Rate',  'Policy rates, interbank rates (non-tradeable)',   TRUE,  'central_bank',   'USD', 'fred',          'WEEKLY',       FALSE, 7);
+
 CREATE TABLE instruments (
     id SERIAL PRIMARY KEY,
     ticker VARCHAR(20) NOT NULL UNIQUE,
     exchange_id INTEGER REFERENCES exchanges(id),
     sector_id INTEGER REFERENCES sector_master(id),
-    asset_class VARCHAR(20) DEFAULT 'equity',
+    asset_class VARCHAR(20) DEFAULT 'equity' REFERENCES asset_classes(code) ON DELETE SET DEFAULT,
     currency VARCHAR(3) DEFAULT 'IDR',
     lot_size INTEGER DEFAULT 100,
     is_active BOOLEAN DEFAULT TRUE,
@@ -375,12 +404,89 @@ CREATE TABLE scheduler_state (
 );
 
 -- ============================================================
+-- Global Cross-Asset Interdependency Matrix (Migration 0009)
+-- ============================================================
+-- Master table: latest causality, correlation, and time-lag metrics
+-- for each source→target instrument pair. Queried by the decision
+-- engine before generating trading signals.
+--
+-- Three pillars of causal computation:
+--   1. causality_score: Granger F-statistic normalised to [0,1]
+--   2. correlation_coefficient: Pearson correlation at optimal lag
+--   3. time_lag_seconds: Temporal delay from source to target
+
+CREATE TABLE global_market_interdependencies (
+    id SERIAL PRIMARY KEY,
+    source_instrument_id VARCHAR(50) NOT NULL,
+    target_instrument_id VARCHAR(50) NOT NULL,
+    source_asset_class VARCHAR(20),
+    target_asset_class VARCHAR(20),
+    correlation_coefficient NUMERIC(8,6) NOT NULL,
+    causality_score NUMERIC(8,6) NOT NULL,
+    causality_p_value NUMERIC(10,8),
+    causality_direction VARCHAR(10) DEFAULT 'none',
+    time_lag_seconds INTEGER NOT NULL DEFAULT 0,
+    time_lag_periods INTEGER DEFAULT 0,
+    impact_weight NUMERIC(8,6) DEFAULT 0,
+    regime VARCHAR(20) DEFAULT 'unknown',
+    var_order INTEGER,
+    sample_size INTEGER,
+    as_of_date DATE NOT NULL DEFAULT CURRENT_DATE,
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    UNIQUE(source_instrument_id, target_instrument_id, as_of_date)
+);
+
+-- Composite covering index: "given target, find all sources" — sub-ms lookup
+CREATE INDEX idx_gmi_target_date
+    ON global_market_interdependencies(target_instrument_id, as_of_date, impact_weight);
+
+-- Reverse lookup: "given source, find all targets"
+CREATE INDEX idx_gmi_source_date
+    ON global_market_interdependencies(source_instrument_id, as_of_date);
+
+-- Regime-filtered query
+CREATE INDEX idx_gmi_regime_date
+    ON global_market_interdependencies(regime, as_of_date);
+
+-- Child table: daily historical snapshots for time-series analysis
+CREATE TABLE global_market_interdependency_history (
+    id BIGSERIAL PRIMARY KEY,
+    source_instrument_id VARCHAR(50) NOT NULL,
+    target_instrument_id VARCHAR(50) NOT NULL,
+    correlation_coefficient NUMERIC(8,6) NOT NULL,
+    causality_score NUMERIC(8,6) NOT NULL,
+    causality_p_value NUMERIC(10,8),
+    causality_direction VARCHAR(10) DEFAULT 'none',
+    time_lag_seconds INTEGER NOT NULL DEFAULT 0,
+    time_lag_periods INTEGER DEFAULT 0,
+    impact_weight NUMERIC(8,6) DEFAULT 0,
+    regime VARCHAR(20) DEFAULT 'unknown',
+    var_order INTEGER,
+    sample_size INTEGER,
+    snapshot_date DATE NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    UNIQUE(source_instrument_id, target_instrument_id, snapshot_date)
+);
+
+CREATE INDEX idx_gmih_target_snapshot
+    ON global_market_interdependency_history(target_instrument_id, snapshot_date);
+CREATE INDEX idx_gmih_source_snapshot
+    ON global_market_interdependency_history(source_instrument_id, snapshot_date);
+CREATE INDEX idx_gmih_snapshot_date
+    ON global_market_interdependency_history(snapshot_date);
+
+CREATE INDEX idx_instruments_asset_class ON instruments(asset_class);
+
+-- ============================================================
 -- Compatibility Views
 -- ============================================================
 
 CREATE VIEW v_active_instruments AS
-    SELECT i.ticker, i.company_name, s.name as sector, e.mic as exchange
+    SELECT i.ticker, i.company_name, s.name as sector, e.mic as exchange,
+           i.asset_class, ac.name as asset_class_name
     FROM instruments i
     LEFT JOIN sector_master s ON i.sector_id = s.id
     LEFT JOIN exchanges e ON i.exchange_id = e.id
+    LEFT JOIN asset_classes ac ON i.asset_class = ac.code
     WHERE i.is_active = TRUE;

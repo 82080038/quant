@@ -26,6 +26,7 @@ from sqlalchemy import text
 
 from quant.core.db import get_db
 from quant.core.pre_trade_guard import PreTradeGuard
+from quant.data.asset_router import AssetRouter, FetchAction
 from quant.data.point_in_time import PointInTimeQuery
 from quant.pipeline.state_machine import PipelineTracker, PipelineStatus
 from quant.features.factor_library import FactorLibrary
@@ -49,12 +50,13 @@ class PipelineOrchestrator:
         self._engine_registry = None
         self._aggregator = None
         self._guard = PreTradeGuard()
+        self._asset_router: AssetRouter | None = None
 
     @property
-    def session(self):
-        if self._session is None:
-            self._session = get_db()
-        return self._session
+    def asset_router(self) -> AssetRouter:
+        if self._asset_router is None:
+            self._asset_router = AssetRouter(self.session)
+        return self._asset_router
 
     @property
     def pit(self):
@@ -157,7 +159,12 @@ class PipelineOrchestrator:
             return False
 
     def _step_signal(self, ticker: str, as_of: date) -> Optional[dict]:
-        """Step 3: Generate signals from all engines and aggregate."""
+        """Step 3: Generate signals from all engines and aggregate.
+
+        The decision engine now loads the cross-asset interdependency matrix
+        from `global_market_interdependencies` before aggregating signals.
+        This ensures the composite signal incorporates global causality data.
+        """
         try:
             signals = self.engine_registry.generate_all(ticker, as_of)
             if not any(s.confidence > 0 for s in signals):
@@ -172,7 +179,14 @@ class PipelineOrchestrator:
                     elif "crisis" in s.rationale:
                         regime = "crisis"
 
-            composite = self.aggregator.aggregate(ticker, as_of, signals, regime=regime)
+            # Load interdependency matrix for causality-weighted aggregation
+            interdependency_matrix = self.engine_registry._load_interdependency_matrix(ticker, as_of)
+
+            composite = self.aggregator.aggregate(
+                ticker, as_of, signals,
+                regime=regime,
+                interdependency_matrix=interdependency_matrix,
+            )
             self.aggregator.log_attribution(composite, as_of)
             self._tracker.mark_status(ticker, as_of, "signal", PipelineStatus.SIGNAL_GENERATED)
             return composite.to_dict()
@@ -338,26 +352,15 @@ class PipelineOrchestrator:
         """
         logger.info("=== Daily pipeline run for %s ===", as_of)
 
-        # Pre-trade guard: check if IDX market is open
-        if not self._guard.should_run_pipeline("XIDX", as_of):
-            return {
-                "date": str(as_of),
-                "universe": 0,
-                "ingested": 0,
-                "screened": 0,
-                "analyzed": 0,
-                "signal_generated": 0,
-                "portfolio_optimized": 0,
-                "executed": 0,
-                "errors": 0,
-                "portfolio": None,
-                "execution": None,
-                "skipped": True,
-                "skip_reason": "market_holiday",
-            }
+        # Pre-trade guard: check if IDX market is open (equity-only check)
+        # Multi-asset: non-equity assets (forex, crypto, commodity) bypass IDX holidays
+        idx_open = self._guard.should_run_pipeline("XIDX", as_of)
+        if not idx_open:
+            logger.info("IDX market holiday for %s — equity pipeline skipped, "
+                        "non-equity assets still processed", as_of)
 
         universe = self._get_universe(as_of, limit=universe_limit)
-        logger.info("Universe: %d tickers", len(universe))
+        logger.info("Universe: %d tickers (IDX open: %s)", len(universe), idx_open)
 
         summary = {
             "date": str(as_of),

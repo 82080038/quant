@@ -36,6 +36,8 @@ from typing import TYPE_CHECKING
 
 from sqlalchemy import select, update
 
+from quant.data.asset_router import AssetRouter, FetchAction
+
 if TYPE_CHECKING:
     from sqlalchemy.orm import Session
 
@@ -99,11 +101,14 @@ class FetchRegistry:
 
     def __init__(self, session: Session) -> None:
         self._session = session
+        self._router = AssetRouter(session)
 
     def get_pending_fetches(
         self,
         data_layer: str | None = None,
         max_items: int | None = None,
+        as_of: datetime | None = None,
+        skip_holidays: bool = True,
     ) -> list[FetchItem]:
         """Get instruments that need fetching now.
 
@@ -111,12 +116,17 @@ class FetchRegistry:
             data_layer: Filter by layer (idx_equity, global_index, commodity, etc.)
                         If None, returns all layers.
             max_items: Limit number of results.
+            as_of: Date to check for holidays/market hours. Defaults to today.
+            skip_holidays: If True, skip instruments whose market is closed
+                           (exchange holiday, weekend for non-24/7 assets).
+                           If False, return all stale regardless of market hours.
 
         Returns:
             List of FetchItem for instruments where:
               - is_active = true
               - fetch_status in (STALE, NEVER_FETCHED, FAILED)
               - next_fetch_at IS NULL or next_fetch_at <= now()
+              - (if skip_holidays) market is open for this asset class
         """
         from quant.db.models import Instrument
 
@@ -150,11 +160,28 @@ class FetchRegistry:
 
         stmt = stmt.order_by(Instrument.fetch_status, Instrument.next_fetch_at)
 
-        if max_items:
-            stmt = stmt.limit(max_items)
-
         rows = self._session.execute(stmt).all()
-        return [FetchItem(row) for row in rows]
+        items = [FetchItem(row) for row in rows]
+
+        # Filter by market hours / holidays via AssetRouter
+        if skip_holidays and as_of:
+            check_date = as_of.date() if isinstance(as_of, datetime) else as_of
+            filtered = []
+            for item in items:
+                decision = self._router.should_fetch(item.ticker, check_date)
+                if decision.action == FetchAction.FETCH:
+                    filtered.append(item)
+                else:
+                    logger.debug(
+                        "Skipping %s: %s (%s)",
+                        item.ticker, decision.action, decision.reason,
+                    )
+            items = filtered
+
+        if max_items:
+            items = items[:max_items]
+
+        return items
 
     def get_by_layer(self, data_layer: str) -> list[FetchItem]:
         """Get all active instruments in a data layer, regardless of status."""

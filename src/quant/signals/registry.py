@@ -17,6 +17,7 @@ from typing import Optional
 
 import numpy as np
 import pandas as pd
+from sqlalchemy import text
 
 from quant.signals.aggregator import SignalResult
 from quant.signals.technical import TechnicalAnalysisEngine
@@ -198,9 +199,98 @@ class EngineRegistry:
         # Would need macro data from DB; return neutral for now
         return SignalResult("macro", ticker, 0.0, 0.0, "neutral", "Macro data adapter pending")
 
+    def _load_interdependency_matrix(self, ticker: str, as_of: date) -> list[dict]:
+        """Load pre-computed cross-asset interdependency matrix from DB.
+
+        Queries `global_market_interdependencies` for all source instruments
+        that have a statistically significant causal impact on the target
+        ticker. Uses the composite index `idx_gmi_target_date` for
+        sub-millisecond lookup.
+
+        Returns a list of dicts sorted by impact_weight (descending).
+        """
+        if self._session is None:
+            return []
+        try:
+            rows = self._session.execute(
+                text("""
+                    SELECT source_instrument_id, target_instrument_id,
+                           correlation_coefficient, causality_score,
+                           causality_p_value, causality_direction,
+                           time_lag_seconds, time_lag_periods,
+                           impact_weight, regime
+                    FROM global_market_interdependencies
+                    WHERE target_instrument_id = :ticker
+                      AND as_of_date = (
+                          SELECT MAX(as_of_date)
+                          FROM global_market_interdependencies
+                          WHERE target_instrument_id = :ticker
+                      )
+                      AND impact_weight > 0
+                    ORDER BY impact_weight DESC
+                """),
+                {"ticker": ticker},
+            ).fetchall()
+
+            return [
+                {
+                    "source_instrument_id": r[0],
+                    "target_instrument_id": r[1],
+                    "correlation_coefficient": float(r[2]) if r[2] else 0.0,
+                    "causality_score": float(r[3]) if r[3] else 0.0,
+                    "causality_p_value": float(r[4]) if r[4] else 1.0,
+                    "causality_direction": r[5] or "none",
+                    "time_lag_seconds": int(r[6]) if r[6] else 0,
+                    "time_lag_periods": int(r[7]) if r[7] else 0,
+                    "impact_weight": float(r[8]) if r[8] else 0.0,
+                    "regime": r[9] or "unknown",
+                }
+                for r in rows
+            ]
+        except Exception as e:
+            logger.debug("Interdependency matrix load failed for %s: %s", ticker, e)
+            if self._session is not None:
+                self._session.rollback()
+            return []
+
     def _signal_global_market(self, ticker: str, as_of: date) -> SignalResult:
-        # Would need global index data; return neutral for now
-        return SignalResult("global_market", ticker, 0.0, 0.0, "neutral", "Global index data adapter pending")
+        """Generate global market signal using the interdependency matrix.
+
+        Reads pre-computed causality data from `global_market_interdependencies`
+        to weight the influence of each global source asset on the target ticker.
+        Falls back to neutral if no DB data is available.
+        """
+        causal_sources = self._load_interdependency_matrix(ticker, as_of)
+        if not causal_sources:
+            return SignalResult("global_market", ticker, 0.0, 0.0, "neutral", "No interdependency data")
+
+        # Compute weighted signal from causal sources
+        total_signal = 0.0
+        total_weight = 0.0
+        top_sources = []
+
+        for src in causal_sources[:5]:  # top 5 sources
+            corr = src["correlation_coefficient"]
+            impact = src["impact_weight"]
+            direction = src["causality_direction"]
+            lag = src["time_lag_periods"]
+
+            # Signal from correlation sign weighted by impact
+            src_signal = corr * impact
+            total_signal += src_signal
+            total_weight += impact
+            top_sources.append(f"{src['source_instrument_id']}(lag={lag}d,impact={impact:.3f})")
+
+        if total_weight > 0:
+            signal_val = float(np.clip(total_signal / total_weight, -1.0, 1.0))
+        else:
+            signal_val = 0.0
+
+        conf = float(min(1.0, total_weight / len(causal_sources))) if causal_sources else 0.0
+        direction = "long" if signal_val > 0.1 else "short" if signal_val < -0.1 else "neutral"
+        rationale = f"Causal sources: {', '.join(top_sources[:3])}"
+
+        return SignalResult("global_market", ticker, signal_val, conf, direction, rationale)
 
     def _signal_sentiment(self, ticker: str, as_of: date) -> SignalResult:
         # Would need news sentiment and foreign flow data
@@ -218,8 +308,32 @@ class EngineRegistry:
         return SignalResult("sentiment", ticker, signal, conf, direction, f"Score={result.score:.1f}, Label={result.label}")
 
     def _signal_relationship(self, ticker: str, as_of: date) -> SignalResult:
-        # Would need reference asset returns; return neutral for now
-        return SignalResult("relationship", ticker, 0.0, 0.0, "neutral", "Reference returns adapter pending")
+        """Generate relationship signal from the interdependency matrix.
+
+        Uses the pre-computed causality data to determine the dominant
+        source assets and their impact on the target ticker.
+        """
+        engine = self._engines.get("relationship")
+        if engine is None or self._session is None:
+            return SignalResult("relationship", ticker, 0.0, 0.0, "neutral", "No session or engine")
+
+        try:
+            result = engine.analyze_from_db(ticker, as_of, self._session)
+            if result is None:
+                return SignalResult("relationship", ticker, 0.0, 0.0, "neutral", "No DB relationship data")
+
+            signal = _score_to_signal(result.score)
+            conf = _confidence_from_score(result.score)
+            direction = "long" if signal > 0.1 else "short" if signal < -0.1 else "neutral"
+            dom = result.dominant_source or "none"
+            lag = result.avg_time_lag_periods
+            rationale = f"Dominant={dom}, avg_lag={lag:.1f}d, n_sources={len(result.relationships)}"
+            return SignalResult("relationship", ticker, signal, conf, direction, rationale)
+        except Exception as e:
+            logger.debug("Relationship signal failed for %s: %s", ticker, e)
+            if self._session is not None:
+                self._session.rollback()
+            return SignalResult("relationship", ticker, 0.0, 0.0, "neutral", f"Error: {e}")
 
     def _signal_alpha_mean_reversion(self, ticker: str, as_of: date) -> SignalResult:
         df = self._load_ohlcv(ticker, as_of)

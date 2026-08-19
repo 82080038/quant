@@ -16,12 +16,13 @@ from sqlalchemy import (
     Date,
     DateTime,
     Float,
+    ForeignKey,
     Integer,
     Numeric,
     String,
     Text,
 )
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base, relationship
 
 from quant.core.db import engine
 
@@ -29,11 +30,36 @@ Base = declarative_base()
 Base.metadata.bind = engine
 
 
+class AssetClass(Base):
+    """Master table for asset classes (migration 0010).
+
+    Normalizes the ``instruments.asset_class`` column into a proper FK.
+    Each asset class has its own market hours, holiday calendar source,
+    and default data source configuration.
+    """
+
+    __tablename__ = "asset_classes"
+
+    code = Column(String(20), primary_key=True)
+    name = Column(String(100), nullable=False)
+    description = Column(Text)
+    market_hours_24h = Column(Boolean, nullable=False, default=False)
+    holiday_calendar_source = Column(String(50), default="exchange")
+    default_currency = Column(String(3), default="USD")
+    default_data_source = Column(String(50), default="yahoo_finance")
+    default_fetch_frequency = Column(String(20), default="EOD")
+    is_tradeable = Column(Boolean, default=True)
+    sort_order = Column(Integer, default=0)
+    created_at = Column(DateTime(timezone=True), default="now()")
+    updated_at = Column(DateTime(timezone=True), default="now()")
+
+
 class Instrument(Base):
     """Instrument master row (``instruments`` table).
 
     Includes fetch metadata columns (migration 0003) for state-driven
     pipeline: fetch_status, data_layer, fetch_frequency, etc.
+    The ``asset_class`` column is a FK to ``asset_classes.code`` (migration 0010).
     """
 
     __tablename__ = "instruments"
@@ -41,7 +67,7 @@ class Instrument(Base):
     ticker = Column(String, primary_key=True)
     company_name = Column(String)
     is_active = Column(Boolean, default=True)
-    asset_class = Column(String, default="equity")
+    asset_class = Column(String(20), ForeignKey("asset_classes.code", ondelete="SET DEFAULT"), default="equity")
     sector_id = Column(Integer)
     market_mic = Column(String)
     currency = Column(String, default="IDR")
@@ -165,8 +191,67 @@ class SchedulerState(Base):
     run_count = Column(Integer, default=0)
 
 
+class GlobalMarketInterdependency(Base):
+    """Master table: latest cross-asset interdependency matrix (migration 0009).
+
+    Stores the most recent causality, correlation, and time-lag metrics
+    for each source→target instrument pair. The decision engine queries
+    this table before generating trading signals to incorporate global
+    cross-asset causal relationships.
+    """
+
+    __tablename__ = "global_market_interdependencies"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    source_instrument_id = Column(String(50), nullable=False)
+    target_instrument_id = Column(String(50), nullable=False)
+    source_asset_class = Column(String(20))
+    target_asset_class = Column(String(20))
+    correlation_coefficient = Column(Numeric(8, 6), nullable=False)
+    causality_score = Column(Numeric(8, 6), nullable=False)
+    causality_p_value = Column(Numeric(10, 8))
+    causality_direction = Column(String(10), default="none")
+    time_lag_seconds = Column(Integer, nullable=False, default=0)
+    time_lag_periods = Column(Integer, default=0)
+    impact_weight = Column(Numeric(8, 6), default=0)
+    regime = Column(String(20), default="unknown")
+    var_order = Column(Integer)
+    sample_size = Column(Integer)
+    as_of_date = Column(Date, nullable=False)
+    updated_at = Column(DateTime(timezone=True), default="now()")
+    created_at = Column(DateTime(timezone=True), default="now()")
+
+
+class GlobalMarketInterdependencyHistory(Base):
+    """Child table: daily historical snapshots of the interdependency matrix.
+
+    Maintains a time-series record of how cross-asset causal relationships
+    evolve over time, enabling backtesting of regime-conditional strategies
+    and analysis of structural breaks in market connectedness.
+    """
+
+    __tablename__ = "global_market_interdependency_history"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)  # BIGSERIAL in DB
+    source_instrument_id = Column(String(50), nullable=False)
+    target_instrument_id = Column(String(50), nullable=False)
+    correlation_coefficient = Column(Numeric(8, 6), nullable=False)
+    causality_score = Column(Numeric(8, 6), nullable=False)
+    causality_p_value = Column(Numeric(10, 8))
+    causality_direction = Column(String(10), default="none")
+    time_lag_seconds = Column(Integer, nullable=False, default=0)
+    time_lag_periods = Column(Integer, default=0)
+    impact_weight = Column(Numeric(8, 6), default=0)
+    regime = Column(String(20), default="unknown")
+    var_order = Column(Integer)
+    sample_size = Column(Integer)
+    snapshot_date = Column(Date, nullable=False)
+    created_at = Column(DateTime(timezone=True), default="now()")
+
+
 __all__ = [
     "Base",
+    "AssetClass",
     "Instrument",
     "Exchange",
     "InstrumentMaster",
@@ -174,4 +259,6 @@ __all__ = [
     "PipelineState",
     "RecomputeWatermark",
     "SchedulerState",
+    "GlobalMarketInterdependency",
+    "GlobalMarketInterdependencyHistory",
 ]

@@ -42,8 +42,8 @@ Membangun sistem **"Gigantic AI"** — sebuah platform trading kuantitatif otoma
 |--------|-------|
 | **Python source files** | 109 file, 24,602 baris |
 | **Frontend files** | 32 file, 7,897 baris |
-| **Database tables** | 28 tabel |
-| **Database indexes** | 68 index |
+| **Database tables** | 30 tabel |
+| **Database indexes** | 73 index |
 | **Database size** | 1,290 MB |
 | **stock_prices rows** | 3,580,156 |
 | **foreign_flow rows** | 1,132,945 |
@@ -114,6 +114,7 @@ Membangun sistem **"Gigantic AI"** — sebuah platform trading kuantitatif otoma
 │    Macro: BI Rate, USD/IDR, CPO, gold, S&P 500, VIX                 │
 │    Sentiment: IndoBERT news sentiment, sentiment momentum           │
 │    Global: Cross-market correlation, overnight IDX, DCC-GARCH       │
+│    Causality: Granger causality, VAR, CCF time-lag, impact weight   │
 │    Alpha: Mean reversion, reversal, EWMA momentum, regime switch    │
 │    Astronacci: Planetary cycles, zodiac, Fibonacci confluence       │
 └─────────────────────────────────────────────────────────────────────┘
@@ -133,11 +134,11 @@ Membangun sistem **"Gigantic AI"** — sebuah platform trading kuantitatif otoma
 │         └───────────────┴───────────────┴───────────────┘           │
 │                         ↓                                           │
 │  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐   │
-│  │ Global      │ │ Alpha (4x)  │ │ HMM Regime  │ │ Volume      │   │
-│  │ Market      │ │ MeanRev,    │ │ Detector    │ │ Features    │   │
-│  │ Engine      │ │ Reversal,   │ │             │ │             │   │
-│  │             │ │ Momentum,   │ │             │ │             │   │
-│  │             │ │ RegimeSwitch│ │             │ │             │   │
+│  │ Global      │ │ Causality   │ │ Alpha (4x)  │ │ HMM Regime  │   │
+│  │ Market      │ │ Analyzer    │ │ MeanRev,    │ │ Detector    │   │
+│  │ Engine      │ │ (Granger+   │ │ Reversal,   │ │             │   │
+│  │             │ │  VAR+CCF)   │ │ Momentum,   │ │             │   │
+│  │             │ │             │ │ RegimeSwitch│ │             │   │
 │  └──────┬──────┘ └──────┬──────┘ └──────┬──────┘ └──────┬──────┘   │
 │         └───────────────┴───────────────┴───────────────┘           │
 │                         ↓                                           │
@@ -155,8 +156,9 @@ Membangun sistem **"Gigantic AI"** — sebuah platform trading kuantitatif otoma
 │  └──────┬──────┘ └──────┬──────┘                                    │
 │         └───────────────┘                                           │
 │                         ↓                                           │
-│  SignalAggregator (256 baris)                                       │
+│  SignalAggregator (causality-weighted)                              │
 │    → regime-conditional weights (bull/bear/sideways/crisis)         │
+│    → interdependency_matrix boost for global_market/relationship   │
 │    → composite_signal = Σ(engine.signal × engine.weight)           │
 │    → log_attribution() → signal_attribution_log table              │
 │                                                                      │
@@ -262,7 +264,8 @@ Membangun sistem **"Gigantic AI"** — sebuah platform trading kuantitatif otoma
 │    → track predicted vs actual N-day forward returns                │
 │                                                                      │
 │  TaskScheduler (243 baris):                                          │
-│    → daily: data fetch (17:00), factor compute, signal generation   │
+│    → daily: data fetch (17:00), causality computation (17:15),      │
+│      factor compute, signal generation (17:30), reconciliation      │
 │    → weekly: backtest validation, model retirement check            │
 │    → persistent state in scheduler_state table                       │
 │                                                                      │
@@ -317,6 +320,12 @@ Membangun sistem **"Gigantic AI"** — sebuah platform trading kuantitatif otoma
     ├── recompute_watermark (NEW — incremental checkpoint)
     │     (ticker, table_name) → last_processed_date
     │
+    ├── global_market_interdependencies (NEW — causality matrix)
+    │     source→target: correlation, Granger score, time-lag, impact
+    │
+    ├── global_market_interdependency_history (NEW — daily snapshots)
+    │     historical causality metrics for time-series analysis
+    │
     ├── feature_values (0 rows — awaiting first computation)
     ├── feature_definitions (0 rows — awaiting registration)
     ├── signal_attribution_log (0 rows — awaiting first signals)
@@ -335,7 +344,8 @@ Membangun sistem **"Gigantic AI"** — sebuah platform trading kuantitatif otoma
 [Signal Generation]
     │
     ├── 16+ engines produce SignalResult [-1, +1]
-    ├── SignalAggregator → regime-conditional composite signal
+    ├── CausalityAnalyzer → Granger/VAR/CCF → interdependency matrix
+    ├── SignalAggregator → regime-conditional + causality-weighted composite
     ├── log_attribution() → signal_attribution_log
     └── StrategySelector → best strategy per ticker
     │
@@ -454,7 +464,7 @@ Model Retirement
 |---|----------|----------------|--------------|-----|
 | 1 | **Data Ingestion** | yfinance only, cron script manual | Multi-source pipeline (yfinance + idx.co.id + RSS + BI + BPS) | Tambah adapter RSS, BI, BPS; integrasi FetchRegistry ke cron |
 | 2 | **Feature Store** | FactorLibrary + FeatureStore code ready, 0 rows | feature_values terisi untuk semua ticker, incremental recompute | Jalankan compute_and_store() untuk 1,030 IDX tickers; isi feature_definitions |
-| 3 | **Signal Engines** | 22 file, 6,680 baris — 12/38 import test gagal (class name mismatch) | Semua engine importable dan terintegrasi dengan aggregator | Fix class names; register engines di aggregator; jalankan end-to-end |
+| 3 | **Signal Engines** | 22 file, 6,680 baris — CausalityAnalyzer added (Granger+VAR+CCF) | Semua engine importable, causality-weighted aggregation | ✅ Causality engine implemented; fix remaining import issues |
 | 4 | **DL Ensemble** | VAE, Transformer, LSTM, XGB-LGBM code ada | Trained models dengan IC > 0.02 | Train models pada cuda:1; validasi IC; integrate ke ensemble |
 | 5 | **Portfolio** | HRP (1,053 baris), HRP-µ, Kelly, RL Allocator | HRP-µ terhubung ke signal aggregator | Wire HRP-µ ke composite signal output; test allocation |
 | 6 | **Backtest** | Engine + WFO + DSR + PBO ready | Walk-forward results untuk semua strategies | Run backtest untuk top strategies; generate DSR/PBO report |
@@ -588,13 +598,21 @@ Dari riset arsitektur trading SOTA 2025-2026:
 │  │ PBO/CSCV │  │ Retirement│  │ Risk     │  │ Catch-up │            │
 │  └──────────┘  └──────────┘  └──────────┘  └──────────┘            │
 │                                                                       │
+│  ┌──────────────────────────────────────────────────────────────┐    │
+│  │         CROSS-ASSET CAUSALITY ENGINE (NEW)                   │    │
+│  │  Granger Causality + VAR + CCF Time-Lag → Impact Weight      │    │
+│  │  global_market_interdependencies (master) + history (child)  │    │
+│  │  Scheduler: 17:15 WIB (before daily pipeline)                │    │
+│  │  Decision engine: causality-weighted signal aggregation      │    │
+│  └──────────────────────────────────────────────────────────────┘    │
+│                                                                       │
 │  Hardware: 2x GTX 1050 Ti (cuda:1 compute, cuda:0 display)          │
 │  Display: Epson HDMI-0 1920x1080 (primary)                           │
-│  DB: PostgreSQL 16 (28 tables, 68 indexes, 1.29 GB)                 │
+│  DB: PostgreSQL 16 (30 tables, 73 indexes, 1.29 GB)                 │
 │  Frontend: Next.js 16 (cosmos + dashboard, WebSocket + SSE)          │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-**Dokumen ini adalah hasil analisis mendalam sebagai Lead AI Software Architect untuk aplikasi `quant`. Semua data bersumber dari codebase aktual (109 Python files, 24,602 baris), database live (28 tabel, 3.58M OHLCV rows), dan riset internet arsitektur SOTA 2025-2026.**
+**Dokumen ini adalah hasil analisis mendalam sebagai Lead AI Software Architect untuk aplikasi `quant`. Semua data bersumber dari codebase aktual (110+ Python files, 25,000+ baris), database live (30 tabel, 3.58M OHLCV rows), dan riset internet arsitektur SOTA 2025-2026.**

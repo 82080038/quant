@@ -2,7 +2,7 @@
 
 > **Gigantic AI** untuk Pasar Modal Indonesia (IDX) & Global — Multi-Agent LLM + Deep Learning Ensemble + Academic-Grade Validation.
 
-[![Tests](https://img.shields.io/badge/tests-160%20passed%2C%202%20skipped-brightgreen)](#testing)
+[![Tests](https://img.shields.io/badge/tests-178%20passed%2C%202%20skipped-brightgreen)](#testing)
 [![Python](https://img.shields.io/badge/python-3.12%2B-blue)](#prasyarat-sistem)
 [![CUDA](https://img.shields.io/badge/CUDA-dynamic%20detection-orange)](#cuda-awareness)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey)](#dukungan-cross-platform-windows--linux)
@@ -95,7 +95,7 @@ Setiap transformasi mempertahankan **weight vector contract** — swap modul man
 |---|-------|-------------|-----------|
 | 1 | **Core & Data** | `core/`, `data/` | Config, DB, device dispatcher, point-in-time queries, fetch registry |
 | 2 | **Features** | `features/` | Factor library (RSI, MACD, BB, ADX, OBV, MFI, ATR, KAMA, VWAP), feature store, recompute graph |
-| 3 | **Signals** | `signals/` | 16 signal engines: technical, fundamental, macro, sentiment, global market, alpha, HMM regime, volume, policy event, astronacci, Fama-French, holiday effect, DL ensemble (VAE+Transformer+LSTM), XGBoost/LightGBM |
+| 3 | **Signals** | `signals/` | 16 signal engines + CausalityAnalyzer: technical, fundamental, macro, sentiment, global market (causality-weighted), relationship (Granger+VAR+CCF), alpha, HMM regime, volume, policy event, astronacci, Fama-French, holiday effect, DL ensemble, XGBoost/LightGBM |
 | 4 | **Portfolio** | `portfolio/` | HRP-µ (signal-aware), risk-constrained Kelly, Monte Carlo VaR, capital-aware position sizer, RL allocator (PPO/SAC) |
 | 5 | **Execution** | `execution/` | OMS (state machine), validation, fail-closed risk gate, paper broker, mock broker, market impact (Almgren-Chiss), smart order router, event store |
 | 6 | **Backtest** | `backtest/` | Event-driven engine dengan IDX costs, walk-forward optimization |
@@ -488,12 +488,12 @@ quant/
 │   │   ├── feature_store.py      # Versioned feature store with freshness
 │   │   └── recompute_graph.py    # Selective recompute dependency graph
 │   │
-│   ├── signals/                  # Layer 3: Signal generation (16 engines)
+│   ├── signals/                  # Layer 3: Signal generation (16 engines + causality)
 │   │   ├── technical.py          # Technical analysis signals
 │   │   ├── fundamental.py        # Fundamental factor signals
 │   │   ├── macro.py              # Macroeconomic signals
 │   │   ├── sentiment.py          # News sentiment signals (IndoBERT)
-│   │   ├── global_market.py      # Cross-market correlation signals
+│   │   ├── global_market.py      # Cross-market signals (causality-weighted)
 │   │   ├── alpha_signals.py      # Alpha engines (mean reversion, reversal, etc.)
 │   │   ├── hmm_regime.py         # HMM regime detection
 │   │   ├── volume_features.py    # Volume microstructure signals
@@ -508,8 +508,9 @@ quant/
 │   │   ├── xgb_lgbm.py           # XGBoost + LightGBM ensemble
 │   │   ├── ensemble.py           # DL ensemble orchestrator
 │   │   ├── strategy_selector.py  # Strategy selection per regime
-│   │   ├── relationship.py       # Cross-asset relationship signals
-│   │   └── aggregator.py         # Signal aggregation (continuous [-1, +1])
+│   │   ├── relationship.py       # Cross-asset causality signals (Granger+VAR+CCF)
+│   │   ├── dcc_garch.py          # DCC-GARCH dynamic correlation
+│   │   └── aggregator.py         # Signal aggregation (causality-weighted)
 │   │
 │   ├── portfolio/                # Layer 4: Portfolio construction
 │   │   ├── hrp_mu.py             # HRP-µ (signal-aware risk parity)
@@ -577,6 +578,7 @@ quant/
 │   │   └── trading_style_advisor.py # Trading style advisor
 │   │
 │   ├── analysis/                 # Analysis modules
+│   │   ├── causality.py          # Cross-asset causality (Granger + VAR + CCF)
 │   │   ├── instrument_profiler.py # Instrument profiling
 │   │   └── profiling.py          # Performance profiling
 │   │
@@ -589,7 +591,7 @@ quant/
 │   └── risk/                     # Risk models
 │       └── cost_model.py         # Trading cost model
 │
-└── tests/                        # Test suite (8 layers)
+└── tests/                        # Test suite (8 layers + causality)
     ├── conftest.py               # Shared fixtures (OHLCV, returns, mock DB)
     ├── test_layer1_core_data.py  # Core & Data tests (23 tests)
     ├── test_layer2_features.py   # Features tests (15+2 skipped)
@@ -598,7 +600,9 @@ quant/
     ├── test_layer5_execution.py  # Execution tests (28 tests)
     ├── test_layer6_backtest.py   # Backtest tests (6 tests)
     ├── test_layer7_eval_monitoring.py # Evaluation & Monitoring (22 tests)
-    └── test_layer8_ai.py         # AI agent tests (14 tests)
+    ├── test_layer8_ai.py         # AI agent tests (14 tests)
+    ├── test_causality.py         # Causality module tests (18 tests)
+    └── test_integration_pipeline.py # Integration pipeline tests
 ```
 
 ---
@@ -976,7 +980,7 @@ Private project — tidak untuk distribusi publik.
 | **DB row count** | 3,579,614 stock_prices | 3,579,614 stock_prices | Data integrity preserved |
 | **Backup** | None | 90MB compressed dump | Disaster recovery ready |
 
-**Database Index Count:** 47 → 51 (+4 FK indexes)
+**Database Index Count:** 47 → 51 (+4 FK indexes) → 73 (+22 pipeline + causality indexes)
 
 ---
 
@@ -1115,5 +1119,5 @@ Pipeline Flow:
 | Fetch visibility | None (FetchRegistry broken) | 979 STALE + 102 NEVER_FETCHED visible |
 | Failover tracking | None | Error + traceback + retry_count per step |
 | Pipeline query latency | Full table scan | Sub-ms via composite indexes |
-| DB index count | 51 | 58 (+7 pipeline indexes) |
+| DB index count | 51 | 58 (+7 pipeline indexes) → 73 (+15 causality indexes) |
 | DB backup | 90MB (pre-pipeline) | 90MB (post-pipeline, data integrity preserved) |

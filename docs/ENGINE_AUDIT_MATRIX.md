@@ -1,7 +1,7 @@
 # Engine/Module Audit Matrix — Full Quant Trading Pipeline
 
 ## Status: RENOVATION ACTIVE — Clean slate build from audit findings
-## Date: 2026-08-19 (updated 2026-08-20)
+## Date: 2026-08-19 (updated 2026-08-20 — causality engine added)
 
 > **Note:** Dokumen ini adalah audit matriks yang dipindahkan dari aplikasi `market` (`/home/petrick/projects/market/`). Aplikasi `quant` dibangun berdasarkan temuan audit ini dengan perbaikan arsitektur 7-layer pipeline.
 
@@ -621,13 +621,15 @@ Setiap engine dianalisis berdasarkan: (a) persamaan matematis, (b) perbandingan 
 
 ### 6.5 Relationship Engine
 
-**File:** `src/market/analysis/relationship.py` | **Sumber:** Diebold & Yilmaz (2012), Zhang et al. (2024), Muñoz Mendoza et al. (2024)
+**File:** `src/quant/signals/relationship.py` | **Sumber:** Diebold & Yilmaz (2012), Zhang et al. (2024), Muñoz Mendoza et al. (2024), Granger (1969)
 
 #### Persamaan Matematis
 
 - **Correlation:** `ρ_{i,j} = Cov(r_i, r_j) / (σ_i × σ_j)` — rolling 60-day
-- **Granger Causality:** F-test apakah lagged returns dari asset j memprediksi returns asset i
-- **Spillover Index (Diebold-Yilmaz):** `S = (Σ_{i≠j} θ_{ij}^H) / (Σ_{i,j} θ_{ij}^H)`, θ = forecast error variance decomposition
+- **Granger Causality:** F-test apakah lagged returns dari asset j memprediksi returns asset i. F-statistic dinormalisasi ke [0,1] via sigmoid: `causality_score = 1/(1+exp(-F))`
+- **CCF Time-Lag:** `lag* = argmax_k |corr(source_{t-k}, target_t)|` untuk k ∈ [-max_lag, +max_lag]. `time_lag_seconds = |lag*| × 86400`
+- **VAR:** Vector Autoregression dengan AIC-optimal lag order untuk impact coefficient analysis
+- **Impact Weight:** `impact_weight = |correlation_coefficient| × causality_score`
 - **Signal:** `sig = sign(ρ) × |ρ| × sign(market_return)`
 
 #### Kritik & Kelemahan
@@ -638,26 +640,33 @@ Setiap engine dianalisis berdasarkan: (a) persamaan matematis, (b) perbandingan 
 4. **Lag Structure:** Spillover US→IDX terjadi dengan lag (timezone), tapi predictive power substantially weakens during COVID
 5. **Cross-predictability concentrates on small stocks (2024):** Economic value gravitates towards small, difficult-to-arbitrage stocks. Untuk large-cap IDX, cross-prediction becomes detrimental
 
-#### Perbaikan & Improvements
+#### Perbaikan & Improvements (IMPLEMENTED)
 
-1. **LASSO-VAR (Muñoz 2024):** Remove common global factors via PCA, then LASSO-VAR untuk idiosyncratic spillover. Handles 111 markets
-2. **Industry Volatility Spillover (Zhang 2024):** 1-SD increase → 4.14% increase in expected excess return. Increasing predictive ability over recent period
-3. **Asymmetric Spillover:** Pisahkan positive vs negative spillover — market reacts differently to good vs bad news
-4. **Overnight Signal (Xu et al. 2025):** Cross-market overnight momentum — gunakan overnight returns US/Europe sebagai predictor IDX open
+1. **✅ Granger Causality Test:** F-test dengan statsmodels, normalisasi sigmoid ke [0,1]. Direction detection: source→target, target→source, bidirectional, none
+2. **✅ CCF Time-Lag Analysis:** Cross-correlation function untuk optimal lag detection. Positive lag = source leads target
+3. **✅ VAR Model:** AIC-optimal lag order selection via statsmodels VAR
+4. **✅ DB-backed lookups:** `analyze_from_db()` method queries `global_market_interdependencies` table untuk sub-ms lookups
+5. **✅ Regime-conditional:** `analyze_regime_conditional()` splits time series by regime labels
+6. **⬜ LASSO-VAR (Muñoz 2024):** Remove common global factors via PCA, then LASSO-VAR untuk idiosyncratic spillover
+7. **⬜ Asymmetric Spillover:** Pisahkan positive vs negative spillover
+8. **⬜ Overnight Signal (Xu et al. 2025):** Cross-market overnight momentum
 
 #### Status Implementasi
-- **Dry-run:** 50 UP (all bullish) — perlu verify keragaman
-- **Keputusan:** KEEP — tambahkan asymmetric spillover, gunakan overnight signal
+- **Refactored:** ✅ Full CausalityAnalyzer integration (Granger + VAR + CCF)
+- **DB integration:** ✅ Reads from `global_market_interdependencies` table, falls back to live computation
+- **Tests:** ✅ 18 tests passing (CCF, Granger, VAR, pairwise, matrix, regime-conditional, edge cases)
+- **Keputusan:** KEEP — engine sekarang menggunakan formal econometric methods. TODO: tambah LASSO-VAR, asymmetric spillover, overnight signal
 
 ---
 
 ### 6.6 Global Market Engine
 
-**File:** `src/market/analysis/global_market.py` | **Sumber:** Wen et al. (2023), Xu et al. (2025), ETF Arbitrage (2024)
+**File:** `src/quant/signals/global_market.py` | **Sumber:** Wen et al. (2023), Xu et al. (2025), ETF Arbitrage (2024), Granger (1969)
 
 #### Persamaan Matematis
 
-- **Global Signal:** `sig = Σ(w_i × r_i^{lagged})` untuk indices i ∈ {^GSPC, ^DJI, ^N225, ^HSI, ^FTSE, ^GDAXI}
+- **Global Signal (legacy):** `sig = Σ(w_i × r_i^{lagged})` untuk indices i ∈ {^GSPC, ^DJI, ^N225, ^HSI, ^FTSE, ^GDAXI}
+- **Causality-Weighted Signal (NEW):** `sig = Σ(impact_weight_i × MA_score_i)` di mana `impact_weight` dibaca dari `global_market_interdependencies` table
 - **Lagged Returns:** t-1 untuk US/Europe (close sebelum IDX open), t untuk Asia (concurrent)
 - **VIX Adjustment:** `sig_adjusted = sig × (1 - VIX/50)`
 
@@ -668,15 +677,19 @@ Setiap engine dianalisis berdasarkan: (a) persamaan matematis, (b) perbandingan 
 3. **Timezone Complexity:** US close 04:00 WIB, Europe 01:00 WIB, Asia concurrent — lag structure tidak straightforward
 4. **Regime Dependence:** Global signals work in normal periods tapi fail during crises
 
-#### Perbaikan & Improvements
+#### Perbaikan & Improvements (IMPLEMENTED)
 
-1. **Cross-Market Overnight Momentum (Xu et al. 2025):** Gunakan overnight returns (close-to-open) US/Europe sebagai predictor IDX — menangkap sentiment overnight
-2. **VIX-Conditioned Signal:** Low VIX (<20) → follow global trend; high VIX (>30) → contrarian/defensive
-3. **Asia-Specific Chain:** ^N225 → ^HSI → ^JKSE: cascading signal dari Asia chain
+1. **✅ Causality-Weighted Scoring:** Engine sekarang membaca `global_market_interdependencies` table dan weighted each global index's MA signal by its `impact_weight` dari causality analysis
+2. **✅ DB-backed mode:** `analyze_with_causality()` method — sub-ms DB lookup, falls back to legacy MA50/MA200 scoring
+3. **✅ Dominant source tracking:** `dominant_source` dan `avg_time_lag_periods` fields ditambahkan ke `GlobalMarketScore`
+4. **⬜ Cross-Market Overnight Momentum (Xu et al. 2025):** Gunakan overnight returns (close-to-open) US/Europe sebagai predictor IDX
+5. **⬜ VIX-Conditioned Signal:** Low VIX (<20) → follow global trend; high VIX (>30) → contrarian/defensive
+6. **⬜ Asia-Specific Chain:** ^N225 → ^HSI → ^JKSE: cascading signal dari Asia chain
 
 #### Status Implementasi
-- **Dry-run:** 35 DOWN, 15 FLAT — sinyal aktif dan bervariasi
-- **Keputusan:** KEEP — tambahkan overnight momentum, VIX conditioning
+- **Refactored:** ✅ Causality-weighted scoring from DB interdependency matrix
+- **Fallback:** ✅ Legacy MA50/MA200 scoring ketika DB data unavailable
+- **Keputusan:** KEEP — engine sekarang menggunakan causality impact weights. TODO: tambah overnight momentum, VIX conditioning
 
 ---
 
@@ -1778,6 +1791,8 @@ src/market/
 | `signal_attribution_log` | Per-engine IC tracking dan attribution | 0043 |
 | `prediction_evaluation` | Prediction vs reality comparison | 0044 |
 | `model_retirement_log` | Engine retirement decisions dan reasons | 0045 |
+| `global_market_interdependencies` | Cross-asset causality matrix (master) | 0009 |
+| `global_market_interdependency_history` | Daily causality snapshots (child) | 0009 |
 
 ### E. Testing Methodology untuk Renovation
 

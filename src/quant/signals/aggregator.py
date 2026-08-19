@@ -62,19 +62,22 @@ class SignalAggregator:
     """
 
     # Default engine weights (will be overridden by regime-conditional weights)
+    # Weights for global_market and relationship are boosted to reflect the
+    # importance of cross-asset causality in the decision process.
     DEFAULT_WEIGHTS = {
-        "technical": 0.20,
-        "fundamental": 0.15,
-        "macro": 0.10,
-        "sentiment": 0.15,
-        "global_market": 0.10,
-        "alpha_momentum": 0.08,
+        "technical": 0.18,
+        "fundamental": 0.12,
+        "macro": 0.08,
+        "sentiment": 0.12,
+        "global_market": 0.15,
+        "relationship": 0.10,
+        "alpha_momentum": 0.07,
         "alpha_mean_reversion": 0.05,
-        "alpha_reversal": 0.05,
-        "hmm_regime": 0.04,
-        "volume_features": 0.04,
+        "alpha_reversal": 0.04,
+        "hmm_regime": 0.03,
+        "volume_features": 0.03,
         "policy_events": 0.02,
-        "holiday_effect": 0.02,
+        "holiday_effect": 0.01,
     }
 
     def __init__(self, session=None, pit: Optional[PointInTimeQuery] = None):
@@ -93,6 +96,7 @@ class SignalAggregator:
         as_of_date: date,
         engine_signals: list[SignalResult],
         regime: str = "unknown",
+        interdependency_matrix: Optional[list[dict]] = None,
     ) -> CompositeSignal:
         """Aggregate engine signals into composite.
 
@@ -101,11 +105,31 @@ class SignalAggregator:
             as_of_date: Decision date
             engine_signals: List of SignalResult from each engine
             regime: Current market regime ("bull", "bear", "sideways", "crisis")
+            interdependency_matrix: Optional pre-loaded causality data from
+                global_market_interdependencies table. When provided, the
+                global_market and relationship engine signals receive an
+                additional causality boost proportional to the aggregate
+                impact_weight of the interdependency matrix.
 
         Returns:
             CompositeSignal with full attribution
         """
         weights = self._get_regime_weights(regime)
+
+        # Causality boost: when interdependency matrix data is available,
+        # boost the weight of global_market and relationship engines
+        # proportionally to the aggregate causal impact on this ticker.
+        if interdependency_matrix:
+            total_impact = sum(s.get("impact_weight", 0) for s in interdependency_matrix)
+            n_sources = len(interdependency_matrix)
+            if n_sources > 0 and total_impact > 0:
+                avg_impact = total_impact / n_sources
+                # Boost factor: up to 1.5x for strong causal links
+                boost = 1.0 + min(0.5, avg_impact * 2)
+                if "global_market" in weights:
+                    weights["global_market"] *= boost
+                if "relationship" in weights:
+                    weights["relationship"] *= boost
 
         # Assign weights to engines
         total_weight = 0.0
@@ -153,13 +177,14 @@ class SignalAggregator:
         """
         if regime == "bull":
             return {
-                "technical": 0.25,
-                "alpha_momentum": 0.15,
-                "global_market": 0.12,
-                "fundamental": 0.12,
+                "technical": 0.22,
+                "global_market": 0.15,
+                "alpha_momentum": 0.13,
+                "relationship": 0.10,
+                "fundamental": 0.10,
                 "sentiment": 0.10,
-                "macro": 0.08,
-                "alpha_mean_reversion": 0.05,
+                "macro": 0.07,
+                "alpha_mean_reversion": 0.04,
                 "alpha_reversal": 0.03,
                 "hmm_regime": 0.03,
                 "volume_features": 0.04,
@@ -168,14 +193,15 @@ class SignalAggregator:
             }
         elif regime == "bear":
             return {
-                "fundamental": 0.22,
-                "macro": 0.18,
-                "policy_events": 0.12,
-                "technical": 0.12,
-                "sentiment": 0.10,
-                "global_market": 0.08,
+                "fundamental": 0.18,
+                "macro": 0.15,
+                "global_market": 0.12,
+                "relationship": 0.10,
+                "policy_events": 0.10,
+                "technical": 0.10,
+                "sentiment": 0.08,
                 "alpha_reversal": 0.06,
-                "alpha_mean_reversion": 0.05,
+                "alpha_mean_reversion": 0.04,
                 "alpha_momentum": 0.02,
                 "hmm_regime": 0.03,
                 "volume_features": 0.02,
@@ -183,14 +209,15 @@ class SignalAggregator:
             }
         elif regime == "sideways":
             return {
-                "alpha_mean_reversion": 0.20,
-                "volume_features": 0.15,
-                "sentiment": 0.15,
-                "technical": 0.12,
-                "fundamental": 0.12,
-                "macro": 0.08,
-                "alpha_reversal": 0.08,
-                "global_market": 0.05,
+                "alpha_mean_reversion": 0.18,
+                "volume_features": 0.12,
+                "sentiment": 0.12,
+                "technical": 0.10,
+                "fundamental": 0.10,
+                "global_market": 0.08,
+                "relationship": 0.08,
+                "macro": 0.07,
+                "alpha_reversal": 0.07,
                 "alpha_momentum": 0.02,
                 "hmm_regime": 0.02,
                 "policy_events": 0.01,
@@ -198,15 +225,16 @@ class SignalAggregator:
             }
         elif regime == "crisis":
             return {
-                "macro": 0.25,
-                "policy_events": 0.20,
-                "fundamental": 0.15,
-                "global_market": 0.10,
-                "technical": 0.08,
-                "sentiment": 0.08,
+                "macro": 0.20,
+                "global_market": 0.15,
+                "relationship": 0.12,
+                "policy_events": 0.15,
+                "fundamental": 0.12,
+                "technical": 0.07,
+                "sentiment": 0.07,
                 "alpha_reversal": 0.05,
-                "alpha_mean_reversion": 0.04,
-                "volume_features": 0.03,
+                "alpha_mean_reversion": 0.03,
+                "volume_features": 0.02,
                 "alpha_momentum": 0.00,
                 "hmm_regime": 0.02,
                 "holiday_effect": 0.00,

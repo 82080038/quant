@@ -61,6 +61,12 @@ python scripts/train_dl_models.py --limit 50
 ### 5. Daily Pipeline
 
 ```bash
+# Causality computation (run before pipeline — 17:15 WIB)
+python -c "
+from quant.pipeline.scheduler_tasks import run_causality_computation
+run_causality_computation()
+"
+
 # Full pipeline: ingest → screen → analyze → signal → portfolio → execute
 python scripts/run_pipeline.py 50
 
@@ -158,6 +164,9 @@ Key endpoints:
 ```cron
 # Daily data fetch at 17:00 WIB
 0 17 * * 1-5 /home/petrick/projects/quant/scripts/run_daily_fetch.sh
+
+# Causality computation at 17:15 WIB (before daily pipeline)
+15 17 * * 1-5 cd /home/petrick/projects/quant && .venv/bin/python -c "from quant.pipeline.scheduler_tasks import run_causality_computation; run_causality_computation()"
 
 # Daily pipeline at 17:30 WIB
 30 17 * * 1-5 cd /home/petrick/projects/quant && .venv/bin/python scripts/run_paper_trading.py --universe 50

@@ -239,23 +239,90 @@ async def get_ihsg():
 
 
 @app.get("/api/instruments")
-async def list_instruments(active_only: bool = True):
-    """List all instruments."""
+async def list_instruments(active_only: bool = True, asset_class: str | None = None):
+    """List all instruments, optionally filtered by asset class."""
     session = get_db()
     try:
         query = """
-            SELECT i.ticker, i.company_name, s.name as sector, i.is_active, i.asset_class
+            SELECT i.ticker, i.company_name, s.name as sector, i.is_active,
+                   i.asset_class, ac.name as asset_class_name, i.data_layer,
+                   i.currency, i.fetch_status
             FROM instruments i
             LEFT JOIN sector_master s ON i.sector_id = s.id
+            LEFT JOIN asset_classes ac ON i.asset_class = ac.code
         """
+        conditions = []
         if active_only:
-            query += " WHERE i.is_active = TRUE AND i.is_delisted = FALSE"
+            conditions.append("i.is_active = TRUE")
+        if asset_class:
+            conditions.append(f"i.asset_class = '{asset_class}'")
+        if conditions:
+            query += " WHERE " + " AND ".join(conditions)
         query += " ORDER BY i.ticker"
         result = session.execute(text(query))
         return [
-            {"ticker": r[0], "name": r[1], "sector": r[2], "active": r[3], "asset_class": r[4]}
+            {
+                "ticker": r[0], "name": r[1], "sector": r[2], "active": r[3],
+                "asset_class": r[4], "asset_class_name": r[5] or r[4],
+                "data_layer": r[6], "currency": r[7], "fetch_status": r[8],
+            }
             for r in result.fetchall()
         ]
+    finally:
+        session.close()
+
+
+@app.get("/api/asset-classes")
+async def list_asset_classes():
+    """List all asset class configurations."""
+    from quant.data.asset_router import AssetRouter
+    router = AssetRouter()
+    configs = router.get_all_configs()
+    return [
+        {
+            "code": cfg.code,
+            "name": cfg.name,
+            "market_hours_24h": cfg.market_hours_24h,
+            "holiday_calendar_source": cfg.holiday_calendar_source,
+            "default_currency": cfg.default_currency,
+            "default_data_source": cfg.default_data_source,
+            "default_fetch_frequency": cfg.default_fetch_frequency,
+            "is_tradeable": cfg.is_tradeable,
+            "sort_order": cfg.sort_order,
+        }
+        for cfg in sorted(configs.values(), key=lambda c: c.sort_order)
+    ]
+
+
+@app.get("/api/instruments/by-asset-class")
+async def instruments_by_asset_class():
+    """Get instrument counts grouped by asset class."""
+    session = get_db()
+    try:
+        result = session.execute(text("""
+            SELECT i.asset_class,
+                   COALESCE(ac.name, i.asset_class) as name,
+                   count(*) as total,
+                   count(*) FILTER (WHERE i.is_active = TRUE) as active,
+                   count(*) FILTER (WHERE i.fetch_status = 'OK') as ok,
+                   count(*) FILTER (WHERE i.fetch_status = 'STALE') as stale,
+                   count(*) FILTER (WHERE i.fetch_status = 'NEVER_FETCHED') as never_fetched,
+                   count(*) FILTER (WHERE i.fetch_status = 'FAILED') as failed
+            FROM instruments i
+            LEFT JOIN asset_classes ac ON i.asset_class = ac.code
+            GROUP BY i.asset_class, ac.name
+            ORDER BY COALESCE(ac.sort_order, 99)
+        """))
+        return [
+            {
+                "asset_class": r[0], "name": r[1], "total": r[2],
+                "active": r[3], "ok": r[4], "stale": r[5],
+                "never_fetched": r[6], "failed": r[7],
+            }
+            for r in result.fetchall()
+        ]
+    except Exception as exc:
+        return {"error": str(exc)}
     finally:
         session.close()
 

@@ -2,7 +2,7 @@
 # "Gigantic AI" untuk Pasar Modal Indonesia & Global
 
 ## Status: ACTIVE — Autonomous Execution
-## Date: 2026-08-19
+## Date: 2026-08-19 (updated 2026-08-20 — causality engine added)
 ## Location: /home/petrick/projects/quant/
 
 ---
@@ -153,6 +153,8 @@ Berdasarkan riset pasar Indonesia:
 - `feature_definitions` + `feature_values` — versioned factor library
 - `signal_attribution_log` — per-engine attribution
 - `prediction_evaluation` — IC tracking per engine
+- `global_market_interdependencies` — cross-asset causality matrix (Granger + VAR + CCF)
+- `global_market_interdependency_history` — daily causality snapshots for time-series analysis
 
 ### 2.2 Data Sources
 
@@ -219,6 +221,7 @@ class FactorLibrary:
 | **Macro** | BI Rate, USD/IDR, CPO price, gold, S&P 500, VIX | Copied |
 | **Sentiment** | News sentiment (IndoBERT), sentiment momentum, news volume | NEW (IndoBERT) |
 | **Global** | Cross-market correlation, overnight IDX, DCC-GARCH | Copied |
+| **Causality** | Granger causality, VAR, CCF time-lag, impact weight | NEW (implemented) |
 | **Alpha** | Mean reversion, reversal, EWMA momentum, regime switch | Copied |
 | **LLM-discovered** | LLM-guided factor mining via Miner Agent | NEW (Phase 2) |
 
@@ -251,7 +254,9 @@ class FeatureStore:
 | Fundamental | Factor-based | [-1, 1] | ✅ Copied |
 | Macro | Factor-based | [-1, 1] | ✅ Copied |
 | Sentiment (IndoBERT) | NLP + ML | [-1, 1] | ⬜ NEW |
-| Global Market | Cross-market | [-1, 1] | ✅ Copied |
+| Global Market | Cross-market + causality-weighted | [-1, 1] | ✅ Refactored |
+| Causality Analyzer | Granger + VAR + CCF | impact weight | ✅ NEW (implemented) |
+| Relationship | Cross-asset causality | [-1, 1] | ✅ Refactored |
 | Alpha Signals (4 engines) | ML | [-1, 1] | ✅ Copied |
 | HMM Regime | Regime detection | [0, 1] confidence | ✅ Copied |
 | Volume Features | Microstructure | [-1, 1] | ✅ Copied |
@@ -269,12 +274,36 @@ class FeatureStore:
 
 ```python
 # Signal aggregation via weight-centric pipeline
+# Causality-weighted: interdependency_matrix boosts global_market/relationship weights
 composite_signal = sum(engine.signal * engine.weight for engine in active_engines)
 # composite_signal ∈ [-1, +1]
 # Position size = f(composite_signal, confidence, risk_budget)
 ```
 
-### 4.3 Signal Attribution Log
+### 4.3 Cross-Asset Causality Engine (NEW — Implemented)
+
+```python
+# src/quant/analysis/causality.py
+class CausalityAnalyzer:
+    """Granger causality + VAR + CCF time-lag analysis."""
+
+    def analyze_pair(self, source_returns, target_returns, regime="unknown") -> CausalityResult:
+        """Compute causality metrics for a single source→target pair."""
+        # Returns: correlation, causality_score, causality_direction,
+        #          time_lag_periods, time_lag_seconds, impact_weight, var_order
+
+    def analyze_matrix(self, returns_df, source_tickers=None, target_tickers=None, regime="unknown") -> MatrixResult:
+        """Compute pairwise causality for all source×target combinations."""
+
+    def analyze_regime_conditional(self, returns_df, regime_labels) -> dict[str, MatrixResult]:
+        """Regime-conditional causality: split by regime, compute per-regime."""
+
+# Scheduler: 17:15 WIB daily (before pipeline at 17:30)
+# DB: global_market_interdependencies (master) + history (child)
+# Decision engine: SignalAggregator uses interdependency_matrix to boost weights
+```
+
+### 4.4 Signal Attribution Log
 
 Setiap signal dicatat dengan attribution lengkap di `signal_attribution_log`:
 - engine_name, signal_value, signal_direction, confidence
@@ -607,6 +636,9 @@ class PredictionRealityTracker:
 | Pairs trading | `signals/pairs_trading.py` | P4 |
 | Sector rotation | `signals/sector_rotation.py` | P4 |
 | Meta-labeling | `signals/meta_labeling.py` | P4 |
+| LASSO-VAR spillover | `analysis/causality.py` | P4 |
+| Asymmetric spillover | `analysis/causality.py` | P4 |
+| Overnight momentum signal | `signals/global_market.py` | P4 |
 
 ---
 
@@ -696,4 +728,5 @@ class PredictionRealityTracker:
 
 ### Existing Audit
 - ENGINE_AUDIT_MATRIX.md (7-layer pipeline audit, 1893 lines)
--docs/SCHEMA.sql (point-in-time native schema)
+- docs/SCHEMA.sql (point-in-time native schema)
+- Cross-Asset Causality Engine: Granger + VAR + CCF (implemented 2026-08-20)
