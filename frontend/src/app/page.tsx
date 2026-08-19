@@ -39,6 +39,8 @@ import {
 } from "lucide-react";
 import { Widget } from "@/components/widget";
 import { ObservabilityConsole } from "@/components/observability-console";
+import { MarketClockWidget } from "@/components/market-clock-widget";
+import { ExchangeTimelineHeader } from "@/components/exchange-timeline-header";
 import { CrosshairProvider, useCrosshairStore } from "@/components/crosshair-context";
 import { getWsClient, useWsLatest, type WsMessage } from "@/lib/ws-client";
 import { useFpsGuard } from "@/lib/use-fps-guard";
@@ -262,23 +264,27 @@ export default function DashboardPage() {
 
   // ── REST initial load (kept; WS augments live) ──
   const loadData = useCallback(async () => {
-    const [moversRes, ihsgRes, portfolioRes, sigRes] = await Promise.allSettled([
-      fetch("/api/prices/movers?limit=5"),
-      fetch("/api/prices/ihsg"),
-      fetch("/api/portfolio"),
-      fetch("/api/signals/attribution?days=7"),
-    ]);
-    if (moversRes.status === "fulfilled" && moversRes.value.ok) {
-      setMovers(await moversRes.value.json());
-    }
-    if (ihsgRes.status === "fulfilled" && ihsgRes.value.ok) {
-      setIhsg(await ihsgRes.value.json());
-    }
-    if (portfolioRes.status === "fulfilled" && portfolioRes.value.ok) {
-      setPortfolio(await portfolioRes.value.json());
-    }
-    if (sigRes.status === "fulfilled" && sigRes.value.ok) {
-      setSignals(await sigRes.value.json());
+    try {
+      const [moversRes, ihsgRes, portfolioRes, sigRes] = await Promise.allSettled([
+        fetch("/api/prices/movers?limit=5"),
+        fetch("/api/prices/ihsg"),
+        fetch("/api/portfolio"),
+        fetch("/api/signals/attribution?days=7"),
+      ]);
+      if (moversRes.status === "fulfilled" && moversRes.value.ok) {
+        try { setMovers(await moversRes.value.json()); } catch {}
+      }
+      if (ihsgRes.status === "fulfilled" && ihsgRes.value.ok) {
+        try { setIhsg(await ihsgRes.value.json()); } catch {}
+      }
+      if (portfolioRes.status === "fulfilled" && portfolioRes.value.ok) {
+        try { setPortfolio(await portfolioRes.value.json()); } catch {}
+      }
+      if (sigRes.status === "fulfilled" && sigRes.value.ok) {
+        try { setSignals(await sigRes.value.json()); } catch {}
+      }
+    } catch {
+      // Network error — silently keep previous data
     }
     setLoading(false);
     setLastUpdate(new Date().toLocaleTimeString("id-ID", { hour12: false }));
@@ -334,23 +340,26 @@ export default function DashboardPage() {
   return (
     <CrosshairProvider>
       <div className="h-full w-full flex flex-col gap-2 p-2 overflow-hidden">
-        {/* Top ticker strip */}
-        <div className="flex items-center gap-4 px-3 h-8 rounded-md border border-border/60 bg-card/60 backdrop-blur-sm text-xs overflow-hidden shrink-0">
+        {/* Exchange timeline header — global session strip sorted by WIB open time */}
+        <ExchangeTimelineHeader />
+
+        {/* IHSG / breadth / FPS compact bar */}
+        <div className="flex items-center gap-4 px-3 h-7 rounded-md border border-border/60 bg-card/60 backdrop-blur-sm text-xs overflow-hidden shrink-0">
           <span className="font-semibold text-primary shrink-0">IHSG</span>
           <span className={cn("font-mono shrink-0", changeColor(ihsg?.pct_change))}>
             {ihsg?.price != null ? ihsg.price.toLocaleString("en-US", { maximumFractionDigits: 2 }) : "—"}
             {" "}
             {fmtPct(ihsg?.pct_change)}
           </span>
-          <div className="w-px h-4 bg-border/60 shrink-0" />
-          <span className="text-muted-foreground shrink-0">Gainers:</span>
+          <div className="w-px h-3 bg-border/60 shrink-0" />
+          <span className="text-muted-foreground shrink-0">G:</span>
           <span className="text-emerald-400 font-mono shrink-0">{breadth.g}</span>
-          <span className="text-muted-foreground shrink-0">Losers:</span>
+          <span className="text-muted-foreground shrink-0">L:</span>
           <span className="text-red-400 font-mono shrink-0">{breadth.l}</span>
           <div className="ml-auto flex items-center gap-3 shrink-0">
             <span className="text-muted-foreground">Update:</span>
             <span className="font-mono">{lastUpdate || "—"}</span>
-            <div className="w-px h-4 bg-border/60" />
+            <div className="w-px h-3 bg-border/60" />
             <span className="text-muted-foreground">FPS:</span>
             <span className={cn("font-mono", fps >= 50 ? "text-emerald-400" : fps >= 30 ? "text-yellow-400" : "text-red-400")}>
               {fps.toFixed(0)}
@@ -516,6 +525,11 @@ export default function DashboardPage() {
               </div>
             </div>
           </Widget>
+
+          {/* Global Market Clock */}
+          <div className="col-span-3">
+            <MarketClockWidget />
+          </div>
 
           {/* Row 3: BE Observability Console (full width) */}
           <div className="col-span-12">

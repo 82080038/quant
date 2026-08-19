@@ -34,7 +34,10 @@ from zoneinfo import ZoneInfo
 
 from sqlalchemy import text
 
-from quant.db.engine import get_engine
+from quant.core.db import engine as _engine
+
+def get_engine():
+    return _engine
 
 logger = logging.getLogger(__name__)
 
@@ -221,8 +224,9 @@ def _is_holiday(mic_code: str, d: date) -> bool:
         with get_engine().connect() as conn:
             row = conn.execute(
                 text(
-                    "SELECT 1 FROM exchange_holidays "
-                    "WHERE mic_code = :mic AND holiday_date = :d LIMIT 1"
+                    "SELECT 1 FROM exchange_holidays eh "
+                    "JOIN exchanges e ON eh.exchange_id = e.id "
+                    "WHERE e.mic = :mic AND eh.holiday_date = :d LIMIT 1"
                 ),
                 {"mic": mic_code, "d": d},
             ).first()
@@ -360,10 +364,11 @@ class MarketSessionManager:
             with get_engine().connect() as conn:
                 row = conn.execute(
                     text(
-                        "SELECT holiday_date, holiday_name "
-                        "FROM exchange_holidays "
-                        "WHERE mic_code = :mic AND holiday_date > :d "
-                        "ORDER BY holiday_date LIMIT 1"
+                        "SELECT eh.holiday_date, eh.name "
+                        "FROM exchange_holidays eh "
+                        "JOIN exchanges e ON eh.exchange_id = e.id "
+                        "WHERE e.mic = :mic AND eh.holiday_date > :d "
+                        "ORDER BY eh.holiday_date LIMIT 1"
                     ),
                     {"mic": mic, "d": local.date()},
                 ).first()
@@ -396,10 +401,11 @@ class MarketSessionManager:
             with get_engine().connect() as conn:
                 rows = conn.execute(
                     text(
-                        "SELECT mic_code, holiday_date, holiday_name "
-                        "FROM exchange_holidays "
-                        "WHERE holiday_date > :d AND holiday_date <= :end "
-                        "ORDER BY holiday_date, mic_code"
+                        "SELECT e.mic, eh.holiday_date, eh.name "
+                        "FROM exchange_holidays eh "
+                        "JOIN exchanges e ON eh.exchange_id = e.id "
+                        "WHERE eh.holiday_date > :d AND eh.holiday_date <= :end "
+                        "ORDER BY eh.holiday_date, e.mic"
                     ),
                     {
                         "d": local_now.date(),

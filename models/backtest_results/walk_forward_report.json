@@ -1,0 +1,1419 @@
+{
+  "date": "2026-08-20",
+  "tickers": [
+    "KPIG.JK",
+    "TRIM.JK",
+    "SONA.JK",
+    "TIRT.JK",
+    "TCID.JK",
+    "PANS.JK",
+    "MEDC.JK",
+    "KDSI.JK",
+    "MTDL.JK",
+    "BCIC.JK"
+  ],
+  "train_days": 252,
+  "test_days": 63,
+  "results": {
+    "KPIG.JK": {
+      "sma_crossover": {
+        "oos_sharpe": 0.587,
+        "oos_return_pct": 0.43,
+        "oos_max_drawdown_pct": -0.6,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": 8.5761,
+        "dsr_psr": 1.0,
+        "pbo": 0.716,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "fast": 20,
+            "slow": 30
+          },
+          {
+            "fast": 20,
+            "slow": 30
+          },
+          {
+            "fast": 20,
+            "slow": 30
+          },
+          {
+            "fast": 5,
+            "slow": 30
+          }
+        ]
+      },
+      "momentum": {
+        "oos_sharpe": -0.283,
+        "oos_return_pct": -0.21,
+        "oos_max_drawdown_pct": -0.81,
+        "param_stability": 0.0,
+        "n_splits": 4,
+        "dsr": -5.1883,
+        "dsr_psr": 0.0,
+        "pbo": 0.196,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 60
+          },
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 10
+          }
+        ]
+      },
+      "mean_reversion": {
+        "oos_sharpe": -1.576,
+        "oos_return_pct": -1.16,
+        "oos_max_drawdown_pct": -1.78,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": -20.0714,
+        "dsr_psr": 0.0,
+        "pbo": 0.314,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 20
+          }
+        ]
+      },
+      "rsi_oversold": {
+        "oos_sharpe": -0.204,
+        "oos_return_pct": -0.15,
+        "oos_max_drawdown_pct": -1.09,
+        "param_stability": 0.333,
+        "n_splits": 4,
+        "dsr": -5.2775,
+        "dsr_psr": 0.0,
+        "pbo": 0.47,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "period": 7,
+            "threshold": 25
+          },
+          {
+            "period": 14,
+            "threshold": 35
+          },
+          {
+            "period": 14,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 25
+          }
+        ]
+      },
+      "breakout": {
+        "oos_sharpe": 2.015,
+        "oos_return_pct": 1.49,
+        "oos_max_drawdown_pct": -0.49,
+        "param_stability": 0.0,
+        "n_splits": 4,
+        "dsr": 15.7813,
+        "dsr_psr": 1.0,
+        "pbo": 0.246,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": true,
+        "best_params_per_fold": [
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 10
+          }
+        ]
+      }
+    },
+    "TRIM.JK": {
+      "sma_crossover": {
+        "oos_sharpe": 0.252,
+        "oos_return_pct": 0.13,
+        "oos_max_drawdown_pct": -0.32,
+        "param_stability": 0.333,
+        "n_splits": 4,
+        "dsr": 2.6235,
+        "dsr_psr": 0.9956,
+        "pbo": 0.7,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "fast": 10,
+            "slow": 30
+          },
+          {
+            "fast": 10,
+            "slow": 20
+          },
+          {
+            "fast": 10,
+            "slow": 30
+          },
+          {
+            "fast": 10,
+            "slow": 30
+          }
+        ]
+      },
+      "momentum": {
+        "oos_sharpe": -0.082,
+        "oos_return_pct": -0.05,
+        "oos_max_drawdown_pct": -0.26,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": -2.6007,
+        "dsr_psr": 0.0047,
+        "pbo": 0.222,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 60
+          },
+          {
+            "lookback": 60
+          }
+        ]
+      },
+      "mean_reversion": {
+        "oos_sharpe": 0.938,
+        "oos_return_pct": 0.51,
+        "oos_max_drawdown_pct": -0.36,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": 12.4164,
+        "dsr_psr": 1.0,
+        "pbo": 0.12,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": true,
+        "best_params_per_fold": [
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 5
+          },
+          {
+            "lookback": 5
+          },
+          {
+            "lookback": 5
+          }
+        ]
+      },
+      "rsi_oversold": {
+        "oos_sharpe": -0.843,
+        "oos_return_pct": -0.46,
+        "oos_max_drawdown_pct": -0.49,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": -17.2823,
+        "dsr_psr": 0.0,
+        "pbo": 0.552,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "period": 14,
+            "threshold": 30
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          }
+        ]
+      },
+      "breakout": {
+        "oos_sharpe": -1.042,
+        "oos_return_pct": -0.56,
+        "oos_max_drawdown_pct": -0.62,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": -17.9593,
+        "dsr_psr": 0.0,
+        "pbo": 0.65,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 10
+          }
+        ]
+      }
+    },
+    "SONA.JK": {
+      "sma_crossover": {
+        "oos_sharpe": 0.522,
+        "oos_return_pct": 0.3,
+        "oos_max_drawdown_pct": -0.4,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": 5.8521,
+        "dsr_psr": 1.0,
+        "pbo": 0.606,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "fast": 20,
+            "slow": 30
+          },
+          {
+            "fast": 20,
+            "slow": 30
+          },
+          {
+            "fast": 20,
+            "slow": 30
+          },
+          {
+            "fast": 10,
+            "slow": 20
+          }
+        ]
+      },
+      "momentum": {
+        "oos_sharpe": 0.653,
+        "oos_return_pct": 0.38,
+        "oos_max_drawdown_pct": -0.76,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": 7.9854,
+        "dsr_psr": 1.0,
+        "pbo": 0.536,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          }
+        ]
+      },
+      "mean_reversion": {
+        "oos_sharpe": -0.574,
+        "oos_return_pct": -0.33,
+        "oos_max_drawdown_pct": -0.85,
+        "param_stability": 0.333,
+        "n_splits": 4,
+        "dsr": -10.3455,
+        "dsr_psr": 0.0,
+        "pbo": 0.676,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 5
+          },
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 5
+          },
+          {
+            "lookback": 5
+          }
+        ]
+      },
+      "rsi_oversold": {
+        "oos_sharpe": 0.604,
+        "oos_return_pct": 0.35,
+        "oos_max_drawdown_pct": -0.6,
+        "param_stability": 0.333,
+        "n_splits": 4,
+        "dsr": 5.3733,
+        "dsr_psr": 1.0,
+        "pbo": 0.558,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "period": 7,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 30
+          },
+          {
+            "period": 7,
+            "threshold": 25
+          },
+          {
+            "period": 7,
+            "threshold": 25
+          }
+        ]
+      },
+      "breakout": {
+        "oos_sharpe": 0.777,
+        "oos_return_pct": 0.45,
+        "oos_max_drawdown_pct": -0.41,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": 6.8162,
+        "dsr_psr": 1.0,
+        "pbo": 0.444,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": true,
+        "best_params_per_fold": [
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          }
+        ]
+      }
+    },
+    "TIRT.JK": {
+      "sma_crossover": {
+        "oos_sharpe": 3.258,
+        "oos_return_pct": 2.45,
+        "oos_max_drawdown_pct": -0.8,
+        "param_stability": 0.333,
+        "n_splits": 4,
+        "dsr": 0.0,
+        "dsr_psr": NaN,
+        "pbo": 0.374,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "fast": 5,
+            "slow": 20
+          },
+          {
+            "fast": 5,
+            "slow": 50
+          },
+          {
+            "fast": 5,
+            "slow": 20
+          },
+          {
+            "fast": 5,
+            "slow": 20
+          }
+        ]
+      },
+      "momentum": {
+        "oos_sharpe": 2.651,
+        "oos_return_pct": 2.01,
+        "oos_max_drawdown_pct": -0.62,
+        "param_stability": 0.333,
+        "n_splits": 4,
+        "dsr": 122.8968,
+        "dsr_psr": 1.0,
+        "pbo": 0.204,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": true,
+        "best_params_per_fold": [
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 10
+          }
+        ]
+      },
+      "mean_reversion": {
+        "oos_sharpe": -3.675,
+        "oos_return_pct": -2.69,
+        "oos_max_drawdown_pct": -2.95,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": 0.0,
+        "dsr_psr": NaN,
+        "pbo": 0.29,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          }
+        ]
+      },
+      "rsi_oversold": {
+        "oos_sharpe": -3.388,
+        "oos_return_pct": -2.49,
+        "oos_max_drawdown_pct": -2.71,
+        "param_stability": 0.333,
+        "n_splits": 4,
+        "dsr": 0.0,
+        "dsr_psr": NaN,
+        "pbo": 0.588,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "period": 14,
+            "threshold": 35
+          },
+          {
+            "period": 14,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 25
+          },
+          {
+            "period": 14,
+            "threshold": 30
+          }
+        ]
+      },
+      "breakout": {
+        "oos_sharpe": 3.597,
+        "oos_return_pct": 2.7,
+        "oos_max_drawdown_pct": -0.37,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": 0.0,
+        "dsr_psr": NaN,
+        "pbo": 0.222,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          }
+        ]
+      }
+    },
+    "TCID.JK": {
+      "sma_crossover": {
+        "oos_sharpe": 0.331,
+        "oos_return_pct": 0.18,
+        "oos_max_drawdown_pct": -0.46,
+        "param_stability": 0.0,
+        "n_splits": 4,
+        "dsr": 3.8811,
+        "dsr_psr": 0.9999,
+        "pbo": 0.64,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "fast": 10,
+            "slow": 20
+          },
+          {
+            "fast": 10,
+            "slow": 30
+          },
+          {
+            "fast": 10,
+            "slow": 20
+          },
+          {
+            "fast": 10,
+            "slow": 50
+          }
+        ]
+      },
+      "momentum": {
+        "oos_sharpe": -0.836,
+        "oos_return_pct": -0.45,
+        "oos_max_drawdown_pct": -0.96,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": -6.3571,
+        "dsr_psr": 0.0,
+        "pbo": 0.064,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 60
+          },
+          {
+            "lookback": 60
+          },
+          {
+            "lookback": 60
+          },
+          {
+            "lookback": 60
+          }
+        ]
+      },
+      "mean_reversion": {
+        "oos_sharpe": 2.547,
+        "oos_return_pct": 1.36,
+        "oos_max_drawdown_pct": -0.29,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": 6.1561,
+        "dsr_psr": 1.0,
+        "pbo": 0.338,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": true,
+        "best_params_per_fold": [
+          {
+            "lookback": 5
+          },
+          {
+            "lookback": 5
+          },
+          {
+            "lookback": 5
+          },
+          {
+            "lookback": 5
+          }
+        ]
+      },
+      "rsi_oversold": {
+        "oos_sharpe": 2.61,
+        "oos_return_pct": 1.39,
+        "oos_max_drawdown_pct": -0.38,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": 6.4959,
+        "dsr_psr": 1.0,
+        "pbo": 0.04,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": true,
+        "best_params_per_fold": [
+          {
+            "period": 7,
+            "threshold": 30
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          }
+        ]
+      },
+      "breakout": {
+        "oos_sharpe": -1.286,
+        "oos_return_pct": -0.69,
+        "oos_max_drawdown_pct": -0.93,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": -11.3587,
+        "dsr_psr": 0.0,
+        "pbo": 0.016,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 55
+          }
+        ]
+      }
+    },
+    "PANS.JK": {
+      "sma_crossover": {
+        "oos_sharpe": -1.172,
+        "oos_return_pct": -0.24,
+        "oos_max_drawdown_pct": -0.36,
+        "param_stability": 0.333,
+        "n_splits": 4,
+        "dsr": -7.987,
+        "dsr_psr": 0.0,
+        "pbo": 0.992,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "fast": 20,
+            "slow": 50
+          },
+          {
+            "fast": 10,
+            "slow": 50
+          },
+          {
+            "fast": 5,
+            "slow": 30
+          },
+          {
+            "fast": 5,
+            "slow": 30
+          }
+        ]
+      },
+      "momentum": {
+        "oos_sharpe": 0.103,
+        "oos_return_pct": 0.02,
+        "oos_max_drawdown_pct": -0.14,
+        "param_stability": 0.333,
+        "n_splits": 4,
+        "dsr": 0.2414,
+        "dsr_psr": 0.5954,
+        "pbo": 0.296,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 60
+          },
+          {
+            "lookback": 60
+          },
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 60
+          }
+        ]
+      },
+      "mean_reversion": {
+        "oos_sharpe": -0.687,
+        "oos_return_pct": -0.14,
+        "oos_max_drawdown_pct": -0.33,
+        "param_stability": 0.0,
+        "n_splits": 4,
+        "dsr": -8.9034,
+        "dsr_psr": 0.0,
+        "pbo": 0.026,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 5
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 5
+          },
+          {
+            "lookback": 20
+          }
+        ]
+      },
+      "rsi_oversold": {
+        "oos_sharpe": -0.137,
+        "oos_return_pct": -0.03,
+        "oos_max_drawdown_pct": -0.3,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": -3.6675,
+        "dsr_psr": 0.0001,
+        "pbo": 0.956,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "period": 7,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          }
+        ]
+      },
+      "breakout": {
+        "oos_sharpe": -0.435,
+        "oos_return_pct": -0.09,
+        "oos_max_drawdown_pct": -0.23,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": -6.6827,
+        "dsr_psr": 0.0,
+        "pbo": 0.562,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          }
+        ]
+      }
+    },
+    "MEDC.JK": {
+      "sma_crossover": {
+        "oos_sharpe": -0.681,
+        "oos_return_pct": -0.34,
+        "oos_max_drawdown_pct": -0.64,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": -12.4145,
+        "dsr_psr": 0.0,
+        "pbo": 0.608,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "fast": 10,
+            "slow": 30
+          },
+          {
+            "fast": 20,
+            "slow": 30
+          },
+          {
+            "fast": 20,
+            "slow": 30
+          },
+          {
+            "fast": 20,
+            "slow": 30
+          }
+        ]
+      },
+      "momentum": {
+        "oos_sharpe": -0.762,
+        "oos_return_pct": -0.38,
+        "oos_max_drawdown_pct": -0.93,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": -9.278,
+        "dsr_psr": 0.0,
+        "pbo": 0.698,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 60
+          },
+          {
+            "lookback": 60
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          }
+        ]
+      },
+      "mean_reversion": {
+        "oos_sharpe": -0.718,
+        "oos_return_pct": -0.36,
+        "oos_max_drawdown_pct": -0.73,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": -15.2591,
+        "dsr_psr": 0.0,
+        "pbo": 0.362,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 20
+          }
+        ]
+      },
+      "rsi_oversold": {
+        "oos_sharpe": 1.433,
+        "oos_return_pct": 0.71,
+        "oos_max_drawdown_pct": -0.48,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": 13.9732,
+        "dsr_psr": 1.0,
+        "pbo": 0.38,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": true,
+        "best_params_per_fold": [
+          {
+            "period": 7,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          }
+        ]
+      },
+      "breakout": {
+        "oos_sharpe": -0.596,
+        "oos_return_pct": -0.3,
+        "oos_max_drawdown_pct": -0.65,
+        "param_stability": 0.333,
+        "n_splits": 4,
+        "dsr": -9.396,
+        "dsr_psr": 0.0,
+        "pbo": 0.512,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 55
+          }
+        ]
+      }
+    },
+    "KDSI.JK": {
+      "sma_crossover": {
+        "oos_sharpe": -0.529,
+        "oos_return_pct": -0.12,
+        "oos_max_drawdown_pct": -0.2,
+        "param_stability": 0.333,
+        "n_splits": 4,
+        "dsr": -8.6417,
+        "dsr_psr": 0.0,
+        "pbo": 0.164,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "fast": 10,
+            "slow": 30
+          },
+          {
+            "fast": 20,
+            "slow": 30
+          },
+          {
+            "fast": 20,
+            "slow": 30
+          },
+          {
+            "fast": 10,
+            "slow": 20
+          }
+        ]
+      },
+      "momentum": {
+        "oos_sharpe": -1.849,
+        "oos_return_pct": -0.4,
+        "oos_max_drawdown_pct": -0.44,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": -20.7324,
+        "dsr_psr": 0.0,
+        "pbo": 0.256,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 60
+          },
+          {
+            "lookback": 60
+          }
+        ]
+      },
+      "mean_reversion": {
+        "oos_sharpe": 4.958,
+        "oos_return_pct": 1.04,
+        "oos_max_drawdown_pct": -0.06,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": 30.0813,
+        "dsr_psr": 1.0,
+        "pbo": 0.244,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": true,
+        "best_params_per_fold": [
+          {
+            "lookback": 5
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          }
+        ]
+      },
+      "rsi_oversold": {
+        "oos_sharpe": 2.725,
+        "oos_return_pct": 0.59,
+        "oos_max_drawdown_pct": -0.06,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": 35.7716,
+        "dsr_psr": 1.0,
+        "pbo": 0.112,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": true,
+        "best_params_per_fold": [
+          {
+            "period": 14,
+            "threshold": 25
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          }
+        ]
+      },
+      "breakout": {
+        "oos_sharpe": 0.038,
+        "oos_return_pct": 0.01,
+        "oos_max_drawdown_pct": -0.12,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": -0.7367,
+        "dsr_psr": 0.2306,
+        "pbo": 0.54,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 55
+          }
+        ]
+      }
+    },
+    "MTDL.JK": {
+      "sma_crossover": {
+        "oos_sharpe": -0.823,
+        "oos_return_pct": -0.22,
+        "oos_max_drawdown_pct": -0.23,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": -16.6457,
+        "dsr_psr": 0.0,
+        "pbo": 0.45,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "fast": 20,
+            "slow": 20
+          },
+          {
+            "fast": 20,
+            "slow": 50
+          },
+          {
+            "fast": 20,
+            "slow": 50
+          },
+          {
+            "fast": 20,
+            "slow": 50
+          }
+        ]
+      },
+      "momentum": {
+        "oos_sharpe": -0.293,
+        "oos_return_pct": -0.08,
+        "oos_max_drawdown_pct": -0.27,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": -5.9377,
+        "dsr_psr": 0.0,
+        "pbo": 0.592,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 60
+          },
+          {
+            "lookback": 60
+          },
+          {
+            "lookback": 60
+          },
+          {
+            "lookback": 60
+          }
+        ]
+      },
+      "mean_reversion": {
+        "oos_sharpe": 2.391,
+        "oos_return_pct": 0.64,
+        "oos_max_drawdown_pct": -0.24,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": 51.7379,
+        "dsr_psr": 1.0,
+        "pbo": 0.482,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": true,
+        "best_params_per_fold": [
+          {
+            "lookback": 5
+          },
+          {
+            "lookback": 5
+          },
+          {
+            "lookback": 5
+          },
+          {
+            "lookback": 5
+          }
+        ]
+      },
+      "rsi_oversold": {
+        "oos_sharpe": 0.095,
+        "oos_return_pct": 0.03,
+        "oos_max_drawdown_pct": -0.15,
+        "param_stability": 0.0,
+        "n_splits": 4,
+        "dsr": 0.197,
+        "dsr_psr": 0.5781,
+        "pbo": 0.262,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "period": 7,
+            "threshold": 30
+          },
+          {
+            "period": 14,
+            "threshold": 35
+          },
+          {
+            "period": 14,
+            "threshold": 30
+          },
+          {
+            "period": 7,
+            "threshold": 35
+          }
+        ]
+      },
+      "breakout": {
+        "oos_sharpe": -0.667,
+        "oos_return_pct": -0.18,
+        "oos_max_drawdown_pct": -0.28,
+        "param_stability": 1.0,
+        "n_splits": 4,
+        "dsr": -12.7525,
+        "dsr_psr": 0.0,
+        "pbo": 0.13,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 55
+          }
+        ]
+      }
+    },
+    "BCIC.JK": {
+      "sma_crossover": {
+        "oos_sharpe": -0.487,
+        "oos_return_pct": -0.38,
+        "oos_max_drawdown_pct": -0.87,
+        "param_stability": 0.0,
+        "n_splits": 4,
+        "dsr": -10.0758,
+        "dsr_psr": 0.0,
+        "pbo": 0.618,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "fast": 5,
+            "slow": 50
+          },
+          {
+            "fast": 20,
+            "slow": 20
+          },
+          {
+            "fast": 10,
+            "slow": 30
+          },
+          {
+            "fast": 20,
+            "slow": 20
+          }
+        ]
+      },
+      "momentum": {
+        "oos_sharpe": -1.699,
+        "oos_return_pct": -1.29,
+        "oos_max_drawdown_pct": -1.53,
+        "param_stability": 0.333,
+        "n_splits": 4,
+        "dsr": -14.2222,
+        "dsr_psr": 0.0,
+        "pbo": 0.88,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 10
+          }
+        ]
+      },
+      "mean_reversion": {
+        "oos_sharpe": 1.103,
+        "oos_return_pct": 0.85,
+        "oos_max_drawdown_pct": -0.55,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": 8.4685,
+        "dsr_psr": 1.0,
+        "pbo": 0.466,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": true,
+        "best_params_per_fold": [
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 20
+          },
+          {
+            "lookback": 20
+          }
+        ]
+      },
+      "rsi_oversold": {
+        "oos_sharpe": 0.257,
+        "oos_return_pct": 0.19,
+        "oos_max_drawdown_pct": -0.63,
+        "param_stability": 0.333,
+        "n_splits": 4,
+        "dsr": 2.3615,
+        "dsr_psr": 0.9909,
+        "pbo": 0.958,
+        "pbo_is_overfit": true,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "period": 14,
+            "threshold": 25
+          },
+          {
+            "period": 7,
+            "threshold": 30
+          },
+          {
+            "period": 7,
+            "threshold": 30
+          },
+          {
+            "period": 14,
+            "threshold": 30
+          }
+        ]
+      },
+      "breakout": {
+        "oos_sharpe": -0.419,
+        "oos_return_pct": -0.32,
+        "oos_max_drawdown_pct": -1.14,
+        "param_stability": 0.667,
+        "n_splits": 4,
+        "dsr": -9.4704,
+        "dsr_psr": 0.0,
+        "pbo": 0.004,
+        "pbo_is_overfit": false,
+        "is_statistically_valid": false,
+        "best_params_per_fold": [
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 10
+          },
+          {
+            "lookback": 55
+          },
+          {
+            "lookback": 55
+          }
+        ]
+      }
+    }
+  }
+}

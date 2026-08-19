@@ -27,6 +27,15 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 
+# Resolve gym base class at import time for sb3 compatibility
+try:
+    from gymnasium import Env as _GymBase
+except ImportError:
+    try:
+        from gym import Env as _GymBase
+    except ImportError:
+        _GymBase = object
+
 
 @dataclass
 class RLConfig:
@@ -43,15 +52,14 @@ class RLConfig:
     risk_penalty: float = 0.5  # For CPPO
 
 
-class PortfolioEnv:
+class PortfolioEnv(_GymBase):
     """Gym-compatible portfolio allocation environment.
 
     State: Concatenation of [returns_history, signals, current_weights, regime_onehot]
     Action: Target weight vector (softmax-normalized)
     Reward: Portfolio return - risk_penalty * volatility
 
-    Inherits from gym.Env when gymnasium is available, otherwise
-    provides a duck-typed interface for manual use.
+    Inherits from gymnasium.Env when available, otherwise object.
     """
 
     def __init__(
@@ -63,6 +71,9 @@ class PortfolioEnv:
         risk_penalty: float = 0.5,
         transaction_cost: float = 0.0025,
     ):
+        if _GymBase is not object:
+            _GymBase.__init__(self)
+
         self.returns = returns
         self.signals = signals
         self.n_assets = n_assets
@@ -79,14 +90,11 @@ class PortfolioEnv:
 
         # Define Gym spaces if gymnasium/gym is available
         try:
-            import gymnasium as gym
             from gymnasium import spaces
         except ImportError:
             try:
-                import gym
                 from gym import spaces
             except ImportError:
-                gym = None
                 spaces = None
 
         if spaces is not None:
@@ -99,14 +107,20 @@ class PortfolioEnv:
                 shape=(n_assets,), dtype=np.float32,
             )
 
-    def reset(self, *, seed=None, options=None) -> np.ndarray:
+    def reset(self, *, seed=None, options=None):
         """Reset environment to start.
 
         Returns observation array (Gym-compatible: also accepts seed/options kwargs).
         """
         self.current_step = self.lookback
         self.current_weights = np.ones(self.n_assets) / self.n_assets
-        return self._get_obs()
+        obs = self._get_obs()
+        # Gymnasium expects (obs, info), gym expects just obs
+        try:
+            import gymnasium  # noqa: F401
+            return obs, {}
+        except ImportError:
+            return obs
 
     def step(self, action: np.ndarray) -> tuple[np.ndarray, float, bool, bool, dict]:
         """Execute one step.

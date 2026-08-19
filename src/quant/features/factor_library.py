@@ -73,12 +73,23 @@ class FactorLibrary:
         self._session = session
         self._pit = pit
         self._factors: dict[str, FactorDefinition] = {}
+        self._owns_session = session is None  # track if we created the session
 
     @property
     def session(self):
         if self._session is None:
             self._session = get_db()
+            self._owns_session = True
         return self._session
+
+    def close(self):
+        """Close the DB session if we own it."""
+        if self._owns_session and self._session is not None:
+            try:
+                self._session.close()
+            except Exception:
+                pass
+            self._session = None
 
     @property
     def pit(self) -> PointInTimeQuery:
@@ -220,6 +231,10 @@ class FactorLibrary:
         if values.empty:
             return 0
 
+        # Align index to prices date index if compute_fn returned a RangeIndex
+        if not isinstance(values.index, pd.DatetimeIndex) and "date" in prices.columns:
+            values.index = prices["date"].values
+
         db_id = factor.db_id or self._get_db_factor_id(factor_name, version)
         if db_id is None:
             self._persist_definition(factor)
@@ -227,7 +242,9 @@ class FactorLibrary:
         if db_id is None:
             return 0
 
-        mask = (values.index >= pd.Timestamp(start)) & (values.index <= pd.Timestamp(end))
+        # Convert index to datetime for comparison
+        dt_index = pd.to_datetime(values.index)
+        mask = (dt_index >= pd.Timestamp(start)) & (dt_index <= pd.Timestamp(end))
         batch_values = values[mask]
 
         count = 0

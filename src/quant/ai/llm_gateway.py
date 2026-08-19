@@ -146,7 +146,11 @@ class LLMGateway:
             _llm_limiter._async._update_latency(latency)
 
             data = resp.json()
-            text = data.get("message", {}).get("content", "")
+            msg = data.get("message", {})
+            text = msg.get("content", "")
+            # DeepSeek-R1 puts reasoning in "thinking" field; use as fallback
+            if not text and msg.get("thinking"):
+                text = msg["thinking"]
 
             parsed = None
             if json_mode:

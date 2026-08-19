@@ -126,12 +126,13 @@ class HolidayEffectAnalyzer:
         with self._engine.connect() as conn:
             rows = conn.execute(
                 text("""
-                    SELECT holiday_date, holiday_name
-                    FROM exchange_holidays
-                    WHERE mic_code = :mic
-                      AND holiday_date BETWEEN :start AND :end
-                      AND holiday_date < :end
-                    ORDER BY holiday_date
+                    SELECT eh.holiday_date, eh.name
+                    FROM exchange_holidays eh
+                    JOIN exchanges e ON eh.exchange_id = e.id
+                    WHERE e.mic = :mic
+                      AND eh.holiday_date BETWEEN :start AND :end
+                      AND eh.holiday_date < :end
+                    ORDER BY eh.holiday_date
                 """),
                 {"mic": mic_code, "start": start, "end": end},
             ).fetchall()
@@ -489,8 +490,9 @@ class HolidayEffectAnalyzer:
             # Check if today is holiday
             today_hol = conn.execute(
                 text("""
-                    SELECT holiday_name FROM exchange_holidays
-                    WHERE mic_code = :mic AND holiday_date = :d
+                    SELECT eh.name FROM exchange_holidays eh
+                    JOIN exchanges e ON eh.exchange_id = e.id
+                    WHERE e.mic = :mic AND eh.holiday_date = :d
                 """),
                 {"mic": mic_code, "d": as_of},
             ).first()
@@ -505,8 +507,9 @@ class HolidayEffectAnalyzer:
                 check_date = as_of - timedelta(days=lookback)
                 yest_hol = conn.execute(
                     text("""
-                        SELECT holiday_name FROM exchange_holidays
-                        WHERE mic_code = :mic AND holiday_date = :d
+                        SELECT eh.name FROM exchange_holidays eh
+                        JOIN exchanges e ON eh.exchange_id = e.id
+                        WHERE e.mic = :mic AND eh.holiday_date = :d
                     """),
                     {"mic": mic_code, "d": check_date},
                 ).first()
@@ -515,9 +518,10 @@ class HolidayEffectAnalyzer:
                     # If no trading day between, then as_of is post-holiday
                     trading_between = conn.execute(
                         text("""
-                            SELECT 1 FROM exchange_holidays
-                            WHERE mic_code = :mic
-                              AND holiday_date > :check AND holiday_date < :asof
+                            SELECT 1 FROM exchange_holidays eh
+                            JOIN exchanges e ON eh.exchange_id = e.id
+                            WHERE e.mic = :mic
+                              AND eh.holiday_date > :check AND eh.holiday_date < :asof
                             LIMIT 1
                         """),
                         {"mic": mic_code, "check": check_date, "asof": as_of},
@@ -542,8 +546,9 @@ class HolidayEffectAnalyzer:
                 check_date = as_of + timedelta(days=lookahead)
                 tom_hol = conn.execute(
                     text("""
-                        SELECT holiday_name FROM exchange_holidays
-                        WHERE mic_code = :mic AND holiday_date = :d
+                        SELECT eh.name FROM exchange_holidays eh
+                        JOIN exchanges e ON eh.exchange_id = e.id
+                        WHERE e.mic = :mic AND eh.holiday_date = :d
                     """),
                     {"mic": mic_code, "d": check_date},
                 ).first()
@@ -551,9 +556,10 @@ class HolidayEffectAnalyzer:
                     # Check no trading day between as_of and check_date
                     trading_between = conn.execute(
                         text("""
-                            SELECT 1 FROM exchange_holidays
-                            WHERE mic_code = :mic
-                              AND holiday_date > :asof AND holiday_date < :check
+                            SELECT 1 FROM exchange_holidays eh
+                            JOIN exchanges e ON eh.exchange_id = e.id
+                            WHERE e.mic = :mic
+                              AND eh.holiday_date > :asof AND eh.holiday_date < :check
                             LIMIT 1
                         """),
                         {"mic": mic_code, "asof": as_of, "check": check_date},
@@ -578,9 +584,10 @@ class HolidayEffectAnalyzer:
             if not features["is_pre_holiday"]:
                 next_hol = conn.execute(
                     text("""
-                        SELECT holiday_date, holiday_name FROM exchange_holidays
-                        WHERE mic_code = :mic AND holiday_date > :d
-                        ORDER BY holiday_date LIMIT 1
+                        SELECT eh.holiday_date, eh.name FROM exchange_holidays eh
+                        JOIN exchanges e ON eh.exchange_id = e.id
+                        WHERE e.mic = :mic AND eh.holiday_date > :d
+                        ORDER BY eh.holiday_date LIMIT 1
                     """),
                     {"mic": mic_code, "d": as_of},
                 ).first()
@@ -610,8 +617,9 @@ class HolidayEffectAnalyzer:
             for src_mic in ["XNYS", "XTSE", "XHKG", "XLON", "XFRA"]:
                 hol = conn.execute(
                     text("""
-                        SELECT holiday_name FROM exchange_holidays
-                        WHERE mic_code = :mic AND holiday_date = :d
+                        SELECT eh.name FROM exchange_holidays eh
+                        JOIN exchanges e ON eh.exchange_id = e.id
+                        WHERE e.mic = :mic AND eh.holiday_date = :d
                     """),
                     {"mic": src_mic, "d": as_of},
                 ).first()

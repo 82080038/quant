@@ -1,0 +1,24 @@
+{
+  "date": "2026-08-20",
+  "n_tickers": 50,
+  "n_samples": 14029,
+  "n_features": 26,
+  "train_size": 11223,
+  "test_size": 2806,
+  "results": {
+    "vae": {
+      "status": "trained",
+      "path": "/home/petrick/projects/quant/models/vae_extractor.pkl"
+    },
+    "lstm": {
+      "status": "trained",
+      "path": "/home/petrick/projects/quant/models/lstm_predictor.pkl",
+      "test_mse": 0.15149991379665545
+    },
+    "xgb_lgbm": {
+      "status": "trained",
+      "path": "/home/petrick/projects/quant/models/xgb_lgbm_ensemble.pkl",
+      "test_mse": 0.12562824142517087
+    }
+  }
+}

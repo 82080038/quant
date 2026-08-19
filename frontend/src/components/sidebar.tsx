@@ -14,6 +14,7 @@ import {
   BellRing,
   Orbit,
   Clock,
+  Activity,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -48,6 +49,7 @@ const navSections: NavSection[] = [
   {
     title: "Sistem",
     items: [
+      { href: "/pipeline", label: "Pipeline", icon: Activity },
       { href: "/reports", label: "Laporan", icon: FileText },
       { href: "/cosmos", label: "Kosmos", icon: Orbit },
       { href: "/data", label: "Data & Sumber", icon: Database },

@@ -8,7 +8,7 @@ import json
 import os
 from pathlib import Path
 
-from quant.core.db import get_db, test_connection, table_row_count
+from quant.core.db import get_db, test_connection, table_row_count, pool_stats
 from quant.core.config import config
 from quant.api.realtime import install as install_realtime
 from quant.simulation import (
@@ -36,7 +36,7 @@ def _db_status() -> dict:
     """Lightweight DB health probe for the observability stream."""
     try:
         ok = test_connection()
-        return {"connected": bool(ok)}
+        return {"connected": bool(ok), "pool": pool_stats()}
     except Exception as exc:
         return {"connected": False, "error": str(exc)}
 
@@ -99,6 +99,39 @@ async def db_stats():
         except Exception:
             stats[t] = "error"
     return stats
+
+
+@app.get("/api/pipeline/status")
+async def pipeline_status():
+    """Get pipeline state machine summary — per-step status counts."""
+    session = get_db()
+    try:
+        from quant.pipeline import PipelineTracker
+        tracker = PipelineTracker(session)
+        summary = tracker.get_pipeline_summary()
+        failed = tracker.get_failed_steps(limit=10)
+        return {
+            "status_counts": summary,
+            "failed_steps": failed,
+        }
+    except Exception as exc:
+        return {"error": str(exc)}
+    finally:
+        session.close()
+
+
+@app.get("/api/pipeline/fetch-summary")
+async def fetch_summary():
+    """Get fetch registry summary — instruments by data_layer and fetch_status."""
+    session = get_db()
+    try:
+        from quant.data.fetch_registry import FetchRegistry
+        registry = FetchRegistry(session)
+        return registry.get_summary()
+    except Exception as exc:
+        return {"error": str(exc)}
+    finally:
+        session.close()
 
 
 @app.get("/api/prices/movers")
@@ -216,7 +249,7 @@ async def list_instruments(active_only: bool = True):
             LEFT JOIN sector_master s ON i.sector_id = s.id
         """
         if active_only:
-            query += " WHERE i.is_active = TRUE"
+            query += " WHERE i.is_active = TRUE AND i.is_delisted = FALSE"
         query += " ORDER BY i.ticker"
         result = session.execute(text(query))
         return [
@@ -369,8 +402,40 @@ async def scheduler_upcoming(hours: int = Query(12, ge=1, le=168)):
 
 @app.get("/api/scheduler/holidays")
 async def scheduler_holidays(days: int = Query(30, ge=1, le=365)):
-    """Return upcoming exchange holidays."""
-    return {"upcoming": []}
+    """Return upcoming exchange holidays from market_holidays table."""
+    from datetime import date, timedelta
+    from quant.core.pre_trade_guard import PreTradeGuard
+    guard = PreTradeGuard()
+    today = date.today()
+    upcoming = []
+    for mc in ["XIDX", "XNYS", "XNAS", "XLON", "XFRA", "XHKG", "XSHG", "XTSE", "XSGX"]:
+        hols = guard.get_upcoming_holidays(mc, days=days, as_of=today)
+        for h_date, h_name in hols:
+            upcoming.append({
+                "market": mc,
+                "date": h_date.isoformat(),
+                "name": h_name,
+            })
+    upcoming.sort(key=lambda x: x["date"])
+    return {"upcoming": upcoming, "today": today.isoformat()}
+
+
+@app.get("/api/scheduler/sessions")
+async def scheduler_sessions():
+    """Return real-time session status for all world exchanges."""
+    from datetime import datetime, timezone
+    from quant.core.session_orchestrator import GlobalSessionOrchestrator
+    orch = GlobalSessionOrchestrator()
+    now_utc = datetime.now(timezone.utc)
+    sessions = orch.get_all_sessions_status(now_utc)
+    open_markets = [s for s in sessions if s["status"] == "OPEN"]
+    return {
+        "current_time_utc": now_utc.strftime("%H:%M:%S"),
+        "current_time_wib": now_utc.astimezone(__import__("zoneinfo").ZoneInfo("Asia/Jakarta")).strftime("%H:%M:%S"),
+        "open_count": len(open_markets),
+        "total": len(sessions),
+        "sessions": sessions,
+    }
 
 
 @app.post("/api/scheduler/run")
@@ -672,3 +737,126 @@ async def sim_ticks():
     if not sim or not sim._running:
         return {"ticks": [], "running": False}
     return {"ticks": sim.get_all_latest_ticks(), "running": True}
+
+
+# ── Advisory / Screener ───────────────────────────────────────────────────
+
+@app.get("/api/advisory")
+async def advisory(market_regime: str = "neutral", min_composite: int = 50):
+    """Screen stocks based on latest signal attribution scores."""
+    session = get_db()
+    try:
+        result = session.execute(text("""
+            SELECT ticker, engine_name, signal_value, confidence, direction
+            FROM signal_attribution_log
+            WHERE date = (SELECT MAX(date) FROM signal_attribution_log)
+            ORDER BY signal_value DESC
+        """))
+        rows = result.fetchall()
+        picks = []
+        for r in rows:
+            ticker, engine, signal_val, confidence, direction = r
+            composite = int(abs(float(signal_val or 0)) * 100)
+            if composite >= min_composite:
+                rec = "buy" if float(signal_val or 0) > 0.1 else "sell" if float(signal_val or 0) < -0.1 else "hold"
+                picks.append({
+                    "ticker": ticker,
+                    "composite_score": composite,
+                    "recommendation": rec,
+                    "factors": {engine: float(signal_val or 0)},
+                })
+        return {
+            "market_regime": market_regime,
+            "picks": picks[:50],
+            "summary": f"{len(picks)} stocks above composite {min_composite}",
+        }
+    except Exception as e:
+        return {"market_regime": market_regime, "picks": [], "error": str(e)}
+    finally:
+        session.close()
+
+
+# ── Pipeline Dashboard ────────────────────────────────────────────────────
+
+@app.get("/api/pipeline/dashboard")
+async def pipeline_dashboard():
+    """Comprehensive pipeline status dashboard."""
+    session = get_db()
+    try:
+        # Pipeline state breakdown
+        state_result = session.execute(text("""
+            SELECT step, status, count(*) as cnt
+            FROM pipeline_state
+            WHERE date = (SELECT MAX(date) FROM pipeline_state)
+            GROUP BY step, status ORDER BY step
+        """))
+        state_breakdown = [{"step": r[0], "status": r[1], "count": r[2]} for r in state_result.fetchall()]
+
+        # Latest signal attribution
+        sig_result = session.execute(text("""
+            SELECT count(*) as total, count(DISTINCT ticker) as tickers,
+                   count(DISTINCT engine_name) as engines
+            FROM signal_attribution_log
+            WHERE date = (SELECT MAX(date) FROM signal_attribution_log)
+        """))
+        sig_row = sig_result.fetchone()
+
+        # Portfolio weights
+        port_result = session.execute(text("""
+            SELECT count(*) as positions,
+                   count(CASE WHEN weight > 0.05 THEN 1 END) as concentrated
+            FROM portfolio_weights
+            WHERE date = (SELECT MAX(date) FROM portfolio_weights)
+        """))
+        port_row = port_result.fetchone()
+
+        # Paper trading state
+        pt_result = session.execute(text("""
+            SELECT date, nav, cash, n_trades, n_rejected, total_pnl, is_halted
+            FROM paper_trading_state ORDER BY date DESC LIMIT 1
+        """))
+        pt_row = pt_result.fetchone()
+
+        # Feature values count
+        fv_result = session.execute(text("SELECT count(*) FROM feature_values"))
+        fv_count = fv_result.scalar()
+
+        # News sentiment count
+        ns_result = session.execute(text("SELECT count(*) FROM news_sentiment"))
+        ns_count = ns_result.scalar()
+
+        # Model retirement verdicts
+        eng_result = session.execute(text("""
+            SELECT DISTINCT engine_name FROM prediction_evaluation ORDER BY engine_name
+        """))
+        engines = [r[0] for r in eng_result.fetchall()]
+
+        return {
+            "pipeline_state": state_breakdown,
+            "signals": {
+                "total": sig_row[0] if sig_row else 0,
+                "tickers": sig_row[1] if sig_row else 0,
+                "engines": sig_row[2] if sig_row else 0,
+            },
+            "portfolio": {
+                "positions": port_row[0] if port_row else 0,
+                "concentrated": port_row[1] if port_row else 0,
+            },
+            "paper_trading": {
+                "date": str(pt_row[0]) if pt_row else None,
+                "nav": float(pt_row[1]) if pt_row else None,
+                "cash": float(pt_row[2]) if pt_row else None,
+                "n_trades": pt_row[3] if pt_row else 0,
+                "n_rejected": pt_row[4] if pt_row else 0,
+                "total_pnl": float(pt_row[5]) if pt_row else 0,
+                "is_halted": pt_row[6] if pt_row else False,
+            },
+            "feature_values_count": fv_count,
+            "news_sentiment_count": ns_count,
+            "engines_tracked": len(engines),
+            "engines": engines,
+        }
+    except Exception as e:
+        return {"error": str(e)}
+    finally:
+        session.close()

@@ -256,7 +256,7 @@ class TestRLAllocator:
             signals=signals,
             n_assets=n_assets,
         )
-        obs = env.reset()
+        obs, info = env.reset()
         assert isinstance(obs, np.ndarray)
         assert len(obs) > 0
 
@@ -292,5 +292,5 @@ class TestRLAllocator:
             signals=signals,
             n_assets=n_assets,
         )
-        obs = env.reset()
+        obs, info = env.reset()
         assert obs.shape[0] == env.obs_dim

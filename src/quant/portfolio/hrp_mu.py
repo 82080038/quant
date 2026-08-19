@@ -121,7 +121,11 @@ class HRPMu:
         """Convert covariance to correlation matrix."""
         std = np.sqrt(np.diag(cov))
         std[std == 0] = 1e-8
-        return cov / np.outer(std, std)
+        corr = cov / np.outer(std, std)
+        # Clip to valid range to avoid NaN from floating point errors
+        corr = np.nan_to_num(corr, nan=0.0)
+        corr = np.clip(corr, -1.0, 1.0)
+        return corr
 
     @staticmethod
     def _get_quasi_diag(link: np.ndarray, n: int) -> list[int]:

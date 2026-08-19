@@ -57,10 +57,10 @@ class FetchItem:
     __slots__ = (
         "ticker", "exchange_mic", "currency", "data_layer",
         "fetch_frequency", "last_fetch_at", "next_fetch_at",
-        "fetch_status", "name", "sector",
+        "fetch_status", "company_name", "sector_id",
         "data_source_type", "data_source_url", "data_source_fallback",
         "fetch_adapter", "data_source_metadata",
-        "delisting_reason", "merged_to_ticker",
+        "delisting_date", "underlying_ticker",
     )
 
     def __init__(self, row: tuple) -> None:
@@ -73,15 +73,15 @@ class FetchItem:
             self.last_fetch_at,
             self.next_fetch_at,
             self.fetch_status,
-            self.name,
-            self.sector,
+            self.company_name,
+            self.sector_id,
             self.data_source_type,
             self.data_source_url,
             self.data_source_fallback,
             self.fetch_adapter,
             self.data_source_metadata,
-            self.delisting_reason,
-            self.merged_to_ticker,
+            self.delisting_date,
+            self.underlying_ticker,
         ) = row
 
     def __repr__(self) -> str:
@@ -131,15 +131,15 @@ class FetchRegistry:
             Instrument.last_fetch_at,
             Instrument.next_fetch_at,
             Instrument.fetch_status,
-            Instrument.name,
-            Instrument.sector,
+            Instrument.company_name,
+            Instrument.sector_id,
             Instrument.data_source_type,
             Instrument.data_source_url,
             Instrument.data_source_fallback,
             Instrument.fetch_adapter,
             Instrument.data_source_metadata,
-            Instrument.delisting_reason,
-            Instrument.merged_to_ticker,
+            Instrument.delisting_date,
+            Instrument.underlying_ticker,
         ).where(
             Instrument.is_active == True,  # noqa: E712
             Instrument.fetch_status.in_(["STALE", "NEVER_FETCHED", "FAILED"]),
@@ -169,15 +169,15 @@ class FetchRegistry:
             Instrument.last_fetch_at,
             Instrument.next_fetch_at,
             Instrument.fetch_status,
-            Instrument.name,
-            Instrument.sector,
+            Instrument.company_name,
+            Instrument.sector_id,
             Instrument.data_source_type,
             Instrument.data_source_url,
             Instrument.data_source_fallback,
             Instrument.fetch_adapter,
             Instrument.data_source_metadata,
-            Instrument.delisting_reason,
-            Instrument.merged_to_ticker,
+            Instrument.delisting_date,
+            Instrument.underlying_ticker,
         ).where(
             Instrument.is_active == True,  # noqa: E712
             Instrument.data_layer == data_layer,
