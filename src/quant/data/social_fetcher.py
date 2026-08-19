@@ -198,7 +198,7 @@ class SocialSentimentAdapter:
             result = self.session.execute(text("""
                 SELECT ticker FROM instruments
                 WHERE ticker LIKE '%%.JK'
-                AND asset_class = 'EQUITY_INDIVIDUAL'
+                AND asset_class = 'equity'
                 AND sector_id != 15
                 ORDER BY ticker LIMIT 50
             """))

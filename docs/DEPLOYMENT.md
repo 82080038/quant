@@ -16,8 +16,13 @@
 # Create database
 createdb quant
 
-# Run migrations
+# Run migrations (0001 baseline through 0010_asset_classes)
 alembic upgrade head
+
+# Migration 0010 normalizes instruments.asset_class to FK on asset_classes table
+# and adds base_currency/quote_currency columns for forex instruments.
+# If upgrading from a pre-0010 state, existing asset_class values
+# (EQUITY_INDIVIDUAL, FX, COMMODITY_FUTURES, etc.) are auto-normalized.
 
 # Create paper trading tables
 psql -d quant -f scripts/create_paper_trading_tables.sql

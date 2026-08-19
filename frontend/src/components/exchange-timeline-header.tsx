@@ -16,6 +16,7 @@
 import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 import { ChevronRight, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getMoonPhase, moonSvgPath, type MoonPhaseInfo } from "@/lib/moon-phase";
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -94,12 +95,27 @@ const STATUS_LABEL_SHORT: Record<string, string> = {
   "WEEKEND": "WEEK",
 };
 
+// ── Moon Phase mini-icon ─────────────────────────────────────────────────
+
+function MoonIcon({ phase, size = 10 }: { phase: MoonPhaseInfo; size?: number }) {
+  const isWaxing = phase.illumination > 0 && phase.name.includes("Waxing");
+  const path = moonSvgPath(phase.illumination, isWaxing, size);
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="shrink-0">
+      <path d={path} fill="rgba(255,255,255,0.85)" stroke="rgba(255,255,255,0.3)" strokeWidth={0.3} />
+    </svg>
+  );
+}
+
 // ── Component ────────────────────────────────────────────────────────────
 
 export function ExchangeTimelineHeader() {
   const [data, setData] = useState<SessionsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const prevOrderRef = useRef<string[]>([]);
+
+  // Compute moon phase once per render cycle (updates every poll)
+  const moonPhase = useMemo(() => getMoonPhase(), [data?.current_time_utc]);
 
   const loadData = useCallback(async () => {
     try {
@@ -151,11 +167,16 @@ export function ExchangeTimelineHeader() {
 
   return (
     <div className="flex items-center gap-0 px-2 h-10 rounded-md border border-border/60 bg-card/60 backdrop-blur-sm text-xs overflow-hidden shrink-0">
-      {/* Clock display */}
+      {/* Clock display with moon phase */}
       <div className="flex items-center gap-1.5 px-2 shrink-0 border-r border-border/40 h-full">
         <Clock className="w-3 h-3 text-amber-400" />
         <span className="font-mono text-amber-300 text-[11px]">{data.current_time_wib}</span>
         <span className="text-[9px] text-muted-foreground">WIB</span>
+        <div className="w-px h-3 bg-border/40 mx-0.5" />
+        <MoonIcon phase={moonPhase} size={11} />
+        <span className="text-[8px] text-slate-400 leading-none" title={moonPhase.name}>
+          {(moonPhase.illumination * 100).toFixed(0)}%
+        </span>
       </div>
 
       {/* Exchange cards with causality connectors */}
@@ -200,7 +221,7 @@ export function ExchangeTimelineHeader() {
                   !isActive && "bg-transparent",
                 )}
               >
-                {/* Top row: market code + status dot */}
+                {/* Top row: market code + status dot + moon */}
                 <div className="flex items-center gap-1 w-full justify-center">
                   <div className={cn(
                     "w-1.5 h-1.5 rounded-full shrink-0",
@@ -212,6 +233,7 @@ export function ExchangeTimelineHeader() {
                   {s.is_dst_active && (
                     <span className="text-[7px] text-blue-400 font-bold leading-none">D</span>
                   )}
+                  <MoonIcon phase={moonPhase} size={8} />
                 </div>
 
                 {/* Index row: symbol + change% */}

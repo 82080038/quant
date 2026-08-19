@@ -2,7 +2,7 @@
 
 > **Gigantic AI** untuk Pasar Modal Indonesia (IDX) & Global — Multi-Agent LLM + Deep Learning Ensemble + Academic-Grade Validation.
 
-[![Tests](https://img.shields.io/badge/tests-178%20passed%2C%202%20skipped-brightgreen)](#testing)
+[![Tests](https://img.shields.io/badge/tests-272%20passed-brightgreen)](#testing)
 [![Python](https://img.shields.io/badge/python-3.12%2B-blue)](#prasyarat-sistem)
 [![CUDA](https://img.shields.io/badge/CUDA-dynamic%20detection-orange)](#cuda-awareness)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-lightgrey)](#dukungan-cross-platform-windows--linux)

@@ -85,6 +85,8 @@ class Instrument(Base):
     data_source_metadata = Column(JSON)
     delisting_date = Column(Date)
     underlying_ticker = Column(String(30))
+    base_currency = Column(String(3))
+    quote_currency = Column(String(3))
 
 
 class Exchange(Base):

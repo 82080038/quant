@@ -238,6 +238,56 @@ async def get_ihsg():
         session.close()
 
 
+@app.get("/api/prices/candles")
+async def get_candles(
+    ticker: str = Query(..., description="Ticker symbol"),
+    limit: int = Query(120, ge=10, le=500),
+):
+    """Get OHLCV candlestick data for charting."""
+    sim = _get_sim()
+    if sim and sim._running and ticker in ("^JKSE", "BBCA.JK", "BBRI.JK", "TLKM.JK"):
+        # Return simulated OHLCV bars if available
+        bars = sim.ohlcv_history.get(ticker, [])
+        candles = [
+            {
+                "date": b.date.isoformat() if hasattr(b, "date") else str(b.get("date", "")),
+                "open": float(b.open if hasattr(b, "open") else b.get("open", 0)),
+                "high": float(b.high if hasattr(b, "high") else b.get("high", 0)),
+                "low": float(b.low if hasattr(b, "low") else b.get("low", 0)),
+                "close": float(b.close if hasattr(b, "close") else b.get("close", 0)),
+                "volume": float(b.volume if hasattr(b, "volume") else b.get("volume", 0)),
+            }
+            for b in bars[-limit:]
+        ]
+        if candles:
+            return candles
+
+    session = get_db()
+    try:
+        result = session.execute(text("""
+            SELECT date, open, high, low, close, volume
+            FROM stock_prices
+            WHERE ticker = :ticker
+            ORDER BY date DESC
+            LIMIT :limit
+        """), {"ticker": ticker, "limit": limit})
+        rows = result.fetchall()
+        rows = list(reversed(rows))  # chronological order
+        return [
+            {
+                "date": str(r[0]),
+                "open": float(r[1]) if r[1] else 0.0,
+                "high": float(r[2]) if r[2] else 0.0,
+                "low": float(r[3]) if r[3] else 0.0,
+                "close": float(r[4]) if r[4] else 0.0,
+                "volume": float(r[5]) if r[5] else 0.0,
+            }
+            for r in rows
+        ]
+    finally:
+        session.close()
+
+
 @app.get("/api/instruments")
 async def list_instruments(active_only: bool = True, asset_class: str | None = None):
     """List all instruments, optionally filtered by asset class."""

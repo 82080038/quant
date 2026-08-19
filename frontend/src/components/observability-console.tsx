@@ -139,19 +139,94 @@ export function ObservabilityConsole() {
             Menunggu stream log dari BE…
           </div>
         ) : (
-          logs.map((l, i) => {
-            const time = new Date(l.ts * 1000).toLocaleTimeString("en-GB", { hour12: false });
-            return (
-              <div key={i} className="leading-snug">
-                <span className="text-muted-foreground/70">{time}</span>{" "}
-                <span className={`lvl-${l.level}`}>[{l.level}]</span>{" "}
-                <span className="text-muted-foreground/80">{l.src}</span>{" "}
-                <span>{l.msg}</span>
-              </div>
-            );
-          })
+          <VirtualLogList logs={logs} paused={paused} autoScroll={autoScroll} containerRef={logBoxRef} />
         )}
       </div>
     </Widget>
+  );
+}
+
+// ── Virtual scrolling log list ───────────────────────────────────────────
+
+const LOG_LINE_HEIGHT = 16; // px per log line (leading-snug + padding)
+
+function VirtualLogList({
+  logs,
+  paused,
+  autoScroll,
+  containerRef,
+}: {
+  logs: { ts: number; level: string; src: string; msg: string }[];
+  paused: boolean;
+  autoScroll: boolean;
+  containerRef: React.RefObject<HTMLDivElement | null>;
+}) {
+  const [scrollTop, setScrollTop] = useState(0);
+  const [viewportH, setViewportH] = useState(200);
+  const rafRef = useRef(0);
+
+  // Track scroll position with rAF throttling
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const onScroll = () => {
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        setScrollTop(el.scrollTop);
+        rafRef.current = 0;
+      });
+    };
+
+    const onResize = () => setViewportH(el.clientHeight);
+    onResize();
+
+    el.addEventListener("scroll", onScroll, { passive: true });
+    const ro = new ResizeObserver(onResize);
+    ro.observe(el);
+
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      ro.disconnect();
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [containerRef]);
+
+  // Auto-scroll to bottom when new logs arrive
+  useEffect(() => {
+    if (!autoScroll || paused) return;
+    const el = containerRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [logs, autoScroll, paused, containerRef]);
+
+  const totalH = logs.length * LOG_LINE_HEIGHT;
+  const startIndex = Math.max(0, Math.floor(scrollTop / LOG_LINE_HEIGHT) - 5);
+  const endIndex = Math.min(
+    logs.length,
+    Math.ceil((scrollTop + viewportH) / LOG_LINE_HEIGHT) + 5,
+  );
+  const visibleLogs = logs.slice(startIndex, endIndex);
+  const offsetY = startIndex * LOG_LINE_HEIGHT;
+
+  return (
+    <div style={{ height: totalH, position: "relative" }}>
+      <div style={{ transform: `translateY(${offsetY}px)` }}>
+        {visibleLogs.map((l, i) => {
+          const time = new Date(l.ts * 1000).toLocaleTimeString("en-GB", { hour12: false });
+          return (
+            <div
+              key={startIndex + i}
+              className="leading-snug"
+              style={{ height: LOG_LINE_HEIGHT }}
+            >
+              <span className="text-muted-foreground/70">{time}</span>{" "}
+              <span className={`lvl-${l.level}`}>[{l.level}]</span>{" "}
+              <span className="text-muted-foreground/80">{l.src}</span>{" "}
+              <span>{l.msg}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }

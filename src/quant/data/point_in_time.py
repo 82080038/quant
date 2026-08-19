@@ -189,7 +189,7 @@ class PointInTimeQuery:
             SELECT ticker FROM instruments
             WHERE is_active = TRUE
               AND is_delisted = FALSE
-              AND asset_class IN ('EQUITY', 'EQUITY_INDIVIDUAL')
+              AND asset_class = 'equity'
               AND (listed_date IS NULL OR listed_date <= :as_of_date)
               AND (delisted_date IS NULL OR delisted_date > :as_of_date)
             ORDER BY ticker

@@ -59,14 +59,43 @@ def upgrade():
         """
     )
 
+    # ── Add base_currency and quote_currency columns for forex ─────────
+    op.add_column("instruments", sa.Column("base_currency", sa.String(3)))
+    op.add_column("instruments", sa.Column("quote_currency", sa.String(3)))
+
     # ── Migrate existing instruments.asset_class values ──────────────────
-    # Current values: 'equity', 'EQUITY_INDIVIDUAL', 'EQUITY_INDEX', etc.
-    # Normalize to lowercase FK-compatible codes.
+    # Current values: EQUITY_INDIVIDUAL, EQUITY, INDEX_COMPOSITE, FX,
+    # COMMODITY_FUTURES, ETF, fund, VOLATILITY_RATE, index
+    # Map each to the correct asset_classes.code.
     op.execute(
         """
-        UPDATE instruments
-        SET asset_class = LOWER(REPLACE(asset_class, 'EQUITY_', ''))
-        WHERE asset_class ILIKE 'EQUITY%%'
+        UPDATE instruments SET asset_class = 'equity'
+        WHERE asset_class IN ('EQUITY_INDIVIDUAL', 'EQUITY', 'ETF', 'fund')
+           OR asset_class ILIKE 'EQUITY%%'
+        """
+    )
+    op.execute(
+        """
+        UPDATE instruments SET asset_class = 'index'
+        WHERE asset_class IN ('INDEX_COMPOSITE', 'INDEX')
+        """
+    )
+    op.execute(
+        """
+        UPDATE instruments SET asset_class = 'forex'
+        WHERE asset_class IN ('FX', 'FOREX')
+        """
+    )
+    op.execute(
+        """
+        UPDATE instruments SET asset_class = 'commodity'
+        WHERE asset_class IN ('COMMODITY_FUTURES', 'COMMODITY')
+        """
+    )
+    op.execute(
+        """
+        UPDATE instruments SET asset_class = 'macro_rate'
+        WHERE asset_class IN ('VOLATILITY_RATE', 'MACRO_RATE')
         """
     )
     # Any remaining unknown values → 'equity' as safe default
@@ -77,6 +106,8 @@ def upgrade():
         WHERE asset_class NOT IN (SELECT code FROM asset_classes)
         """
     )
+    # Set default for asset_class column
+    op.alter_column("instruments", "asset_class", server_default=sa.text("'equity'"))
 
     # ── Add FK constraint ────────────────────────────────────────────────
     op.create_foreign_key(
@@ -100,4 +131,6 @@ def upgrade():
 def downgrade():
     op.drop_index("idx_instruments_asset_class", table_name="instruments")
     op.drop_constraint("fk_instruments_asset_class", "instruments", type_="foreignkey")
+    op.drop_column("instruments", "quote_currency")
+    op.drop_column("instruments", "base_currency")
     op.drop_table("asset_classes")

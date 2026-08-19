@@ -111,7 +111,7 @@ def register_pipeline_tasks(scheduler: TaskScheduler, session=None) -> None:
         # Get active tickers
         tickers = session.execute(sa_text(
             "SELECT ticker FROM instruments WHERE is_active = TRUE "
-            "AND asset_class = 'EQUITY_INDIVIDUAL' LIMIT 50"
+            "AND asset_class = 'equity' LIMIT 50"
         )).fetchall()
         tickers = [r[0] for r in tickers]
 

@@ -14,7 +14,7 @@ from alembic import op
 import sqlalchemy as sa
 
 revision = "0004_fk_normalization"
-down_revision = "0003_pipeline_state_machine"
+down_revision = "0003"
 branch_labels = None
 depends_on = None
 

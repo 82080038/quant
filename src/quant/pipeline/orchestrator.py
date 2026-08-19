@@ -95,7 +95,7 @@ class PipelineOrchestrator:
             "FROM stock_prices sp "
             "JOIN instruments i ON sp.ticker = i.ticker "
             "WHERE sp.date >= :start_date AND sp.volume > 0 "
-            "AND i.asset_class = 'EQUITY_INDIVIDUAL' "
+            "AND i.asset_class = 'equity' "
             "AND i.is_delisted = FALSE "
             "AND i.is_active = TRUE "
             "AND sp.ticker NOT LIKE 'IDX%%' "

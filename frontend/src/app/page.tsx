@@ -41,6 +41,7 @@ import { Widget } from "@/components/widget";
 import { ObservabilityConsole } from "@/components/observability-console";
 import { MarketClockWidget } from "@/components/market-clock-widget";
 import { ExchangeTimelineHeader } from "@/components/exchange-timeline-header";
+import { CelestialFibonacciChart } from "@/components/celestial-fibonacci-chart";
 import { CrosshairProvider, useCrosshairStore } from "@/components/crosshair-context";
 import { getWsClient, useWsLatest, type WsMessage } from "@/lib/ws-client";
 import { useFpsGuard } from "@/lib/use-fps-guard";
@@ -436,20 +437,10 @@ export default function DashboardPage() {
             </div>
           </Widget>
 
-          <Widget
-            title="IHSG Live"
-            icon={<Activity className="w-3.5 h-3.5" />}
-            accent="text-primary"
+          <CelestialFibonacciChart
+            ticker="^JKSE"
             className="col-span-6"
-            right={
-              <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                <Radio className="w-3 h-3 text-primary animate-pulse" /> WS
-              </span>
-            }
-            bodyClassName="!p-2"
-          >
-            <IhsgChart ihsg={ihsg} tickRing={tickRingRef.current} />
-          </Widget>
+          />
 
           {/* Row 2 */}
           <Widget
