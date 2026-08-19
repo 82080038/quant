@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<title>FE Stress Probe — Astronacci Dashboard</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; font: 13px/1.4 ui-monospace, monospace; background: #05060f; color: #cde; padding: 12px; }
+  h1 { font-size: 15px; margin: 0 0 8px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 900px; }
+  .card { background: #0e1322; border: 1px solid #1c2740; border-radius: 6px; padding: 8px 10px; }
+  .card h2 { font-size: 11px; margin: 0 0 4px; color: #6f8bbf; text-transform: uppercase; letter-spacing: .5px; }
+  .val { font-size: 22px; font-weight: 700; }
+  .small { font-size: 11px; color: #7d8fb3; }
+  .ok { color: #4ade80; } .warn { color: #facc15; } .bad { color: #f87171; }
+  #log { max-height: 180px; overflow: auto; font-size: 11px; white-space: pre; }
+  button { background: #1c2740; color: #cde; border: 1px solid #2a3a5e; border-radius: 4px; padding: 4px 10px; cursor: pointer; }
+  .row { display: flex; gap: 8px; align-items: center; margin: 8px 0; }
+</style>
+</head>
+<body>
+<h1>FE Stress Probe — FPS / Heap / Backlog / Backpressure</h1>
+<div class="row">
+  <label>WS URL <input id="url" value="ws://localhost:8001/ws" size="28" /></label>
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+  <span class="small" id="phase">—</span>
+</div>
+<div class="grid">
+  <div class="card"><h2>FPS avg</h2><div class="val ok" id="fps">—</div><div class="small" id="fpsMin">min —</div></div>
+  <div class="card"><h2>JS Heap</h2><div class="val" id="heap">—</div><div class="small">MB used</div></div>
+  <div class="card"><h2>WS Backlog</h2><div class="val" id="backlog">—</div><div class="small">recv vs rendered</div></div>
+  <div class="card"><h2>Msg received</h2><div class="val" id="recv">0</div><div class="small" id="rate">0 msg/s</div></div>
+  <div class="card"><h2>Long tasks</h2><div class="val" id="long">0</div><div class="small">>50ms</div></div>
+  <div class="card"><h2>Render ratio</h2><div class="val" id="ratio">—</div><div class="small">render/msg</div></div>
+</div>
+<div class="card" style="margin-top:8px"><h2>Event log</h2><div id="log"></div></div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────
+let ws = null, rafId = null, running = false;
+let lastFrame = 0, fpsSamples = [], fpsMin = Infinity;
+let msgRecv = 0, renderCount = 0, longTasks = 0;
+let lastRecvSnapshot = 0, lastSampleTs = 0;
+const logEl = document.getElementById('log');
+const phaseEl = document.getElementById('phase');
+
+function log(msg) {
+  const t = new Date().toLocaleTimeString('en-GB', { hour12: false });
+  logEl.textContent = `[${t}] ${msg}\n` + logEl.textContent.slice(0, 4000);
+}
+
+// ── Long task observer (>50ms main-thread block) ───────────────────────
+const longObs = new PerformanceObserver((list) => {
+  for (const e of list.getEntries()) {
+    longTasks++;
+    if (running) log(`LONG TASK ${e.duration.toFixed(0)}ms`);
+  }
+});
+try { longObs.observe({ type: 'longtask', buffered: true }); } catch (_) {}
+
+// ── FPS sampler via rAF ─────────────────────────────────────────────────
+function fpsLoop(now) {
+  if (!running) return;
+  if (lastFrame) {
+    const dt = now - lastFrame;
+    const fps = 1000 / dt;
+    fpsSamples.push(fps);
+    if (fps < fpsMin) fpsMin = fps;
+    renderCount++;
+  }
+  lastFrame = now;
+
+  // Sample tiap 500ms
+  if (now - lastSampleTs > 500) {
+    const avg = fpsSamples.length ? fpsSamples.reduce((a,b)=>a+b,0)/fpsSamples.length : 0;
+    const fpsEl = document.getElementById('fps');
+    fpsEl.textContent = avg.toFixed(1);
+    fpsEl.className = 'val ' + (avg >= 50 ? 'ok' : avg >= 30 ? 'warn' : 'bad');
+    document.getElementById('fpsMin').textContent = 'min ' + (isFinite(fpsMin) ? fpsMin.toFixed(1) : '—');
+
+    const mem = performance.memory;
+    document.getElementById('heap').textContent = mem ? (mem.usedJSHeapSize/1048576).toFixed(1) : 'n/a';
+
+    const backlog = msgRecv - renderCount;
+    const blEl = document.getElementById('backlog');
+    blEl.textContent = Math.max(0, backlog);
+    blEl.className = 'val ' + (backlog < 50 ? 'ok' : backlog < 200 ? 'warn' : 'bad');
+
+    document.getElementById('recv').textContent = msgRecv.toLocaleString();
+    const instRate = (msgRecv - lastRecvSnapshot) / ((now - lastSampleTs)/1000);
+    document.getElementById('rate').textContent = instRate.toFixed(0) + ' msg/s';
+    document.getElementById('long').textContent = longTasks;
+    const ratio = msgRecv ? (renderCount / msgRecv) : 0;
+    document.getElementById('ratio').textContent = ratio.toFixed(3);
+
+    // ── Backpressure: jika FPS < 30 selama sample, kirim throttle ──
+    if (avg < 30 && ws && ws.readyState === 1) {
+      ws.send(JSON.stringify({ cmd: 'throttle', max_rate: 50 }));
+      log(`BACKPRESSURE: FPS ${avg.toFixed(1)} -> throttle 50/s`);
+    } else if (avg > 55 && ws && ws.readyState === 1) {
+      ws.send(JSON.stringify({ cmd: 'throttle_off' }));
+    }
+
+    lastRecvSnapshot = msgRecv;
+    lastSampleTs = now;
+    fpsSamples = [];
+  }
+  rafId = requestAnimationFrame(fpsLoop);
+}
+
+// ── WebSocket ───────────────────────────────────────────────────────────
+function start() {
+  if (running) return;
+  running = true;
+  msgRecv = renderCount = longTasks = 0;
+  fpsMin = Infinity; fpsSamples = []; lastFrame = 0; lastSampleTs = 0;
+  log('START probe');
+
+  ws = new WebSocket(document.getElementById('url').value);
+  ws.onopen = () => log('WS connected');
+  ws.onmessage = (ev) => {
+    msgRecv++;
+    // Simulasi pemrosesan ringan (decode) — TIDAK setState tiap msg
+    try { JSON.parse(ev.data); } catch (_) {}
+  };
+  ws.onerror = (e) => log('WS error ' + JSON.stringify(e));
+  ws.onclose = () => log('WS closed');
+
+  // Fetch profil fase untuk display
+  fetch('http://localhost:8001/profile').then(r=>r.json()).then(p => {
+    const el = Math.floor(performance.now()/1000);
+    phaseEl.textContent = 'phases: ' + p.phases.map(ph => `${ph.start}-${ph.end}s:${ph.rate}/s`).join(' | ');
+  }).catch(()=>{});
+
+  rafId = requestAnimationFrame(fpsLoop);
+}
+
+function stop() {
+  running = false;
+  if (rafId) cancelAnimationFrame(rafId);
+  if (ws) { ws.close(); ws = null; }
+  log('STOP probe');
+}
+
+document.getElementById('start').onclick = start;
+document.getElementById('stop').onclick = stop;
+</script>
+</body>
+</html>

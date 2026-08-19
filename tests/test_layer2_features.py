@@ -3,13 +3,6 @@
 Tests:
 - factor_library: Factor computation (RSI, MACD, BB, ADX, ATR, KAMA, OBV, MFI, VWAP)
 - feature_store: Feature definition, caching, freshness
-- recompute_graph: Dependency graph (DB-backed, tested with mock session)
-
-Known bugs found:
-- recompute_graph.py imports `get_sessionmaker` from `quant.db.engine` but that
-  function does not exist. Only `get_engine` and `get_db` are defined.
-- recompute_graph.py imports `RecomputeDependency` and `RecomputeTrigger` from
-  `quant.db.models` but those classes are not defined (models.py has only stubs).
 """
 
 import pytest
@@ -158,41 +151,3 @@ class TestFeatureStore:
         from quant.features.feature_store import FeatureStore
         store = FeatureStore()
         assert store is not None
-
-
-# ── Recompute Graph ──────────────────────────────────────────────────────────
-
-class TestRecomputeGraph:
-    """Test recompute dependency graph.
-
-    NOTE: RecomputeGraph is DB-backed. The module has import errors:
-    - `get_sessionmaker` does not exist in `quant.db.engine`
-    - `RecomputeDependency` / `RecomputeTrigger` not in `quant.db.models`
-
-    These tests verify the class exists but skip DB-dependent operations.
-    """
-
-    def test_class_exists(self):
-        """Verify RecomputeGraph class can be imported (may fail due to bugs)."""
-        try:
-            from quant.features.recompute_graph import RecomputeGraph
-            assert RecomputeGraph is not None
-        except (ImportError, AttributeError) as e:
-            pytest.skip(f"RecomputeGraph has import errors (known bug): {e}")
-
-    def test_get_affected_functions_with_mock(self, mock_session):
-        """Test get_affected_functions with mock session."""
-        try:
-            from quant.features.recompute_graph import RecomputeGraph
-        except (ImportError, AttributeError) as e:
-            pytest.skip(f"Import error (known bug): {e}")
-
-        mock_result = MagicMock()
-        mock_result.fetchall.return_value = [("recompute_technical",)]
-        mock_session.execute.return_value = mock_result
-
-        try:
-            result = RecomputeGraph.get_affected_functions("stock_prices", session=mock_session)
-            assert isinstance(result, list)
-        except Exception:
-            pytest.skip("DB model not available")

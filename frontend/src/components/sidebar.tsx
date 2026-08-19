@@ -10,15 +10,10 @@ import {
   Search,
   Settings,
   FileText,
-  Bot,
-  Scan,
   Database,
   BellRing,
   Orbit,
   Clock,
-  Play,
-  ShieldCheck,
-  Activity,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -41,7 +36,6 @@ const navSections: NavSection[] = [
       { href: "/signals", label: "Sinyal", icon: BellRing },
       { href: "/screener", label: "Screener", icon: Search },
       { href: "/stock", label: "Saham", icon: TrendingUp },
-      { href: "/scan", label: "Pola & Prediksi", icon: Scan },
     ],
   },
   {
@@ -49,15 +43,6 @@ const navSections: NavSection[] = [
     items: [
       { href: "/portfolio", label: "Portofolio", icon: Wallet },
       { href: "/backtest", label: "Backtest", icon: FlaskConical },
-      { href: "/simulation", label: "Simulasi", icon: Play },
-      { href: "/automation", label: "Otomasi", icon: Bot },
-    ],
-  },
-  {
-    title: "Validasi",
-    items: [
-      { href: "/evaluation", label: "Evaluasi (DSR/PBO)", icon: ShieldCheck },
-      { href: "/monitoring", label: "Monitoring & Drift", icon: Activity },
     ],
   },
   {

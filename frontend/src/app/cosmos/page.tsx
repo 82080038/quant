@@ -421,7 +421,25 @@ function formatLocalTime(iso: string, timezone: string): string {
 
     if (!startTimeRef.current) startTimeRef.current = performance.now();
 
+    // ── Frame throttle: cap redraw at ~15 FPS when idle to keep CPU low.
+    //    The globe rotation is slow (0.08 rad/s) so 15 FPS looks smooth
+    //    while cutting canvas work by ~75% vs 60 FPS.
+    const FRAME_INTERVAL_MS = 1000 / 15;
+    let lastDrawTs = 0;
+
     const draw = (now: number) => {
+      // Pause rendering entirely when the tab is hidden — saves CPU/GPU.
+      if (document.hidden) {
+        animRef.current = requestAnimationFrame(draw);
+        return;
+      }
+      // Throttle: skip this frame if we drew too recently.
+      if (now - lastDrawTs < FRAME_INTERVAL_MS) {
+        animRef.current = requestAnimationFrame(draw);
+        return;
+      }
+      lastDrawTs = now;
+
       const t = paused ? 0 : (now - startTimeRef.current) / 1000;
       const W = window.innerWidth;
       const H = window.innerHeight;
@@ -429,6 +447,9 @@ function formatLocalTime(iso: string, timezone: string): string {
       const cy = H / 2;
       const earthR = Math.min(W, H) * 0.38; // globe besar di tengah
       const rotation = t * 0.08;
+      // Skip the expensive graticule loop on small viewports — the lines
+      // are sub-pixel and invisible below this radius anyway.
+      const drawGraticule = earthR >= 150;
 
       // Background
       ctx.fillStyle = "#05060f";
@@ -520,7 +541,8 @@ function formatLocalTime(iso: string, timezone: string): string {
         }
       }
 
-      // Graticule
+      // Graticule (skipped on small viewports — see drawGraticule gate)
+      if (drawGraticule) {
       ctx.strokeStyle = "rgba(100,140,200,0.06)";
       ctx.lineWidth = 0.5;
       for (let lon = -180; lon < 180; lon += 30) {
@@ -560,6 +582,7 @@ function formatLocalTime(iso: string, timezone: string): string {
         } else first = true;
       }
       ctx.stroke();
+      } // end drawGraticule
 
       // ── Exchange markers ──
       const exchanges = dataRef.current.exchanges;
