@@ -31,6 +31,7 @@ import {
   Activity,
   ArrowDown,
   ArrowUp,
+  Moon,
   TrendingUp,
   Wallet,
 } from "lucide-react";
@@ -87,6 +88,30 @@ interface SignalAttr {
   weight: number;
   contribution: number;
   rationale: string;
+}
+
+// ── FE Cache State (zero-wait from fe_dashboard_cache) ────────────────
+
+interface FeCacheState {
+  sim_date: string;
+  equity: number;
+  cash: number;
+  positions: Record<string, { ticker: string; shares: number; entry_price: number; entry_date: string | null; asset_class: string }>;
+  regime: string;
+  active_cycles: number;
+  n_positions: number;
+  n_trades: number;
+  lookahead_violations: number;
+}
+
+function getMoonPhase(): { phase: string; icon: string } {
+  const phases = ["New", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Full", "Waning Gibbous", "Last Quarter", "Waning Crescent"];
+  const lp = 2551443; // lunar period in seconds
+  const now = Date.now() / 1000;
+  const newMoon = 592500; // reference new moon
+  const phase = ((now - newMoon) % lp) / lp;
+  const idx = Math.floor(phase * 8) % 8;
+  return { phase: phases[idx], icon: ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"][idx] };
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────
@@ -252,8 +277,10 @@ export default function DashboardPage() {
   const [ihsg, setIhsg] = useState<IhsgData | null>(null);
   const [portfolio, setPortfolio] = useState<PortfolioSummary | null>(null);
   const [signals, setSignals] = useState<SignalAttr[]>([]);
+  const [feState, setFeState] = useState<FeCacheState | null>(null);
   const [loading, setLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState<string>("");
+  const moon = useMemo(() => getMoonPhase(), []);
 
   // WS tick ring buffer for the IHSG live chart (ref-backed, coalesced).
   const tickRingRef = useRef<{ t: number; p: number }[]>([]);
@@ -263,11 +290,12 @@ export default function DashboardPage() {
   // ── REST initial load (kept; WS augments live) ──
   const loadData = useCallback(async () => {
     try {
-      const [moversRes, ihsgRes, portfolioRes, sigRes] = await Promise.allSettled([
+      const [moversRes, ihsgRes, portfolioRes, sigRes, feRes] = await Promise.allSettled([
         fetch("/api/prices/movers?limit=5"),
         fetch("/api/prices/ihsg"),
         fetch("/api/portfolio"),
         fetch("/api/signals/attribution?days=7"),
+        fetch("/api/fe-cache/latest-state"),
       ]);
       if (moversRes.status === "fulfilled" && moversRes.value.ok) {
         try { setMovers(await moversRes.value.json()); } catch {}
@@ -280,6 +308,12 @@ export default function DashboardPage() {
       }
       if (sigRes.status === "fulfilled" && sigRes.value.ok) {
         try { setSignals(await sigRes.value.json()); } catch {}
+      }
+      if (feRes.status === "fulfilled" && feRes.value.ok) {
+        try {
+          const feData = await feRes.value.json();
+          if (feData.status === "ok" && feData.state) setFeState(feData.state as FeCacheState);
+        } catch {}
       }
     } catch {
       // Network error — silently keep previous data
@@ -338,51 +372,77 @@ export default function DashboardPage() {
 
   return (
     <CrosshairProvider>
-      <div className="min-h-full w-full flex flex-col gap-2 p-2">
-        {/* Ticker Tape — global indices, forex, commodities in one scrolling strip */}
+      <div className="min-h-full w-full flex flex-col gap-4 p-4" style={{ contain: "layout" }}>
+        {/* Ticker Tape — GPU-accelerated running text */}
         <TickerTape />
 
-        {/* IHSG / breadth / FPS compact bar */}
-        <div className="flex items-center gap-4 px-3 h-7 rounded-md border border-border/60 bg-card/60 backdrop-blur-sm text-xs overflow-hidden shrink-0">
+        {/* Status bar: IHSG + Moon Phase + Breadth + FPS */}
+        <div
+          className="flex items-center gap-4 px-4 h-8 rounded-lg border border-border/40 bg-card/40 text-xs overflow-hidden shrink-0"
+          style={{ contain: "strict", backdropFilter: "blur(8px)" }}
+        >
           <span className="font-semibold text-primary shrink-0">IHSG</span>
-          <span className={cn("font-mono shrink-0", changeColor(ihsg?.pct_change))}>
+          <span className={cn("font-mono tabular-nums shrink-0", changeColor(ihsg?.pct_change))}>
             {ihsg?.price != null ? ihsg.price.toLocaleString("en-US", { maximumFractionDigits: 2 }) : "—"}
             {" "}
             {fmtPct(ihsg?.pct_change)}
           </span>
-          <div className="w-px h-3 bg-border/60 shrink-0" />
+          <div className="w-px h-3.5 bg-border/40 shrink-0" />
+          <span className="shrink-0 flex items-center gap-1" title={moon.phase}>
+            <Moon className="w-3 h-3 text-blue-300" />
+            <span className="text-muted-foreground">{moon.phase}</span>
+          </span>
+          <div className="w-px h-3.5 bg-border/40 shrink-0" />
           <span className="text-muted-foreground shrink-0">G:</span>
-          <span className="text-emerald-400 font-mono shrink-0">{breadth.g}</span>
+          <span className="text-emerald-400 font-mono tabular-nums shrink-0">{breadth.g}</span>
           <span className="text-muted-foreground shrink-0">L:</span>
-          <span className="text-red-400 font-mono shrink-0">{breadth.l}</span>
+          <span className="text-red-400 font-mono tabular-nums shrink-0">{breadth.l}</span>
+          {feState && (
+            <>
+              <div className="w-px h-3.5 bg-border/40 shrink-0" />
+              <span className="text-muted-foreground shrink-0">Sim:</span>
+              <span className="font-mono tabular-nums shrink-0 text-emerald-400">
+                {(feState.equity / 1_000_000).toFixed(2)}M
+              </span>
+              <span className={cn("shrink-0 font-mono", feState.regime === "bull" ? "text-emerald-400" : feState.regime === "bear" ? "text-red-400" : "text-muted-foreground")}>
+                {feState.regime}
+              </span>
+            </>
+          )}
           <div className="ml-auto flex items-center gap-3 shrink-0">
             <span className="text-muted-foreground">Update:</span>
-            <span className="font-mono">{lastUpdate || "—"}</span>
-            <div className="w-px h-3 bg-border/60" />
+            <span className="font-mono tabular-nums">{lastUpdate || "—"}</span>
+            <div className="w-px h-3.5 bg-border/40" />
             <span className="text-muted-foreground">FPS:</span>
-            <span className={cn("font-mono", fps >= 50 ? "text-emerald-400" : fps >= 30 ? "text-yellow-400" : "text-red-400")}>
+            <span className={cn("font-mono tabular-nums", fps >= 50 ? "text-emerald-400" : fps >= 30 ? "text-yellow-400" : "text-red-400")}>
               {fps.toFixed(0)}
             </span>
           </div>
         </div>
 
-        {/* Main widget grid: 12 cols, auto rows with generous min-heights */}
+        {/* Bento Grid: 12 cols, tier-based sizing */}
         <div
-          className="grid gap-2"
+          className="grid gap-4"
           style={{
             gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
-            gridAutoRows: "minmax(320px, auto)",
+            gridAutoRows: "minmax(280px, auto)",
           }}
         >
-          {/* Row 1: Portfolio + Movers/Breadth (consolidated) + Celestial Fibonacci */}
+          {/* Tier 1 Hero: Celestial Fibonacci Chart (6 cols × 2 rows) */}
+          <CelestialFibonacciChart
+            ticker="^JKSE"
+            className="col-span-6 row-span-2"
+          />
+
+          {/* Tier 1 Hero: Portfolio NAV (3 cols × 1 row) */}
           <Widget
             title="Portofolio"
             icon={<Wallet className="w-3.5 h-3.5" />}
             accent="text-primary"
             className="col-span-3"
-            right={<span className="text-[10px] text-muted-foreground">{portfolio?.n_positions ?? 0} pos</span>}
+            right={<span className="text-[10px] text-muted-foreground tabular-nums">{portfolio?.n_positions ?? 0} pos</span>}
           >
-            <div className="space-y-3">
+            <div className="space-y-2">
               <div>
                 <p className="text-[10px] text-muted-foreground uppercase">NAV</p>
                 <p className="text-xl font-bold tabular-nums">Rp {portfolio ? fmtIDR(portfolio.total_nav) : "—"}</p>
@@ -395,11 +455,20 @@ export default function DashboardPage() {
               </div>
               <div>
                 <p className="text-[10px] text-muted-foreground uppercase">Cash</p>
-                <p className="text-sm font-mono">Rp {portfolio ? fmtIDR(portfolio.cash) : "—"}</p>
+                <p className="text-sm font-mono tabular-nums">Rp {portfolio ? fmtIDR(portfolio.cash) : "—"}</p>
               </div>
+              {feState && (
+                <div className="pt-1 border-t border-border/30">
+                  <p className="text-[10px] text-muted-foreground uppercase">Sim Equity (cache)</p>
+                  <p className="text-sm font-bold tabular-nums text-emerald-400">
+                    Rp {fmtIDR(feState.equity)} <span className="text-[10px] text-muted-foreground font-normal">({feState.sim_date})</span>
+                  </p>
+                </div>
+              )}
             </div>
           </Widget>
 
+          {/* Tier 2 Feature: Movers & Breadth (3 cols × 1 row) */}
           <Widget
             title="Movers & Breadth"
             icon={<TrendingUp className="w-3.5 h-3.5" />}
@@ -408,7 +477,6 @@ export default function DashboardPage() {
             right={<span className="text-[10px] text-muted-foreground">{movers?.as_of ?? "—"}</span>}
           >
             <div className="space-y-2 text-xs">
-              {/* Breadth bar (consolidated from separate widget) */}
               <div>
                 <div className="flex justify-between text-[10px] text-muted-foreground mb-1">
                   <span>Gainers {breadth.g}</span>
@@ -425,9 +493,9 @@ export default function DashboardPage() {
                 </p>
                 {movers?.gainers.slice(0, 4).map((m) => (
                   <div key={m.ticker} className="flex items-center gap-2 py-0.5">
-                    <span className="font-mono font-semibold w-14">{m.ticker}</span>
-                    <span className="font-mono ml-auto">{m.close.toLocaleString("en-US", { maximumFractionDigits: 0 })}</span>
-                    <span className="text-emerald-400 font-mono w-16 text-right">{fmtPct(m.pct_change)}</span>
+                    <span className="font-mono font-semibold w-14 tabular-nums">{m.ticker}</span>
+                    <span className="font-mono ml-auto tabular-nums">{m.close.toLocaleString("en-US", { maximumFractionDigits: 0 })}</span>
+                    <span className="text-emerald-400 font-mono w-16 text-right tabular-nums">{fmtPct(m.pct_change)}</span>
                   </div>
                 )) ?? <span className="text-muted-foreground/60 italic">—</span>}
               </div>
@@ -437,44 +505,54 @@ export default function DashboardPage() {
                 </p>
                 {movers?.losers.slice(0, 4).map((m) => (
                   <div key={m.ticker} className="flex items-center gap-2 py-0.5">
-                    <span className="font-mono font-semibold w-14">{m.ticker}</span>
-                    <span className="font-mono ml-auto">{m.close.toLocaleString("en-US", { maximumFractionDigits: 0 })}</span>
-                    <span className="text-red-400 font-mono w-16 text-right">{fmtPct(m.pct_change)}</span>
+                    <span className="font-mono font-semibold w-14 tabular-nums">{m.ticker}</span>
+                    <span className="font-mono ml-auto tabular-nums">{m.close.toLocaleString("en-US", { maximumFractionDigits: 0 })}</span>
+                    <span className="text-red-400 font-mono w-16 text-right tabular-nums">{fmtPct(m.pct_change)}</span>
                   </div>
                 )) ?? <span className="text-muted-foreground/60 italic">—</span>}
               </div>
             </div>
           </Widget>
 
-          <CelestialFibonacciChart
-            ticker="^JKSE"
-            className="col-span-6"
-          />
-
-          {/* Row 2: Positions + Signals + IHSG Live Chart */}
+          {/* Tier 2 Feature: Positions (3 cols × 1 row) */}
           <Widget
             title="Posisi"
             icon={<Wallet className="w-3.5 h-3.5" />}
             className="col-span-3"
-            right={<span className="text-[10px] text-muted-foreground">{positions.length} pos</span>}
+            right={<span className="text-[10px] text-muted-foreground tabular-nums">{positions.length} pos</span>}
           >
             <div className="text-xs space-y-1">
-              {positions.length === 0 ? (
+              {positions.length === 0 && !feState ? (
                 <div className="text-muted-foreground/60 italic">Belum ada posisi</div>
               ) : (
-                positions.slice(0, 12).map(([ticker, p]) => (
-                  <div key={ticker} className="flex items-center gap-2 py-0.5 border-b border-border/30 last:border-0">
-                    <span className="font-mono font-semibold w-16 shrink-0">{ticker}</span>
-                    <span className="font-mono text-muted-foreground text-[10px] w-12 shrink-0">{p.shares}</span>
-                    <span className={cn("font-mono ml-auto text-right", p.unrealized_pnl >= 0 ? "text-emerald-400" : "text-red-400")}>
-                      {p.unrealized_pnl >= 0 ? "+" : ""}{fmtIDR(p.unrealized_pnl)}
-                    </span>
-                  </div>
-                ))
+                <>
+                  {positions.slice(0, 8).map(([ticker, p]) => (
+                    <div key={ticker} className="flex items-center gap-2 py-0.5 border-b border-border/30 last:border-0">
+                      <span className="font-mono font-semibold w-16 shrink-0 tabular-nums">{ticker}</span>
+                      <span className="font-mono text-muted-foreground text-[10px] w-12 shrink-0 tabular-nums">{p.shares}</span>
+                      <span className={cn("font-mono ml-auto text-right tabular-nums", p.unrealized_pnl >= 0 ? "text-emerald-400" : "text-red-400")}>
+                        {p.unrealized_pnl >= 0 ? "+" : ""}{fmtIDR(p.unrealized_pnl)}
+                      </span>
+                    </div>
+                  ))}
+                  {feState && Object.keys(feState.positions).length > 0 && (
+                    <div className="pt-1 border-t border-border/30 mt-1">
+                      <p className="text-[10px] text-muted-foreground uppercase mb-1">Sim Positions (cache)</p>
+                      {Object.entries(feState.positions).slice(0, 4).map(([ticker, p]) => (
+                        <div key={ticker} className="flex items-center gap-2 py-0.5">
+                          <span className="font-mono font-semibold w-16 shrink-0 tabular-nums">{ticker}</span>
+                          <span className="font-mono text-muted-foreground text-[10px] w-12 shrink-0 tabular-nums">{p.shares}</span>
+                          <span className="font-mono text-[10px] ml-auto text-muted-foreground tabular-nums">{p.asset_class}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </Widget>
 
+          {/* Tier 2 Feature: Signals (3 cols × 1 row) */}
           <Widget
             title="Sinyal"
             icon={<TrendingUp className="w-3.5 h-3.5" />}
@@ -485,17 +563,18 @@ export default function DashboardPage() {
             <SignalsFeed restSignals={signals} />
           </Widget>
 
+          {/* Tier 2 Feature: IHSG Live Chart (6 cols × 1 row) */}
           <Widget
             title="IHSG Live"
             icon={<Activity className="w-3.5 h-3.5" />}
             accent="text-emerald-400"
             className="col-span-6"
-            right={<span className="text-[10px] text-muted-foreground">{tickRing.length} tick</span>}
+            right={<span className="text-[10px] text-muted-foreground tabular-nums">{tickRing.length} tick</span>}
           >
             <IhsgChart ihsg={ihsg} tickRing={tickRing} />
           </Widget>
 
-          {/* Row 3: BE Observability Console (full width) */}
+          {/* Tier 3: BE Observability Console (full width, auto height) */}
           <div className="col-span-12" style={{ gridAutoRows: "auto" }}>
             <ObservabilityConsole />
           </div>

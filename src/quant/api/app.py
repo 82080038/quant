@@ -937,6 +937,47 @@ async def temporal_backtest_run(payload: dict = Body(default={})):
     return {"status": "started", "message": "Simulation started in background"}
 
 
+# ── FE Dashboard Cache Endpoints (zero-wait reads) ────────────────────────
+
+@app.get("/api/fe-cache/dashboard")
+async def fe_cache_dashboard():
+    """Return all FE-ready cached data for dashboard rendering (zero-wait)."""
+    from quant.data.fe_cache import read_cache
+    from datetime import date as _date
+
+    today = _date.today()
+    metrics = read_cache("daily_metrics", today, data_type="portfolio")
+    return {
+        "status": "ok",
+        "metrics": metrics[0]["payload"] if metrics else None,
+        "cache_date": str(today),
+    }
+
+
+@app.get("/api/fe-cache/daily-state/{sim_date}")
+async def fe_cache_daily_state(sim_date: str):
+    """Return the daily portfolio state for a specific date (incremental computing)."""
+    from quant.data.fe_cache import read_daily_state
+    from datetime import date as _date
+
+    state = read_daily_state(_date.fromisoformat(sim_date))
+    if not state:
+        return {"status": "not_found", "message": f"No state for {sim_date}"}
+    return {"status": "ok", "state": state}
+
+
+@app.get("/api/fe-cache/latest-state")
+async def fe_cache_latest_state():
+    """Return the most recent daily portfolio state (for FE dashboard)."""
+    from quant.data.fe_cache import read_daily_state
+    from datetime import date as _date
+
+    state = read_daily_state(_date.today())
+    if not state:
+        return {"status": "not_found", "message": "No daily state available yet"}
+    return {"status": "ok", "state": state}
+
+
 # ── Cosmos (Astronacci Celestial View) ────────────────────────────────────
 
 @app.get("/api/cosmos/astronacci")

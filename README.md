@@ -1309,10 +1309,99 @@ Screenshots: `docs/simulation_screenshots/` (15 files)
 ### [SIMULATION RESUME STATUS]
 
 - **Final run**: Browser-driven via Playwright Headed on Epson PJ
-- **Duration**: 206 seconds (124 trading days, 2025-08-20 → 2026-08-18)
+- **Duration**: 231 seconds (124 trading days, 2025-08-20 → 2026-08-18)
 - **Intercepted errors**: 0
 - **Hot-patches applied during run**: 0
 - **Resume events**: 0 (ran continuously without interruption)
 - **Console errors**: 0
 - **All dashboard pages verified**: Dashboard, Signals, Portfolio, Backtest, Settings
+
+---
+
+## Database Cache Architecture & FE Total Redesign
+
+### Materialized State Cache (FASE 1)
+
+Three-layer database architecture for zero-wait FE reads and incremental computing:
+
+**`fe_dashboard_cache`** — FE read-optimized aggregate table:
+- Stores pre-computed engine results (prices, market status, moon phase, macro correlations, Fibonacci levels)
+- `is_fe_ready BOOLEAN DEFAULT FALSE` — flag set to TRUE after computation completes
+- `last_computed_at TIMESTAMPTZ` — tracks freshness
+- FE reads only `WHERE is_fe_ready = TRUE` — no waiting for BE computation
+- Indexed on `(is_fe_ready, sim_date)` and `(cache_key, sim_date)` for O(1) lookups
+
+**`daily_portfolio_states`** — Day-to-day state transfer for incremental computing:
+- Stores end-of-day portfolio snapshot (positions, equity, cash, Fibonacci pivots, correlation weights, regime)
+- T+1 reads this table for incremental computation instead of recalculating entire history
+- `is_fe_ready = TRUE` after day T completes, allowing T+1 to start immediately
+- Unique constraint on `sim_date` with upsert for idempotent writes
+
+**Readiness Flagging on existing engine result tables**:
+- `feature_values.is_fe_ready` + `feature_values.last_computed_at`
+- `news_sentiment.is_fe_ready` + `news_sentiment.last_computed_at`
+- `global_market_interdependency_history.is_fe_ready` + `last_computed_at`
+
+**Cache Layer Module**: `src/quant/data/fe_cache.py`
+- `write_cache()` — upsert to `fe_dashboard_cache` with readiness flag
+- `read_cache()` — zero-wait read of FE-ready data
+- `write_daily_state()` — save end-of-day state for T+1 incremental computing
+- `read_daily_state()` — load most recent state at or before a date
+- `mark_fe_ready()` — flip readiness flag on engine result tables
+
+**API Endpoints**:
+- `GET /api/fe-cache/dashboard` — zero-wait dashboard data
+- `GET /api/fe-cache/latest-state` — most recent daily portfolio state
+- `GET /api/fe-cache/daily-state/{sim_date}` — state for specific date
+
+### Bento Grid UI Redesign (FASE 2)
+
+Research-based redesign following best practices from TradingView, Bloomberg Terminal, and Webull:
+
+**Design Principles** (from internet research):
+- 12-column CSS Grid with tier-based tile sizing (Tier 1 Hero: 6 cols × 2 rows, Tier 2 Feature: 3 cols × 1 row)
+- Dark mode default with near-black canvas (bg-card/40)
+- `tabular-nums` on all numeric values for scan-aligned reading
+- 16px gap between tiles (Bento Grid standard)
+- `contain: layout` for GPU layout isolation
+- `backdropFilter: blur(8px)` for glassmorphism status bar
+- Minimal shadows — elevation via brightness levels
+
+**Header Status Bar**:
+- IHSG price + change percentage
+- Moon Phase real-time (computed from lunar cycle algorithm)
+- Market breadth (gainers/losers count)
+- Sim equity + regime from FE cache (zero-wait)
+- FPS counter with color-coded threshold (green >50, yellow >30, red <30)
+
+**TickerTape** (GPU-accelerated running text):
+- `willChange: transform` for GPU compositing
+- `requestAnimationFrame` drives scroll with hover-pause
+- Content duplicated ×2 for seamless infinite loop
+- Zero React re-renders during scroll — pure `translateX` transform
+
+**Center Chart**:
+- CelestialFibonacciChart as Tier 1 Hero (6 cols × 2 rows)
+- Canvas 2D rendering with solar system micro-theme
+- `isAnimationActive={false}` on all recharts components
+
+**FE Cache Integration**:
+- Dashboard fetches from `/api/fe-cache/latest-state` for zero-wait portfolio data
+- Sim positions displayed alongside live positions in unified widget
+- Cache data labeled with `(cache)` suffix and sim_date for provenance
+
+**Performance Optimizations**:
+- `contain: strict` on status bar for GPU isolation
+- `contain: layout` on root container
+- All recharts `isAnimationActive={false}`
+- WS tick ring buffer with rAF coalescing (existing, preserved)
+- `useFpsGuard` bidirectional backpressure (existing, preserved)
+
+### Simulation Results with Cache Architecture
+
+- **124 daily_portfolio_states rows** written (one per trading day)
+- **124 fe_dashboard_cache rows** written (daily metrics)
+- **FE cache endpoint response time**: < 5ms (zero-wait from pre-computed table)
+- **Browser simulation**: 231s, 0 console errors, 19 screenshots
+- **All 5 dashboard pages verified**: Dashboard, Signals, Portfolio, Backtest, Settings
 

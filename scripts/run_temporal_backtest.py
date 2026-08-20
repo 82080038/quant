@@ -36,6 +36,7 @@ from sqlalchemy import text
 
 from quant.core.db import get_db
 from quant.data.point_in_time import PointInTimeQuery
+from quant.data.fe_cache import write_cache, write_daily_state, read_daily_state
 from quant.signals.registry import EngineRegistry
 from quant.signals.aggregator import SignalAggregator, CompositeSignal
 
@@ -684,6 +685,39 @@ class TemporalBacktestSimulator:
                 lookahead_check=lookahead_ok,
                 had_error=day_had_error,
             ))
+
+            # ── Write to FE cache tables for zero-wait reads ───────────
+            positions_snapshot = {
+                t: {"ticker": p.ticker, "shares": p.shares, "entry_price": p.entry_price,
+                    "entry_date": p.entry_date.isoformat() if p.entry_date else None,
+                    "asset_class": p.asset_class}
+                for t, p in self.positions.items()
+            }
+            write_daily_state(
+                sim_date=current,
+                equity=equity,
+                cash=self.cash,
+                positions=positions_snapshot,
+                regime=regime,
+                active_cycles=n_cycles,
+                n_positions=len(self.positions),
+                n_trades=n_trades_today,
+                lookahead_violations=self.lookahead_violations,
+            )
+            write_cache(
+                cache_key="daily_metrics",
+                sim_date=current,
+                data_type="portfolio",
+                payload={
+                    "equity": round(equity, 2),
+                    "cash": round(self.cash, 2),
+                    "n_positions": len(self.positions),
+                    "n_trades": n_trades_today,
+                    "regime": regime,
+                    "active_cycles": n_cycles,
+                    "lookahead_ok": lookahead_ok,
+                },
+            )
 
             if trading_days % 50 == 0 or trading_days == 1:
                 elapsed = time.time() - sim_start_time
