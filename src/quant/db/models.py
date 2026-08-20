@@ -90,15 +90,23 @@ class Instrument(Base):
 
 
 class Exchange(Base):
-    """Exchange master row (``exchanges`` table)."""
+    """Exchange master row (``exchanges`` table).
+
+    DB schema: id (serial PK), mic, name, country, timezone, currency,
+    is_active, created_at. The ``mic`` column is the ISO 10383 Market
+    Identifier Code (e.g. XIDX, XNYS, XNAS).
+    """
 
     __tablename__ = "exchanges"
 
-    mic_code = Column(String, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    mic = Column(String, unique=True, nullable=False)
     name = Column(String)
-    data_suffix = Column(String)
+    country = Column(String)
     timezone = Column(String)
     currency = Column(String)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime(timezone=True), default="now()")
 
 
 class InstrumentMaster(Base):

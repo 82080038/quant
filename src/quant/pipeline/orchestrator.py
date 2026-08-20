@@ -29,6 +29,7 @@ from quant.core.pre_trade_guard import PreTradeGuard
 from quant.data.asset_router import AssetRouter, FetchAction
 from quant.data.point_in_time import PointInTimeQuery
 from quant.pipeline.state_machine import PipelineTracker, PipelineStatus
+from quant.pipeline.incremental import get_watermark, set_watermark
 from quant.features.factor_library import FactorLibrary
 from quant.signals.registry import EngineRegistry
 from quant.signals.aggregator import SignalAggregator
@@ -142,14 +143,26 @@ class PipelineOrchestrator:
         return True
 
     def _step_analyze(self, ticker: str, as_of: date) -> bool:
-        """Step 2: Compute factors/features for this ticker."""
+        """Step 2: Compute factors/features for this ticker.
+
+        Uses incremental watermark to skip recomputation if features
+        were already computed for this ticker on or after as_of.
+        """
         try:
+            # Incremental check: skip if already processed
+            wm = get_watermark(self.session, ticker, "feature_values")
+            if wm is not None and wm >= as_of:
+                logger.debug("Skipping analyze for %s — watermark %s >= %s", ticker, wm, as_of)
+                self._tracker.mark_status(ticker, as_of, "analyze", PipelineStatus.ANALYZED)
+                return True
+
             count = 0
             for fname in self.factor_lib.factor_names:
                 val = self.factor_lib.compute_and_store(fname, ticker, as_of)
                 if val is not None:
                     count += 1
             if count > 0:
+                set_watermark(self.session, ticker, "feature_values", as_of)
                 self._tracker.mark_status(ticker, as_of, "analyze", PipelineStatus.ANALYZED)
                 return True
             self._tracker.mark_status(ticker, as_of, "analyze", PipelineStatus.SKIPPED)

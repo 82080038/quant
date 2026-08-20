@@ -59,13 +59,14 @@ def get_suffix(market_mic: str, session: Session | None = None) -> str | None:
     """
     if session is not None:
         try:
+            # Check if the exchange exists in the DB (validates MIC code)
             result = session.execute(
-                select(Exchange.data_suffix).where(
-                    Exchange.mic_code == market_mic
+                select(Exchange.mic).where(
+                    Exchange.mic == market_mic
                 )
             ).scalar_one_or_none()
-            if result is not None:
-                return result
+            if result is None:
+                logger.debug("Exchange %s not found in DB, using fallback suffix", market_mic)
         except Exception:
             try:
                 session.rollback()

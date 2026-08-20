@@ -51,8 +51,7 @@ def main() -> None:
 
     if not pending:
         # No pending — check if any are stale by time
-        from datetime import datetime, UTC
-        now = datetime.now(UTC)
+        now = datetime.now(timezone.utc)
         result = session.execute(text(
             "SELECT ticker, data_layer, fetch_frequency, last_fetch_at, next_fetch_at "
             "FROM instruments WHERE is_active = TRUE AND is_delisted = FALSE "

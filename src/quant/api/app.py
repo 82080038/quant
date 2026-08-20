@@ -246,19 +246,45 @@ async def get_candles(
     """Get OHLCV candlestick data for charting."""
     sim = _get_sim()
     if sim and sim._running and ticker in ("^JKSE", "BBCA.JK", "BBRI.JK", "TLKM.JK"):
-        # Return simulated OHLCV bars if available
-        bars = sim.ohlcv_history.get(ticker, [])
-        candles = [
-            {
-                "date": b.date.isoformat() if hasattr(b, "date") else str(b.get("date", "")),
-                "open": float(b.open if hasattr(b, "open") else b.get("open", 0)),
-                "high": float(b.high if hasattr(b, "high") else b.get("high", 0)),
-                "low": float(b.low if hasattr(b, "low") else b.get("low", 0)),
-                "close": float(b.close if hasattr(b, "close") else b.get("close", 0)),
-                "volume": float(b.volume if hasattr(b, "volume") else b.get("volume", 0)),
-            }
-            for b in bars[-limit:]
-        ]
+        candles = []
+        if ticker == "^JKSE":
+            # Build daily candles from IHSG history
+            from collections import defaultdict
+            daily = defaultdict(lambda: {"o": None, "h": 0, "l": float("inf"), "c": 0, "v": 0})
+            for h in sim.ihsg_history[-limit * 100:]:
+                d = h["t"][:10]
+                p = h["p"]
+                if daily[d]["o"] is None:
+                    daily[d]["o"] = p
+                daily[d]["h"] = max(daily[d]["h"], p)
+                daily[d]["l"] = min(daily[d]["l"], p)
+                daily[d]["c"] = p
+                daily[d]["v"] += h.get("v", 0)
+            for d in sorted(daily.keys())[-limit:]:
+                v = daily[d]
+                if v["o"] is not None:
+                    candles.append({
+                        "date": d, "open": float(v["o"]), "high": float(v["h"]),
+                        "low": float(v["l"]), "close": float(v["c"]), "volume": float(v["v"]),
+                    })
+        else:
+            # Use per-ticker bars from SimState
+            state = sim.states.get(ticker)
+            if state and state.bars:
+                seen_dates = {}
+                for b in state.bars:
+                    d = b.date
+                    if d not in seen_dates:
+                        seen_dates[d] = {"open": b.open, "high": b.high, "low": b.low, "close": b.close, "volume": b.volume}
+                    else:
+                        seen_dates[d]["high"] = max(seen_dates[d]["high"], b.high)
+                        seen_dates[d]["low"] = min(seen_dates[d]["low"], b.low)
+                        seen_dates[d]["close"] = b.close
+                        seen_dates[d]["volume"] += b.volume
+                for d in sorted(seen_dates.keys())[-limit:]:
+                    v = seen_dates[d]
+                    candles.append({"date": d, "open": float(v["open"]), "high": float(v["high"]),
+                        "low": float(v["low"]), "close": float(v["close"]), "volume": float(v["volume"])})
         if candles:
             return candles
 
@@ -784,8 +810,21 @@ async def data_sources():
 
 @app.get("/api/data/watermarks")
 async def data_watermarks():
-    """Return data watermarks (last fetch timestamps per table)."""
-    return {"watermarks": {}}
+    """Return data watermarks (last processed dates per ticker+table)."""
+    session = get_db()
+    try:
+        rows = session.execute(text("""
+            SELECT ticker, table_name, last_processed_date, updated_at
+            FROM recompute_watermark
+            ORDER BY updated_at DESC
+            LIMIT 100
+        """)).fetchall()
+        return {"watermarks": [
+            {"ticker": r[0], "table": r[1], "last_date": str(r[2]) if r[2] else None, "updated": str(r[3]) if r[3] else None}
+            for r in rows
+        ]}
+    finally:
+        session.close()
 
 
 @app.get("/api/data/audit")
