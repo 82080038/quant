@@ -1555,3 +1555,24 @@ Engine evaluasi menguji 15 engine prediksi terhadap data aktual di 37 tabel data
 - Hasil: 537s durasi, 0 console errors, 0 warnings, 0 self-heals, 26 screenshots
 - Semua 6 halaman verified: Dashboard, Sinyal, Portofolio, Prediksi, Backtest, Pengaturan
 
+### FASE 5: Halaman Khusus Manajemen Engine & Log Orkestrasi
+
+**Halaman `/manajemen-engine`** (`frontend/src/app/manajemen-engine/page.tsx`):
+- Bento Grid 3-panel: Engine Registry Grid, Dynamic Weight Chart, Terminal Log
+- **Panel 1 — Engine Registry Grid**: 29 engine cards dikelompokkan per type, toggle switch interaktif untuk `is_active`, progress bar bobot, accuracy score per engine
+- **Panel 2 — Dynamic Weight Chart**: Canvas 2D dengan `requestAnimationFrame` (>55 FPS), visualisasi time-series `weight_percentage` per engine, 10 engine teratas ditampilkan dengan legend real-time
+- **Panel 3 — Terminal Log**: Monospace auto-scroll, color-coded log orkestrasi (hijau=aktifkan, merah=matikan, kuning=mulai, cyan=progress), pause/clear controls
+
+**API Endpoints Baru**:
+- `POST /api/engine-registry/toggle` — toggle `is_active` dan update `weight_percentage` dari frontend
+- `GET /api/engine-registry/history` — history bobot engine untuk chart
+
+**Sidebar Menu**: "Manajemen Engine" (icon Cpu) ditambahkan di section "Sistem"
+
+**Simulasi di Epson PJ**:
+- Playwright `--window-position=1339,0 --start-maximized` di HDMI-1-0 (1440×900)
+- Browser confirmed: `window.screenX = 1339` (di Epson, bukan Lenovo)
+- 29 toggle switches terdeteksi, semua 4 panel terender
+- Hasil: 493s durasi, 0 console errors, 0 warnings, 0 self-heals, 27 screenshots
+- Semua 7 halaman verified: Dashboard, Sinyal, Portofolio, Prediksi, Backtest, Manajemen Engine, Pengaturan
+

@@ -16,6 +16,7 @@ import {
   Clock,
   Activity,
   Telescope,
+  Cpu,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -51,6 +52,7 @@ const navSections: NavSection[] = [
   {
     title: "Sistem",
     items: [
+      { href: "/manajemen-engine", label: "Manajemen Engine", icon: Cpu },
       { href: "/pipeline", label: "Pipeline", icon: Activity },
       { href: "/reports", label: "Laporan", icon: FileText },
       { href: "/cosmos", label: "Kosmos", icon: Orbit },

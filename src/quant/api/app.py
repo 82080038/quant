@@ -1237,6 +1237,59 @@ async def engine_registry_status():
         db.close()
 
 
+@app.post("/api/engine-registry/toggle")
+async def engine_registry_toggle(payload: dict = Body(default={})):
+    """Toggle engine is_active and/or update weight from frontend."""
+    from sqlalchemy import text as _text
+    from quant.core.db import get_db as _get_db
+    engine_name = payload.get("engine_name")
+    if not engine_name:
+        return {"status": "error", "message": "engine_name required"}
+
+    db = _get_db()
+    try:
+        if "is_active" in payload:
+            db.execute(_text("""
+                UPDATE engine_registry SET is_active = :active, updated_at = NOW()
+                WHERE engine_name = :name
+            """), {"active": payload["is_active"], "name": engine_name})
+
+        if "weight_percentage" in payload:
+            db.execute(_text("""
+                UPDATE engine_registry SET weight_percentage = :weight, updated_at = NOW()
+                WHERE engine_name = :name
+            """), {"weight": payload["weight_percentage"], "name": engine_name})
+
+        db.commit()
+        return {"status": "ok", "message": f"Engine {engine_name} updated"}
+    except Exception as e:
+        db.rollback()
+        return {"status": "error", "message": str(e)}
+    finally:
+        db.close()
+
+
+@app.get("/api/engine-registry/history")
+async def engine_registry_history():
+    """Get weight percentage history for chart visualization."""
+    # Return current weights as time-series snapshot (simulated history from ensemble report)
+    report_path = Path(__file__).resolve().parents[3] / "docs" / "ENSEMBLE_TUNING_REPORT.json"
+    history = []
+    if report_path.exists():
+        with open(report_path, "r") as f:
+            report = json.load(f)
+        # Build time-series from orchestration log + active engines
+        active = report.get("active_engines", [])
+        for eng in active:
+            history.append({
+                "engine_name": eng.get("engine_name", ""),
+                "weight_percentage": eng.get("weight_percentage", 0),
+                "accuracy_score": eng.get("accuracy_score", 0),
+                "timestamp": report.get("end_date", ""),
+            })
+    return {"status": "ok", "history": history}
+
+
 @app.post("/api/ensemble-tuning/run")
 async def ensemble_tuning_run(payload: dict = Body(default={})):
     """Start hybrid ensemble tuning simulation."""
