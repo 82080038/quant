@@ -758,6 +758,21 @@ async def backtest_trigger(payload: dict = Body(default={})):
     }
 
 
+# ── Temporal Backtest Simulation ─────────────────────────────────────────
+
+@app.get("/api/temporal-backtest/report")
+async def temporal_backtest_report():
+    """Return the 1-year temporal trading simulation report."""
+    import json
+    from pathlib import Path
+
+    report_path = Path(__file__).resolve().parents[3] / "docs" / "TEMPORAL_BACKTEST_REPORT.json"
+    if not report_path.exists():
+        return {"status": "not_found", "message": "Run scripts/run_temporal_backtest.py first"}
+    with open(report_path) as f:
+        return json.load(f)
+
+
 # ── Cosmos (Astronacci Celestial View) ────────────────────────────────────
 
 @app.get("/api/cosmos/astronacci")

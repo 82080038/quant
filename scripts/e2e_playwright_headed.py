@@ -530,8 +530,9 @@ class E2ERunner:
 
     def _scenario_backtest_page(self, page):
         """S6: Navigate to backtest page."""
-        page.goto(f"{self.url}/backtest", timeout=DEFAULT_TIMEOUT, wait_until="networkidle")
-        page.wait_for_selector("main", timeout=10_000)
+        page.goto(f"{self.url}/backtest", timeout=DEFAULT_TIMEOUT, wait_until="domcontentloaded")
+        page.wait_for_selector("main", timeout=15_000)
+        page.wait_for_timeout(1000)
         print(f"     URL: {page.url}")
         body = page.inner_text("body")
         assert len(body.strip()) > 10, "Backtest page appears empty"

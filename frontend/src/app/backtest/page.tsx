@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Bot,
@@ -14,7 +14,18 @@ import {
   Zap,
   RefreshCw,
   AlertTriangle,
+  CalendarDays,
+  Gauge,
+  ShieldCheck,
 } from "lucide-react";
+import {
+  Area,
+  AreaChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 interface InstrumentResult {
   ticker: string;
@@ -67,6 +78,36 @@ interface BacktestRun {
   instrument_results: InstrumentResult[];
 }
 
+interface TemporalReport {
+  start_date: string;
+  end_date: string;
+  total_days: number;
+  trading_days: number;
+  skipped_holidays: number;
+  total_trades: number;
+  buy_trades: number;
+  sell_trades: number;
+  equity_trades: number;
+  cross_asset_trades: number;
+  final_equity: number;
+  total_return_pct: number;
+  annual_return_pct: number;
+  sharpe_ratio: number;
+  sortino_ratio: number;
+  max_drawdown_pct: number;
+  win_rate_pct: number;
+  best_day_pct: number;
+  worst_day_pct: number;
+  avg_daily_return_pct: number;
+  volatility_pct: number;
+  calmar_ratio: number;
+  equity_curve: { date: string; equity: number }[];
+  trades: { sim_date: string; ticker: string; side: string; shares: number; price: number; cost: number; asset_class: string; pnl: number }[];
+  daily_results: { sim_date: string; equity: number; cash: number; n_positions: number; n_trades: number; regime: string; active_cycles: number; lookahead_check: boolean }[];
+  lookahead_violations: number;
+  asset_class_breakdown: { equity_trades: number; cross_asset_trades: number; equity_pct: number; cross_asset_pct: number };
+}
+
 interface RunnerStatus {
   total_runs: number;
   latest_run: string | null;
@@ -92,6 +133,7 @@ const TRIGGER_LABELS: Record<string, { label: string; icon: typeof Clock; color:
 export default function BacktestPage() {
   const [status, setStatus] = useState<RunnerStatus | null>(null);
   const [latest, setLatest] = useState<BacktestRun | null>(null);
+  const [temporal, setTemporal] = useState<TemporalReport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [triggering, setTriggering] = useState(false);
@@ -119,10 +161,22 @@ export default function BacktestPage() {
     }
   }, []);
 
+  const fetchTemporal = useCallback(async () => {
+    try {
+      const res = await fetch("/api/temporal-backtest/report");
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data.status !== "not_found") setTemporal(data as TemporalReport);
+    } catch {
+      // silent — temporal report is optional
+    }
+  }, []);
+
   useEffect(() => {
     void fetchStatus();
     void fetchLatest();
-  }, [fetchStatus, fetchLatest]);
+    void fetchTemporal();
+  }, [fetchStatus, fetchLatest, fetchTemporal]);
 
   const triggerRun = async () => {
     setTriggering(true);
@@ -154,6 +208,19 @@ export default function BacktestPage() {
     ? TRIGGER_LABELS[latest.trigger] || TRIGGER_LABELS.manual_force
     : null;
 
+  const equityChartData = useMemo(() => {
+    if (!temporal) return [];
+    return temporal.equity_curve.map((d) => ({ ...d, equity: d.equity / 1_000_000 }));
+  }, [temporal]);
+
+  const regimeColors: Record<string, string> = {
+    bull: "text-emerald-400",
+    bear: "text-red-400",
+    sideways: "text-yellow-400",
+    crisis: "text-orange-400",
+    unknown: "text-muted-foreground",
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -168,6 +235,187 @@ export default function BacktestPage() {
           strategi, dan merespons perubahan data/event pasar secara mandiri.
         </p>
       </div>
+
+      {/* ── Temporal Simulation Results ── */}
+      {temporal && (
+        <>
+          <div className="rounded-md border border-emerald-500/30 bg-emerald-500/5 p-4">
+            <div className="flex items-start gap-3">
+              <CalendarDays className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+              <div className="text-sm space-y-1">
+                <p className="font-medium text-emerald-600 dark:text-emerald-400">
+                  1-Year Temporal Trading Simulation — Completed
+                </p>
+                <p className="text-muted-foreground">
+                  Period: {temporal.start_date} → {temporal.end_date} |
+                  {temporal.trading_days} trading days executed |
+                  {temporal.skipped_holidays} holidays skipped |
+                  Look-ahead violations: {temporal.lookahead_violations}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Temporal Metrics Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            <Card>
+              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><CalendarDays className="w-3 h-3" /> Trading Days</CardTitle></CardHeader>
+              <CardContent><p className="text-xl font-bold">{temporal.trading_days}</p></CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><Activity className="w-3 h-3" /> Total Trades</CardTitle></CardHeader>
+              <CardContent><p className="text-xl font-bold">{temporal.total_trades}</p></CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><TrendingUp className="w-3 h-3" /> Return</CardTitle></CardHeader>
+              <CardContent><p className={`text-xl font-bold ${temporal.total_return_pct >= 0 ? "text-emerald-400" : "text-red-400"}`}>{temporal.total_return_pct > 0 ? "+" : ""}{temporal.total_return_pct.toFixed(2)}%</p></CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><TrendingDown className="w-3 h-3" /> Max Drawdown</CardTitle></CardHeader>
+              <CardContent><p className="text-xl font-bold text-red-400">{temporal.max_drawdown_pct.toFixed(2)}%</p></CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><Gauge className="w-3 h-3" /> Sharpe</CardTitle></CardHeader>
+              <CardContent><p className="text-xl font-bold">{temporal.sharpe_ratio.toFixed(3)}</p></CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><ShieldCheck className="w-3 h-3" /> Look-ahead</CardTitle></CardHeader>
+              <CardContent><p className="text-xl font-bold text-emerald-400">{temporal.lookahead_violations} violations</p></CardContent>
+            </Card>
+          </div>
+
+          {/* Equity Curve Chart */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-sm">
+                <Activity className="w-4 h-4 text-emerald-400" />
+                Equity Curve — {temporal.trading_days} Trading Days
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={equityChartData} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>
+                    <defs>
+                      <linearGradient id="equityFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#22c55e" stopOpacity={0.4} />
+                        <stop offset="100%" stopColor="#22c55e" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <XAxis
+                      dataKey="date"
+                      tick={{ fill: "#64748b", fontSize: 9 }}
+                      axisLine={false}
+                      tickLine={false}
+                      interval={Math.max(1, Math.floor(equityChartData.length / 8))}
+                      tickFormatter={(v: string) => v.slice(5)}
+                    />
+                    <YAxis
+                      tick={{ fill: "#64748b", fontSize: 9 }}
+                      axisLine={false}
+                      tickLine={false}
+                      width={48}
+                      tickFormatter={(v: number) => `${v.toFixed(1)}M`}
+                    />
+                    <Tooltip
+                      contentStyle={{ background: "rgba(10,14,26,0.9)", border: "1px solid hsl(217 33% 25%)", borderRadius: 6, fontSize: 11 }}
+                      labelFormatter={(v: string) => v}
+                      formatter={(v: number) => [`Rp ${(v * 1_000_000).toLocaleString("en-US", { maximumFractionDigits: 0 })}`, "Equity"]}
+                    />
+                    <Area type="monotone" dataKey="equity" stroke="#22c55e" strokeWidth={1.5} fill="url(#equityFill)" isAnimationActive={false} dot={false} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Detailed Metrics Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+            <Card><CardContent className="p-3"><p className="text-xs text-muted-foreground">Final Equity</p><p className="font-bold">Rp {temporal.final_equity.toLocaleString("en-US", { maximumFractionDigits: 0 })}</p></CardContent></Card>
+            <Card><CardContent className="p-3"><p className="text-xs text-muted-foreground">Annual Return</p><p className={`font-bold ${temporal.annual_return_pct >= 0 ? "text-emerald-400" : "text-red-400"}`}>{temporal.annual_return_pct > 0 ? "+" : ""}{temporal.annual_return_pct.toFixed(2)}%</p></CardContent></Card>
+            <Card><CardContent className="p-3"><p className="text-xs text-muted-foreground">Sortino Ratio</p><p className="font-bold">{temporal.sortino_ratio.toFixed(3)}</p></CardContent></Card>
+            <Card><CardContent className="p-3"><p className="text-xs text-muted-foreground">Calmar Ratio</p><p className="font-bold">{temporal.calmar_ratio.toFixed(3)}</p></CardContent></Card>
+            <Card><CardContent className="p-3"><p className="text-xs text-muted-foreground">Win Rate</p><p className="font-bold">{temporal.win_rate_pct.toFixed(1)}%</p></CardContent></Card>
+            <Card><CardContent className="p-3"><p className="text-xs text-muted-foreground">Volatility (ann)</p><p className="font-bold">{temporal.volatility_pct.toFixed(2)}%</p></CardContent></Card>
+            <Card><CardContent className="p-3"><p className="text-xs text-muted-foreground">Buy / Sell</p><p className="font-bold">{temporal.buy_trades} / {temporal.sell_trades}</p></CardContent></Card>
+            <Card><CardContent className="p-3"><p className="text-xs text-muted-foreground">Equity / Cross-Asset</p><p className="font-bold">{temporal.equity_trades} / {temporal.cross_asset_trades}</p></CardContent></Card>
+          </div>
+
+          {/* Daily Results Table */}
+          <Card>
+            <CardHeader><CardTitle className="text-sm">Daily Simulation Log — {temporal.daily_results.length} days</CardTitle></CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto max-h-80 overflow-y-auto">
+                <table className="w-full text-xs">
+                  <thead className="sticky top-0 bg-card">
+                    <tr className="border-b border-border text-left">
+                      <th className="pb-1 pr-3">Date</th>
+                      <th className="pb-1 pr-3 text-right">Equity</th>
+                      <th className="pb-1 pr-3 text-right">Cash</th>
+                      <th className="pb-1 pr-3 text-center">Pos</th>
+                      <th className="pb-1 pr-3 text-center">Trades</th>
+                      <th className="pb-1 pr-3">Regime</th>
+                      <th className="pb-1 pr-3 text-center">Cycles</th>
+                      <th className="pb-1 pr-3 text-center">PIT</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {temporal.daily_results.map((d, i) => (
+                      <tr key={i} className="border-b border-border/30 hover:bg-muted/30">
+                        <td className="py-1 pr-3 font-mono">{d.sim_date}</td>
+                        <td className="py-1 pr-3 text-right font-mono">{(d.equity / 1_000_000).toFixed(2)}M</td>
+                        <td className="py-1 pr-3 text-right font-mono text-muted-foreground">{(d.cash / 1_000_000).toFixed(1)}M</td>
+                        <td className="py-1 pr-3 text-center">{d.n_positions}</td>
+                        <td className="py-1 pr-3 text-center">{d.n_trades}</td>
+                        <td className={`py-1 pr-3 ${regimeColors[d.regime] || "text-muted-foreground"}`}>{d.regime}</td>
+                        <td className="py-1 pr-3 text-center">{d.active_cycles}</td>
+                        <td className="py-1 pr-3 text-center">{d.lookahead_check ? "✓" : "✗"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Recent Trades Table */}
+          <Card>
+            <CardHeader><CardTitle className="text-sm">Trade Log — {temporal.trades.length} trades</CardTitle></CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto max-h-60 overflow-y-auto">
+                <table className="w-full text-xs">
+                  <thead className="sticky top-0 bg-card">
+                    <tr className="border-b border-border text-left">
+                      <th className="pb-1 pr-3">Date</th>
+                      <th className="pb-1 pr-3">Side</th>
+                      <th className="pb-1 pr-3">Ticker</th>
+                      <th className="pb-1 pr-3 text-right">Shares</th>
+                      <th className="pb-1 pr-3 text-right">Price</th>
+                      <th className="pb-1 pr-3 text-right">Cost</th>
+                      <th className="pb-1 pr-3 text-right">PnL</th>
+                      <th className="pb-1 pr-3">Class</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {temporal.trades.slice().reverse().slice(0, 100).map((t, i) => (
+                      <tr key={i} className="border-b border-border/30 hover:bg-muted/30">
+                        <td className="py-1 pr-3 font-mono">{t.sim_date}</td>
+                        <td className={`py-1 pr-3 font-medium ${t.side === "buy" ? "text-emerald-400" : "text-red-400"}`}>{t.side.toUpperCase()}</td>
+                        <td className="py-1 pr-3 font-mono font-semibold">{t.ticker}</td>
+                        <td className="py-1 pr-3 text-right font-mono">{t.shares.toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
+                        <td className="py-1 pr-3 text-right font-mono">{t.price.toFixed(2)}</td>
+                        <td className="py-1 pr-3 text-right font-mono text-muted-foreground">{t.cost.toFixed(0)}</td>
+                        <td className={`py-1 pr-3 text-right font-mono ${t.pnl > 0 ? "text-emerald-400" : t.pnl < 0 ? "text-red-400" : "text-muted-foreground"}`}>{t.pnl !== 0 ? t.pnl.toFixed(0) : "—"}</td>
+                        <td className="py-1 pr-3 text-muted-foreground">{t.asset_class}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        </>
+      )}
 
       {/* Info Banner */}
       <div className="rounded-md border border-blue-500/30 bg-blue-500/5 p-4">
