@@ -15,6 +15,7 @@ import {
   Orbit,
   Clock,
   Activity,
+  Telescope,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -44,6 +45,7 @@ const navSections: NavSection[] = [
     items: [
       { href: "/portfolio", label: "Portofolio", icon: Wallet },
       { href: "/backtest", label: "Backtest", icon: FlaskConical },
+      { href: "/prediksi", label: "Prediksi", icon: Telescope },
     ],
   },
   {

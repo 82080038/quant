@@ -1,0 +1,6947 @@
+{
+  "start_date": "2025-08-20",
+  "end_date": "2026-08-20",
+  "trading_days": 361,
+  "skipped_days": 0,
+  "total_predictions": 61276,
+  "total_correct": 17000,
+  "overall_da": 27.74,
+  "overall_mape": 263.95,
+  "overall_f1": 0.5173,
+  "final_equity": 31980832.9,
+  "total_return_pct": -68.02,
+  "max_drawdown_pct": -68.56,
+  "sharpe_ratio": 0.1713,
+  "lookahead_violations": 0,
+  "engine_scores": [
+    {
+      "engine": "fama_french",
+      "total_predictions": 10743,
+      "correct": 6820,
+      "directional_accuracy": 63.48,
+      "mape": 100.0,
+      "f1_score": 0.0
+    },
+    {
+      "engine": "alpha_momentum",
+      "total_predictions": 10743,
+      "correct": 2748,
+      "directional_accuracy": 25.58,
+      "mape": 362.59,
+      "f1_score": 0.6183
+    },
+    {
+      "engine": "volume_features",
+      "total_predictions": 3941,
+      "correct": 951,
+      "directional_accuracy": 24.13,
+      "mape": 215.03,
+      "f1_score": 0.5146
+    },
+    {
+      "engine": "alpha_reversal",
+      "total_predictions": 3352,
+      "correct": 713,
+      "directional_accuracy": 21.27,
+      "mape": 387.35,
+      "f1_score": 0.5883
+    },
+    {
+      "engine": "alpha_mean_reversion",
+      "total_predictions": 269,
+      "correct": 57,
+      "directional_accuracy": 21.19,
+      "mape": 326.27,
+      "f1_score": 0.3371
+    },
+    {
+      "engine": "alpha_regime_switch",
+      "total_predictions": 10743,
+      "correct": 2139,
+      "directional_accuracy": 19.91,
+      "mape": 388.38,
+      "f1_score": 0.5854
+    },
+    {
+      "engine": "technical",
+      "total_predictions": 10742,
+      "correct": 1850,
+      "directional_accuracy": 17.22,
+      "mape": 283.02,
+      "f1_score": 0.5135
+    },
+    {
+      "engine": "hmm_regime",
+      "total_predictions": 10743,
+      "correct": 1722,
+      "directional_accuracy": 16.03,
+      "mape": 163.65,
+      "f1_score": 0.2318
+    }
+  ],
+  "ticker_scores": [
+    {
+      "ticker": "CL=F",
+      "total_predictions": 2278,
+      "correct": 758,
+      "directional_accuracy": 33.27
+    },
+    {
+      "ticker": "GC=F",
+      "total_predictions": 2330,
+      "correct": 746,
+      "directional_accuracy": 32.02
+    },
+    {
+      "ticker": "AALI.JK",
+      "total_predictions": 2300,
+      "correct": 729,
+      "directional_accuracy": 31.7
+    },
+    {
+      "ticker": "EURIDR=X",
+      "total_predictions": 1927,
+      "correct": 598,
+      "directional_accuracy": 31.03
+    },
+    {
+      "ticker": "HG=F",
+      "total_predictions": 2247,
+      "correct": 696,
+      "directional_accuracy": 30.97
+    },
+    {
+      "ticker": "PALM.JK",
+      "total_predictions": 2249,
+      "correct": 678,
+      "directional_accuracy": 30.15
+    },
+    {
+      "ticker": "EURPHP=X",
+      "total_predictions": 1916,
+      "correct": 575,
+      "directional_accuracy": 30.01
+    },
+    {
+      "ticker": "^HSI",
+      "total_predictions": 2267,
+      "correct": 666,
+      "directional_accuracy": 29.38
+    },
+    {
+      "ticker": "EURKRW=X",
+      "total_predictions": 1914,
+      "correct": 548,
+      "directional_accuracy": 28.63
+    },
+    {
+      "ticker": "^N225",
+      "total_predictions": 2297,
+      "correct": 651,
+      "directional_accuracy": 28.34
+    },
+    {
+      "ticker": "EURZAR=X",
+      "total_predictions": 1939,
+      "correct": 546,
+      "directional_accuracy": 28.16
+    },
+    {
+      "ticker": "AUDUSD=X",
+      "total_predictions": 1905,
+      "correct": 532,
+      "directional_accuracy": 27.93
+    },
+    {
+      "ticker": "EURTWD=X",
+      "total_predictions": 1870,
+      "correct": 522,
+      "directional_accuracy": 27.91
+    },
+    {
+      "ticker": "EURBRL=X",
+      "total_predictions": 1910,
+      "correct": 530,
+      "directional_accuracy": 27.75
+    },
+    {
+      "ticker": "EURTHB=X",
+      "total_predictions": 1914,
+      "correct": 526,
+      "directional_accuracy": 27.48
+    },
+    {
+      "ticker": "^FTSE",
+      "total_predictions": 2274,
+      "correct": 624,
+      "directional_accuracy": 27.44
+    },
+    {
+      "ticker": "EURINR=X",
+      "total_predictions": 1917,
+      "correct": 525,
+      "directional_accuracy": 27.39
+    },
+    {
+      "ticker": "CADIDR=X",
+      "total_predictions": 1901,
+      "correct": 513,
+      "directional_accuracy": 26.99
+    },
+    {
+      "ticker": "CHFIDR=X",
+      "total_predictions": 1893,
+      "correct": 508,
+      "directional_accuracy": 26.84
+    },
+    {
+      "ticker": "^DJI",
+      "total_predictions": 2265,
+      "correct": 603,
+      "directional_accuracy": 26.62
+    }
+  ],
+  "daily_results": [
+    {
+      "sim_date": "2025-08-20",
+      "n_predictions": 171,
+      "n_correct": 43,
+      "directional_accuracy": 25.15,
+      "avg_mape": 345.65,
+      "f1_score": 0.6957,
+      "equity": 100883970.75,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "alpha_mean_reversion",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-08-21",
+      "n_predictions": 171,
+      "n_correct": 44,
+      "directional_accuracy": 25.73,
+      "avg_mape": 308.42,
+      "f1_score": 0.5652,
+      "equity": 99949368.61,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "alpha_mean_reversion",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-08-22",
+      "n_predictions": 171,
+      "n_correct": 48,
+      "directional_accuracy": 28.07,
+      "avg_mape": 237.46,
+      "f1_score": 0.5079,
+      "equity": 101432595.36,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-08-23",
+      "n_predictions": 171,
+      "n_correct": 47,
+      "directional_accuracy": 27.49,
+      "avg_mape": 223.13,
+      "f1_score": 0.3182,
+      "equity": 96360965.59,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "alpha_mean_reversion",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-08-24",
+      "n_predictions": 171,
+      "n_correct": 53,
+      "directional_accuracy": 30.99,
+      "avg_mape": 220.21,
+      "f1_score": 0.4737,
+      "equity": 101179013.87,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "alpha_mean_reversion",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-08-25",
+      "n_predictions": 168,
+      "n_correct": 46,
+      "directional_accuracy": 27.38,
+      "avg_mape": 265.8,
+      "f1_score": 0.2609,
+      "equity": 99929717.98,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-08-26",
+      "n_predictions": 164,
+      "n_correct": 40,
+      "directional_accuracy": 24.39,
+      "avg_mape": 290.41,
+      "f1_score": 0.3774,
+      "equity": 97082078.71,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-08-27",
+      "n_predictions": 164,
+      "n_correct": 46,
+      "directional_accuracy": 28.05,
+      "avg_mape": 331.11,
+      "f1_score": 0.7097,
+      "equity": 101344429.59,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-08-28",
+      "n_predictions": 166,
+      "n_correct": 43,
+      "directional_accuracy": 25.9,
+      "avg_mape": 291.91,
+      "f1_score": 0.4516,
+      "equity": 99799562.66,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-08-29",
+      "n_predictions": 167,
+      "n_correct": 43,
+      "directional_accuracy": 25.75,
+      "avg_mape": 234.36,
+      "f1_score": 0.48,
+      "equity": 99524449.19,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-08-30",
+      "n_predictions": 168,
+      "n_correct": 46,
+      "directional_accuracy": 27.38,
+      "avg_mape": 207.05,
+      "f1_score": 0.6301,
+      "equity": 94548226.73,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-08-31",
+      "n_predictions": 167,
+      "n_correct": 52,
+      "directional_accuracy": 31.14,
+      "avg_mape": 219.15,
+      "f1_score": 0.7937,
+      "equity": 99275638.07,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-01",
+      "n_predictions": 168,
+      "n_correct": 51,
+      "directional_accuracy": 30.36,
+      "avg_mape": 253.42,
+      "f1_score": 0.6349,
+      "equity": 100948460.83,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-02",
+      "n_predictions": 170,
+      "n_correct": 48,
+      "directional_accuracy": 28.24,
+      "avg_mape": 260.22,
+      "f1_score": 0.4096,
+      "equity": 98090653.09,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-03",
+      "n_predictions": 169,
+      "n_correct": 51,
+      "directional_accuracy": 30.18,
+      "avg_mape": 276.04,
+      "f1_score": 0.4286,
+      "equity": 97830341.06,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-04",
+      "n_predictions": 169,
+      "n_correct": 48,
+      "directional_accuracy": 28.4,
+      "avg_mape": 296.32,
+      "f1_score": 0.5806,
+      "equity": 97735062.75,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-05",
+      "n_predictions": 170,
+      "n_correct": 45,
+      "directional_accuracy": 26.47,
+      "avg_mape": 253.03,
+      "f1_score": 0.7059,
+      "equity": 98428388.4,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-06",
+      "n_predictions": 170,
+      "n_correct": 48,
+      "directional_accuracy": 28.24,
+      "avg_mape": 238.45,
+      "f1_score": 0.6866,
+      "equity": 93506968.98,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-07",
+      "n_predictions": 170,
+      "n_correct": 46,
+      "directional_accuracy": 27.06,
+      "avg_mape": 237.47,
+      "f1_score": 0.7119,
+      "equity": 98182317.43,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-08",
+      "n_predictions": 168,
+      "n_correct": 49,
+      "directional_accuracy": 29.17,
+      "avg_mape": 264.5,
+      "f1_score": 0.6582,
+      "equity": 99294412.81,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-09",
+      "n_predictions": 167,
+      "n_correct": 44,
+      "directional_accuracy": 26.35,
+      "avg_mape": 303.8,
+      "f1_score": 0.4667,
+      "equity": 98636202.6,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-10",
+      "n_predictions": 168,
+      "n_correct": 50,
+      "directional_accuracy": 29.76,
+      "avg_mape": 300.4,
+      "f1_score": 0.6562,
+      "equity": 98952900.95,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-11",
+      "n_predictions": 165,
+      "n_correct": 49,
+      "directional_accuracy": 29.7,
+      "avg_mape": 320.22,
+      "f1_score": 0.7273,
+      "equity": 99493231.92,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-12",
+      "n_predictions": 169,
+      "n_correct": 42,
+      "directional_accuracy": 24.85,
+      "avg_mape": 274.71,
+      "f1_score": 0.3571,
+      "equity": 98872163.3,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-13",
+      "n_predictions": 169,
+      "n_correct": 49,
+      "directional_accuracy": 28.99,
+      "avg_mape": 223.74,
+      "f1_score": 0.6923,
+      "equity": 93928555.13,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-14",
+      "n_predictions": 169,
+      "n_correct": 46,
+      "directional_accuracy": 27.22,
+      "avg_mape": 225.35,
+      "f1_score": 0.7077,
+      "equity": 98624982.89,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-15",
+      "n_predictions": 170,
+      "n_correct": 49,
+      "directional_accuracy": 28.82,
+      "avg_mape": 257.22,
+      "f1_score": 0.6286,
+      "equity": 98231477.73,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-16",
+      "n_predictions": 169,
+      "n_correct": 50,
+      "directional_accuracy": 29.59,
+      "avg_mape": 290.73,
+      "f1_score": 0.64,
+      "equity": 98422576.67,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-17",
+      "n_predictions": 169,
+      "n_correct": 38,
+      "directional_accuracy": 22.49,
+      "avg_mape": 294.81,
+      "f1_score": 0.1778,
+      "equity": 95766707.9,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-18",
+      "n_predictions": 169,
+      "n_correct": 46,
+      "directional_accuracy": 27.22,
+      "avg_mape": 312.39,
+      "f1_score": 0.5532,
+      "equity": 94582949.78,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-19",
+      "n_predictions": 166,
+      "n_correct": 45,
+      "directional_accuracy": 27.11,
+      "avg_mape": 260.63,
+      "f1_score": 0.5909,
+      "equity": 95808371.12,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-20",
+      "n_predictions": 166,
+      "n_correct": 48,
+      "directional_accuracy": 28.92,
+      "avg_mape": 252.61,
+      "f1_score": 0.6585,
+      "equity": 91017952.57,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-21",
+      "n_predictions": 166,
+      "n_correct": 50,
+      "directional_accuracy": 30.12,
+      "avg_mape": 244.49,
+      "f1_score": 0.6882,
+      "equity": 95568850.19,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-22",
+      "n_predictions": 166,
+      "n_correct": 42,
+      "directional_accuracy": 25.3,
+      "avg_mape": 300.08,
+      "f1_score": 0.5618,
+      "equity": 93747170.16,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-23",
+      "n_predictions": 168,
+      "n_correct": 54,
+      "directional_accuracy": 32.14,
+      "avg_mape": 268.41,
+      "f1_score": 0.7397,
+      "equity": 96658848.42,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-24",
+      "n_predictions": 167,
+      "n_correct": 39,
+      "directional_accuracy": 23.35,
+      "avg_mape": 342.8,
+      "f1_score": 0.2857,
+      "equity": 97111582.56,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-25",
+      "n_predictions": 169,
+      "n_correct": 48,
+      "directional_accuracy": 28.4,
+      "avg_mape": 276.95,
+      "f1_score": 0.4524,
+      "equity": 94467896.46,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-26",
+      "n_predictions": 170,
+      "n_correct": 37,
+      "directional_accuracy": 21.76,
+      "avg_mape": 270.85,
+      "f1_score": 0.45,
+      "equity": 94602889.64,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-27",
+      "n_predictions": 170,
+      "n_correct": 38,
+      "directional_accuracy": 22.35,
+      "avg_mape": 228.21,
+      "f1_score": 0.5532,
+      "equity": 89872745.16,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-28",
+      "n_predictions": 171,
+      "n_correct": 37,
+      "directional_accuracy": 21.64,
+      "avg_mape": 243.53,
+      "f1_score": 0.5217,
+      "equity": 94366382.42,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-29",
+      "n_predictions": 169,
+      "n_correct": 48,
+      "directional_accuracy": 28.4,
+      "avg_mape": 285.37,
+      "f1_score": 0.5581,
+      "equity": 92992857.92,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-09-30",
+      "n_predictions": 169,
+      "n_correct": 50,
+      "directional_accuracy": 29.59,
+      "avg_mape": 263.53,
+      "f1_score": 0.6667,
+      "equity": 94527211.75,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-01",
+      "n_predictions": 170,
+      "n_correct": 48,
+      "directional_accuracy": 28.24,
+      "avg_mape": 305.2,
+      "f1_score": 0.6512,
+      "equity": 95406605.19,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-02",
+      "n_predictions": 171,
+      "n_correct": 43,
+      "directional_accuracy": 25.15,
+      "avg_mape": 295.05,
+      "f1_score": 0.5614,
+      "equity": 94268702.68,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-03",
+      "n_predictions": 170,
+      "n_correct": 37,
+      "directional_accuracy": 21.76,
+      "avg_mape": 260.5,
+      "f1_score": 0.5,
+      "equity": 95888710.95,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "alpha_mean_reversion",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-04",
+      "n_predictions": 170,
+      "n_correct": 43,
+      "directional_accuracy": 25.29,
+      "avg_mape": 223.63,
+      "f1_score": 0.5532,
+      "equity": 91094275.41,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-05",
+      "n_predictions": 171,
+      "n_correct": 48,
+      "directional_accuracy": 28.07,
+      "avg_mape": 239.75,
+      "f1_score": 0.7451,
+      "equity": 95648989.18,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-06",
+      "n_predictions": 171,
+      "n_correct": 46,
+      "directional_accuracy": 26.9,
+      "avg_mape": 308.9,
+      "f1_score": 0.6809,
+      "equity": 96093667.98,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "alpha_mean_reversion",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-07",
+      "n_predictions": 170,
+      "n_correct": 48,
+      "directional_accuracy": 28.24,
+      "avg_mape": 272.21,
+      "f1_score": 0.6667,
+      "equity": 97350892.06,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "alpha_mean_reversion",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-08",
+      "n_predictions": 173,
+      "n_correct": 52,
+      "directional_accuracy": 30.06,
+      "avg_mape": 298.94,
+      "f1_score": 0.6047,
+      "equity": 98731931.9,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-09",
+      "n_predictions": 177,
+      "n_correct": 51,
+      "directional_accuracy": 28.81,
+      "avg_mape": 263.04,
+      "f1_score": 0.2143,
+      "equity": 96214373.34,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-10",
+      "n_predictions": 176,
+      "n_correct": 46,
+      "directional_accuracy": 26.14,
+      "avg_mape": 235.62,
+      "f1_score": 0.4068,
+      "equity": 93036840.84,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-11",
+      "n_predictions": 176,
+      "n_correct": 51,
+      "directional_accuracy": 28.98,
+      "avg_mape": 227.68,
+      "f1_score": 0.5352,
+      "equity": 88384998.79,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-12",
+      "n_predictions": 177,
+      "n_correct": 55,
+      "directional_accuracy": 31.07,
+      "avg_mape": 239.68,
+      "f1_score": 0.5862,
+      "equity": 92804248.73,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-13",
+      "n_predictions": 180,
+      "n_correct": 56,
+      "directional_accuracy": 31.11,
+      "avg_mape": 269.03,
+      "f1_score": 0.4127,
+      "equity": 92747804.29,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-14",
+      "n_predictions": 181,
+      "n_correct": 57,
+      "directional_accuracy": 31.49,
+      "avg_mape": 298.59,
+      "f1_score": 0.675,
+      "equity": 93738788.98,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-15",
+      "n_predictions": 178,
+      "n_correct": 50,
+      "directional_accuracy": 28.09,
+      "avg_mape": 298.53,
+      "f1_score": 0.5283,
+      "equity": 93609091.25,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-16",
+      "n_predictions": 175,
+      "n_correct": 44,
+      "directional_accuracy": 25.14,
+      "avg_mape": 249.57,
+      "f1_score": 0.2222,
+      "equity": 90380248.84,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-17",
+      "n_predictions": 174,
+      "n_correct": 50,
+      "directional_accuracy": 28.74,
+      "avg_mape": 224.89,
+      "f1_score": 0.5,
+      "equity": 89288822.63,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-18",
+      "n_predictions": 174,
+      "n_correct": 50,
+      "directional_accuracy": 28.74,
+      "avg_mape": 238.1,
+      "f1_score": 0.5714,
+      "equity": 84824381.5,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-19",
+      "n_predictions": 175,
+      "n_correct": 52,
+      "directional_accuracy": 29.71,
+      "avg_mape": 237.38,
+      "f1_score": 0.5306,
+      "equity": 89065600.57,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-20",
+      "n_predictions": 174,
+      "n_correct": 57,
+      "directional_accuracy": 32.76,
+      "avg_mape": 277.83,
+      "f1_score": 0.5556,
+      "equity": 89177242.69,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-21",
+      "n_predictions": 169,
+      "n_correct": 49,
+      "directional_accuracy": 28.99,
+      "avg_mape": 278.56,
+      "f1_score": 0.5172,
+      "equity": 89141389.87,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-22",
+      "n_predictions": 168,
+      "n_correct": 43,
+      "directional_accuracy": 25.6,
+      "avg_mape": 296.23,
+      "f1_score": 0.5385,
+      "equity": 86301640.48,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-23",
+      "n_predictions": 166,
+      "n_correct": 54,
+      "directional_accuracy": 32.53,
+      "avg_mape": 297.14,
+      "f1_score": 0.7742,
+      "equity": 86420143.13,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-24",
+      "n_predictions": 165,
+      "n_correct": 46,
+      "directional_accuracy": 27.88,
+      "avg_mape": 257.82,
+      "f1_score": 0.619,
+      "equity": 86222475.35,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-25",
+      "n_predictions": 164,
+      "n_correct": 52,
+      "directional_accuracy": 31.71,
+      "avg_mape": 251.45,
+      "f1_score": 0.717,
+      "equity": 87912932.39,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-26",
+      "n_predictions": 164,
+      "n_correct": 44,
+      "directional_accuracy": 26.83,
+      "avg_mape": 227.58,
+      "f1_score": 0.5,
+      "equity": 88503607.49,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-27",
+      "n_predictions": 171,
+      "n_correct": 45,
+      "directional_accuracy": 26.32,
+      "avg_mape": 270.88,
+      "f1_score": 0.4,
+      "equity": 88012228.83,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-28",
+      "n_predictions": 174,
+      "n_correct": 51,
+      "directional_accuracy": 29.31,
+      "avg_mape": 286.07,
+      "f1_score": 0.6105,
+      "equity": 87301189.2,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-29",
+      "n_predictions": 174,
+      "n_correct": 37,
+      "directional_accuracy": 21.26,
+      "avg_mape": 313.18,
+      "f1_score": 0.2759,
+      "equity": 86338852.53,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-30",
+      "n_predictions": 177,
+      "n_correct": 51,
+      "directional_accuracy": 28.81,
+      "avg_mape": 314.05,
+      "f1_score": 0.56,
+      "equity": 86743606.94,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-10-31",
+      "n_predictions": 178,
+      "n_correct": 44,
+      "directional_accuracy": 24.72,
+      "avg_mape": 249.82,
+      "f1_score": 0.383,
+      "equity": 86261779.62,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-01",
+      "n_predictions": 176,
+      "n_correct": 41,
+      "directional_accuracy": 23.3,
+      "avg_mape": 293.61,
+      "f1_score": 0.6154,
+      "equity": 86930645.81,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-02",
+      "n_predictions": 176,
+      "n_correct": 41,
+      "directional_accuracy": 23.3,
+      "avg_mape": 279.63,
+      "f1_score": 0.4348,
+      "equity": 87150967.3,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-03",
+      "n_predictions": 171,
+      "n_correct": 42,
+      "directional_accuracy": 24.56,
+      "avg_mape": 303.38,
+      "f1_score": 0.2857,
+      "equity": 86860976.36,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-04",
+      "n_predictions": 170,
+      "n_correct": 44,
+      "directional_accuracy": 25.88,
+      "avg_mape": 295.2,
+      "f1_score": 0.5106,
+      "equity": 86889198.62,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-05",
+      "n_predictions": 170,
+      "n_correct": 53,
+      "directional_accuracy": 31.18,
+      "avg_mape": 298.48,
+      "f1_score": 0.7317,
+      "equity": 88346419.15,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-06",
+      "n_predictions": 167,
+      "n_correct": 45,
+      "directional_accuracy": 26.95,
+      "avg_mape": 290.48,
+      "f1_score": 0.3333,
+      "equity": 86780230.1,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-07",
+      "n_predictions": 168,
+      "n_correct": 56,
+      "directional_accuracy": 33.33,
+      "avg_mape": 237.69,
+      "f1_score": 0.6552,
+      "equity": 87917593.08,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-08",
+      "n_predictions": 168,
+      "n_correct": 48,
+      "directional_accuracy": 28.57,
+      "avg_mape": 231.16,
+      "f1_score": 0.5783,
+      "equity": 87706212.65,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-09",
+      "n_predictions": 168,
+      "n_correct": 49,
+      "directional_accuracy": 29.17,
+      "avg_mape": 243.95,
+      "f1_score": 0.5507,
+      "equity": 88011214.41,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-10",
+      "n_predictions": 167,
+      "n_correct": 50,
+      "directional_accuracy": 29.94,
+      "avg_mape": 276.43,
+      "f1_score": 0.5783,
+      "equity": 88228221.28,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-11",
+      "n_predictions": 167,
+      "n_correct": 49,
+      "directional_accuracy": 29.34,
+      "avg_mape": 289.03,
+      "f1_score": 0.6667,
+      "equity": 87074203.45,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-12",
+      "n_predictions": 170,
+      "n_correct": 53,
+      "directional_accuracy": 31.18,
+      "avg_mape": 307.06,
+      "f1_score": 0.6122,
+      "equity": 87482047.95,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-13",
+      "n_predictions": 169,
+      "n_correct": 45,
+      "directional_accuracy": 26.63,
+      "avg_mape": 261.33,
+      "f1_score": 0.2963,
+      "equity": 85763083.71,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-14",
+      "n_predictions": 169,
+      "n_correct": 40,
+      "directional_accuracy": 23.67,
+      "avg_mape": 249.51,
+      "f1_score": 0.2,
+      "equity": 83690030.81,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "technical",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-15",
+      "n_predictions": 169,
+      "n_correct": 49,
+      "directional_accuracy": 28.99,
+      "avg_mape": 253.96,
+      "f1_score": 0.5333,
+      "equity": 83847922.0,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-16",
+      "n_predictions": 169,
+      "n_correct": 50,
+      "directional_accuracy": 29.59,
+      "avg_mape": 247.8,
+      "f1_score": 0.5714,
+      "equity": 84278480.9,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-17",
+      "n_predictions": 170,
+      "n_correct": 55,
+      "directional_accuracy": 32.35,
+      "avg_mape": 248.92,
+      "f1_score": 0.3881,
+      "equity": 83173748.08,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-18",
+      "n_predictions": 170,
+      "n_correct": 40,
+      "directional_accuracy": 23.53,
+      "avg_mape": 318.54,
+      "f1_score": 0.5,
+      "equity": 83048657.74,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-19",
+      "n_predictions": 167,
+      "n_correct": 45,
+      "directional_accuracy": 26.95,
+      "avg_mape": 274.04,
+      "f1_score": 0.2564,
+      "equity": 82968657.93,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-20",
+      "n_predictions": 171,
+      "n_correct": 58,
+      "directional_accuracy": 33.92,
+      "avg_mape": 267.3,
+      "f1_score": 0.1935,
+      "equity": 83588824.02,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-21",
+      "n_predictions": 173,
+      "n_correct": 48,
+      "directional_accuracy": 27.75,
+      "avg_mape": 248.37,
+      "f1_score": 0.2703,
+      "equity": 83468867.2,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-22",
+      "n_predictions": 172,
+      "n_correct": 40,
+      "directional_accuracy": 23.26,
+      "avg_mape": 230.24,
+      "f1_score": 0.4828,
+      "equity": 82039925.73,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-23",
+      "n_predictions": 172,
+      "n_correct": 45,
+      "directional_accuracy": 26.16,
+      "avg_mape": 229.65,
+      "f1_score": 0.5714,
+      "equity": 81231191.4,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-24",
+      "n_predictions": 170,
+      "n_correct": 49,
+      "directional_accuracy": 28.82,
+      "avg_mape": 261.28,
+      "f1_score": 0.5253,
+      "equity": 79653241.83,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-25",
+      "n_predictions": 172,
+      "n_correct": 50,
+      "directional_accuracy": 29.07,
+      "avg_mape": 295.87,
+      "f1_score": 0.5902,
+      "equity": 79089052.9,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-26",
+      "n_predictions": 171,
+      "n_correct": 40,
+      "directional_accuracy": 23.39,
+      "avg_mape": 277.08,
+      "f1_score": 0.4848,
+      "equity": 77918064.94,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-27",
+      "n_predictions": 168,
+      "n_correct": 48,
+      "directional_accuracy": 28.57,
+      "avg_mape": 335.19,
+      "f1_score": 0.7027,
+      "equity": 78260738.63,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-28",
+      "n_predictions": 171,
+      "n_correct": 50,
+      "directional_accuracy": 29.24,
+      "avg_mape": 255.17,
+      "f1_score": 0.3784,
+      "equity": 78045604.04,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-29",
+      "n_predictions": 170,
+      "n_correct": 41,
+      "directional_accuracy": 24.12,
+      "avg_mape": 253.06,
+      "f1_score": 0.6,
+      "equity": 77878940.53,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-11-30",
+      "n_predictions": 170,
+      "n_correct": 39,
+      "directional_accuracy": 22.94,
+      "avg_mape": 237.09,
+      "f1_score": 0.6341,
+      "equity": 77999712.26,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-01",
+      "n_predictions": 168,
+      "n_correct": 35,
+      "directional_accuracy": 20.83,
+      "avg_mape": 268.18,
+      "f1_score": 0.4643,
+      "equity": 75859456.8,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-02",
+      "n_predictions": 167,
+      "n_correct": 52,
+      "directional_accuracy": 31.14,
+      "avg_mape": 291.47,
+      "f1_score": 0.6182,
+      "equity": 76513688.25,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-03",
+      "n_predictions": 167,
+      "n_correct": 42,
+      "directional_accuracy": 25.15,
+      "avg_mape": 305.48,
+      "f1_score": 0.5,
+      "equity": 76184468.6,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-04",
+      "n_predictions": 171,
+      "n_correct": 44,
+      "directional_accuracy": 25.73,
+      "avg_mape": 306.53,
+      "f1_score": 0.5424,
+      "equity": 75171768.63,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-05",
+      "n_predictions": 171,
+      "n_correct": 43,
+      "directional_accuracy": 25.15,
+      "avg_mape": 259.26,
+      "f1_score": 0.4878,
+      "equity": 75606743.19,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-06",
+      "n_predictions": 172,
+      "n_correct": 42,
+      "directional_accuracy": 24.42,
+      "avg_mape": 260.19,
+      "f1_score": 0.4878,
+      "equity": 75170737.86,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-07",
+      "n_predictions": 172,
+      "n_correct": 44,
+      "directional_accuracy": 25.58,
+      "avg_mape": 251.78,
+      "f1_score": 0.4878,
+      "equity": 75126195.34,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-08",
+      "n_predictions": 171,
+      "n_correct": 46,
+      "directional_accuracy": 26.9,
+      "avg_mape": 288.96,
+      "f1_score": 0.4103,
+      "equity": 74436142.37,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-09",
+      "n_predictions": 172,
+      "n_correct": 48,
+      "directional_accuracy": 27.91,
+      "avg_mape": 328.38,
+      "f1_score": 0.6829,
+      "equity": 73584648.0,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-10",
+      "n_predictions": 172,
+      "n_correct": 54,
+      "directional_accuracy": 31.4,
+      "avg_mape": 261.85,
+      "f1_score": 0.6105,
+      "equity": 73963544.74,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-11",
+      "n_predictions": 166,
+      "n_correct": 48,
+      "directional_accuracy": 28.92,
+      "avg_mape": 277.16,
+      "f1_score": 0.4746,
+      "equity": 73321291.29,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-12",
+      "n_predictions": 172,
+      "n_correct": 47,
+      "directional_accuracy": 27.33,
+      "avg_mape": 252.31,
+      "f1_score": 0.1875,
+      "equity": 72054582.79,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-13",
+      "n_predictions": 172,
+      "n_correct": 54,
+      "directional_accuracy": 31.4,
+      "avg_mape": 255.2,
+      "f1_score": 0.6429,
+      "equity": 72845984.41,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-14",
+      "n_predictions": 172,
+      "n_correct": 52,
+      "directional_accuracy": 30.23,
+      "avg_mape": 249.82,
+      "f1_score": 0.5357,
+      "equity": 73369015.34,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-15",
+      "n_predictions": 173,
+      "n_correct": 56,
+      "directional_accuracy": 32.37,
+      "avg_mape": 278.36,
+      "f1_score": 0.4706,
+      "equity": 73895827.11,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-16",
+      "n_predictions": 175,
+      "n_correct": 45,
+      "directional_accuracy": 25.71,
+      "avg_mape": 306.28,
+      "f1_score": 0.6316,
+      "equity": 73558787.37,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-17",
+      "n_predictions": 176,
+      "n_correct": 43,
+      "directional_accuracy": 24.43,
+      "avg_mape": 363.7,
+      "f1_score": 0.5946,
+      "equity": 73489001.93,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-18",
+      "n_predictions": 174,
+      "n_correct": 49,
+      "directional_accuracy": 28.16,
+      "avg_mape": 325.67,
+      "f1_score": 0.6316,
+      "equity": 74734932.88,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-19",
+      "n_predictions": 170,
+      "n_correct": 42,
+      "directional_accuracy": 24.71,
+      "avg_mape": 255.67,
+      "f1_score": 0.4583,
+      "equity": 73271013.74,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-20",
+      "n_predictions": 169,
+      "n_correct": 51,
+      "directional_accuracy": 30.18,
+      "avg_mape": 231.36,
+      "f1_score": 0.7333,
+      "equity": 74640579.81,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-21",
+      "n_predictions": 169,
+      "n_correct": 54,
+      "directional_accuracy": 31.95,
+      "avg_mape": 238.83,
+      "f1_score": 0.7475,
+      "equity": 75863156.15,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-22",
+      "n_predictions": 167,
+      "n_correct": 52,
+      "directional_accuracy": 31.14,
+      "avg_mape": 288.8,
+      "f1_score": 0.6882,
+      "equity": 76960313.66,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-23",
+      "n_predictions": 169,
+      "n_correct": 41,
+      "directional_accuracy": 24.26,
+      "avg_mape": 328.07,
+      "f1_score": 0.6486,
+      "equity": 77245932.88,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-24",
+      "n_predictions": 170,
+      "n_correct": 34,
+      "directional_accuracy": 20.0,
+      "avg_mape": 270.98,
+      "f1_score": 0.125,
+      "equity": 75701325.97,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-25",
+      "n_predictions": 169,
+      "n_correct": 45,
+      "directional_accuracy": 26.63,
+      "avg_mape": 308.09,
+      "f1_score": 0.6364,
+      "equity": 76405796.73,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-26",
+      "n_predictions": 172,
+      "n_correct": 36,
+      "directional_accuracy": 20.93,
+      "avg_mape": 299.66,
+      "f1_score": 0.4706,
+      "equity": 76008303.27,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-27",
+      "n_predictions": 172,
+      "n_correct": 39,
+      "directional_accuracy": 22.67,
+      "avg_mape": 261.83,
+      "f1_score": 0.375,
+      "equity": 73577378.12,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-28",
+      "n_predictions": 172,
+      "n_correct": 42,
+      "directional_accuracy": 24.42,
+      "avg_mape": 276.96,
+      "f1_score": 0.6531,
+      "equity": 73808403.46,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-29",
+      "n_predictions": 170,
+      "n_correct": 51,
+      "directional_accuracy": 30.0,
+      "avg_mape": 308.07,
+      "f1_score": 0.6552,
+      "equity": 75250323.83,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-30",
+      "n_predictions": 172,
+      "n_correct": 49,
+      "directional_accuracy": 28.49,
+      "avg_mape": 301.55,
+      "f1_score": 0.2857,
+      "equity": 74728546.42,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2025-12-31",
+      "n_predictions": 170,
+      "n_correct": 39,
+      "directional_accuracy": 22.94,
+      "avg_mape": 251.93,
+      "f1_score": 0.5,
+      "equity": 74398130.72,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-01",
+      "n_predictions": 170,
+      "n_correct": 42,
+      "directional_accuracy": 24.71,
+      "avg_mape": 276.47,
+      "f1_score": 0.4167,
+      "equity": 75240905.83,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-02",
+      "n_predictions": 167,
+      "n_correct": 41,
+      "directional_accuracy": 24.55,
+      "avg_mape": 252.53,
+      "f1_score": 0.5333,
+      "equity": 74950220.89,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-03",
+      "n_predictions": 168,
+      "n_correct": 58,
+      "directional_accuracy": 34.52,
+      "avg_mape": 217.39,
+      "f1_score": 0.7467,
+      "equity": 77574188.15,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-04",
+      "n_predictions": 169,
+      "n_correct": 57,
+      "directional_accuracy": 33.73,
+      "avg_mape": 227.32,
+      "f1_score": 0.7042,
+      "equity": 78922985.16,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-05",
+      "n_predictions": 174,
+      "n_correct": 72,
+      "directional_accuracy": 41.38,
+      "avg_mape": 265.05,
+      "f1_score": 0.75,
+      "equity": 82018141.42,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-06",
+      "n_predictions": 178,
+      "n_correct": 46,
+      "directional_accuracy": 25.84,
+      "avg_mape": 277.39,
+      "f1_score": 0.3103,
+      "equity": 80414765.64,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-07",
+      "n_predictions": 177,
+      "n_correct": 37,
+      "directional_accuracy": 20.9,
+      "avg_mape": 342.15,
+      "f1_score": 0.303,
+      "equity": 78165779.64,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-08",
+      "n_predictions": 176,
+      "n_correct": 56,
+      "directional_accuracy": 31.82,
+      "avg_mape": 295.37,
+      "f1_score": 0.7532,
+      "equity": 80409635.16,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-09",
+      "n_predictions": 177,
+      "n_correct": 60,
+      "directional_accuracy": 33.9,
+      "avg_mape": 248.07,
+      "f1_score": 0.6667,
+      "equity": 82459921.39,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-10",
+      "n_predictions": 176,
+      "n_correct": 48,
+      "directional_accuracy": 27.27,
+      "avg_mape": 249.63,
+      "f1_score": 0.7105,
+      "equity": 83612257.97,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "alpha_mean_reversion",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-11",
+      "n_predictions": 176,
+      "n_correct": 44,
+      "directional_accuracy": 25.0,
+      "avg_mape": 254.32,
+      "f1_score": 0.625,
+      "equity": 83896481.76,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "alpha_mean_reversion",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-12",
+      "n_predictions": 180,
+      "n_correct": 51,
+      "directional_accuracy": 28.33,
+      "avg_mape": 291.24,
+      "f1_score": 0.6105,
+      "equity": 82351502.32,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-13",
+      "n_predictions": 178,
+      "n_correct": 50,
+      "directional_accuracy": 28.09,
+      "avg_mape": 321.37,
+      "f1_score": 0.641,
+      "equity": 82677380.26,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-14",
+      "n_predictions": 180,
+      "n_correct": 40,
+      "directional_accuracy": 22.22,
+      "avg_mape": 334.81,
+      "f1_score": 0.4444,
+      "equity": 80279030.35,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-15",
+      "n_predictions": 179,
+      "n_correct": 43,
+      "directional_accuracy": 24.02,
+      "avg_mape": 327.1,
+      "f1_score": 0.4286,
+      "equity": 80206888.57,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-16",
+      "n_predictions": 177,
+      "n_correct": 39,
+      "directional_accuracy": 22.03,
+      "avg_mape": 265.69,
+      "f1_score": 0.0645,
+      "equity": 79788723.1,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-17",
+      "n_predictions": 174,
+      "n_correct": 50,
+      "directional_accuracy": 28.74,
+      "avg_mape": 240.22,
+      "f1_score": 0.6237,
+      "equity": 79360021.27,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-18",
+      "n_predictions": 172,
+      "n_correct": 47,
+      "directional_accuracy": 27.33,
+      "avg_mape": 247.76,
+      "f1_score": 0.5895,
+      "equity": 78547826.72,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-19",
+      "n_predictions": 168,
+      "n_correct": 47,
+      "directional_accuracy": 27.98,
+      "avg_mape": 270.97,
+      "f1_score": 0.5192,
+      "equity": 77440453.11,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-20",
+      "n_predictions": 168,
+      "n_correct": 42,
+      "directional_accuracy": 25.0,
+      "avg_mape": 260.12,
+      "f1_score": 0.4954,
+      "equity": 76315400.05,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-21",
+      "n_predictions": 172,
+      "n_correct": 59,
+      "directional_accuracy": 34.3,
+      "avg_mape": 253.11,
+      "f1_score": 0.5833,
+      "equity": 77535749.53,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-22",
+      "n_predictions": 172,
+      "n_correct": 49,
+      "directional_accuracy": 28.49,
+      "avg_mape": 257.8,
+      "f1_score": 0.6522,
+      "equity": 76826514.65,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-23",
+      "n_predictions": 173,
+      "n_correct": 52,
+      "directional_accuracy": 30.06,
+      "avg_mape": 237.54,
+      "f1_score": 0.5676,
+      "equity": 78169963.94,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-24",
+      "n_predictions": 173,
+      "n_correct": 46,
+      "directional_accuracy": 26.59,
+      "avg_mape": 241.6,
+      "f1_score": 0.6486,
+      "equity": 77640842.29,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-25",
+      "n_predictions": 173,
+      "n_correct": 40,
+      "directional_accuracy": 23.12,
+      "avg_mape": 241.25,
+      "f1_score": 0.5614,
+      "equity": 76395091.91,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-26",
+      "n_predictions": 175,
+      "n_correct": 44,
+      "directional_accuracy": 25.14,
+      "avg_mape": 267.35,
+      "f1_score": 0.5526,
+      "equity": 74191765.12,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-27",
+      "n_predictions": 177,
+      "n_correct": 61,
+      "directional_accuracy": 34.46,
+      "avg_mape": 261.09,
+      "f1_score": 0.6667,
+      "equity": 74114678.18,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-28",
+      "n_predictions": 177,
+      "n_correct": 51,
+      "directional_accuracy": 28.81,
+      "avg_mape": 308.08,
+      "f1_score": 0.7077,
+      "equity": 76307414.72,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-29",
+      "n_predictions": 185,
+      "n_correct": 45,
+      "directional_accuracy": 24.32,
+      "avg_mape": 312.8,
+      "f1_score": 0.3922,
+      "equity": 74849071.5,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-30",
+      "n_predictions": 180,
+      "n_correct": 45,
+      "directional_accuracy": 25.0,
+      "avg_mape": 215.77,
+      "f1_score": 0.274,
+      "equity": 71106617.93,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-01-31",
+      "n_predictions": 180,
+      "n_correct": 47,
+      "directional_accuracy": 26.11,
+      "avg_mape": 231.82,
+      "f1_score": 0.2449,
+      "equity": 69890966.07,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-01",
+      "n_predictions": 181,
+      "n_correct": 42,
+      "directional_accuracy": 23.2,
+      "avg_mape": 225.6,
+      "f1_score": 0.303,
+      "equity": 69557749.8,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-02",
+      "n_predictions": 175,
+      "n_correct": 47,
+      "directional_accuracy": 26.86,
+      "avg_mape": 251.97,
+      "f1_score": 0.4286,
+      "equity": 69374366.0,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-03",
+      "n_predictions": 172,
+      "n_correct": 61,
+      "directional_accuracy": 35.47,
+      "avg_mape": 272.1,
+      "f1_score": 0.6591,
+      "equity": 72158722.68,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-04",
+      "n_predictions": 176,
+      "n_correct": 37,
+      "directional_accuracy": 21.02,
+      "avg_mape": 309.52,
+      "f1_score": 0.2553,
+      "equity": 70042873.07,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-05",
+      "n_predictions": 173,
+      "n_correct": 48,
+      "directional_accuracy": 27.75,
+      "avg_mape": 280.74,
+      "f1_score": 0.5128,
+      "equity": 69019504.9,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-06",
+      "n_predictions": 170,
+      "n_correct": 51,
+      "directional_accuracy": 30.0,
+      "avg_mape": 211.92,
+      "f1_score": 0.6087,
+      "equity": 69771018.42,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-07",
+      "n_predictions": 170,
+      "n_correct": 56,
+      "directional_accuracy": 32.94,
+      "avg_mape": 226.23,
+      "f1_score": 0.7358,
+      "equity": 70559996.89,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-08",
+      "n_predictions": 172,
+      "n_correct": 52,
+      "directional_accuracy": 30.23,
+      "avg_mape": 236.9,
+      "f1_score": 0.6444,
+      "equity": 70721014.12,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-09",
+      "n_predictions": 169,
+      "n_correct": 59,
+      "directional_accuracy": 34.91,
+      "avg_mape": 272.79,
+      "f1_score": 0.6972,
+      "equity": 71525284.7,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-10",
+      "n_predictions": 170,
+      "n_correct": 47,
+      "directional_accuracy": 27.65,
+      "avg_mape": 312.17,
+      "f1_score": 0.5769,
+      "equity": 71272961.7,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-11",
+      "n_predictions": 171,
+      "n_correct": 38,
+      "directional_accuracy": 22.22,
+      "avg_mape": 268.93,
+      "f1_score": 0.1224,
+      "equity": 68621813.6,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-12",
+      "n_predictions": 173,
+      "n_correct": 43,
+      "directional_accuracy": 24.86,
+      "avg_mape": 305.43,
+      "f1_score": 0.303,
+      "equity": 67960295.83,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-13",
+      "n_predictions": 172,
+      "n_correct": 45,
+      "directional_accuracy": 26.16,
+      "avg_mape": 234.07,
+      "f1_score": 0.3333,
+      "equity": 66827413.86,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-14",
+      "n_predictions": 172,
+      "n_correct": 52,
+      "directional_accuracy": 30.23,
+      "avg_mape": 226.69,
+      "f1_score": 0.597,
+      "equity": 66587341.08,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-15",
+      "n_predictions": 171,
+      "n_correct": 56,
+      "directional_accuracy": 32.75,
+      "avg_mape": 216.78,
+      "f1_score": 0.7229,
+      "equity": 67824020.94,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-16",
+      "n_predictions": 173,
+      "n_correct": 57,
+      "directional_accuracy": 32.95,
+      "avg_mape": 236.42,
+      "f1_score": 0.6667,
+      "equity": 68430111.3,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-17",
+      "n_predictions": 172,
+      "n_correct": 50,
+      "directional_accuracy": 29.07,
+      "avg_mape": 276.09,
+      "f1_score": 0.7541,
+      "equity": 69688140.95,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-18",
+      "n_predictions": 169,
+      "n_correct": 46,
+      "directional_accuracy": 27.22,
+      "avg_mape": 259.16,
+      "f1_score": 0.32,
+      "equity": 68393357.63,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-19",
+      "n_predictions": 168,
+      "n_correct": 47,
+      "directional_accuracy": 27.98,
+      "avg_mape": 279.48,
+      "f1_score": 0.5854,
+      "equity": 67877487.99,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-20",
+      "n_predictions": 167,
+      "n_correct": 48,
+      "directional_accuracy": 28.74,
+      "avg_mape": 219.24,
+      "f1_score": 0.48,
+      "equity": 66629203.81,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-21",
+      "n_predictions": 167,
+      "n_correct": 37,
+      "directional_accuracy": 22.16,
+      "avg_mape": 242.44,
+      "f1_score": 0.4737,
+      "equity": 66269650.48,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-22",
+      "n_predictions": 167,
+      "n_correct": 40,
+      "directional_accuracy": 23.95,
+      "avg_mape": 241.47,
+      "f1_score": 0.56,
+      "equity": 66009231.73,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-23",
+      "n_predictions": 164,
+      "n_correct": 42,
+      "directional_accuracy": 25.61,
+      "avg_mape": 245.5,
+      "f1_score": 0.3922,
+      "equity": 65527602.13,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-24",
+      "n_predictions": 169,
+      "n_correct": 62,
+      "directional_accuracy": 36.69,
+      "avg_mape": 287.69,
+      "f1_score": 0.7253,
+      "equity": 66637962.94,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-25",
+      "n_predictions": 169,
+      "n_correct": 38,
+      "directional_accuracy": 22.49,
+      "avg_mape": 321.89,
+      "f1_score": 0.3158,
+      "equity": 66282654.85,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-26",
+      "n_predictions": 168,
+      "n_correct": 49,
+      "directional_accuracy": 29.17,
+      "avg_mape": 308.89,
+      "f1_score": 0.7407,
+      "equity": 66451430.1,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-27",
+      "n_predictions": 169,
+      "n_correct": 49,
+      "directional_accuracy": 28.99,
+      "avg_mape": 226.07,
+      "f1_score": 0.2609,
+      "equity": 67177787.72,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-02-28",
+      "n_predictions": 169,
+      "n_correct": 52,
+      "directional_accuracy": 30.77,
+      "avg_mape": 214.16,
+      "f1_score": 0.5161,
+      "equity": 68229965.11,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-01",
+      "n_predictions": 169,
+      "n_correct": 49,
+      "directional_accuracy": 28.99,
+      "avg_mape": 212.91,
+      "f1_score": 0.3077,
+      "equity": 67298238.46,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-02",
+      "n_predictions": 171,
+      "n_correct": 54,
+      "directional_accuracy": 31.58,
+      "avg_mape": 210.73,
+      "f1_score": 0.25,
+      "equity": 66512013.5,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-03",
+      "n_predictions": 171,
+      "n_correct": 48,
+      "directional_accuracy": 28.07,
+      "avg_mape": 223.06,
+      "f1_score": 0.2778,
+      "equity": 65480234.16,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-04",
+      "n_predictions": 176,
+      "n_correct": 55,
+      "directional_accuracy": 31.25,
+      "avg_mape": 260.93,
+      "f1_score": 0.4667,
+      "equity": 65919375.57,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-05",
+      "n_predictions": 175,
+      "n_correct": 54,
+      "directional_accuracy": 30.86,
+      "avg_mape": 260.8,
+      "f1_score": 0.4478,
+      "equity": 68109928.74,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-06",
+      "n_predictions": 175,
+      "n_correct": 63,
+      "directional_accuracy": 36.0,
+      "avg_mape": 220.67,
+      "f1_score": 0.3158,
+      "equity": 69961770.2,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-07",
+      "n_predictions": 173,
+      "n_correct": 41,
+      "directional_accuracy": 23.7,
+      "avg_mape": 216.88,
+      "f1_score": 0.4359,
+      "equity": 68285494.0,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-08",
+      "n_predictions": 173,
+      "n_correct": 44,
+      "directional_accuracy": 25.43,
+      "avg_mape": 211.36,
+      "f1_score": 0.4789,
+      "equity": 67205199.98,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-09",
+      "n_predictions": 176,
+      "n_correct": 50,
+      "directional_accuracy": 28.41,
+      "avg_mape": 204.71,
+      "f1_score": 0.5045,
+      "equity": 63844939.98,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-10",
+      "n_predictions": 173,
+      "n_correct": 52,
+      "directional_accuracy": 30.06,
+      "avg_mape": 269.82,
+      "f1_score": 0.3922,
+      "equity": 63748331.55,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-11",
+      "n_predictions": 171,
+      "n_correct": 58,
+      "directional_accuracy": 33.92,
+      "avg_mape": 256.35,
+      "f1_score": 0.2963,
+      "equity": 65210763.79,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-12",
+      "n_predictions": 176,
+      "n_correct": 49,
+      "directional_accuracy": 27.84,
+      "avg_mape": 273.05,
+      "f1_score": 0.2174,
+      "equity": 65504960.16,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-13",
+      "n_predictions": 179,
+      "n_correct": 55,
+      "directional_accuracy": 30.73,
+      "avg_mape": 251.0,
+      "f1_score": 0.1176,
+      "equity": 66174189.68,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-14",
+      "n_predictions": 175,
+      "n_correct": 40,
+      "directional_accuracy": 22.86,
+      "avg_mape": 233.72,
+      "f1_score": 0.4235,
+      "equity": 64025357.54,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-15",
+      "n_predictions": 174,
+      "n_correct": 43,
+      "directional_accuracy": 24.71,
+      "avg_mape": 252.75,
+      "f1_score": 0.5,
+      "equity": 62949773.33,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-16",
+      "n_predictions": 178,
+      "n_correct": 43,
+      "directional_accuracy": 24.16,
+      "avg_mape": 274.26,
+      "f1_score": 0.3678,
+      "equity": 60795911.63,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-17",
+      "n_predictions": 175,
+      "n_correct": 43,
+      "directional_accuracy": 24.57,
+      "avg_mape": 281.52,
+      "f1_score": 0.2667,
+      "equity": 58690613.3,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-18",
+      "n_predictions": 174,
+      "n_correct": 68,
+      "directional_accuracy": 39.08,
+      "avg_mape": 230.57,
+      "f1_score": 0.2667,
+      "equity": 60566592.49,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-19",
+      "n_predictions": 168,
+      "n_correct": 58,
+      "directional_accuracy": 34.52,
+      "avg_mape": 225.18,
+      "f1_score": 0.2807,
+      "equity": 61670675.63,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-20",
+      "n_predictions": 172,
+      "n_correct": 45,
+      "directional_accuracy": 26.16,
+      "avg_mape": 206.94,
+      "f1_score": 0.3793,
+      "equity": 62784779.39,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-21",
+      "n_predictions": 170,
+      "n_correct": 38,
+      "directional_accuracy": 22.35,
+      "avg_mape": 216.53,
+      "f1_score": 0.3385,
+      "equity": 59941723.26,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-22",
+      "n_predictions": 173,
+      "n_correct": 36,
+      "directional_accuracy": 20.81,
+      "avg_mape": 253.46,
+      "f1_score": 0.4074,
+      "equity": 59658065.69,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-23",
+      "n_predictions": 170,
+      "n_correct": 37,
+      "directional_accuracy": 21.76,
+      "avg_mape": 250.82,
+      "f1_score": 0.3333,
+      "equity": 56832580.99,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-24",
+      "n_predictions": 170,
+      "n_correct": 48,
+      "directional_accuracy": 28.24,
+      "avg_mape": 233.83,
+      "f1_score": 0.549,
+      "equity": 55579792.28,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-25",
+      "n_predictions": 173,
+      "n_correct": 65,
+      "directional_accuracy": 37.57,
+      "avg_mape": 235.27,
+      "f1_score": 0.3256,
+      "equity": 58008414.7,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-26",
+      "n_predictions": 173,
+      "n_correct": 51,
+      "directional_accuracy": 29.48,
+      "avg_mape": 266.71,
+      "f1_score": 0.4348,
+      "equity": 59162548.28,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-27",
+      "n_predictions": 174,
+      "n_correct": 46,
+      "directional_accuracy": 26.44,
+      "avg_mape": 238.77,
+      "f1_score": 0.4186,
+      "equity": 58875507.37,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-28",
+      "n_predictions": 174,
+      "n_correct": 44,
+      "directional_accuracy": 25.29,
+      "avg_mape": 244.35,
+      "f1_score": 0.6,
+      "equity": 55931732.0,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-29",
+      "n_predictions": 174,
+      "n_correct": 42,
+      "directional_accuracy": 24.14,
+      "avg_mape": 215.76,
+      "f1_score": 0.48,
+      "equity": 58728318.6,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-30",
+      "n_predictions": 174,
+      "n_correct": 52,
+      "directional_accuracy": 29.89,
+      "avg_mape": 257.58,
+      "f1_score": 0.4571,
+      "equity": 61664734.53,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-03-31",
+      "n_predictions": 177,
+      "n_correct": 34,
+      "directional_accuracy": 19.21,
+      "avg_mape": 226.51,
+      "f1_score": 0.3099,
+      "equity": 58581497.81,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-01",
+      "n_predictions": 177,
+      "n_correct": 60,
+      "directional_accuracy": 33.9,
+      "avg_mape": 268.38,
+      "f1_score": 0.4314,
+      "equity": 58608723.38,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-02",
+      "n_predictions": 175,
+      "n_correct": 52,
+      "directional_accuracy": 29.71,
+      "avg_mape": 247.3,
+      "f1_score": 0.3448,
+      "equity": 59549187.31,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-03",
+      "n_predictions": 177,
+      "n_correct": 40,
+      "directional_accuracy": 22.6,
+      "avg_mape": 264.17,
+      "f1_score": 0.5263,
+      "equity": 59520793.44,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-04",
+      "n_predictions": 177,
+      "n_correct": 43,
+      "directional_accuracy": 24.29,
+      "avg_mape": 237.91,
+      "f1_score": 0.0,
+      "equity": 62496833.11,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-05",
+      "n_predictions": 177,
+      "n_correct": 38,
+      "directional_accuracy": 21.47,
+      "avg_mape": 236.88,
+      "f1_score": 0.0909,
+      "equity": 59371991.46,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-06",
+      "n_predictions": 175,
+      "n_correct": 43,
+      "directional_accuracy": 24.57,
+      "avg_mape": 247.07,
+      "f1_score": 0.2759,
+      "equity": 56403391.88,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-07",
+      "n_predictions": 172,
+      "n_correct": 45,
+      "directional_accuracy": 26.16,
+      "avg_mape": 172.54,
+      "f1_score": 0.496,
+      "equity": 53583222.29,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-08",
+      "n_predictions": 169,
+      "n_correct": 52,
+      "directional_accuracy": 30.77,
+      "avg_mape": 289.39,
+      "f1_score": 0.3913,
+      "equity": 53690866.07,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-09",
+      "n_predictions": 171,
+      "n_correct": 48,
+      "directional_accuracy": 28.07,
+      "avg_mape": 264.31,
+      "f1_score": 0.5405,
+      "equity": 52806093.76,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-10",
+      "n_predictions": 173,
+      "n_correct": 55,
+      "directional_accuracy": 31.79,
+      "avg_mape": 255.76,
+      "f1_score": 0.4286,
+      "equity": 53943107.43,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-11",
+      "n_predictions": 173,
+      "n_correct": 49,
+      "directional_accuracy": 28.32,
+      "avg_mape": 180.81,
+      "f1_score": 0.6122,
+      "equity": 56640262.8,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-12",
+      "n_predictions": 173,
+      "n_correct": 52,
+      "directional_accuracy": 30.06,
+      "avg_mape": 179.62,
+      "f1_score": 0.6095,
+      "equity": 53808249.66,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-13",
+      "n_predictions": 175,
+      "n_correct": 54,
+      "directional_accuracy": 30.86,
+      "avg_mape": 197.11,
+      "f1_score": 0.6,
+      "equity": 51117837.17,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-14",
+      "n_predictions": 180,
+      "n_correct": 43,
+      "directional_accuracy": 23.89,
+      "avg_mape": 341.95,
+      "f1_score": 0.6667,
+      "equity": 51196789.78,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-15",
+      "n_predictions": 177,
+      "n_correct": 45,
+      "directional_accuracy": 25.42,
+      "avg_mape": 302.82,
+      "f1_score": 0.566,
+      "equity": 50872617.02,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-16",
+      "n_predictions": 176,
+      "n_correct": 47,
+      "directional_accuracy": 26.7,
+      "avg_mape": 294.68,
+      "f1_score": 0.5455,
+      "equity": 48494686.94,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-17",
+      "n_predictions": 179,
+      "n_correct": 49,
+      "directional_accuracy": 27.37,
+      "avg_mape": 268.78,
+      "f1_score": 0.5172,
+      "equity": 48873613.65,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-18",
+      "n_predictions": 179,
+      "n_correct": 53,
+      "directional_accuracy": 29.61,
+      "avg_mape": 234.41,
+      "f1_score": 0.5957,
+      "equity": 51317294.34,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-19",
+      "n_predictions": 179,
+      "n_correct": 51,
+      "directional_accuracy": 28.49,
+      "avg_mape": 232.09,
+      "f1_score": 0.5556,
+      "equity": 48751429.62,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-20",
+      "n_predictions": 178,
+      "n_correct": 54,
+      "directional_accuracy": 30.34,
+      "avg_mape": 285.03,
+      "f1_score": 0.4675,
+      "equity": 46313858.14,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-21",
+      "n_predictions": 173,
+      "n_correct": 49,
+      "directional_accuracy": 28.32,
+      "avg_mape": 297.86,
+      "f1_score": 0.6032,
+      "equity": 46203073.83,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-22",
+      "n_predictions": 170,
+      "n_correct": 46,
+      "directional_accuracy": 27.06,
+      "avg_mape": 290.52,
+      "f1_score": 0.1379,
+      "equity": 45819174.26,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-23",
+      "n_predictions": 167,
+      "n_correct": 41,
+      "directional_accuracy": 24.55,
+      "avg_mape": 296.95,
+      "f1_score": 0.2941,
+      "equity": 45182443.08,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-24",
+      "n_predictions": 166,
+      "n_correct": 48,
+      "directional_accuracy": 28.92,
+      "avg_mape": 269.66,
+      "f1_score": 0.5116,
+      "equity": 45458455.77,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-25",
+      "n_predictions": 166,
+      "n_correct": 45,
+      "directional_accuracy": 27.11,
+      "avg_mape": 244.42,
+      "f1_score": 0.5652,
+      "equity": 47731378.55,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-26",
+      "n_predictions": 166,
+      "n_correct": 42,
+      "directional_accuracy": 25.3,
+      "avg_mape": 229.65,
+      "f1_score": 0.5091,
+      "equity": 45344809.63,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-27",
+      "n_predictions": 166,
+      "n_correct": 43,
+      "directional_accuracy": 25.9,
+      "avg_mape": 287.4,
+      "f1_score": 0.4,
+      "equity": 43077569.14,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-28",
+      "n_predictions": 164,
+      "n_correct": 54,
+      "directional_accuracy": 32.93,
+      "avg_mape": 297.8,
+      "f1_score": 0.6531,
+      "equity": 44109915.78,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-29",
+      "n_predictions": 163,
+      "n_correct": 46,
+      "directional_accuracy": 28.22,
+      "avg_mape": 249.14,
+      "f1_score": 0.5455,
+      "equity": 43116495.98,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-04-30",
+      "n_predictions": 162,
+      "n_correct": 51,
+      "directional_accuracy": 31.48,
+      "avg_mape": 218.24,
+      "f1_score": 0.6471,
+      "equity": 43498545.53,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-01",
+      "n_predictions": 165,
+      "n_correct": 38,
+      "directional_accuracy": 23.03,
+      "avg_mape": 267.45,
+      "f1_score": 0.381,
+      "equity": 44064485.77,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-02",
+      "n_predictions": 165,
+      "n_correct": 44,
+      "directional_accuracy": 26.67,
+      "avg_mape": 232.08,
+      "f1_score": 0.375,
+      "equity": 46267710.06,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-03",
+      "n_predictions": 165,
+      "n_correct": 37,
+      "directional_accuracy": 22.42,
+      "avg_mape": 237.78,
+      "f1_score": 0.4828,
+      "equity": 43954324.56,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-04",
+      "n_predictions": 165,
+      "n_correct": 42,
+      "directional_accuracy": 25.45,
+      "avg_mape": 239.55,
+      "f1_score": 0.5306,
+      "equity": 41756608.33,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-05",
+      "n_predictions": 166,
+      "n_correct": 49,
+      "directional_accuracy": 29.52,
+      "avg_mape": 247.79,
+      "f1_score": 0.55,
+      "equity": 39668777.91,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-06",
+      "n_predictions": 166,
+      "n_correct": 48,
+      "directional_accuracy": 28.92,
+      "avg_mape": 277.76,
+      "f1_score": 0.4898,
+      "equity": 39525416.08,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-07",
+      "n_predictions": 169,
+      "n_correct": 39,
+      "directional_accuracy": 23.08,
+      "avg_mape": 294.04,
+      "f1_score": 0.2581,
+      "equity": 39046771.33,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-08",
+      "n_predictions": 166,
+      "n_correct": 48,
+      "directional_accuracy": 28.92,
+      "avg_mape": 265.24,
+      "f1_score": 0.6977,
+      "equity": 39298451.91,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-09",
+      "n_predictions": 166,
+      "n_correct": 43,
+      "directional_accuracy": 25.9,
+      "avg_mape": 246.94,
+      "f1_score": 0.6341,
+      "equity": 41263374.51,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-10",
+      "n_predictions": 166,
+      "n_correct": 44,
+      "directional_accuracy": 26.51,
+      "avg_mape": 243.87,
+      "f1_score": 0.6087,
+      "equity": 39200205.78,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-11",
+      "n_predictions": 167,
+      "n_correct": 50,
+      "directional_accuracy": 29.94,
+      "avg_mape": 289.84,
+      "f1_score": 0.5763,
+      "equity": 37240195.49,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-12",
+      "n_predictions": 167,
+      "n_correct": 44,
+      "directional_accuracy": 26.35,
+      "avg_mape": 293.32,
+      "f1_score": 0.5714,
+      "equity": 36624660.81,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-13",
+      "n_predictions": 168,
+      "n_correct": 42,
+      "directional_accuracy": 25.0,
+      "avg_mape": 277.39,
+      "f1_score": 0.4348,
+      "equity": 35991629.92,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-14",
+      "n_predictions": 168,
+      "n_correct": 49,
+      "directional_accuracy": 29.17,
+      "avg_mape": 229.6,
+      "f1_score": 0.2,
+      "equity": 36061277.16,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-15",
+      "n_predictions": 168,
+      "n_correct": 43,
+      "directional_accuracy": 25.6,
+      "avg_mape": 241.02,
+      "f1_score": 0.2381,
+      "equity": 35879317.35,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-16",
+      "n_predictions": 167,
+      "n_correct": 59,
+      "directional_accuracy": 35.33,
+      "avg_mape": 230.76,
+      "f1_score": 0.6562,
+      "equity": 37673283.22,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-17",
+      "n_predictions": 167,
+      "n_correct": 62,
+      "directional_accuracy": 37.13,
+      "avg_mape": 219.65,
+      "f1_score": 0.5373,
+      "equity": 35789619.06,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-18",
+      "n_predictions": 166,
+      "n_correct": 59,
+      "directional_accuracy": 35.54,
+      "avg_mape": 254.98,
+      "f1_score": 0.5385,
+      "equity": 34000138.1,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-19",
+      "n_predictions": 168,
+      "n_correct": 53,
+      "directional_accuracy": 31.55,
+      "avg_mape": 260.66,
+      "f1_score": 0.4262,
+      "equity": 33445862.17,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-20",
+      "n_predictions": 168,
+      "n_correct": 53,
+      "directional_accuracy": 31.55,
+      "avg_mape": 262.16,
+      "f1_score": 0.4118,
+      "equity": 33193780.04,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-21",
+      "n_predictions": 166,
+      "n_correct": 57,
+      "directional_accuracy": 34.34,
+      "avg_mape": 283.26,
+      "f1_score": 0.6667,
+      "equity": 34111627.14,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-22",
+      "n_predictions": 166,
+      "n_correct": 56,
+      "directional_accuracy": 33.73,
+      "avg_mape": 225.8,
+      "f1_score": 0.6462,
+      "equity": 34418746.13,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-23",
+      "n_predictions": 166,
+      "n_correct": 49,
+      "directional_accuracy": 29.52,
+      "avg_mape": 243.57,
+      "f1_score": 0.5455,
+      "equity": 32697808.83,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-24",
+      "n_predictions": 166,
+      "n_correct": 54,
+      "directional_accuracy": 32.53,
+      "avg_mape": 235.58,
+      "f1_score": 0.5263,
+      "equity": 34332699.27,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-25",
+      "n_predictions": 166,
+      "n_correct": 55,
+      "directional_accuracy": 33.13,
+      "avg_mape": 268.06,
+      "f1_score": 0.3636,
+      "equity": 35126773.04,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-26",
+      "n_predictions": 168,
+      "n_correct": 48,
+      "directional_accuracy": 28.57,
+      "avg_mape": 285.4,
+      "f1_score": 0.3226,
+      "equity": 34934033.77,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-27",
+      "n_predictions": 168,
+      "n_correct": 46,
+      "directional_accuracy": 27.38,
+      "avg_mape": 299.37,
+      "f1_score": 0.2609,
+      "equity": 35014760.82,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-28",
+      "n_predictions": 168,
+      "n_correct": 51,
+      "directional_accuracy": 30.36,
+      "avg_mape": 272.39,
+      "f1_score": 0.5937,
+      "equity": 35097646.62,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-29",
+      "n_predictions": 167,
+      "n_correct": 45,
+      "directional_accuracy": 26.95,
+      "avg_mape": 274.16,
+      "f1_score": 0.5,
+      "equity": 34734108.62,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-30",
+      "n_predictions": 167,
+      "n_correct": 44,
+      "directional_accuracy": 26.35,
+      "avg_mape": 242.0,
+      "f1_score": 0.5,
+      "equity": 32997403.19,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-05-31",
+      "n_predictions": 169,
+      "n_correct": 39,
+      "directional_accuracy": 23.08,
+      "avg_mape": 232.12,
+      "f1_score": 0.5,
+      "equity": 34647273.35,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-01",
+      "n_predictions": 168,
+      "n_correct": 38,
+      "directional_accuracy": 22.62,
+      "avg_mape": 267.15,
+      "f1_score": 0.3529,
+      "equity": 34376750.18,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-02",
+      "n_predictions": 165,
+      "n_correct": 51,
+      "directional_accuracy": 30.91,
+      "avg_mape": 287.86,
+      "f1_score": 0.6341,
+      "equity": 36060030.08,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-03",
+      "n_predictions": 167,
+      "n_correct": 54,
+      "directional_accuracy": 32.34,
+      "avg_mape": 278.01,
+      "f1_score": 0.4444,
+      "equity": 36372831.32,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-04",
+      "n_predictions": 168,
+      "n_correct": 49,
+      "directional_accuracy": 29.17,
+      "avg_mape": 281.95,
+      "f1_score": 0.1333,
+      "equity": 36264916.35,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-05",
+      "n_predictions": 167,
+      "n_correct": 67,
+      "directional_accuracy": 40.12,
+      "avg_mape": 215.25,
+      "f1_score": 0.4348,
+      "equity": 38078162.17,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-06",
+      "n_predictions": 167,
+      "n_correct": 41,
+      "directional_accuracy": 24.55,
+      "avg_mape": 259.18,
+      "f1_score": 0.439,
+      "equity": 36174254.06,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-07",
+      "n_predictions": 168,
+      "n_correct": 50,
+      "directional_accuracy": 29.76,
+      "avg_mape": 244.81,
+      "f1_score": 0.5714,
+      "equity": 37982966.76,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-08",
+      "n_predictions": 169,
+      "n_correct": 53,
+      "directional_accuracy": 31.36,
+      "avg_mape": 255.67,
+      "f1_score": 0.4667,
+      "equity": 38276729.6,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-09",
+      "n_predictions": 171,
+      "n_correct": 50,
+      "directional_accuracy": 29.24,
+      "avg_mape": 281.04,
+      "f1_score": 0.1905,
+      "equity": 37525212.85,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-10",
+      "n_predictions": 174,
+      "n_correct": 47,
+      "directional_accuracy": 27.01,
+      "avg_mape": 300.04,
+      "f1_score": 0.2162,
+      "equity": 37344580.57,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-11",
+      "n_predictions": 172,
+      "n_correct": 53,
+      "directional_accuracy": 30.81,
+      "avg_mape": 230.5,
+      "f1_score": 0.5294,
+      "equity": 35954861.37,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-12",
+      "n_predictions": 170,
+      "n_correct": 61,
+      "directional_accuracy": 35.88,
+      "avg_mape": 224.25,
+      "f1_score": 0.4651,
+      "equity": 37321758.34,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-13",
+      "n_predictions": 170,
+      "n_correct": 48,
+      "directional_accuracy": 28.24,
+      "avg_mape": 237.28,
+      "f1_score": 0.5532,
+      "equity": 35455670.42,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-14",
+      "n_predictions": 170,
+      "n_correct": 46,
+      "directional_accuracy": 27.06,
+      "avg_mape": 257.67,
+      "f1_score": 0.5882,
+      "equity": 37228453.94,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-15",
+      "n_predictions": 172,
+      "n_correct": 51,
+      "directional_accuracy": 29.65,
+      "avg_mape": 306.64,
+      "f1_score": 0.5263,
+      "equity": 38119112.09,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-16",
+      "n_predictions": 168,
+      "n_correct": 45,
+      "directional_accuracy": 26.79,
+      "avg_mape": 302.24,
+      "f1_score": 0.55,
+      "equity": 38019306.42,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-17",
+      "n_predictions": 169,
+      "n_correct": 52,
+      "directional_accuracy": 30.77,
+      "avg_mape": 267.95,
+      "f1_score": 0.375,
+      "equity": 38847008.09,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-18",
+      "n_predictions": 172,
+      "n_correct": 50,
+      "directional_accuracy": 29.07,
+      "avg_mape": 262.49,
+      "f1_score": 0.2857,
+      "equity": 39270932.85,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-19",
+      "n_predictions": 174,
+      "n_correct": 62,
+      "directional_accuracy": 35.63,
+      "avg_mape": 243.98,
+      "f1_score": 0.381,
+      "equity": 40413573.79,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-20",
+      "n_predictions": 174,
+      "n_correct": 52,
+      "directional_accuracy": 29.89,
+      "avg_mape": 210.75,
+      "f1_score": 0.52,
+      "equity": 38392895.1,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-21",
+      "n_predictions": 175,
+      "n_correct": 54,
+      "directional_accuracy": 30.86,
+      "avg_mape": 213.61,
+      "f1_score": 0.5926,
+      "equity": 40312539.86,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-22",
+      "n_predictions": 171,
+      "n_correct": 56,
+      "directional_accuracy": 32.75,
+      "avg_mape": 217.5,
+      "f1_score": 0.3714,
+      "equity": 40133425.29,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-23",
+      "n_predictions": 172,
+      "n_correct": 56,
+      "directional_accuracy": 32.56,
+      "avg_mape": 273.54,
+      "f1_score": 0.1,
+      "equity": 42113151.22,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-24",
+      "n_predictions": 173,
+      "n_correct": 52,
+      "directional_accuracy": 30.06,
+      "avg_mape": 281.27,
+      "f1_score": 0.5714,
+      "equity": 42831545.13,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-25",
+      "n_predictions": 176,
+      "n_correct": 52,
+      "directional_accuracy": 29.55,
+      "avg_mape": 272.89,
+      "f1_score": 0.2286,
+      "equity": 42671776.56,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-26",
+      "n_predictions": 176,
+      "n_correct": 44,
+      "directional_accuracy": 25.0,
+      "avg_mape": 271.46,
+      "f1_score": 0.2857,
+      "equity": 42734951.5,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-27",
+      "n_predictions": 176,
+      "n_correct": 47,
+      "directional_accuracy": 26.7,
+      "avg_mape": 241.55,
+      "f1_score": 0.4839,
+      "equity": 40598203.93,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-28",
+      "n_predictions": 175,
+      "n_correct": 43,
+      "directional_accuracy": 24.57,
+      "avg_mape": 247.72,
+      "f1_score": 0.4912,
+      "equity": 42628114.12,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-29",
+      "n_predictions": 176,
+      "n_correct": 50,
+      "directional_accuracy": 28.41,
+      "avg_mape": 278.72,
+      "f1_score": 0.4872,
+      "equity": 41962510.37,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-06-30",
+      "n_predictions": 172,
+      "n_correct": 39,
+      "directional_accuracy": 22.67,
+      "avg_mape": 277.01,
+      "f1_score": 0.48,
+      "equity": 41419620.27,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-01",
+      "n_predictions": 170,
+      "n_correct": 55,
+      "directional_accuracy": 32.35,
+      "avg_mape": 256.0,
+      "f1_score": 0.5965,
+      "equity": 41809477.3,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-02",
+      "n_predictions": 172,
+      "n_correct": 46,
+      "directional_accuracy": 26.74,
+      "avg_mape": 274.95,
+      "f1_score": 0.4706,
+      "equity": 41623480.91,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-03",
+      "n_predictions": 171,
+      "n_correct": 40,
+      "directional_accuracy": 23.39,
+      "avg_mape": 306.44,
+      "f1_score": 0.3636,
+      "equity": 41107246.67,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-04",
+      "n_predictions": 171,
+      "n_correct": 37,
+      "directional_accuracy": 21.64,
+      "avg_mape": 257.27,
+      "f1_score": 0.2727,
+      "equity": 39051884.34,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-05",
+      "n_predictions": 171,
+      "n_correct": 40,
+      "directional_accuracy": 23.39,
+      "avg_mape": 259.42,
+      "f1_score": 0.5185,
+      "equity": 41004478.56,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-06",
+      "n_predictions": 170,
+      "n_correct": 42,
+      "directional_accuracy": 24.71,
+      "avg_mape": 268.33,
+      "f1_score": 0.1081,
+      "equity": 39197615.64,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-07",
+      "n_predictions": 171,
+      "n_correct": 54,
+      "directional_accuracy": 31.58,
+      "avg_mape": 218.36,
+      "f1_score": 0.1818,
+      "equity": 38300261.71,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-08",
+      "n_predictions": 171,
+      "n_correct": 44,
+      "directional_accuracy": 25.73,
+      "avg_mape": 258.33,
+      "f1_score": 0.3077,
+      "equity": 37232013.42,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-09",
+      "n_predictions": 170,
+      "n_correct": 43,
+      "directional_accuracy": 25.29,
+      "avg_mape": 308.17,
+      "f1_score": 0.2963,
+      "equity": 37213490.88,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-10",
+      "n_predictions": 170,
+      "n_correct": 47,
+      "directional_accuracy": 27.65,
+      "avg_mape": 242.98,
+      "f1_score": 0.2857,
+      "equity": 38470037.4,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-11",
+      "n_predictions": 170,
+      "n_correct": 34,
+      "directional_accuracy": 20.0,
+      "avg_mape": 230.68,
+      "f1_score": 0.1538,
+      "equity": 36546535.53,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-12",
+      "n_predictions": 171,
+      "n_correct": 33,
+      "directional_accuracy": 19.3,
+      "avg_mape": 225.28,
+      "f1_score": 0.3721,
+      "equity": 38373862.31,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-13",
+      "n_predictions": 170,
+      "n_correct": 33,
+      "directional_accuracy": 19.41,
+      "avg_mape": 243.14,
+      "f1_score": 0.3582,
+      "equity": 36879593.65,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-14",
+      "n_predictions": 171,
+      "n_correct": 42,
+      "directional_accuracy": 24.56,
+      "avg_mape": 269.25,
+      "f1_score": 0.4727,
+      "equity": 36628267.58,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-15",
+      "n_predictions": 172,
+      "n_correct": 56,
+      "directional_accuracy": 32.56,
+      "avg_mape": 276.09,
+      "f1_score": 0.5455,
+      "equity": 36760027.33,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-16",
+      "n_predictions": 178,
+      "n_correct": 48,
+      "directional_accuracy": 26.97,
+      "avg_mape": 269.02,
+      "f1_score": 0.2564,
+      "equity": 36822676.97,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-17",
+      "n_predictions": 175,
+      "n_correct": 40,
+      "directional_accuracy": 22.86,
+      "avg_mape": 262.36,
+      "f1_score": 0.4151,
+      "equity": 35946721.83,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-18",
+      "n_predictions": 174,
+      "n_correct": 53,
+      "directional_accuracy": 30.46,
+      "avg_mape": 267.61,
+      "f1_score": 0.6552,
+      "equity": 34149385.74,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-19",
+      "n_predictions": 176,
+      "n_correct": 56,
+      "directional_accuracy": 31.82,
+      "avg_mape": 248.89,
+      "f1_score": 0.72,
+      "equity": 35856855.03,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-20",
+      "n_predictions": 173,
+      "n_correct": 53,
+      "directional_accuracy": 30.64,
+      "avg_mape": 257.72,
+      "f1_score": 0.619,
+      "equity": 36092381.52,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-21",
+      "n_predictions": 170,
+      "n_correct": 46,
+      "directional_accuracy": 27.06,
+      "avg_mape": 280.09,
+      "f1_score": 0.6038,
+      "equity": 36139673.66,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-22",
+      "n_predictions": 173,
+      "n_correct": 47,
+      "directional_accuracy": 27.17,
+      "avg_mape": 283.95,
+      "f1_score": 0.4348,
+      "equity": 36384234.83,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-23",
+      "n_predictions": 169,
+      "n_correct": 49,
+      "directional_accuracy": 28.99,
+      "avg_mape": 259.49,
+      "f1_score": 0.3721,
+      "equity": 36437725.95,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-24",
+      "n_predictions": 167,
+      "n_correct": 40,
+      "directional_accuracy": 23.95,
+      "avg_mape": 261.62,
+      "f1_score": 0.4444,
+      "equity": 36094117.63,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-25",
+      "n_predictions": 166,
+      "n_correct": 40,
+      "directional_accuracy": 24.1,
+      "avg_mape": 263.13,
+      "f1_score": 0.52,
+      "equity": 34289411.75,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-26",
+      "n_predictions": 166,
+      "n_correct": 44,
+      "directional_accuracy": 26.51,
+      "avg_mape": 257.46,
+      "f1_score": 0.5714,
+      "equity": 36003882.33,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-27",
+      "n_predictions": 168,
+      "n_correct": 51,
+      "directional_accuracy": 30.36,
+      "avg_mape": 258.52,
+      "f1_score": 0.5075,
+      "equity": 36273089.52,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-28",
+      "n_predictions": 168,
+      "n_correct": 45,
+      "directional_accuracy": 26.79,
+      "avg_mape": 300.99,
+      "f1_score": 0.4878,
+      "equity": 36302283.19,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-29",
+      "n_predictions": 166,
+      "n_correct": 45,
+      "directional_accuracy": 27.11,
+      "avg_mape": 270.29,
+      "f1_score": 0.5333,
+      "equity": 35958799.9,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-30",
+      "n_predictions": 171,
+      "n_correct": 40,
+      "directional_accuracy": 23.39,
+      "avg_mape": 274.97,
+      "f1_score": 0.3889,
+      "equity": 34971883.38,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-07-31",
+      "n_predictions": 172,
+      "n_correct": 46,
+      "directional_accuracy": 26.74,
+      "avg_mape": 260.32,
+      "f1_score": 0.359,
+      "equity": 34239694.75,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-01",
+      "n_predictions": 172,
+      "n_correct": 53,
+      "directional_accuracy": 30.81,
+      "avg_mape": 267.89,
+      "f1_score": 0.6032,
+      "equity": 34949623.72,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-03",
+      "n_predictions": 172,
+      "n_correct": 47,
+      "directional_accuracy": 27.33,
+      "avg_mape": 247.4,
+      "f1_score": 0.4889,
+      "equity": 35237566.96,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-04",
+      "n_predictions": 174,
+      "n_correct": 44,
+      "directional_accuracy": 25.29,
+      "avg_mape": 277.29,
+      "f1_score": 0.4912,
+      "equity": 34515160.2,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-05",
+      "n_predictions": 178,
+      "n_correct": 48,
+      "directional_accuracy": 26.97,
+      "avg_mape": 313.07,
+      "f1_score": 0.5581,
+      "equity": 34406881.84,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-06",
+      "n_predictions": 174,
+      "n_correct": 47,
+      "directional_accuracy": 27.01,
+      "avg_mape": 312.24,
+      "f1_score": 0.5185,
+      "equity": 34069290.0,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-07",
+      "n_predictions": 174,
+      "n_correct": 52,
+      "directional_accuracy": 29.89,
+      "avg_mape": 271.52,
+      "f1_score": 0.4898,
+      "equity": 34353258.76,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-08",
+      "n_predictions": 173,
+      "n_correct": 38,
+      "directional_accuracy": 21.97,
+      "avg_mape": 288.28,
+      "f1_score": 0.2162,
+      "equity": 33222897.34,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-10",
+      "n_predictions": 174,
+      "n_correct": 38,
+      "directional_accuracy": 21.84,
+      "avg_mape": 309.59,
+      "f1_score": 0.3243,
+      "equity": 32611213.98,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-11",
+      "n_predictions": 173,
+      "n_correct": 39,
+      "directional_accuracy": 22.54,
+      "avg_mape": 330.76,
+      "f1_score": 0.4889,
+      "equity": 32341897.95,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-12",
+      "n_predictions": 171,
+      "n_correct": 37,
+      "directional_accuracy": 21.64,
+      "avg_mape": 306.3,
+      "f1_score": 0.2353,
+      "equity": 31892524.01,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-13",
+      "n_predictions": 175,
+      "n_correct": 50,
+      "directional_accuracy": 28.57,
+      "avg_mape": 306.77,
+      "f1_score": 0.5294,
+      "equity": 32571135.96,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-14",
+      "n_predictions": 175,
+      "n_correct": 51,
+      "directional_accuracy": 29.14,
+      "avg_mape": 264.99,
+      "f1_score": 0.6667,
+      "equity": 32334302.55,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-15",
+      "n_predictions": 19,
+      "n_correct": 3,
+      "directional_accuracy": 15.79,
+      "avg_mape": 272.1,
+      "f1_score": 0.2,
+      "equity": 31980832.9,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-17",
+      "n_predictions": 0,
+      "n_correct": 0,
+      "directional_accuracy": 0.0,
+      "avg_mape": 0.0,
+      "f1_score": 0.0,
+      "equity": 31980832.9,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    },
+    {
+      "sim_date": "2026-08-18",
+      "n_predictions": 0,
+      "n_correct": 0,
+      "directional_accuracy": 0.0,
+      "avg_mape": 0.0,
+      "f1_score": 0.0,
+      "equity": 31980832.9,
+      "regime": "unknown",
+      "top_engine": "fama_french",
+      "worst_engine": "hmm_regime",
+      "lookahead_ok": true
+    }
+  ],
+  "equity_curve": [
+    {
+      "date": "2025-08-20",
+      "equity": 100883970.75
+    },
+    {
+      "date": "2025-08-21",
+      "equity": 99949368.61
+    },
+    {
+      "date": "2025-08-22",
+      "equity": 101432595.36
+    },
+    {
+      "date": "2025-08-23",
+      "equity": 96360965.59
+    },
+    {
+      "date": "2025-08-24",
+      "equity": 101179013.87
+    },
+    {
+      "date": "2025-08-25",
+      "equity": 99929717.98
+    },
+    {
+      "date": "2025-08-26",
+      "equity": 97082078.71
+    },
+    {
+      "date": "2025-08-27",
+      "equity": 101344429.59
+    },
+    {
+      "date": "2025-08-28",
+      "equity": 99799562.66
+    },
+    {
+      "date": "2025-08-29",
+      "equity": 99524449.19
+    },
+    {
+      "date": "2025-08-30",
+      "equity": 94548226.73
+    },
+    {
+      "date": "2025-08-31",
+      "equity": 99275638.07
+    },
+    {
+      "date": "2025-09-01",
+      "equity": 100948460.83
+    },
+    {
+      "date": "2025-09-02",
+      "equity": 98090653.09
+    },
+    {
+      "date": "2025-09-03",
+      "equity": 97830341.06
+    },
+    {
+      "date": "2025-09-04",
+      "equity": 97735062.75
+    },
+    {
+      "date": "2025-09-05",
+      "equity": 98428388.4
+    },
+    {
+      "date": "2025-09-06",
+      "equity": 93506968.98
+    },
+    {
+      "date": "2025-09-07",
+      "equity": 98182317.43
+    },
+    {
+      "date": "2025-09-08",
+      "equity": 99294412.81
+    },
+    {
+      "date": "2025-09-09",
+      "equity": 98636202.6
+    },
+    {
+      "date": "2025-09-10",
+      "equity": 98952900.95
+    },
+    {
+      "date": "2025-09-11",
+      "equity": 99493231.92
+    },
+    {
+      "date": "2025-09-12",
+      "equity": 98872163.3
+    },
+    {
+      "date": "2025-09-13",
+      "equity": 93928555.13
+    },
+    {
+      "date": "2025-09-14",
+      "equity": 98624982.89
+    },
+    {
+      "date": "2025-09-15",
+      "equity": 98231477.73
+    },
+    {
+      "date": "2025-09-16",
+      "equity": 98422576.67
+    },
+    {
+      "date": "2025-09-17",
+      "equity": 95766707.9
+    },
+    {
+      "date": "2025-09-18",
+      "equity": 94582949.78
+    },
+    {
+      "date": "2025-09-19",
+      "equity": 95808371.12
+    },
+    {
+      "date": "2025-09-20",
+      "equity": 91017952.57
+    },
+    {
+      "date": "2025-09-21",
+      "equity": 95568850.19
+    },
+    {
+      "date": "2025-09-22",
+      "equity": 93747170.16
+    },
+    {
+      "date": "2025-09-23",
+      "equity": 96658848.42
+    },
+    {
+      "date": "2025-09-24",
+      "equity": 97111582.56
+    },
+    {
+      "date": "2025-09-25",
+      "equity": 94467896.46
+    },
+    {
+      "date": "2025-09-26",
+      "equity": 94602889.64
+    },
+    {
+      "date": "2025-09-27",
+      "equity": 89872745.16
+    },
+    {
+      "date": "2025-09-28",
+      "equity": 94366382.42
+    },
+    {
+      "date": "2025-09-29",
+      "equity": 92992857.92
+    },
+    {
+      "date": "2025-09-30",
+      "equity": 94527211.75
+    },
+    {
+      "date": "2025-10-01",
+      "equity": 95406605.19
+    },
+    {
+      "date": "2025-10-02",
+      "equity": 94268702.68
+    },
+    {
+      "date": "2025-10-03",
+      "equity": 95888710.95
+    },
+    {
+      "date": "2025-10-04",
+      "equity": 91094275.41
+    },
+    {
+      "date": "2025-10-05",
+      "equity": 95648989.18
+    },
+    {
+      "date": "2025-10-06",
+      "equity": 96093667.98
+    },
+    {
+      "date": "2025-10-07",
+      "equity": 97350892.06
+    },
+    {
+      "date": "2025-10-08",
+      "equity": 98731931.9
+    },
+    {
+      "date": "2025-10-09",
+      "equity": 96214373.34
+    },
+    {
+      "date": "2025-10-10",
+      "equity": 93036840.84
+    },
+    {
+      "date": "2025-10-11",
+      "equity": 88384998.79
+    },
+    {
+      "date": "2025-10-12",
+      "equity": 92804248.73
+    },
+    {
+      "date": "2025-10-13",
+      "equity": 92747804.29
+    },
+    {
+      "date": "2025-10-14",
+      "equity": 93738788.98
+    },
+    {
+      "date": "2025-10-15",
+      "equity": 93609091.25
+    },
+    {
+      "date": "2025-10-16",
+      "equity": 90380248.84
+    },
+    {
+      "date": "2025-10-17",
+      "equity": 89288822.63
+    },
+    {
+      "date": "2025-10-18",
+      "equity": 84824381.5
+    },
+    {
+      "date": "2025-10-19",
+      "equity": 89065600.57
+    },
+    {
+      "date": "2025-10-20",
+      "equity": 89177242.69
+    },
+    {
+      "date": "2025-10-21",
+      "equity": 89141389.87
+    },
+    {
+      "date": "2025-10-22",
+      "equity": 86301640.48
+    },
+    {
+      "date": "2025-10-23",
+      "equity": 86420143.13
+    },
+    {
+      "date": "2025-10-24",
+      "equity": 86222475.35
+    },
+    {
+      "date": "2025-10-25",
+      "equity": 87912932.39
+    },
+    {
+      "date": "2025-10-26",
+      "equity": 88503607.49
+    },
+    {
+      "date": "2025-10-27",
+      "equity": 88012228.83
+    },
+    {
+      "date": "2025-10-28",
+      "equity": 87301189.2
+    },
+    {
+      "date": "2025-10-29",
+      "equity": 86338852.53
+    },
+    {
+      "date": "2025-10-30",
+      "equity": 86743606.94
+    },
+    {
+      "date": "2025-10-31",
+      "equity": 86261779.62
+    },
+    {
+      "date": "2025-11-01",
+      "equity": 86930645.81
+    },
+    {
+      "date": "2025-11-02",
+      "equity": 87150967.3
+    },
+    {
+      "date": "2025-11-03",
+      "equity": 86860976.36
+    },
+    {
+      "date": "2025-11-04",
+      "equity": 86889198.62
+    },
+    {
+      "date": "2025-11-05",
+      "equity": 88346419.15
+    },
+    {
+      "date": "2025-11-06",
+      "equity": 86780230.1
+    },
+    {
+      "date": "2025-11-07",
+      "equity": 87917593.08
+    },
+    {
+      "date": "2025-11-08",
+      "equity": 87706212.65
+    },
+    {
+      "date": "2025-11-09",
+      "equity": 88011214.41
+    },
+    {
+      "date": "2025-11-10",
+      "equity": 88228221.28
+    },
+    {
+      "date": "2025-11-11",
+      "equity": 87074203.45
+    },
+    {
+      "date": "2025-11-12",
+      "equity": 87482047.95
+    },
+    {
+      "date": "2025-11-13",
+      "equity": 85763083.71
+    },
+    {
+      "date": "2025-11-14",
+      "equity": 83690030.81
+    },
+    {
+      "date": "2025-11-15",
+      "equity": 83847922.0
+    },
+    {
+      "date": "2025-11-16",
+      "equity": 84278480.9
+    },
+    {
+      "date": "2025-11-17",
+      "equity": 83173748.08
+    },
+    {
+      "date": "2025-11-18",
+      "equity": 83048657.74
+    },
+    {
+      "date": "2025-11-19",
+      "equity": 82968657.93
+    },
+    {
+      "date": "2025-11-20",
+      "equity": 83588824.02
+    },
+    {
+      "date": "2025-11-21",
+      "equity": 83468867.2
+    },
+    {
+      "date": "2025-11-22",
+      "equity": 82039925.73
+    },
+    {
+      "date": "2025-11-23",
+      "equity": 81231191.4
+    },
+    {
+      "date": "2025-11-24",
+      "equity": 79653241.83
+    },
+    {
+      "date": "2025-11-25",
+      "equity": 79089052.9
+    },
+    {
+      "date": "2025-11-26",
+      "equity": 77918064.94
+    },
+    {
+      "date": "2025-11-27",
+      "equity": 78260738.63
+    },
+    {
+      "date": "2025-11-28",
+      "equity": 78045604.04
+    },
+    {
+      "date": "2025-11-29",
+      "equity": 77878940.53
+    },
+    {
+      "date": "2025-11-30",
+      "equity": 77999712.26
+    },
+    {
+      "date": "2025-12-01",
+      "equity": 75859456.8
+    },
+    {
+      "date": "2025-12-02",
+      "equity": 76513688.25
+    },
+    {
+      "date": "2025-12-03",
+      "equity": 76184468.6
+    },
+    {
+      "date": "2025-12-04",
+      "equity": 75171768.63
+    },
+    {
+      "date": "2025-12-05",
+      "equity": 75606743.19
+    },
+    {
+      "date": "2025-12-06",
+      "equity": 75170737.86
+    },
+    {
+      "date": "2025-12-07",
+      "equity": 75126195.34
+    },
+    {
+      "date": "2025-12-08",
+      "equity": 74436142.37
+    },
+    {
+      "date": "2025-12-09",
+      "equity": 73584648.0
+    },
+    {
+      "date": "2025-12-10",
+      "equity": 73963544.74
+    },
+    {
+      "date": "2025-12-11",
+      "equity": 73321291.29
+    },
+    {
+      "date": "2025-12-12",
+      "equity": 72054582.79
+    },
+    {
+      "date": "2025-12-13",
+      "equity": 72845984.41
+    },
+    {
+      "date": "2025-12-14",
+      "equity": 73369015.34
+    },
+    {
+      "date": "2025-12-15",
+      "equity": 73895827.11
+    },
+    {
+      "date": "2025-12-16",
+      "equity": 73558787.37
+    },
+    {
+      "date": "2025-12-17",
+      "equity": 73489001.93
+    },
+    {
+      "date": "2025-12-18",
+      "equity": 74734932.88
+    },
+    {
+      "date": "2025-12-19",
+      "equity": 73271013.74
+    },
+    {
+      "date": "2025-12-20",
+      "equity": 74640579.81
+    },
+    {
+      "date": "2025-12-21",
+      "equity": 75863156.15
+    },
+    {
+      "date": "2025-12-22",
+      "equity": 76960313.66
+    },
+    {
+      "date": "2025-12-23",
+      "equity": 77245932.88
+    },
+    {
+      "date": "2025-12-24",
+      "equity": 75701325.97
+    },
+    {
+      "date": "2025-12-25",
+      "equity": 76405796.73
+    },
+    {
+      "date": "2025-12-26",
+      "equity": 76008303.27
+    },
+    {
+      "date": "2025-12-27",
+      "equity": 73577378.12
+    },
+    {
+      "date": "2025-12-28",
+      "equity": 73808403.46
+    },
+    {
+      "date": "2025-12-29",
+      "equity": 75250323.83
+    },
+    {
+      "date": "2025-12-30",
+      "equity": 74728546.42
+    },
+    {
+      "date": "2025-12-31",
+      "equity": 74398130.72
+    },
+    {
+      "date": "2026-01-01",
+      "equity": 75240905.83
+    },
+    {
+      "date": "2026-01-02",
+      "equity": 74950220.89
+    },
+    {
+      "date": "2026-01-03",
+      "equity": 77574188.15
+    },
+    {
+      "date": "2026-01-04",
+      "equity": 78922985.16
+    },
+    {
+      "date": "2026-01-05",
+      "equity": 82018141.42
+    },
+    {
+      "date": "2026-01-06",
+      "equity": 80414765.64
+    },
+    {
+      "date": "2026-01-07",
+      "equity": 78165779.64
+    },
+    {
+      "date": "2026-01-08",
+      "equity": 80409635.16
+    },
+    {
+      "date": "2026-01-09",
+      "equity": 82459921.39
+    },
+    {
+      "date": "2026-01-10",
+      "equity": 83612257.97
+    },
+    {
+      "date": "2026-01-11",
+      "equity": 83896481.76
+    },
+    {
+      "date": "2026-01-12",
+      "equity": 82351502.32
+    },
+    {
+      "date": "2026-01-13",
+      "equity": 82677380.26
+    },
+    {
+      "date": "2026-01-14",
+      "equity": 80279030.35
+    },
+    {
+      "date": "2026-01-15",
+      "equity": 80206888.57
+    },
+    {
+      "date": "2026-01-16",
+      "equity": 79788723.1
+    },
+    {
+      "date": "2026-01-17",
+      "equity": 79360021.27
+    },
+    {
+      "date": "2026-01-18",
+      "equity": 78547826.72
+    },
+    {
+      "date": "2026-01-19",
+      "equity": 77440453.11
+    },
+    {
+      "date": "2026-01-20",
+      "equity": 76315400.05
+    },
+    {
+      "date": "2026-01-21",
+      "equity": 77535749.53
+    },
+    {
+      "date": "2026-01-22",
+      "equity": 76826514.65
+    },
+    {
+      "date": "2026-01-23",
+      "equity": 78169963.94
+    },
+    {
+      "date": "2026-01-24",
+      "equity": 77640842.29
+    },
+    {
+      "date": "2026-01-25",
+      "equity": 76395091.91
+    },
+    {
+      "date": "2026-01-26",
+      "equity": 74191765.12
+    },
+    {
+      "date": "2026-01-27",
+      "equity": 74114678.18
+    },
+    {
+      "date": "2026-01-28",
+      "equity": 76307414.72
+    },
+    {
+      "date": "2026-01-29",
+      "equity": 74849071.5
+    },
+    {
+      "date": "2026-01-30",
+      "equity": 71106617.93
+    },
+    {
+      "date": "2026-01-31",
+      "equity": 69890966.07
+    },
+    {
+      "date": "2026-02-01",
+      "equity": 69557749.8
+    },
+    {
+      "date": "2026-02-02",
+      "equity": 69374366.0
+    },
+    {
+      "date": "2026-02-03",
+      "equity": 72158722.68
+    },
+    {
+      "date": "2026-02-04",
+      "equity": 70042873.07
+    },
+    {
+      "date": "2026-02-05",
+      "equity": 69019504.9
+    },
+    {
+      "date": "2026-02-06",
+      "equity": 69771018.42
+    },
+    {
+      "date": "2026-02-07",
+      "equity": 70559996.89
+    },
+    {
+      "date": "2026-02-08",
+      "equity": 70721014.12
+    },
+    {
+      "date": "2026-02-09",
+      "equity": 71525284.7
+    },
+    {
+      "date": "2026-02-10",
+      "equity": 71272961.7
+    },
+    {
+      "date": "2026-02-11",
+      "equity": 68621813.6
+    },
+    {
+      "date": "2026-02-12",
+      "equity": 67960295.83
+    },
+    {
+      "date": "2026-02-13",
+      "equity": 66827413.86
+    },
+    {
+      "date": "2026-02-14",
+      "equity": 66587341.08
+    },
+    {
+      "date": "2026-02-15",
+      "equity": 67824020.94
+    },
+    {
+      "date": "2026-02-16",
+      "equity": 68430111.3
+    },
+    {
+      "date": "2026-02-17",
+      "equity": 69688140.95
+    },
+    {
+      "date": "2026-02-18",
+      "equity": 68393357.63
+    },
+    {
+      "date": "2026-02-19",
+      "equity": 67877487.99
+    },
+    {
+      "date": "2026-02-20",
+      "equity": 66629203.81
+    },
+    {
+      "date": "2026-02-21",
+      "equity": 66269650.48
+    },
+    {
+      "date": "2026-02-22",
+      "equity": 66009231.73
+    },
+    {
+      "date": "2026-02-23",
+      "equity": 65527602.13
+    },
+    {
+      "date": "2026-02-24",
+      "equity": 66637962.94
+    },
+    {
+      "date": "2026-02-25",
+      "equity": 66282654.85
+    },
+    {
+      "date": "2026-02-26",
+      "equity": 66451430.1
+    },
+    {
+      "date": "2026-02-27",
+      "equity": 67177787.72
+    },
+    {
+      "date": "2026-02-28",
+      "equity": 68229965.11
+    },
+    {
+      "date": "2026-03-01",
+      "equity": 67298238.46
+    },
+    {
+      "date": "2026-03-02",
+      "equity": 66512013.5
+    },
+    {
+      "date": "2026-03-03",
+      "equity": 65480234.16
+    },
+    {
+      "date": "2026-03-04",
+      "equity": 65919375.57
+    },
+    {
+      "date": "2026-03-05",
+      "equity": 68109928.74
+    },
+    {
+      "date": "2026-03-06",
+      "equity": 69961770.2
+    },
+    {
+      "date": "2026-03-07",
+      "equity": 68285494.0
+    },
+    {
+      "date": "2026-03-08",
+      "equity": 67205199.98
+    },
+    {
+      "date": "2026-03-09",
+      "equity": 63844939.98
+    },
+    {
+      "date": "2026-03-10",
+      "equity": 63748331.55
+    },
+    {
+      "date": "2026-03-11",
+      "equity": 65210763.79
+    },
+    {
+      "date": "2026-03-12",
+      "equity": 65504960.16
+    },
+    {
+      "date": "2026-03-13",
+      "equity": 66174189.68
+    },
+    {
+      "date": "2026-03-14",
+      "equity": 64025357.54
+    },
+    {
+      "date": "2026-03-15",
+      "equity": 62949773.33
+    },
+    {
+      "date": "2026-03-16",
+      "equity": 60795911.63
+    },
+    {
+      "date": "2026-03-17",
+      "equity": 58690613.3
+    },
+    {
+      "date": "2026-03-18",
+      "equity": 60566592.49
+    },
+    {
+      "date": "2026-03-19",
+      "equity": 61670675.63
+    },
+    {
+      "date": "2026-03-20",
+      "equity": 62784779.39
+    },
+    {
+      "date": "2026-03-21",
+      "equity": 59941723.26
+    },
+    {
+      "date": "2026-03-22",
+      "equity": 59658065.69
+    },
+    {
+      "date": "2026-03-23",
+      "equity": 56832580.99
+    },
+    {
+      "date": "2026-03-24",
+      "equity": 55579792.28
+    },
+    {
+      "date": "2026-03-25",
+      "equity": 58008414.7
+    },
+    {
+      "date": "2026-03-26",
+      "equity": 59162548.28
+    },
+    {
+      "date": "2026-03-27",
+      "equity": 58875507.37
+    },
+    {
+      "date": "2026-03-28",
+      "equity": 55931732.0
+    },
+    {
+      "date": "2026-03-29",
+      "equity": 58728318.6
+    },
+    {
+      "date": "2026-03-30",
+      "equity": 61664734.53
+    },
+    {
+      "date": "2026-03-31",
+      "equity": 58581497.81
+    },
+    {
+      "date": "2026-04-01",
+      "equity": 58608723.38
+    },
+    {
+      "date": "2026-04-02",
+      "equity": 59549187.31
+    },
+    {
+      "date": "2026-04-03",
+      "equity": 59520793.44
+    },
+    {
+      "date": "2026-04-04",
+      "equity": 62496833.11
+    },
+    {
+      "date": "2026-04-05",
+      "equity": 59371991.46
+    },
+    {
+      "date": "2026-04-06",
+      "equity": 56403391.88
+    },
+    {
+      "date": "2026-04-07",
+      "equity": 53583222.29
+    },
+    {
+      "date": "2026-04-08",
+      "equity": 53690866.07
+    },
+    {
+      "date": "2026-04-09",
+      "equity": 52806093.76
+    },
+    {
+      "date": "2026-04-10",
+      "equity": 53943107.43
+    },
+    {
+      "date": "2026-04-11",
+      "equity": 56640262.8
+    },
+    {
+      "date": "2026-04-12",
+      "equity": 53808249.66
+    },
+    {
+      "date": "2026-04-13",
+      "equity": 51117837.17
+    },
+    {
+      "date": "2026-04-14",
+      "equity": 51196789.78
+    },
+    {
+      "date": "2026-04-15",
+      "equity": 50872617.02
+    },
+    {
+      "date": "2026-04-16",
+      "equity": 48494686.94
+    },
+    {
+      "date": "2026-04-17",
+      "equity": 48873613.65
+    },
+    {
+      "date": "2026-04-18",
+      "equity": 51317294.34
+    },
+    {
+      "date": "2026-04-19",
+      "equity": 48751429.62
+    },
+    {
+      "date": "2026-04-20",
+      "equity": 46313858.14
+    },
+    {
+      "date": "2026-04-21",
+      "equity": 46203073.83
+    },
+    {
+      "date": "2026-04-22",
+      "equity": 45819174.26
+    },
+    {
+      "date": "2026-04-23",
+      "equity": 45182443.08
+    },
+    {
+      "date": "2026-04-24",
+      "equity": 45458455.77
+    },
+    {
+      "date": "2026-04-25",
+      "equity": 47731378.55
+    },
+    {
+      "date": "2026-04-26",
+      "equity": 45344809.63
+    },
+    {
+      "date": "2026-04-27",
+      "equity": 43077569.14
+    },
+    {
+      "date": "2026-04-28",
+      "equity": 44109915.78
+    },
+    {
+      "date": "2026-04-29",
+      "equity": 43116495.98
+    },
+    {
+      "date": "2026-04-30",
+      "equity": 43498545.53
+    },
+    {
+      "date": "2026-05-01",
+      "equity": 44064485.77
+    },
+    {
+      "date": "2026-05-02",
+      "equity": 46267710.06
+    },
+    {
+      "date": "2026-05-03",
+      "equity": 43954324.56
+    },
+    {
+      "date": "2026-05-04",
+      "equity": 41756608.33
+    },
+    {
+      "date": "2026-05-05",
+      "equity": 39668777.91
+    },
+    {
+      "date": "2026-05-06",
+      "equity": 39525416.08
+    },
+    {
+      "date": "2026-05-07",
+      "equity": 39046771.33
+    },
+    {
+      "date": "2026-05-08",
+      "equity": 39298451.91
+    },
+    {
+      "date": "2026-05-09",
+      "equity": 41263374.51
+    },
+    {
+      "date": "2026-05-10",
+      "equity": 39200205.78
+    },
+    {
+      "date": "2026-05-11",
+      "equity": 37240195.49
+    },
+    {
+      "date": "2026-05-12",
+      "equity": 36624660.81
+    },
+    {
+      "date": "2026-05-13",
+      "equity": 35991629.92
+    },
+    {
+      "date": "2026-05-14",
+      "equity": 36061277.16
+    },
+    {
+      "date": "2026-05-15",
+      "equity": 35879317.35
+    },
+    {
+      "date": "2026-05-16",
+      "equity": 37673283.22
+    },
+    {
+      "date": "2026-05-17",
+      "equity": 35789619.06
+    },
+    {
+      "date": "2026-05-18",
+      "equity": 34000138.1
+    },
+    {
+      "date": "2026-05-19",
+      "equity": 33445862.17
+    },
+    {
+      "date": "2026-05-20",
+      "equity": 33193780.04
+    },
+    {
+      "date": "2026-05-21",
+      "equity": 34111627.14
+    },
+    {
+      "date": "2026-05-22",
+      "equity": 34418746.13
+    },
+    {
+      "date": "2026-05-23",
+      "equity": 32697808.83
+    },
+    {
+      "date": "2026-05-24",
+      "equity": 34332699.27
+    },
+    {
+      "date": "2026-05-25",
+      "equity": 35126773.04
+    },
+    {
+      "date": "2026-05-26",
+      "equity": 34934033.77
+    },
+    {
+      "date": "2026-05-27",
+      "equity": 35014760.82
+    },
+    {
+      "date": "2026-05-28",
+      "equity": 35097646.62
+    },
+    {
+      "date": "2026-05-29",
+      "equity": 34734108.62
+    },
+    {
+      "date": "2026-05-30",
+      "equity": 32997403.19
+    },
+    {
+      "date": "2026-05-31",
+      "equity": 34647273.35
+    },
+    {
+      "date": "2026-06-01",
+      "equity": 34376750.18
+    },
+    {
+      "date": "2026-06-02",
+      "equity": 36060030.08
+    },
+    {
+      "date": "2026-06-03",
+      "equity": 36372831.32
+    },
+    {
+      "date": "2026-06-04",
+      "equity": 36264916.35
+    },
+    {
+      "date": "2026-06-05",
+      "equity": 38078162.17
+    },
+    {
+      "date": "2026-06-06",
+      "equity": 36174254.06
+    },
+    {
+      "date": "2026-06-07",
+      "equity": 37982966.76
+    },
+    {
+      "date": "2026-06-08",
+      "equity": 38276729.6
+    },
+    {
+      "date": "2026-06-09",
+      "equity": 37525212.85
+    },
+    {
+      "date": "2026-06-10",
+      "equity": 37344580.57
+    },
+    {
+      "date": "2026-06-11",
+      "equity": 35954861.37
+    },
+    {
+      "date": "2026-06-12",
+      "equity": 37321758.34
+    },
+    {
+      "date": "2026-06-13",
+      "equity": 35455670.42
+    },
+    {
+      "date": "2026-06-14",
+      "equity": 37228453.94
+    },
+    {
+      "date": "2026-06-15",
+      "equity": 38119112.09
+    },
+    {
+      "date": "2026-06-16",
+      "equity": 38019306.42
+    },
+    {
+      "date": "2026-06-17",
+      "equity": 38847008.09
+    },
+    {
+      "date": "2026-06-18",
+      "equity": 39270932.85
+    },
+    {
+      "date": "2026-06-19",
+      "equity": 40413573.79
+    },
+    {
+      "date": "2026-06-20",
+      "equity": 38392895.1
+    },
+    {
+      "date": "2026-06-21",
+      "equity": 40312539.86
+    },
+    {
+      "date": "2026-06-22",
+      "equity": 40133425.29
+    },
+    {
+      "date": "2026-06-23",
+      "equity": 42113151.22
+    },
+    {
+      "date": "2026-06-24",
+      "equity": 42831545.13
+    },
+    {
+      "date": "2026-06-25",
+      "equity": 42671776.56
+    },
+    {
+      "date": "2026-06-26",
+      "equity": 42734951.5
+    },
+    {
+      "date": "2026-06-27",
+      "equity": 40598203.93
+    },
+    {
+      "date": "2026-06-28",
+      "equity": 42628114.12
+    },
+    {
+      "date": "2026-06-29",
+      "equity": 41962510.37
+    },
+    {
+      "date": "2026-06-30",
+      "equity": 41419620.27
+    },
+    {
+      "date": "2026-07-01",
+      "equity": 41809477.3
+    },
+    {
+      "date": "2026-07-02",
+      "equity": 41623480.91
+    },
+    {
+      "date": "2026-07-03",
+      "equity": 41107246.67
+    },
+    {
+      "date": "2026-07-04",
+      "equity": 39051884.34
+    },
+    {
+      "date": "2026-07-05",
+      "equity": 41004478.56
+    },
+    {
+      "date": "2026-07-06",
+      "equity": 39197615.64
+    },
+    {
+      "date": "2026-07-07",
+      "equity": 38300261.71
+    },
+    {
+      "date": "2026-07-08",
+      "equity": 37232013.42
+    },
+    {
+      "date": "2026-07-09",
+      "equity": 37213490.88
+    },
+    {
+      "date": "2026-07-10",
+      "equity": 38470037.4
+    },
+    {
+      "date": "2026-07-11",
+      "equity": 36546535.53
+    },
+    {
+      "date": "2026-07-12",
+      "equity": 38373862.31
+    },
+    {
+      "date": "2026-07-13",
+      "equity": 36879593.65
+    },
+    {
+      "date": "2026-07-14",
+      "equity": 36628267.58
+    },
+    {
+      "date": "2026-07-15",
+      "equity": 36760027.33
+    },
+    {
+      "date": "2026-07-16",
+      "equity": 36822676.97
+    },
+    {
+      "date": "2026-07-17",
+      "equity": 35946721.83
+    },
+    {
+      "date": "2026-07-18",
+      "equity": 34149385.74
+    },
+    {
+      "date": "2026-07-19",
+      "equity": 35856855.03
+    },
+    {
+      "date": "2026-07-20",
+      "equity": 36092381.52
+    },
+    {
+      "date": "2026-07-21",
+      "equity": 36139673.66
+    },
+    {
+      "date": "2026-07-22",
+      "equity": 36384234.83
+    },
+    {
+      "date": "2026-07-23",
+      "equity": 36437725.95
+    },
+    {
+      "date": "2026-07-24",
+      "equity": 36094117.63
+    },
+    {
+      "date": "2026-07-25",
+      "equity": 34289411.75
+    },
+    {
+      "date": "2026-07-26",
+      "equity": 36003882.33
+    },
+    {
+      "date": "2026-07-27",
+      "equity": 36273089.52
+    },
+    {
+      "date": "2026-07-28",
+      "equity": 36302283.19
+    },
+    {
+      "date": "2026-07-29",
+      "equity": 35958799.9
+    },
+    {
+      "date": "2026-07-30",
+      "equity": 34971883.38
+    },
+    {
+      "date": "2026-07-31",
+      "equity": 34239694.75
+    },
+    {
+      "date": "2026-08-01",
+      "equity": 34949623.72
+    },
+    {
+      "date": "2026-08-03",
+      "equity": 35237566.96
+    },
+    {
+      "date": "2026-08-04",
+      "equity": 34515160.2
+    },
+    {
+      "date": "2026-08-05",
+      "equity": 34406881.84
+    },
+    {
+      "date": "2026-08-06",
+      "equity": 34069290.0
+    },
+    {
+      "date": "2026-08-07",
+      "equity": 34353258.76
+    },
+    {
+      "date": "2026-08-08",
+      "equity": 33222897.34
+    },
+    {
+      "date": "2026-08-10",
+      "equity": 32611213.98
+    },
+    {
+      "date": "2026-08-11",
+      "equity": 32341897.95
+    },
+    {
+      "date": "2026-08-12",
+      "equity": 31892524.01
+    },
+    {
+      "date": "2026-08-13",
+      "equity": 32571135.96
+    },
+    {
+      "date": "2026-08-14",
+      "equity": 32334302.55
+    },
+    {
+      "date": "2026-08-15",
+      "equity": 31980832.9
+    },
+    {
+      "date": "2026-08-17",
+      "equity": 31980832.9
+    },
+    {
+      "date": "2026-08-18",
+      "equity": 31980832.9
+    }
+  ],
+  "horizon_projections": [
+    {
+      "ticker": "CL=F",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 0.09,
+      "confidence": 0.5377,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "CL=F",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 0.21,
+      "confidence": 0.5377,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "CL=F",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 0.43,
+      "confidence": 0.5377,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "CL=F",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 1.47,
+      "confidence": 0.5377,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "GC=F",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.66,
+      "confidence": 0.5299,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "GC=F",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.47,
+      "confidence": 0.5299,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "GC=F",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 3.09,
+      "confidence": 0.5299,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "GC=F",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 10.46,
+      "confidence": 0.5299,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "HG=F",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.12,
+      "confidence": 0.6415,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "HG=F",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 2.5,
+      "confidence": 0.6415,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "HG=F",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 5.24,
+      "confidence": 0.6415,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "HG=F",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 17.74,
+      "confidence": 0.6415,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^DJI",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.64,
+      "confidence": 0.5112,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^DJI",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.43,
+      "confidence": 0.5112,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^DJI",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 3.0,
+      "confidence": 0.5112,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^DJI",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 10.15,
+      "confidence": 0.5112,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^GDAXI",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.99,
+      "confidence": 0.5918,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^GDAXI",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 2.21,
+      "confidence": 0.5918,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^GDAXI",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 4.63,
+      "confidence": 0.5918,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^GDAXI",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 15.68,
+      "confidence": 0.5918,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^HSI",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 0.2,
+      "confidence": 0.4768,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^HSI",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 0.44,
+      "confidence": 0.4768,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^HSI",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 0.93,
+      "confidence": 0.4768,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^HSI",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 3.14,
+      "confidence": 0.4768,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "PALM.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 0.91,
+      "confidence": 0.6883,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "PALM.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 2.04,
+      "confidence": 0.6883,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "PALM.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 4.28,
+      "confidence": 0.6883,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "PALM.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 14.49,
+      "confidence": 0.6883,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "AALI.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.6,
+      "confidence": 0.7147,
+      "root_cause": "Bollinger+RSI",
+      "top_engine": "alpha_mean_reversion"
+    },
+    {
+      "ticker": "AALI.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.34,
+      "confidence": 0.7147,
+      "root_cause": "Bollinger+RSI",
+      "top_engine": "alpha_mean_reversion"
+    },
+    {
+      "ticker": "AALI.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 2.8,
+      "confidence": 0.7147,
+      "root_cause": "Bollinger+RSI",
+      "top_engine": "alpha_mean_reversion"
+    },
+    {
+      "ticker": "AALI.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 9.49,
+      "confidence": 0.7147,
+      "root_cause": "Bollinger+RSI",
+      "top_engine": "alpha_mean_reversion"
+    },
+    {
+      "ticker": "^N225",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.07,
+      "confidence": 0.3724,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "^N225",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.17,
+      "confidence": 0.3724,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "^N225",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.35,
+      "confidence": 0.3724,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "^N225",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.19,
+      "confidence": 0.3724,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "000001.SS",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.59,
+      "confidence": 0.6485,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "000001.SS",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.32,
+      "confidence": 0.6485,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "000001.SS",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 2.76,
+      "confidence": 0.6485,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "000001.SS",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 9.34,
+      "confidence": 0.6485,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "IDR=X",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.57,
+      "confidence": 0.5215,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "IDR=X",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.27,
+      "confidence": 0.5215,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "IDR=X",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 2.67,
+      "confidence": 0.5215,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "IDR=X",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 9.02,
+      "confidence": 0.5215,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^FTSE",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.58,
+      "confidence": 0.4603,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^FTSE",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.29,
+      "confidence": 0.4603,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^FTSE",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 2.71,
+      "confidence": 0.4603,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^FTSE",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 9.17,
+      "confidence": 0.4603,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "EURSAR=X",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 0.52,
+      "confidence": 0.4335,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "EURSAR=X",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 1.15,
+      "confidence": 0.4335,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "EURSAR=X",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 2.42,
+      "confidence": 0.4335,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "EURSAR=X",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 8.19,
+      "confidence": 0.4335,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "EURMYR=X",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.64,
+      "confidence": 0.609,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "EURMYR=X",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.44,
+      "confidence": 0.609,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "EURMYR=X",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 3.01,
+      "confidence": 0.609,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "EURMYR=X",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 10.2,
+      "confidence": 0.609,
+      "root_cause": "Short-term reversal",
+      "top_engine": "alpha_reversal"
+    },
+    {
+      "ticker": "EURTWD=X",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.74,
+      "confidence": 0.5039,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "EURTWD=X",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.65,
+      "confidence": 0.5039,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "EURTWD=X",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 3.47,
+      "confidence": 0.5039,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "EURTWD=X",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 11.73,
+      "confidence": 0.5039,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    }
+  ]
+}

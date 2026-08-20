@@ -75,11 +75,11 @@ def main():
         print(f"  ✅ Backtest page loaded — URL: {page.url}")
 
         # Step 2: Click "Run 1-Year Simulation" button
-        print("\n[2/6] Clicking 'Run 1-Year Simulation' button...")
-        run_button = page.locator("button:has-text('Run 1-Year Simulation')")
+        print("\n[2/6] Clicking 'Jalankan Simulasi 1 Tahun' button...")
+        run_button = page.locator("button:has-text('Jalankan Simulasi 1 Tahun')")
         run_button.wait_for(timeout=10_000)
         run_button.click()
-        print("  ✅ Simulation started via browser UI")
+        print("  ✅ Simulasi dimulai via browser UI")
         page.wait_for_timeout(2000)
         page.screenshot(path=str(screenshots_dir / "02_simulation_started.png"))
 
@@ -98,35 +98,51 @@ def main():
 
             # Read progress from the page
             try:
-                progress_elements = page.get_by_text(re.compile(r"Day \d+ / \d+ trading days")).all_inner_texts()
+                progress_elements = page.get_by_text(re.compile(r"Hari \d+ / \d+ hari bursa")).all_inner_texts()
                 if progress_elements:
                     print(f"\r  {progress_elements[0]}", end="", flush=True)
             except Exception:
                 pass
 
             # Check if done
-            done_badge = page.locator("text='Simulation Complete'")
+            done_badge = page.locator("text='Simulasi Selesai'")
             if done_badge.count() > 0:
-                print("\n  ✅ Simulation Complete badge detected")
+                print("\n  ✅ Simulasi Selesai badge detected")
                 break
 
-            # Check for "Simulating..." button state
-            simulating = page.locator("button:has-text('Simulating...')")
+            # Check for "Menyimulasikan..." button state
+            simulating = page.locator("button:has-text('Menyimulasikan...')")
             if simulating.count() == 0:
                 # Button reverted — either done or error
-                done_badge = page.locator("text='Simulation Complete'")
+                done_badge = page.locator("text='Simulasi Selesai'")
                 if done_badge.count() > 0:
-                    print("\n  ✅ Simulation Complete")
+                    print("\n  ✅ Simulasi Selesai")
                     break
                 else:
                     # Check for error message
                     try:
-                        msg_elements = page.get_by_text("Error", exact=False).all_inner_texts()
+                        msg_elements = page.get_by_text(re.compile(r"Error|error|Error:"), exact=False).all_inner_texts()
                         if msg_elements:
                             print(f"\n  ⚠️ Possible error: {msg_elements[0][:100]}")
                     except Exception:
                         pass
-                    break
+                    # Also check via API if simulation is still running
+                    try:
+                        import urllib.request as _urllib
+                        with _urllib.urlopen("http://localhost:8000/api/temporal-backtest/progress", timeout=5) as resp:
+                            import json as _json
+                            prog = _json.loads(resp.read())
+                            if prog.get("running"):
+                                print(f"\n  ℹ️ Simulation still running via API (day {prog.get('current_day')}/{prog.get('total_trading_days')})")
+                                # Continue monitoring
+                                simulating = True
+                            elif prog.get("done"):
+                                print("\n  ✅ Simulation done (via API)")
+                                break
+                    except Exception:
+                        pass
+                    if not simulating:
+                        break
 
             # Periodic screenshot
             if elapsed - last_screenshot > screenshot_interval:

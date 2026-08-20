@@ -1056,6 +1056,141 @@ async def evaluation_data_gaps():
     return {"status": "ok", "gaps": report.get("data_gaps", [])}
 
 
+# ── Prediction Simulation (1-Year) ────────────────────────────────────────
+
+_pred_sim_state: dict[str, Any] = {
+    "running": False,
+    "done": False,
+    "current_day": 0,
+    "total_trading_days": 0,
+    "sim_date": None,
+    "directional_accuracy": 0.0,
+    "avg_mape": 0.0,
+    "f1_score": 0.0,
+    "equity": 0.0,
+    "regime": "unknown",
+    "top_engine": "—",
+    "worst_engine": "—",
+    "lookahead_violations": 0,
+    "n_predictions": 0,
+    "n_correct": 0,
+    "message": "",
+    "day_log": [],
+    "equity_curve": [],
+}
+_pred_sim_lock = _threading.Lock()
+
+
+@app.post("/api/prediction-sim/run")
+async def prediction_sim_run(payload: dict = Body(default={})):
+    """Start 1-year prediction simulation in background."""
+    with _pred_sim_lock:
+        if _pred_sim_state["running"]:
+            return {"status": "already_running", "message": "Simulasi prediksi sedang berjalan"}
+        _pred_sim_state.update({
+            "running": True, "done": False, "current_day": 0,
+            "total_trading_days": 0, "sim_date": None,
+            "directional_accuracy": 0.0, "avg_mape": 0.0, "f1_score": 0.0,
+            "equity": 0.0, "regime": "unknown", "top_engine": "—", "worst_engine": "—",
+            "lookahead_violations": 0, "n_predictions": 0, "n_correct": 0,
+            "message": "Memulai simulasi prediksi...", "day_log": [], "equity_curve": [],
+        })
+
+    def _run():
+        import sys as _sys
+        _sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
+        from prediction_simulator import PredictionSimulator
+        from datetime import date as _date
+
+        try:
+            sim = PredictionSimulator(
+                start_date=_date.today() - timedelta(days=365),
+                end_date=_date.today(),
+                universe_size=30,
+            )
+
+            def progress_cb(day_num, total, day_result):
+                with _pred_sim_lock:
+                    _pred_sim_state["current_day"] = day_num
+                    _pred_sim_state["total_trading_days"] = total
+                    _pred_sim_state["sim_date"] = day_result.sim_date
+                    _pred_sim_state["directional_accuracy"] = day_result.directional_accuracy
+                    _pred_sim_state["avg_mape"] = day_result.avg_mape
+                    _pred_sim_state["f1_score"] = day_result.f1_score
+                    _pred_sim_state["equity"] = day_result.equity
+                    _pred_sim_state["regime"] = day_result.regime
+                    _pred_sim_state["top_engine"] = day_result.top_engine
+                    _pred_sim_state["worst_engine"] = day_result.worst_engine
+                    _pred_sim_state["n_predictions"] = day_result.n_predictions
+                    _pred_sim_state["n_correct"] = day_result.n_correct
+                    _pred_sim_state["message"] = f"Hari {day_num}/{total} — DA: {day_result.directional_accuracy}%"
+                    _pred_sim_state["day_log"] = _pred_sim_state["day_log"][-30:] + [{
+                        "sim_date": day_result.sim_date,
+                        "n_predictions": day_result.n_predictions,
+                        "n_correct": day_result.n_correct,
+                        "directional_accuracy": day_result.directional_accuracy,
+                        "avg_mape": day_result.avg_mape,
+                        "f1_score": day_result.f1_score,
+                        "equity": day_result.equity,
+                        "regime": day_result.regime,
+                        "top_engine": day_result.top_engine,
+                        "worst_engine": day_result.worst_engine,
+                    }]
+                    _pred_sim_state["equity_curve"] = _pred_sim_state["equity_curve"][-200:] + [{
+                        "date": day_result.sim_date,
+                        "equity": day_result.equity,
+                    }]
+
+            report = sim.run(progress_cb=progress_cb)
+
+            with _pred_sim_lock:
+                _pred_sim_state["running"] = False
+                _pred_sim_state["done"] = True
+                _pred_sim_state["message"] = f"Selesai: {report.trading_days} hari, DA: {report.overall_da}%"
+
+            # Save report
+            from dataclasses import asdict as _asdict
+            report_path = Path(__file__).resolve().parents[3] / "docs" / "PREDICTION_SIM_REPORT.json"
+            with open(report_path, "w") as f:
+                json.dump(_asdict(report), f, indent=2, default=str)
+
+        except Exception as e:
+            with _pred_sim_lock:
+                _pred_sim_state["running"] = False
+                _pred_sim_state["done"] = False
+                _pred_sim_state["message"] = f"Error: {e}"
+            print(f"[ERROR] Prediction sim failed: {e}")
+
+    thread = _threading.Thread(target=_run, daemon=True)
+    thread.start()
+    return {"status": "started", "message": "Simulasi prediksi 1 tahun dimulai"}
+
+
+@app.get("/api/prediction-sim/progress")
+async def prediction_sim_progress():
+    """Get live prediction simulation progress."""
+    with _pred_sim_lock:
+        return dict(_pred_sim_state)
+
+
+@app.post("/api/prediction-sim/stop")
+async def prediction_sim_stop():
+    """Stop the prediction simulation."""
+    with _pred_sim_lock:
+        _pred_sim_state["message"] = "Simulasi dihentikan oleh user"
+    return {"status": "stopped"}
+
+
+@app.get("/api/prediction-sim/report")
+async def prediction_sim_report():
+    """Get the latest prediction simulation report."""
+    report_path = Path(__file__).resolve().parents[3] / "docs" / "PREDICTION_SIM_REPORT.json"
+    if not report_path.exists():
+        return {"status": "not_found", "message": "Belum ada laporan simulasi prediksi"}
+    with open(report_path, "r") as f:
+        return json.load(f)
+
+
 # ── Cosmos (Astronacci Celestial View) ────────────────────────────────────
 
 @app.get("/api/cosmos/astronacci")
