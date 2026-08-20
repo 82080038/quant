@@ -1,0 +1,3533 @@
+{
+  "start_date": "2025-08-20",
+  "end_date": "2026-08-18",
+  "total_days": 364,
+  "trading_days": 124,
+  "skipped_holidays": 137,
+  "total_trades": 176,
+  "buy_trades": 93,
+  "sell_trades": 83,
+  "equity_trades": 165,
+  "cross_asset_trades": 11,
+  "final_equity": 117103709.9,
+  "total_return_pct": 17.1,
+  "annual_return_pct": 37.83,
+  "sharpe_ratio": 1.23,
+  "sortino_ratio": 1.996,
+  "max_drawdown_pct": -15.16,
+  "win_rate_pct": 28.9,
+  "best_day_pct": 9.46,
+  "worst_day_pct": -8.05,
+  "avg_daily_return_pct": 0.1656,
+  "volatility_pct": 33.92,
+  "calmar_ratio": 2.495,
+  "equity_curve": [
+    {
+      "date": "2025-08-20",
+      "equity": 98205525.15
+    },
+    {
+      "date": "2025-08-26",
+      "equity": 107495425.15
+    },
+    {
+      "date": "2025-08-28",
+      "equity": 105730825.15
+    },
+    {
+      "date": "2025-09-02",
+      "equity": 103746925.15
+    },
+    {
+      "date": "2025-09-03",
+      "equity": 105754928.29
+    },
+    {
+      "date": "2025-09-04",
+      "equity": 103282723.43
+    },
+    {
+      "date": "2025-09-08",
+      "equity": 102617913.91
+    },
+    {
+      "date": "2025-09-09",
+      "equity": 100876091.5
+    },
+    {
+      "date": "2025-09-10",
+      "equity": 100686192.22
+    },
+    {
+      "date": "2025-09-11",
+      "equity": 100077542.29
+    },
+    {
+      "date": "2025-09-15",
+      "equity": 102656713.98
+    },
+    {
+      "date": "2025-09-17",
+      "equity": 107257713.95
+    },
+    {
+      "date": "2025-09-18",
+      "equity": 107217310.46
+    },
+    {
+      "date": "2025-09-22",
+      "equity": 108034119.33
+    },
+    {
+      "date": "2025-09-25",
+      "equity": 103478918.98
+    },
+    {
+      "date": "2025-09-30",
+      "equity": 101988528.47
+    },
+    {
+      "date": "2025-10-14",
+      "equity": 108623303.08
+    },
+    {
+      "date": "2025-10-15",
+      "equity": 105209162.06
+    },
+    {
+      "date": "2025-10-16",
+      "equity": 103426071.5
+    },
+    {
+      "date": "2025-10-27",
+      "equity": 106501392.95
+    },
+    {
+      "date": "2025-10-28",
+      "equity": 106067334.36
+    },
+    {
+      "date": "2025-10-30",
+      "equity": 107613848.29
+    },
+    {
+      "date": "2025-11-03",
+      "equity": 106505848.51
+    },
+    {
+      "date": "2025-11-04",
+      "equity": 106661756.51
+    },
+    {
+      "date": "2025-11-06",
+      "equity": 106241409.27
+    },
+    {
+      "date": "2025-11-10",
+      "equity": 107455223.01
+    },
+    {
+      "date": "2025-11-12",
+      "equity": 107912463.83
+    },
+    {
+      "date": "2025-11-13",
+      "equity": 106840093.06
+    },
+    {
+      "date": "2025-11-17",
+      "equity": 106941270.57
+    },
+    {
+      "date": "2025-11-18",
+      "equity": 105223364.58
+    },
+    {
+      "date": "2025-11-19",
+      "equity": 105055105.9
+    },
+    {
+      "date": "2025-11-25",
+      "equity": 104238893.22
+    },
+    {
+      "date": "2025-11-26",
+      "equity": 103647704.78
+    },
+    {
+      "date": "2025-11-27",
+      "equity": 103910627.59
+    },
+    {
+      "date": "2025-12-01",
+      "equity": 102322486.99
+    },
+    {
+      "date": "2025-12-02",
+      "equity": 103350604.12
+    },
+    {
+      "date": "2025-12-03",
+      "equity": 103853836.58
+    },
+    {
+      "date": "2025-12-04",
+      "equity": 104540996.14
+    },
+    {
+      "date": "2025-12-09",
+      "equity": 106296072.98
+    },
+    {
+      "date": "2025-12-11",
+      "equity": 104417405.04
+    },
+    {
+      "date": "2025-12-15",
+      "equity": 105800906.42
+    },
+    {
+      "date": "2025-12-17",
+      "equity": 105164326.61
+    },
+    {
+      "date": "2025-12-18",
+      "equity": 106413604.85
+    },
+    {
+      "date": "2025-12-22",
+      "equity": 107727458.32
+    },
+    {
+      "date": "2025-12-23",
+      "equity": 107444809.15
+    },
+    {
+      "date": "2025-12-29",
+      "equity": 107569929.72
+    },
+    {
+      "date": "2026-01-05",
+      "equity": 114231420.15
+    },
+    {
+      "date": "2026-01-07",
+      "equity": 118021601.23
+    },
+    {
+      "date": "2026-01-08",
+      "equity": 116424485.98
+    },
+    {
+      "date": "2026-01-12",
+      "equity": 121625047.06
+    },
+    {
+      "date": "2026-01-13",
+      "equity": 123008343.3
+    },
+    {
+      "date": "2026-01-14",
+      "equity": 122627811.1
+    },
+    {
+      "date": "2026-01-19",
+      "equity": 119627938.21
+    },
+    {
+      "date": "2026-01-20",
+      "equity": 119299385.14
+    },
+    {
+      "date": "2026-01-21",
+      "equity": 118939384.8
+    },
+    {
+      "date": "2026-01-22",
+      "equity": 120401828.42
+    },
+    {
+      "date": "2026-01-27",
+      "equity": 120487056.63
+    },
+    {
+      "date": "2026-01-28",
+      "equity": 110787815.14
+    },
+    {
+      "date": "2026-01-29",
+      "equity": 109946892.76
+    },
+    {
+      "date": "2026-02-03",
+      "equity": 108903564.55
+    },
+    {
+      "date": "2026-02-04",
+      "equity": 107878360.93
+    },
+    {
+      "date": "2026-02-05",
+      "equity": 104738959.2
+    },
+    {
+      "date": "2026-02-09",
+      "equity": 105576008.94
+    },
+    {
+      "date": "2026-02-10",
+      "equity": 106641868.46
+    },
+    {
+      "date": "2026-02-11",
+      "equity": 107143948.03
+    },
+    {
+      "date": "2026-02-24",
+      "equity": 108696476.67
+    },
+    {
+      "date": "2026-02-25",
+      "equity": 109658020.47
+    },
+    {
+      "date": "2026-02-26",
+      "equity": 108577631.38
+    },
+    {
+      "date": "2026-03-05",
+      "equity": 108869913.41
+    },
+    {
+      "date": "2026-03-09",
+      "equity": 106667133.12
+    },
+    {
+      "date": "2026-03-10",
+      "equity": 107549015.0
+    },
+    {
+      "date": "2026-03-11",
+      "equity": 105266130.98
+    },
+    {
+      "date": "2026-03-12",
+      "equity": 107220747.06
+    },
+    {
+      "date": "2026-03-16",
+      "equity": 106448641.38
+    },
+    {
+      "date": "2026-03-25",
+      "equity": 109052666.45
+    },
+    {
+      "date": "2026-03-30",
+      "equity": 109760632.14
+    },
+    {
+      "date": "2026-04-01",
+      "equity": 107081320.87
+    },
+    {
+      "date": "2026-04-07",
+      "equity": 104697659.46
+    },
+    {
+      "date": "2026-04-08",
+      "equity": 105194915.91
+    },
+    {
+      "date": "2026-04-16",
+      "equity": 109492528.23
+    },
+    {
+      "date": "2026-04-20",
+      "equity": 109177654.13
+    },
+    {
+      "date": "2026-04-22",
+      "equity": 109075854.29
+    },
+    {
+      "date": "2026-04-23",
+      "equity": 109012174.11
+    },
+    {
+      "date": "2026-04-28",
+      "equity": 107868337.84
+    },
+    {
+      "date": "2026-04-29",
+      "equity": 110456685.59
+    },
+    {
+      "date": "2026-04-30",
+      "equity": 110624136.36
+    },
+    {
+      "date": "2026-05-07",
+      "equity": 113593661.18
+    },
+    {
+      "date": "2026-05-11",
+      "equity": 113587316.07
+    },
+    {
+      "date": "2026-05-12",
+      "equity": 113222175.34
+    },
+    {
+      "date": "2026-05-13",
+      "equity": 112385606.48
+    },
+    {
+      "date": "2026-05-19",
+      "equity": 108348829.35
+    },
+    {
+      "date": "2026-05-20",
+      "equity": 105953750.65
+    },
+    {
+      "date": "2026-05-21",
+      "equity": 106346603.7
+    },
+    {
+      "date": "2026-06-09",
+      "equity": 105453796.72
+    },
+    {
+      "date": "2026-06-10",
+      "equity": 104356384.36
+    },
+    {
+      "date": "2026-06-11",
+      "equity": 104442923.21
+    },
+    {
+      "date": "2026-06-15",
+      "equity": 106919338.09
+    },
+    {
+      "date": "2026-06-18",
+      "equity": 109828206.53
+    },
+    {
+      "date": "2026-06-22",
+      "equity": 115796928.77
+    },
+    {
+      "date": "2026-06-23",
+      "equity": 117348977.17
+    },
+    {
+      "date": "2026-06-24",
+      "equity": 114561248.77
+    },
+    {
+      "date": "2026-06-25",
+      "equity": 114527898.67
+    },
+    {
+      "date": "2026-06-29",
+      "equity": 111080597.98
+    },
+    {
+      "date": "2026-06-30",
+      "equity": 111249674.02
+    },
+    {
+      "date": "2026-07-02",
+      "equity": 111910648.83
+    },
+    {
+      "date": "2026-07-06",
+      "equity": 111519491.93
+    },
+    {
+      "date": "2026-07-07",
+      "equity": 111433092.03
+    },
+    {
+      "date": "2026-07-08",
+      "equity": 111998719.4
+    },
+    {
+      "date": "2026-07-09",
+      "equity": 112878066.2
+    },
+    {
+      "date": "2026-07-13",
+      "equity": 113253308.49
+    },
+    {
+      "date": "2026-07-14",
+      "equity": 112954574.34
+    },
+    {
+      "date": "2026-07-15",
+      "equity": 112501410.04
+    },
+    {
+      "date": "2026-07-16",
+      "equity": 112183562.65
+    },
+    {
+      "date": "2026-07-20",
+      "equity": 112338865.54
+    },
+    {
+      "date": "2026-07-21",
+      "equity": 112742644.03
+    },
+    {
+      "date": "2026-07-22",
+      "equity": 111915359.89
+    },
+    {
+      "date": "2026-07-23",
+      "equity": 111913756.91
+    },
+    {
+      "date": "2026-07-27",
+      "equity": 111866964.52
+    },
+    {
+      "date": "2026-08-04",
+      "equity": 110627700.74
+    },
+    {
+      "date": "2026-08-05",
+      "equity": 112319898.24
+    },
+    {
+      "date": "2026-08-06",
+      "equity": 112985115.24
+    },
+    {
+      "date": "2026-08-11",
+      "equity": 115226437.64
+    },
+    {
+      "date": "2026-08-13",
+      "equity": 115168924.01
+    },
+    {
+      "date": "2026-08-18",
+      "equity": 117103709.9
+    }
+  ],
+  "trades": [
+    {
+      "sim_date": "2025-08-20",
+      "ticker": "ADMF.JK",
+      "side": "buy",
+      "shares": 1600,
+      "price": 9154.574999999999,
+      "cost": 21970.979999999996,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-08-20",
+      "ticker": "ACST.JK",
+      "side": "buy",
+      "shares": 111600,
+      "price": 134.06699999999998,
+      "cost": 22442.815799999997,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-08-20",
+      "ticker": "ADHI.JK",
+      "side": "buy",
+      "shares": 51500,
+      "price": 286.143,
+      "cost": 22104.546749999998,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-08-20",
+      "ticker": "AALI.JK",
+      "side": "buy",
+      "shares": 2000,
+      "price": 7303.65,
+      "cost": 21910.95,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-08-20",
+      "ticker": "ADES.JK",
+      "side": "buy",
+      "shares": 1000,
+      "price": 13706.849999999999,
+      "cost": 20560.274999999998,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-08-20",
+      "ticker": "ADMG.JK",
+      "side": "buy",
+      "shares": 109900,
+      "price": 134.06699999999998,
+      "cost": 22100.944949999997,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-08-20",
+      "ticker": "ACRO.JK",
+      "side": "buy",
+      "shares": 166000,
+      "price": 75.0375,
+      "cost": 18684.337499999998,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-09-03",
+      "ticker": "GC=F",
+      "side": "buy",
+      "shares": 0.09136562656193287,
+      "price": 3551.6748499499995,
+      "cost": 0.6490019960198812,
+      "asset_class": "cross_asset",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-09-04",
+      "ticker": "ADMF.JK",
+      "side": "sell",
+      "shares": 1600,
+      "price": 8970.5125,
+      "cost": 35882.05,
+      "asset_class": "equity",
+      "pnl": -330382.049999997
+    },
+    {
+      "sim_date": "2025-09-04",
+      "ticker": "ADCP.JK",
+      "side": "buy",
+      "shares": 230400,
+      "price": 62.031,
+      "cost": 21437.9136,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-09-08",
+      "ticker": "ADHI.JK",
+      "side": "sell",
+      "shares": 51500,
+      "price": 281.85900000000004,
+      "cost": 36289.34625,
+      "asset_class": "equity",
+      "pnl": -256915.34624999762
+    },
+    {
+      "sim_date": "2025-09-08",
+      "ticker": "ADES.JK",
+      "side": "sell",
+      "shares": 1000,
+      "price": 13343.325,
+      "cost": 33358.3125,
+      "asset_class": "equity",
+      "pnl": -396883.31249999814
+    },
+    {
+      "sim_date": "2025-09-08",
+      "ticker": "ADMG.JK",
+      "side": "sell",
+      "shares": 109900,
+      "price": 146.9265,
+      "cost": 40368.055875,
+      "asset_class": "equity",
+      "pnl": 1372890.994125003
+    },
+    {
+      "sim_date": "2025-09-08",
+      "ticker": "ACRO.JK",
+      "side": "sell",
+      "shares": 166000,
+      "price": 82.9585,
+      "cost": 34427.7775,
+      "asset_class": "equity",
+      "pnl": 1280458.222500002
+    },
+    {
+      "sim_date": "2025-09-08",
+      "ticker": "ABBA.JK",
+      "side": "buy",
+      "shares": 364500,
+      "price": 42.021,
+      "cost": 22974.98175,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-09-09",
+      "ticker": "AALI.JK",
+      "side": "sell",
+      "shares": 2000,
+      "price": 7271.3625,
+      "cost": 36356.8125,
+      "asset_class": "equity",
+      "pnl": -100931.8125
+    },
+    {
+      "sim_date": "2025-09-09",
+      "ticker": "ACES.JK",
+      "side": "buy",
+      "shares": 39000,
+      "price": 387.11346,
+      "cost": 22646.13741,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-09-10",
+      "ticker": "ABBA.JK",
+      "side": "sell",
+      "shares": 364500,
+      "price": 42.978500000000004,
+      "cost": 39164.158125,
+      "asset_class": "equity",
+      "pnl": 309844.5918750018
+    },
+    {
+      "sim_date": "2025-09-10",
+      "ticker": "ACES.JK",
+      "side": "sell",
+      "shares": 39000,
+      "price": 394.0228900000001,
+      "cost": 38417.23177500001,
+      "asset_class": "equity",
+      "pnl": 231050.5382250026
+    },
+    {
+      "sim_date": "2025-09-10",
+      "ticker": "ADMG.JK",
+      "side": "buy",
+      "shares": 103800,
+      "price": 146.07299999999998,
+      "cost": 22743.5661,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-09-10",
+      "ticker": "ADMF.JK",
+      "side": "buy",
+      "shares": 1600,
+      "price": 8954.475,
+      "cost": 21490.74,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-09-10",
+      "ticker": "ACRO.JK",
+      "side": "buy",
+      "shares": 174200,
+      "price": 87.0435,
+      "cost": 22744.46655,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-09-11",
+      "ticker": "ADMF.JK",
+      "side": "sell",
+      "shares": 1600,
+      "price": 8970.5125,
+      "cost": 35882.05,
+      "asset_class": "equity",
+      "pnl": -10222.049999998882
+    },
+    {
+      "sim_date": "2025-09-11",
+      "ticker": "ABBA.JK",
+      "side": "buy",
+      "shares": 334400,
+      "price": 45.0225,
+      "cost": 22583.286,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-09-11",
+      "ticker": "ABMM.JK",
+      "side": "buy",
+      "shares": 5300,
+      "price": 2814.4065,
+      "cost": 22374.531675000002,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-09-15",
+      "ticker": "ABMM.JK",
+      "side": "sell",
+      "shares": 5300,
+      "price": 2801.928335,
+      "cost": 37125.550438750004,
+      "asset_class": "equity",
+      "pnl": -103259.8249387499
+    },
+    {
+      "sim_date": "2025-09-15",
+      "ticker": "ADHI.JK",
+      "side": "buy",
+      "shares": 53400,
+      "price": 288.144,
+      "cost": 23080.3344,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-09-15",
+      "ticker": "AALI.JK",
+      "side": "buy",
+      "shares": 1400,
+      "price": 7753.875,
+      "cost": 16283.1375,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-10-14",
+      "ticker": "ADCP.JK",
+      "side": "sell",
+      "shares": 230400,
+      "price": 57.971000000000004,
+      "cost": 33391.296,
+      "asset_class": "equity",
+      "pnl": -968815.2960000001
+    },
+    {
+      "sim_date": "2025-10-14",
+      "ticker": "ADMG.JK",
+      "side": "sell",
+      "shares": 103800,
+      "price": 132.9335,
+      "cost": 34496.24325,
+      "asset_class": "equity",
+      "pnl": -1398376.343249999
+    },
+    {
+      "sim_date": "2025-10-14",
+      "ticker": "ADHI.JK",
+      "side": "sell",
+      "shares": 53400,
+      "price": 261.869,
+      "cost": 34959.5115,
+      "asset_class": "equity",
+      "pnl": -1438044.511499999
+    },
+    {
+      "sim_date": "2025-10-14",
+      "ticker": "ADMR.JK",
+      "side": "buy",
+      "shares": 11800,
+      "price": 1375.6875,
+      "cost": 24349.66875,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-10-14",
+      "ticker": "ADES.JK",
+      "side": "buy",
+      "shares": 1200,
+      "price": 13556.775,
+      "cost": 24402.195,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-10-14",
+      "ticker": "AADI.JK",
+      "side": "buy",
+      "shares": 1100,
+      "price": 7878.9375,
+      "cost": 13000.246875,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-10-15",
+      "ticker": "ACST.JK",
+      "side": "sell",
+      "shares": 111600,
+      "price": 133.93300000000002,
+      "cost": 37367.30700000001,
+      "asset_class": "equity",
+      "pnl": -52321.706999994814
+    },
+    {
+      "sim_date": "2025-10-27",
+      "ticker": "ABBA.JK",
+      "side": "sell",
+      "shares": 334400,
+      "price": 60.969500000000004,
+      "cost": 50970.50200000001,
+      "asset_class": "equity",
+      "pnl": 5281706.298
+    },
+    {
+      "sim_date": "2025-10-27",
+      "ticker": "ADMG.JK",
+      "side": "buy",
+      "shares": 107500,
+      "price": 148.07399999999998,
+      "cost": 23876.9325,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-10-27",
+      "ticker": "^N225",
+      "side": "buy",
+      "shares": 316.41924356527556,
+      "price": 50382.3269742,
+      "cost": 31883.875580469485,
+      "asset_class": "cross_asset",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-10-30",
+      "ticker": "ADRO.JK",
+      "side": "buy",
+      "shares": 2200,
+      "price": 1746.79296,
+      "cost": 5764.416768,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-11-13",
+      "ticker": "AALI.JK",
+      "side": "sell",
+      "shares": 1400,
+      "price": 7457.459405,
+      "cost": 26101.107917499998,
+      "asset_class": "equity",
+      "pnl": -441082.94091749936
+    },
+    {
+      "sim_date": "2025-11-13",
+      "ticker": "ABMM.JK",
+      "side": "buy",
+      "shares": 3400,
+      "price": 2998.168335,
+      "cost": 15290.6585085,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-11-25",
+      "ticker": "ACST.JK",
+      "side": "buy",
+      "shares": 1800,
+      "price": 134.06699999999998,
+      "cost": 361.9808999999999,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-12-03",
+      "ticker": "AADI.JK",
+      "side": "sell",
+      "shares": 1100,
+      "price": 7621.1875,
+      "cost": 20958.265625,
+      "asset_class": "equity",
+      "pnl": -304483.265625
+    },
+    {
+      "sim_date": "2025-12-09",
+      "ticker": "ABMM.JK",
+      "side": "sell",
+      "shares": 3400,
+      "price": 2782.608,
+      "cost": 23652.168000000005,
+      "asset_class": "equity",
+      "pnl": -756557.3069999982
+    },
+    {
+      "sim_date": "2025-12-17",
+      "ticker": "ADRO.JK",
+      "side": "sell",
+      "shares": 2200,
+      "price": 1674.5423100000003,
+      "cost": 9209.982705,
+      "asset_class": "equity",
+      "pnl": -168161.41270499956
+    },
+    {
+      "sim_date": "2025-12-22",
+      "ticker": "ACRO.JK",
+      "side": "sell",
+      "shares": 174200,
+      "price": 85.95700000000001,
+      "cost": 37434.27350000001,
+      "asset_class": "equity",
+      "pnl": -226702.57349999622
+    },
+    {
+      "sim_date": "2025-12-23",
+      "ticker": "ADMR.JK",
+      "side": "sell",
+      "shares": 11800,
+      "price": 1399.3000000000002,
+      "cost": 41279.350000000006,
+      "asset_class": "equity",
+      "pnl": 237348.15000000224
+    },
+    {
+      "sim_date": "2025-12-23",
+      "ticker": "ADES.JK",
+      "side": "sell",
+      "shares": 1200,
+      "price": 15242.375,
+      "cost": 45727.125,
+      "asset_class": "equity",
+      "pnl": 1976992.875
+    },
+    {
+      "sim_date": "2025-12-23",
+      "ticker": "ADRO.JK",
+      "side": "buy",
+      "shares": 9500,
+      "price": 1680.6298949999998,
+      "cost": 23948.97600375,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-12-23",
+      "ticker": "ACRO.JK",
+      "side": "buy",
+      "shares": 186700,
+      "price": 86.04299999999999,
+      "cost": 24096.342149999997,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-12-29",
+      "ticker": "ADMR.JK",
+      "side": "buy",
+      "shares": 10200,
+      "price": 1565.7825,
+      "cost": 23956.47225,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2025-12-29",
+      "ticker": "ABDA.JK",
+      "side": "buy",
+      "shares": 4400,
+      "price": 3611.805,
+      "cost": 23837.913,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-01-12",
+      "ticker": "ADCP.JK",
+      "side": "buy",
+      "shares": 118700,
+      "price": 60.029999999999994,
+      "cost": 10688.341499999999,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-01-12",
+      "ticker": "CL=F",
+      "side": "buy",
+      "shares": 55.32133331082173,
+      "price": 59.979974999999996,
+      "cost": 6.636344377899509,
+      "asset_class": "cross_asset",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-01-13",
+      "ticker": "ACRO.JK",
+      "side": "sell",
+      "shares": 186700,
+      "price": 84.95750000000001,
+      "cost": 39653.91312500001,
+      "asset_class": "equity",
+      "pnl": -242316.7631249968
+    },
+    {
+      "sim_date": "2026-01-19",
+      "ticker": "ACRO.JK",
+      "side": "buy",
+      "shares": 140900,
+      "price": 112.056,
+      "cost": 23683.0356,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-01-28",
+      "ticker": "ADMG.JK",
+      "side": "sell",
+      "shares": 107500,
+      "price": 213.893,
+      "cost": 57483.74375000001,
+      "asset_class": "equity",
+      "pnl": 7018058.756250003
+    },
+    {
+      "sim_date": "2026-01-28",
+      "ticker": "ABDA.JK",
+      "side": "sell",
+      "shares": 4400,
+      "price": 2598.7000000000003,
+      "cost": 28585.700000000004,
+      "asset_class": "equity",
+      "pnl": -4486247.699999997
+    },
+    {
+      "sim_date": "2026-01-29",
+      "ticker": "ACST.JK",
+      "side": "sell",
+      "shares": 1800,
+      "price": 128.93550000000002,
+      "cost": 580.20975,
+      "asset_class": "equity",
+      "pnl": -9816.909749999933
+    },
+    {
+      "sim_date": "2026-01-29",
+      "ticker": "ADES.JK",
+      "side": "buy",
+      "shares": 1000,
+      "price": 15307.65,
+      "cost": 22961.475000000002,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-01-29",
+      "ticker": "ADHI.JK",
+      "side": "buy",
+      "shares": 72800,
+      "price": 226.113,
+      "cost": 24691.5396,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-02-03",
+      "ticker": "GC=F",
+      "side": "sell",
+      "shares": 0.09136562656193287,
+      "price": 4920.8381501,
+      "cost": 0.8991909215874984,
+      "asset_class": "cross_asset",
+      "pnl": 124.19527186222109
+    },
+    {
+      "sim_date": "2026-02-03",
+      "ticker": "ADCP.JK",
+      "side": "sell",
+      "shares": 118700,
+      "price": 54.972500000000004,
+      "cost": 16313.089375,
+      "asset_class": "equity",
+      "pnl": -616638.3393749995
+    },
+    {
+      "sim_date": "2026-02-03",
+      "ticker": "ACRO.JK",
+      "side": "sell",
+      "shares": 140900,
+      "price": 81.959,
+      "cost": 28870.05775,
+      "asset_class": "equity",
+      "pnl": -4269537.35775
+    },
+    {
+      "sim_date": "2026-02-03",
+      "ticker": "ADES.JK",
+      "side": "sell",
+      "shares": 1000,
+      "price": 15342.325,
+      "cost": 38355.8125,
+      "asset_class": "equity",
+      "pnl": -3680.8125
+    },
+    {
+      "sim_date": "2026-02-03",
+      "ticker": "ADHI.JK",
+      "side": "sell",
+      "shares": 72800,
+      "price": 231.88400000000001,
+      "cost": 42202.888,
+      "asset_class": "equity",
+      "pnl": 377925.9119999986
+    },
+    {
+      "sim_date": "2026-02-03",
+      "ticker": "ABMM.JK",
+      "side": "buy",
+      "shares": 6000,
+      "price": 2717.6881649999996,
+      "cost": 24459.193485,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-02-03",
+      "ticker": "AADI.JK",
+      "side": "buy",
+      "shares": 1900,
+      "price": 8329.1625,
+      "cost": 23738.113125,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-02-03",
+      "ticker": "ABDA.JK",
+      "side": "buy",
+      "shares": 6900,
+      "price": 2341.17,
+      "cost": 24231.109500000002,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-02-04",
+      "ticker": "ABMM.JK",
+      "side": "sell",
+      "shares": 6000,
+      "price": 2695.6515,
+      "cost": 40434.7725,
+      "asset_class": "equity",
+      "pnl": -172654.76249999925
+    },
+    {
+      "sim_date": "2026-02-04",
+      "ticker": "ABDA.JK",
+      "side": "sell",
+      "shares": 6900,
+      "price": 2238.88,
+      "cost": 38620.68,
+      "asset_class": "equity",
+      "pnl": -744421.6799999997
+    },
+    {
+      "sim_date": "2026-02-04",
+      "ticker": "GC=F",
+      "side": "buy",
+      "shares": 3232.4054184177694,
+      "price": 5011.2045501,
+      "cost": 32396.489481086042,
+      "asset_class": "cross_asset",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-02-05",
+      "ticker": "ADRO.JK",
+      "side": "sell",
+      "shares": 9500,
+      "price": 1952.4332950000003,
+      "cost": 46370.290756250004,
+      "asset_class": "equity",
+      "pnl": 2535762.009243753
+    },
+    {
+      "sim_date": "2026-02-05",
+      "ticker": "ADMR.JK",
+      "side": "sell",
+      "shares": 10200,
+      "price": 1704.1475,
+      "cost": 43455.76125,
+      "asset_class": "equity",
+      "pnl": 1367867.2387499996
+    },
+    {
+      "sim_date": "2026-02-05",
+      "ticker": "AALI.JK",
+      "side": "buy",
+      "shares": 2100,
+      "price": 7200.888645,
+      "cost": 22682.79923175,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-02-05",
+      "ticker": "ABMM.JK",
+      "side": "buy",
+      "shares": 5700,
+      "price": 2717.6881649999996,
+      "cost": 23236.233810749996,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-02-09",
+      "ticker": "ABMM.JK",
+      "side": "sell",
+      "shares": 5700,
+      "price": 2705.3166650000003,
+      "cost": 38550.762476250005,
+      "asset_class": "equity",
+      "pnl": -109068.31247624755
+    },
+    {
+      "sim_date": "2026-02-09",
+      "ticker": "ADRO.JK",
+      "side": "buy",
+      "shares": 7700,
+      "price": 2040.1895849999999,
+      "cost": 23564.18970675,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-02-11",
+      "ticker": "ADMG.JK",
+      "side": "buy",
+      "shares": 70100,
+      "price": 230.11499999999998,
+      "cost": 24196.592249999998,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-02-24",
+      "ticker": "ADMG.JK",
+      "side": "sell",
+      "shares": 70100,
+      "price": 223.888,
+      "cost": 39236.372,
+      "asset_class": "equity",
+      "pnl": -475749.07199999876
+    },
+    {
+      "sim_date": "2026-02-24",
+      "ticker": "ADCP.JK",
+      "side": "buy",
+      "shares": 285500,
+      "price": 57.028499999999994,
+      "cost": 24422.455124999997,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-02-24",
+      "ticker": "ADES.JK",
+      "side": "buy",
+      "shares": 500,
+      "price": 15557.775,
+      "cost": 11668.331250000001,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-02-25",
+      "ticker": "AALI.JK",
+      "side": "sell",
+      "shares": 2100,
+      "price": 7446.275000000001,
+      "cost": 39092.943750000006,
+      "asset_class": "equity",
+      "pnl": 476218.40175000206
+    },
+    {
+      "sim_date": "2026-02-25",
+      "ticker": "ADMR.JK",
+      "side": "buy",
+      "shares": 7200,
+      "price": 2161.08,
+      "cost": 23339.664,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-02-25",
+      "ticker": "ABBA.JK",
+      "side": "buy",
+      "shares": 2700,
+      "price": 51.025499999999994,
+      "cost": 206.65327499999998,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-02-26",
+      "ticker": "ADCP.JK",
+      "side": "sell",
+      "shares": 285500,
+      "price": 54.972500000000004,
+      "cost": 39236.621875000004,
+      "asset_class": "equity",
+      "pnl": -626224.6218749955
+    },
+    {
+      "sim_date": "2026-02-26",
+      "ticker": "ABBA.JK",
+      "side": "sell",
+      "shares": 2700,
+      "price": 48.975500000000004,
+      "cost": 330.584625,
+      "asset_class": "equity",
+      "pnl": -5865.5846249999595
+    },
+    {
+      "sim_date": "2026-02-26",
+      "ticker": "ADMG.JK",
+      "side": "buy",
+      "shares": 71600,
+      "price": 220.10999999999999,
+      "cost": 23639.814,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-03-10",
+      "ticker": "ADMG.JK",
+      "side": "sell",
+      "shares": 71600,
+      "price": 205.89700000000002,
+      "cost": 36855.563,
+      "asset_class": "equity",
+      "pnl": -1054506.3629999962
+    },
+    {
+      "sim_date": "2026-03-25",
+      "ticker": "ADES.JK",
+      "side": "sell",
+      "shares": 500,
+      "price": 15342.325,
+      "cost": 19177.90625,
+      "asset_class": "equity",
+      "pnl": -126902.90625
+    },
+    {
+      "sim_date": "2026-03-25",
+      "ticker": "ABMM.JK",
+      "side": "buy",
+      "shares": 5500,
+      "price": 2959.479,
+      "cost": 24415.701749999997,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-04-07",
+      "ticker": "ADMR.JK",
+      "side": "sell",
+      "shares": 7200,
+      "price": 1739.13,
+      "cost": 31304.34,
+      "asset_class": "equity",
+      "pnl": -3069344.34
+    },
+    {
+      "sim_date": "2026-04-07",
+      "ticker": "AALI.JK",
+      "side": "buy",
+      "shares": 2000,
+      "price": 7803.9,
+      "cost": 23411.7,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-04-08",
+      "ticker": "ADMF.JK",
+      "side": "buy",
+      "shares": 300,
+      "price": 8729.3625,
+      "cost": 3928.213125,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-04-08",
+      "ticker": "ABBA.JK",
+      "side": "buy",
+      "shares": 6900,
+      "price": 43.021499999999996,
+      "cost": 445.272525,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-04-16",
+      "ticker": "ADMF.JK",
+      "side": "sell",
+      "shares": 300,
+      "price": 8345.825,
+      "cost": 6259.36875,
+      "asset_class": "equity",
+      "pnl": -121320.6187499999
+    },
+    {
+      "sim_date": "2026-04-16",
+      "ticker": "ABBA.JK",
+      "side": "sell",
+      "shares": 6900,
+      "price": 41.979,
+      "cost": 724.13775,
+      "asset_class": "equity",
+      "pnl": -7917.387749999994
+    },
+    {
+      "sim_date": "2026-04-16",
+      "ticker": "ADCP.JK",
+      "side": "buy",
+      "shares": 52500,
+      "price": 53.0265,
+      "cost": 4175.836875,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-04-20",
+      "ticker": "ABMM.JK",
+      "side": "sell",
+      "shares": 5500,
+      "price": 2937.2006650000003,
+      "cost": 40386.50914375001,
+      "asset_class": "equity",
+      "pnl": -162917.35164374672
+    },
+    {
+      "sim_date": "2026-04-20",
+      "ticker": "ADCP.JK",
+      "side": "sell",
+      "shares": 52500,
+      "price": 52.9735,
+      "cost": 6952.771875,
+      "asset_class": "equity",
+      "pnl": -9735.271875000093
+    },
+    {
+      "sim_date": "2026-04-20",
+      "ticker": "ADES.JK",
+      "side": "buy",
+      "shares": 900,
+      "price": 16508.25,
+      "cost": 22286.1375,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-04-20",
+      "ticker": "^GSPC",
+      "side": "buy",
+      "shares": 561.9275070780833,
+      "price": 7120.608324899999,
+      "cost": 8002.531369781006,
+      "asset_class": "cross_asset",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-04-23",
+      "ticker": "AADI.JK",
+      "side": "sell",
+      "shares": 1900,
+      "price": 10919.5375,
+      "cost": 51867.803125000006,
+      "asset_class": "equity",
+      "pnl": 4869844.6968749985
+    },
+    {
+      "sim_date": "2026-04-23",
+      "ticker": "ADCP.JK",
+      "side": "buy",
+      "shares": 291500,
+      "price": 56.028,
+      "cost": 24498.243000000002,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-04-28",
+      "ticker": "ADMF.JK",
+      "side": "buy",
+      "shares": 500,
+      "price": 8629.3125,
+      "cost": 6471.984375,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-05-07",
+      "ticker": "ADCP.JK",
+      "side": "sell",
+      "shares": 291500,
+      "price": 49.975,
+      "cost": 36419.28125,
+      "asset_class": "equity",
+      "pnl": -1800868.78125
+    },
+    {
+      "sim_date": "2026-05-12",
+      "ticker": "ABDA.JK",
+      "side": "buy",
+      "shares": 4200,
+      "price": 3401.7,
+      "cost": 21430.71,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-05-13",
+      "ticker": "ADMF.JK",
+      "side": "sell",
+      "shares": 500,
+      "price": 8570.7125,
+      "cost": 10713.390625,
+      "asset_class": "equity",
+      "pnl": -40013.390625
+    },
+    {
+      "sim_date": "2026-05-20",
+      "ticker": "CL=F",
+      "side": "sell",
+      "shares": 55.32133331082173,
+      "price": 98.900525,
+      "cost": 10.942617816280514,
+      "asset_class": "cross_asset",
+      "pnl": 2142.194101374222
+    },
+    {
+      "sim_date": "2026-06-09",
+      "ticker": "GC=F",
+      "side": "sell",
+      "shares": 3232.4054184177694,
+      "price": 4197.900000000001,
+      "cost": 27138.62941195191,
+      "asset_class": "cross_asset",
+      "pnl": -2656068.663979018
+    },
+    {
+      "sim_date": "2026-06-09",
+      "ticker": "ADRO.JK",
+      "side": "sell",
+      "shares": 7700,
+      "price": 2248.875,
+      "cost": 43290.84375,
+      "asset_class": "equity",
+      "pnl": 1563586.8517500013
+    },
+    {
+      "sim_date": "2026-06-09",
+      "ticker": "AALI.JK",
+      "side": "sell",
+      "shares": 2000,
+      "price": 6196.900000000001,
+      "cost": 30984.500000000007,
+      "asset_class": "equity",
+      "pnl": -3244984.499999998
+    },
+    {
+      "sim_date": "2026-06-09",
+      "ticker": "ADMR.JK",
+      "side": "buy",
+      "shares": 9600,
+      "price": 1645.8225,
+      "cost": 23699.844,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-10",
+      "ticker": "ADMR.JK",
+      "side": "sell",
+      "shares": 9600,
+      "price": 1514.2425,
+      "cost": 36341.82,
+      "asset_class": "equity",
+      "pnl": -1299509.8200000003
+    },
+    {
+      "sim_date": "2026-06-10",
+      "ticker": "ACES.JK",
+      "side": "buy",
+      "shares": 48700,
+      "price": 321.37060499999995,
+      "cost": 23476.12269525,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-15",
+      "ticker": "ABDA.JK",
+      "side": "sell",
+      "shares": 4200,
+      "price": 3248.375,
+      "cost": 34107.9375,
+      "asset_class": "equity",
+      "pnl": -678072.9375
+    },
+    {
+      "sim_date": "2026-06-15",
+      "ticker": "ABBA.JK",
+      "side": "buy",
+      "shares": 455700,
+      "price": 35.0175,
+      "cost": 23936.212125000002,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-15",
+      "ticker": "ADHI.JK",
+      "side": "buy",
+      "shares": 95800,
+      "price": 167.0835,
+      "cost": 24009.89895,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-15",
+      "ticker": "ADCP.JK",
+      "side": "buy",
+      "shares": 245400,
+      "price": 50.025,
+      "cost": 18414.2025,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-18",
+      "ticker": "ACES.JK",
+      "side": "sell",
+      "shares": 48700,
+      "price": 341.11935500000004,
+      "cost": 41531.281471250004,
+      "asset_class": "equity",
+      "pnl": 920232.843528755
+    },
+    {
+      "sim_date": "2026-06-18",
+      "ticker": "ABBA.JK",
+      "side": "sell",
+      "shares": 455700,
+      "price": 33.983000000000004,
+      "cost": 38715.132750000004,
+      "asset_class": "equity",
+      "pnl": -510136.78274999745
+    },
+    {
+      "sim_date": "2026-06-18",
+      "ticker": "ACRO.JK",
+      "side": "buy",
+      "shares": 260300,
+      "price": 63.031499999999994,
+      "cost": 24610.649175,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-18",
+      "ticker": "ABDA.JK",
+      "side": "buy",
+      "shares": 4600,
+      "price": 3321.66,
+      "cost": 22919.454,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-18",
+      "ticker": "ABMM.JK",
+      "side": "buy",
+      "shares": 100,
+      "price": 2451.225,
+      "cost": 367.68375000000003,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-22",
+      "ticker": "ADHI.JK",
+      "side": "sell",
+      "shares": 95800,
+      "price": 159.92000000000002,
+      "cost": 38300.84000000001,
+      "asset_class": "equity",
+      "pnl": -724564.1399999969
+    },
+    {
+      "sim_date": "2026-06-22",
+      "ticker": "ABMM.JK",
+      "side": "sell",
+      "shares": 100,
+      "price": 2428.7850000000003,
+      "cost": 607.1962500000001,
+      "asset_class": "equity",
+      "pnl": -2851.19624999995
+    },
+    {
+      "sim_date": "2026-06-22",
+      "ticker": "ADMF.JK",
+      "side": "buy",
+      "shares": 1900,
+      "price": 8054.025,
+      "cost": 22953.97125,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-23",
+      "ticker": "ACRO.JK",
+      "side": "sell",
+      "shares": 260300,
+      "price": 64.9675,
+      "cost": 42277.60062500001,
+      "asset_class": "equity",
+      "pnl": 461663.19937499985
+    },
+    {
+      "sim_date": "2026-06-23",
+      "ticker": "ADMF.JK",
+      "side": "sell",
+      "shares": 1900,
+      "price": 7996.0,
+      "cost": 37981.0,
+      "asset_class": "equity",
+      "pnl": -148228.5
+    },
+    {
+      "sim_date": "2026-06-23",
+      "ticker": "ADRO.JK",
+      "side": "buy",
+      "shares": 7600,
+      "price": 2291.145,
+      "cost": 26119.053,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-23",
+      "ticker": "ABBA.JK",
+      "side": "buy",
+      "shares": 435100,
+      "price": 34.016999999999996,
+      "cost": 22201.195049999995,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-24",
+      "ticker": "ADCP.JK",
+      "side": "sell",
+      "shares": 245400,
+      "price": 49.975,
+      "cost": 30659.6625,
+      "asset_class": "equity",
+      "pnl": -42929.66249999963
+    },
+    {
+      "sim_date": "2026-06-24",
+      "ticker": "ADRO.JK",
+      "side": "sell",
+      "shares": 7600,
+      "price": 2248.875,
+      "cost": 42728.625,
+      "asset_class": "equity",
+      "pnl": -363980.625
+    },
+    {
+      "sim_date": "2026-06-24",
+      "ticker": "ABBA.JK",
+      "side": "sell",
+      "shares": 435100,
+      "price": 30.9845,
+      "cost": 33703.38987500001,
+      "asset_class": "equity",
+      "pnl": -1353144.1398749966
+    },
+    {
+      "sim_date": "2026-06-25",
+      "ticker": "ABDA.JK",
+      "side": "sell",
+      "shares": 4600,
+      "price": 3308.3450000000003,
+      "cost": 38045.967500000006,
+      "asset_class": "equity",
+      "pnl": -99294.96749999747
+    },
+    {
+      "sim_date": "2026-06-25",
+      "ticker": "AADI.JK",
+      "side": "buy",
+      "shares": 2100,
+      "price": 8054.025,
+      "cost": 25370.17875,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-25",
+      "ticker": "ABMM.JK",
+      "side": "buy",
+      "shares": 7100,
+      "price": 2421.21,
+      "cost": 25785.8865,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-25",
+      "ticker": "ACES.JK",
+      "side": "buy",
+      "shares": 50200,
+      "price": 342.171,
+      "cost": 25765.4763,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-25",
+      "ticker": "ABBA.JK",
+      "side": "buy",
+      "shares": 198200,
+      "price": 33.0165,
+      "cost": 9815.80545,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-06-29",
+      "ticker": "AADI.JK",
+      "side": "sell",
+      "shares": 2100,
+      "price": 7996.0,
+      "cost": 41979.0,
+      "asset_class": "equity",
+      "pnl": -163831.5
+    },
+    {
+      "sim_date": "2026-06-29",
+      "ticker": "ABMM.JK",
+      "side": "sell",
+      "shares": 7100,
+      "price": 2318.84,
+      "cost": 41159.41,
+      "asset_class": "equity",
+      "pnl": -767986.4099999983
+    },
+    {
+      "sim_date": "2026-06-29",
+      "ticker": "ACES.JK",
+      "side": "sell",
+      "shares": 50200,
+      "price": 331.834,
+      "cost": 41645.167,
+      "asset_class": "equity",
+      "pnl": -560562.566999998
+    },
+    {
+      "sim_date": "2026-06-29",
+      "ticker": "ABBA.JK",
+      "side": "sell",
+      "shares": 198200,
+      "price": 29.985000000000003,
+      "cost": 14857.567500000001,
+      "asset_class": "equity",
+      "pnl": -615700.8674999988
+    },
+    {
+      "sim_date": "2026-07-06",
+      "ticker": "ABDA.JK",
+      "side": "buy",
+      "shares": 5000,
+      "price": 3311.6549999999997,
+      "cost": 24837.4125,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-06",
+      "ticker": "ACRO.JK",
+      "side": "buy",
+      "shares": 269300,
+      "price": 62.031,
+      "cost": 25057.42245,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-07",
+      "ticker": "ACES.JK",
+      "side": "buy",
+      "shares": 47900,
+      "price": 348.174,
+      "cost": 25016.3019,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-07",
+      "ticker": "ACST.JK",
+      "side": "buy",
+      "shares": 73800,
+      "price": 77.0385,
+      "cost": 8528.16195,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-08",
+      "ticker": "ACST.JK",
+      "side": "sell",
+      "shares": 73800,
+      "price": 75.962,
+      "cost": 14014.989000000001,
+      "asset_class": "equity",
+      "pnl": -93460.68899999931
+    },
+    {
+      "sim_date": "2026-07-13",
+      "ticker": "ABDA.JK",
+      "side": "sell",
+      "shares": 5000,
+      "price": 3398.3,
+      "cost": 42478.75,
+      "asset_class": "equity",
+      "pnl": 390746.25000000186
+    },
+    {
+      "sim_date": "2026-07-13",
+      "ticker": "AADI.JK",
+      "side": "buy",
+      "shares": 2000,
+      "price": 8379.1875,
+      "cost": 25137.5625,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-13",
+      "ticker": "ADMR.JK",
+      "side": "buy",
+      "shares": 3800,
+      "price": 1510.7549999999999,
+      "cost": 8611.3035,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-14",
+      "ticker": "ADMR.JK",
+      "side": "sell",
+      "shares": 3800,
+      "price": 1514.2425,
+      "cost": 14385.30375,
+      "asset_class": "equity",
+      "pnl": -1132.8037499999627
+    },
+    {
+      "sim_date": "2026-07-14",
+      "ticker": "ADMG.JK",
+      "side": "buy",
+      "shares": 25800,
+      "price": 222.111,
+      "cost": 8595.6957,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-14",
+      "ticker": "CL=F",
+      "side": "buy",
+      "shares": 202.3085111496618,
+      "price": 79.77986999999999,
+      "cost": 32.28029343882713,
+      "asset_class": "cross_asset",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-15",
+      "ticker": "ADMG.JK",
+      "side": "sell",
+      "shares": 25800,
+      "price": 213.893,
+      "cost": 13796.0985,
+      "asset_class": "equity",
+      "pnl": -225820.49849999882
+    },
+    {
+      "sim_date": "2026-07-15",
+      "ticker": "ACST.JK",
+      "side": "buy",
+      "shares": 67800,
+      "price": 81.0405,
+      "cost": 8241.81885,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-16",
+      "ticker": "AADI.JK",
+      "side": "sell",
+      "shares": 2000,
+      "price": 8570.7125,
+      "cost": 42853.5625,
+      "asset_class": "equity",
+      "pnl": 340196.4375
+    },
+    {
+      "sim_date": "2026-07-16",
+      "ticker": "ADMG.JK",
+      "side": "buy",
+      "shares": 78300,
+      "price": 214.107,
+      "cost": 25146.86715,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-16",
+      "ticker": "ADRO.JK",
+      "side": "buy",
+      "shares": 100,
+      "price": 2511.2549999999997,
+      "cost": 376.68825,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-20",
+      "ticker": "ACRO.JK",
+      "side": "sell",
+      "shares": 269300,
+      "price": 61.969,
+      "cost": 41720.62925,
+      "asset_class": "equity",
+      "pnl": -58417.22924999893
+    },
+    {
+      "sim_date": "2026-07-20",
+      "ticker": "ADHI.JK",
+      "side": "buy",
+      "shares": 97400,
+      "price": 171.0855,
+      "cost": 24995.59155,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-21",
+      "ticker": "ADES.JK",
+      "side": "sell",
+      "shares": 900,
+      "price": 33608.1875,
+      "cost": 75618.421875,
+      "asset_class": "equity",
+      "pnl": 15314325.328125
+    },
+    {
+      "sim_date": "2026-07-21",
+      "ticker": "ACST.JK",
+      "side": "sell",
+      "shares": 67800,
+      "price": 84.95750000000001,
+      "cost": 14400.296250000003,
+      "asset_class": "equity",
+      "pnl": 251172.30375000183
+    },
+    {
+      "sim_date": "2026-07-21",
+      "ticker": "ABDA.JK",
+      "side": "buy",
+      "shares": 4900,
+      "price": 3401.7,
+      "cost": 25002.495,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-22",
+      "ticker": "ABDA.JK",
+      "side": "sell",
+      "shares": 4900,
+      "price": 3388.3050000000003,
+      "cost": 41506.73625,
+      "asset_class": "equity",
+      "pnl": -107142.23624999821
+    },
+    {
+      "sim_date": "2026-07-22",
+      "ticker": "ADES.JK",
+      "side": "buy",
+      "shares": 400,
+      "price": 34442.2125,
+      "cost": 20665.3275,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-22",
+      "ticker": "AALI.JK",
+      "side": "buy",
+      "shares": 2500,
+      "price": 6653.325,
+      "cost": 24949.96875,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-23",
+      "ticker": "ABDA.JK",
+      "side": "buy",
+      "shares": 1500,
+      "price": 3391.6949999999997,
+      "cost": 7631.31375,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-07-27",
+      "ticker": "ADHI.JK",
+      "side": "sell",
+      "shares": 97400,
+      "price": 160.9195,
+      "cost": 39183.89825,
+      "asset_class": "equity",
+      "pnl": -1029352.2982499991
+    },
+    {
+      "sim_date": "2026-07-27",
+      "ticker": "ABDA.JK",
+      "side": "sell",
+      "shares": 1500,
+      "price": 3428.2850000000003,
+      "cost": 12856.06875,
+      "asset_class": "equity",
+      "pnl": 42028.93124999944
+    },
+    {
+      "sim_date": "2026-07-27",
+      "ticker": "ACRO.JK",
+      "side": "buy",
+      "shares": 274600,
+      "price": 61.030499999999996,
+      "cost": 25138.462949999997,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-08-04",
+      "ticker": "ACRO.JK",
+      "side": "sell",
+      "shares": 274600,
+      "price": 61.969,
+      "cost": 42541.718499999995,
+      "asset_class": "equity",
+      "pnl": 215170.38150000013
+    },
+    {
+      "sim_date": "2026-08-05",
+      "ticker": "CL=F",
+      "side": "sell",
+      "shares": 202.3085111496618,
+      "price": 75.13241500000001,
+      "cost": 30.39985403545704,
+      "asset_class": "cross_asset",
+      "pnl": -970.6195557205028
+    },
+    {
+      "sim_date": "2026-08-05",
+      "ticker": "ABMM.JK",
+      "side": "buy",
+      "shares": 6200,
+      "price": 2701.35,
+      "cost": 25122.555,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-08-06",
+      "ticker": "ABDA.JK",
+      "side": "buy",
+      "shares": 1100,
+      "price": 3821.91,
+      "cost": 6306.1515,
+      "asset_class": "equity",
+      "pnl": 0.0
+    },
+    {
+      "sim_date": "2026-08-11",
+      "ticker": "CL=F",
+      "side": "buy",
+      "shares": 2803.8869297652664,
+      "price": 84.212085,
+      "cost": 472.2423289195633,
+      "asset_class": "cross_asset",
+      "pnl": 0.0
+    }
+  ],
+  "daily_results": [
+    {
+      "sim_date": "2025-08-20",
+      "equity": 98205525.15,
+      "cash": 325.15,
+      "n_positions": 7,
+      "n_trades": 10,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-08-26",
+      "equity": 107495425.15,
+      "cash": 325.15,
+      "n_positions": 7,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-08-28",
+      "equity": 105730825.15,
+      "cash": 325.15,
+      "n_positions": 7,
+      "n_trades": 2,
+      "regime": "bull",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-09-02",
+      "equity": 103746925.15,
+      "cash": 325.15,
+      "n_positions": 7,
+      "n_trades": 2,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-09-03",
+      "equity": 105754928.29,
+      "cash": 0.0,
+      "n_positions": 8,
+      "n_trades": 2,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-09-04",
+      "equity": 103282723.43,
+      "cash": 3557.64,
+      "n_positions": 8,
+      "n_trades": 2,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-09-08",
+      "equity": 102617913.91,
+      "cash": 42296881.51,
+      "n_positions": 5,
+      "n_trades": 5,
+      "regime": "sideways",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-09-09",
+      "equity": 100876091.5,
+      "cash": 41683178.62,
+      "n_positions": 5,
+      "n_trades": 2,
+      "regime": "sideways",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-09-10",
+      "equity": 100686192.22,
+      "cash": 27918659.32,
+      "n_positions": 6,
+      "n_trades": 5,
+      "regime": "sideways",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-09-11",
+      "equity": 100077542.29,
+      "cash": 12218761.0,
+      "n_positions": 7,
+      "n_trades": 3,
+      "regime": "sideways",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-09-15",
+      "equity": 102656713.98,
+      "cash": 750177.56,
+      "n_positions": 8,
+      "n_trades": 3,
+      "regime": "bull",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-09-17",
+      "equity": 107257713.95,
+      "cash": 750177.56,
+      "n_positions": 8,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-09-18",
+      "equity": 107217310.46,
+      "cash": 750177.56,
+      "n_positions": 8,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-09-22",
+      "equity": 108034119.33,
+      "cash": 750177.56,
+      "n_positions": 8,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-09-25",
+      "equity": 103478918.98,
+      "cash": 750177.56,
+      "n_positions": 8,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-09-30",
+      "equity": 101988528.47,
+      "cash": 750177.56,
+      "n_positions": 8,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-10-14",
+      "equity": 108623303.08,
+      "cash": 556324.94,
+      "n_positions": 8,
+      "n_trades": 6,
+      "regime": "sideways",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-10-15",
+      "equity": 105209162.06,
+      "cash": 15465880.44,
+      "n_positions": 7,
+      "n_trades": 1,
+      "regime": "sideways",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-10-16",
+      "equity": 103426071.5,
+      "cash": 15465880.44,
+      "n_positions": 7,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-10-27",
+      "equity": 106501392.95,
+      "cash": 3887457.14,
+      "n_positions": 8,
+      "n_trades": 3,
+      "regime": "sideways",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-10-28",
+      "equity": 106067334.36,
+      "cash": 3887457.14,
+      "n_positions": 8,
+      "n_trades": 0,
+      "regime": "sideways",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-10-30",
+      "equity": 107613848.29,
+      "cash": 38748.21,
+      "n_positions": 9,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-11-03",
+      "equity": 106505848.51,
+      "cash": 38748.21,
+      "n_positions": 9,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-11-04",
+      "equity": 106661756.51,
+      "cash": 38748.21,
+      "n_positions": 9,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-11-06",
+      "equity": 106241409.27,
+      "cash": 38748.21,
+      "n_positions": 9,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-11-10",
+      "equity": 107455223.01,
+      "cash": 38748.21,
+      "n_positions": 9,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-11-12",
+      "equity": 107912463.83,
+      "cash": 38748.21,
+      "n_positions": 9,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-11-13",
+      "equity": 106840093.06,
+      "cash": 244027.27,
+      "n_positions": 9,
+      "n_trades": 2,
+      "regime": "bull",
+      "active_cycles": 6,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-11-17",
+      "equity": 106941270.57,
+      "cash": 244027.27,
+      "n_positions": 9,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 6,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-11-18",
+      "equity": 105223364.58,
+      "cash": 244027.27,
+      "n_positions": 9,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-11-19",
+      "equity": 105055105.9,
+      "cash": 244027.27,
+      "n_positions": 9,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-11-25",
+      "equity": 104238893.22,
+      "cash": 2344.69,
+      "n_positions": 10,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-11-26",
+      "equity": 103647704.78,
+      "cash": 2344.69,
+      "n_positions": 10,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-11-27",
+      "equity": 103910627.59,
+      "cash": 2344.69,
+      "n_positions": 10,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-12-01",
+      "equity": 102322486.99,
+      "cash": 2344.69,
+      "n_positions": 10,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-12-02",
+      "equity": 103350604.12,
+      "cash": 2344.69,
+      "n_positions": 10,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-12-03",
+      "equity": 103853836.58,
+      "cash": 8364692.67,
+      "n_positions": 9,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-12-04",
+      "equity": 104540996.14,
+      "cash": 8364692.67,
+      "n_positions": 9,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-12-09",
+      "equity": 106296072.98,
+      "cash": 17801907.71,
+      "n_positions": 8,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-12-11",
+      "equity": 104417405.04,
+      "cash": 17801907.71,
+      "n_positions": 8,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-12-15",
+      "equity": 105800906.42,
+      "cash": 17801907.71,
+      "n_positions": 8,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-12-17",
+      "equity": 105164326.61,
+      "cash": 21476690.8,
+      "n_positions": 7,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-12-18",
+      "equity": 106413604.85,
+      "cash": 21476690.8,
+      "n_positions": 7,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-12-22",
+      "equity": 107727458.32,
+      "cash": 36412965.93,
+      "n_positions": 6,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-12-23",
+      "equity": 107444809.15,
+      "cash": 39050292.04,
+      "n_positions": 6,
+      "n_trades": 4,
+      "regime": "sideways",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2025-12-29",
+      "equity": 107569929.72,
+      "cash": 7139574.15,
+      "n_positions": 8,
+      "n_trades": 2,
+      "regime": "bull",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-01-05",
+      "equity": 114231420.15,
+      "cash": 7139574.15,
+      "n_positions": 8,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-01-07",
+      "equity": 118021601.23,
+      "cash": 7139574.15,
+      "n_positions": 8,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-01-08",
+      "equity": 116424485.98,
+      "cash": 7139574.15,
+      "n_positions": 8,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-01-12",
+      "equity": 121625047.06,
+      "cash": 0.0,
+      "n_positions": 10,
+      "n_trades": 2,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-01-13",
+      "equity": 123008343.3,
+      "cash": 15821911.34,
+      "n_positions": 9,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-01-14",
+      "equity": 122627811.1,
+      "cash": 15821911.34,
+      "n_positions": 9,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-01-19",
+      "equity": 119627938.21,
+      "cash": 9537.9,
+      "n_positions": 10,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-01-20",
+      "equity": 119299385.14,
+      "cash": 9537.9,
+      "n_positions": 10,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-01-21",
+      "equity": 118939384.8,
+      "cash": 9537.9,
+      "n_positions": 10,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-01-22",
+      "equity": 120401828.42,
+      "cash": 9537.9,
+      "n_positions": 10,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-01-27",
+      "equity": 120487056.63,
+      "cash": 9537.9,
+      "n_positions": 10,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-01-28",
+      "equity": 110787815.14,
+      "cash": 34351245.96,
+      "n_positions": 8,
+      "n_trades": 2,
+      "regime": "sideways",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-01-29",
+      "equity": 109946892.76,
+      "cash": 2766420.23,
+      "n_positions": 9,
+      "n_trades": 3,
+      "regime": "sideways",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-02-03",
+      "equity": 108903564.55,
+      "cash": 4579826.98,
+      "n_positions": 7,
+      "n_trades": 8,
+      "regime": "sideways",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-02-04",
+      "equity": 107878360.93,
+      "cash": 19892311.29,
+      "n_positions": 6,
+      "n_trades": 3,
+      "regime": "sideways",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-02-05",
+      "equity": 104738959.2,
+      "cash": 25074298.32,
+      "n_positions": 6,
+      "n_trades": 4,
+      "regime": "sideways",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-02-09",
+      "equity": 105576008.94,
+      "cash": 24723028.55,
+      "n_positions": 6,
+      "n_trades": 2,
+      "regime": "bear",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-02-10",
+      "equity": 106641868.46,
+      "cash": 24723028.55,
+      "n_positions": 6,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-02-11",
+      "equity": 107143948.03,
+      "cash": 8567770.46,
+      "n_positions": 7,
+      "n_trades": 1,
+      "regime": "bear",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-02-24",
+      "equity": 108696476.67,
+      "cash": 126467.85,
+      "n_positions": 8,
+      "n_trades": 3,
+      "regime": "crisis",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-02-25",
+      "equity": 109658020.47,
+      "cash": 3461.24,
+      "n_positions": 9,
+      "n_trades": 3,
+      "regime": "crisis",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-02-26",
+      "equity": 108577631.38,
+      "cash": 7260.82,
+      "n_positions": 8,
+      "n_trades": 3,
+      "regime": "crisis",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-03-05",
+      "equity": 108869913.41,
+      "cash": 7260.82,
+      "n_positions": 8,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-03-09",
+      "equity": 106667133.12,
+      "cash": 7260.82,
+      "n_positions": 8,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-03-10",
+      "equity": 107549015.0,
+      "cash": 14712630.45,
+      "n_positions": 7,
+      "n_trades": 1,
+      "regime": "bear",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-03-11",
+      "equity": 105266130.98,
+      "cash": 14712630.45,
+      "n_positions": 7,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-03-12",
+      "equity": 107220747.06,
+      "cash": 14712630.45,
+      "n_positions": 7,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-03-16",
+      "equity": 106448641.38,
+      "cash": 14712630.45,
+      "n_positions": 7,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-03-25",
+      "equity": 109052666.45,
+      "cash": 6063064.85,
+      "n_positions": 7,
+      "n_trades": 2,
+      "regime": "bear",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-03-30",
+      "equity": 109760632.14,
+      "cash": 6063064.85,
+      "n_positions": 7,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 0,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-04-01",
+      "equity": 107081320.87,
+      "cash": 6063064.85,
+      "n_positions": 7,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 0,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-04-07",
+      "equity": 104697659.46,
+      "cash": 2922284.81,
+      "n_positions": 7,
+      "n_trades": 2,
+      "regime": "bear",
+      "active_cycles": 0,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-04-08",
+      "equity": 105194915.91,
+      "cash": 2254.22,
+      "n_positions": 9,
+      "n_trades": 3,
+      "regime": "sideways",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-04-16",
+      "equity": 109492528.23,
+      "cash": 606.23,
+      "n_positions": 8,
+      "n_trades": 4,
+      "regime": "sideways",
+      "active_cycles": 0,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-04-20",
+      "equity": 109177654.13,
+      "cash": 0.0,
+      "n_positions": 8,
+      "n_trades": 4,
+      "regime": "sideways",
+      "active_cycles": 0,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-04-22",
+      "equity": 109075854.29,
+      "cash": 0.0,
+      "n_positions": 8,
+      "n_trades": 1,
+      "regime": "sideways",
+      "active_cycles": 0,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-04-23",
+      "equity": 109012174.11,
+      "cash": 4338593.2,
+      "n_positions": 8,
+      "n_trades": 2,
+      "regime": "sideways",
+      "active_cycles": 0,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-04-28",
+      "equity": 107868337.84,
+      "cash": 17464.97,
+      "n_positions": 9,
+      "n_trades": 1,
+      "regime": "bear",
+      "active_cycles": 0,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-04-29",
+      "equity": 110456685.59,
+      "cash": 17464.97,
+      "n_positions": 9,
+      "n_trades": 1,
+      "regime": "bear",
+      "active_cycles": 0,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-04-30",
+      "equity": 110624136.36,
+      "cash": 17464.97,
+      "n_positions": 9,
+      "n_trades": 2,
+      "regime": "bear",
+      "active_cycles": 0,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-05-07",
+      "equity": 113593661.18,
+      "cash": 14548758.19,
+      "n_positions": 8,
+      "n_trades": 1,
+      "regime": "bear",
+      "active_cycles": 0,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-05-11",
+      "equity": 113587316.07,
+      "cash": 14548758.19,
+      "n_positions": 8,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 0,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-05-12",
+      "equity": 113222175.34,
+      "cash": 240187.48,
+      "n_positions": 9,
+      "n_trades": 1,
+      "regime": "bear",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-05-13",
+      "equity": 112385606.48,
+      "cash": 4514830.34,
+      "n_positions": 8,
+      "n_trades": 1,
+      "regime": "bear",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-05-19",
+      "equity": 108348829.35,
+      "cash": 4514830.34,
+      "n_positions": 8,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-05-20",
+      "equity": 105953750.65,
+      "cash": 4520290.7,
+      "n_positions": 7,
+      "n_trades": 1,
+      "regime": "bear",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-05-21",
+      "equity": 106346603.7,
+      "cash": 4520290.7,
+      "n_positions": 7,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-06-09",
+      "equity": 105453796.72,
+      "cash": 31874733.09,
+      "n_positions": 5,
+      "n_trades": 4,
+      "regime": "bear",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-06-10",
+      "equity": 104356384.36,
+      "cash": 30700894.69,
+      "n_positions": 5,
+      "n_trades": 2,
+      "regime": "bear",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-06-11",
+      "equity": 104442923.21,
+      "cash": 30700894.69,
+      "n_positions": 5,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-06-15",
+      "equity": 106919338.09,
+      "cash": 3392.39,
+      "n_positions": 7,
+      "n_trades": 4,
+      "regime": "crisis",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-06-18",
+      "equity": 109828206.53,
+      "cash": 41955.92,
+      "n_positions": 8,
+      "n_trades": 5,
+      "regime": "crisis",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-06-22",
+      "equity": 115796928.77,
+      "cash": 240660.92,
+      "n_positions": 7,
+      "n_trades": 4,
+      "regime": "crisis",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-06-23",
+      "equity": 117348977.17,
+      "cash": 2023.62,
+      "n_positions": 7,
+      "n_trades": 4,
+      "regime": "crisis",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-06-24",
+      "equity": 114561248.77,
+      "cash": 42731602.89,
+      "n_positions": 4,
+      "n_trades": 3,
+      "regime": "bear",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-06-25",
+      "equity": 114527898.67,
+      "cash": 308.57,
+      "n_positions": 7,
+      "n_trades": 6,
+      "regime": "crisis",
+      "active_cycles": 1,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-06-29",
+      "equity": 111080597.98,
+      "cash": 55717125.23,
+      "n_positions": 3,
+      "n_trades": 4,
+      "regime": "bear",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-06-30",
+      "equity": 111249674.02,
+      "cash": 55717125.23,
+      "n_positions": 3,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-02",
+      "equity": 111910648.83,
+      "cash": 55717125.23,
+      "n_positions": 3,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-06",
+      "equity": 111519491.93,
+      "cash": 22404007.1,
+      "n_positions": 5,
+      "n_trades": 2,
+      "regime": "bear",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-07",
+      "equity": 111433092.03,
+      "cash": 7486.73,
+      "n_positions": 7,
+      "n_trades": 4,
+      "regime": "crisis",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-08",
+      "equity": 111998719.4,
+      "cash": 5599467.34,
+      "n_positions": 6,
+      "n_trades": 1,
+      "regime": "bear",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-09",
+      "equity": 112878066.2,
+      "cash": 5599467.34,
+      "n_positions": 6,
+      "n_trades": 0,
+      "regime": "bear",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-13",
+      "equity": 113253308.49,
+      "cash": 15495.73,
+      "n_positions": 7,
+      "n_trades": 3,
+      "regime": "sideways",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-14",
+      "equity": 112954574.34,
+      "cash": 0.0,
+      "n_positions": 8,
+      "n_trades": 3,
+      "regime": "sideways",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-15",
+      "equity": 112501410.04,
+      "cash": 1855.58,
+      "n_positions": 8,
+      "n_trades": 3,
+      "regime": "sideways",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-16",
+      "equity": 112183562.65,
+      "cash": 59199.86,
+      "n_positions": 9,
+      "n_trades": 4,
+      "regime": "sideways",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-20",
+      "equity": 112338865.54,
+      "cash": 17007.64,
+      "n_positions": 9,
+      "n_trades": 2,
+      "regime": "sideways",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-21",
+      "equity": 112742644.03,
+      "cash": 19241143.68,
+      "n_positions": 8,
+      "n_trades": 3,
+      "regime": "sideways",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-22",
+      "equity": 111915359.89,
+      "cash": 5346518.65,
+      "n_positions": 9,
+      "n_trades": 3,
+      "regime": "sideways",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-23",
+      "equity": 111913756.91,
+      "cash": 251344.83,
+      "n_positions": 10,
+      "n_trades": 1,
+      "regime": "sideways",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-07-27",
+      "equity": 111866964.52,
+      "cash": 4231177.9,
+      "n_positions": 9,
+      "n_trades": 3,
+      "regime": "sideways",
+      "active_cycles": 2,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-08-04",
+      "equity": 110627700.74,
+      "cash": 21205323.59,
+      "n_positions": 8,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-08-05",
+      "equity": 112319898.24,
+      "cash": 4447000.56,
+      "n_positions": 8,
+      "n_trades": 2,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-08-06",
+      "equity": 112985115.24,
+      "cash": 236593.41,
+      "n_positions": 9,
+      "n_trades": 2,
+      "regime": "bull",
+      "active_cycles": 4,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-08-11",
+      "equity": 115226437.64,
+      "cash": 0.0,
+      "n_positions": 10,
+      "n_trades": 2,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-08-13",
+      "equity": 115168924.01,
+      "cash": 0.0,
+      "n_positions": 10,
+      "n_trades": 0,
+      "regime": "bull",
+      "active_cycles": 5,
+      "lookahead_check": true
+    },
+    {
+      "sim_date": "2026-08-18",
+      "equity": 117103709.9,
+      "cash": 0.0,
+      "n_positions": 10,
+      "n_trades": 1,
+      "regime": "bull",
+      "active_cycles": 3,
+      "lookahead_check": true
+    }
+  ],
+  "lookahead_violations": 0,
+  "asset_class_breakdown": {
+    "equity_trades": 165,
+    "cross_asset_trades": 11,
+    "equity_pct": 93.8,
+    "cross_asset_pct": 6.2
+  }
+}
