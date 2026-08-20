@@ -1325,6 +1325,166 @@ async def predictive_lift_calculate():
     return {"status": "started", "message": "Perhitungan predictive lift dimulai"}
 
 
+@app.get("/api/risk-metrics/equity-curve")
+async def risk_metrics_equity_curve():
+    """Get equity curve and drawdown data from daily_portfolio_states."""
+    from sqlalchemy import text as _text
+    from quant.core.db import get_db as _get_db
+    db = _get_db()
+    try:
+        rows = db.execute(_text("""
+            SELECT sim_date, equity, daily_return, cumulative_return,
+                   current_drawdown, max_drawdown_recorded,
+                   sharpe_ratio_value, profit_factor_value, peak_equity_value,
+                   n_wins, n_losses, gross_profit, gross_loss
+            FROM daily_portfolio_states
+            ORDER BY sim_date ASC
+        """)).fetchall()
+
+        # Check if DB data has meaningful drawdown values; if not, use report
+        use_report = False
+        if rows:
+            sample_dd = float(rows[-1][4]) if rows else 0.0
+            if sample_dd == 0.0:
+                use_report = True
+
+        if not rows or use_report:
+            report_path = Path(__file__).resolve().parents[3] / "docs" / "ENSEMBLE_TUNING_REPORT.json"
+            if report_path.exists():
+                with open(report_path, "r") as f:
+                    rd = json.load(f)
+                ec = rd.get("equity_curve", [])
+                if ec:
+                    return {"status": "ok", "equity_curve": ec}
+        if not rows:
+            return {"status": "ok", "equity_curve": [], "message": "Belum ada data"}
+        return {
+            "status": "ok",
+            "equity_curve": [
+                {
+                    "date": str(r[0]),
+                    "equity": float(r[1]),
+                    "daily_return": float(r[2]),
+                    "cumulative_return": float(r[3]),
+                    "drawdown": float(r[4]),
+                    "max_drawdown": float(r[5]),
+                    "sharpe": float(r[6]),
+                    "profit_factor": float(r[7]),
+                    "peak_equity": float(r[8]),
+                    "n_wins": int(r[9]),
+                    "n_losses": int(r[10]),
+                    "gross_profit": float(r[11]),
+                    "gross_loss": float(r[12]),
+                }
+                for r in rows
+            ],
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+    finally:
+        db.close()
+
+
+@app.get("/api/risk-metrics/scorecard")
+async def risk_metrics_scorecard():
+    """Get institutional performance scorecard (latest snapshot)."""
+    from sqlalchemy import text as _text
+    from quant.core.db import get_db as _get_db
+    db = _get_db()
+    try:
+        row = db.execute(_text("""
+            SELECT sim_date, equity, cumulative_return, current_drawdown,
+                   max_drawdown_recorded, sharpe_ratio_value, profit_factor_value,
+                   n_wins, n_losses, gross_profit, gross_loss, peak_equity_value
+            FROM daily_portfolio_states
+            ORDER BY sim_date DESC LIMIT 1
+        """)).fetchone()
+
+        # Fall back to ensemble report if DB has no data or zeros
+        report_path = Path(__file__).resolve().parents[3] / "docs" / "ENSEMBLE_TUNING_REPORT.json"
+        report_data = {}
+        if report_path.exists():
+            with open(report_path, "r") as f:
+                report_data = json.load(f)
+
+        if not row and not report_data:
+            return {"status": "ok", "scorecard": None, "message": "Belum ada data"}
+
+        if row:
+            sharpe = float(row[5])
+            pf = float(row[6])
+            mdd = float(row[4])
+            n_wins = int(row[7])
+            n_losses = int(row[8])
+            ret = float(row[2])
+            equity = float(row[1])
+            gross_profit = float(row[9])
+            gross_loss = float(row[10])
+        else:
+            sharpe = pf = mdd = ret = 0.0
+            n_wins = n_losses = 0
+            equity = gross_profit = gross_loss = 0.0
+
+        # Override with report data if DB values are zero
+        if sharpe == 0 and report_data.get("sharpe_ratio"):
+            sharpe = float(report_data["sharpe_ratio"])
+        if pf == 0 and report_data.get("profit_factor"):
+            pf = float(report_data["profit_factor"])
+        if mdd == 0 and report_data.get("max_drawdown_pct"):
+            mdd = float(report_data["max_drawdown_pct"])
+        if ret == 0 and report_data.get("total_return_pct"):
+            ret = float(report_data["total_return_pct"])
+        if equity == 0 and report_data.get("final_equity"):
+            equity = float(report_data["final_equity"])
+        if n_wins == 0 and report_data.get("n_wins"):
+            n_wins = int(report_data["n_wins"])
+        if n_losses == 0 and report_data.get("n_losses"):
+            n_losses = int(report_data["n_losses"])
+        if gross_profit == 0 and report_data.get("gross_profit"):
+            gross_profit = float(report_data["gross_profit"])
+        if gross_loss == 0 and report_data.get("gross_loss"):
+            gross_loss = float(report_data["gross_loss"])
+
+        win_rate = (n_wins / (n_wins + n_losses) * 100) if (n_wins + n_losses) > 0 else 0
+
+        # Quality indicators
+        sharpe_quality = "Sangat Baik" if sharpe > 2.0 else "Baik" if sharpe > 1.0 else "Cukup" if sharpe > 0 else "Buruk"
+        pf_quality = "Sangat Baik" if pf > 2.0 else "Baik" if pf > 1.5 else "Cukup" if pf > 1.0 else "Buruk"
+        mdd_quality = "Aman" if abs(mdd) < 10 else "Waspada" if abs(mdd) < 20 else "Bahaya"
+        win_quality = "Sangat Baik" if win_rate > 60 else "Baik" if win_rate > 50 else "Cukup" if win_rate > 40 else "Buruk"
+        ret_quality = "Sangat Baik" if ret > 50 else "Baik" if ret > 20 else "Cukup" if ret > 0 else "Buruk"
+
+        return {
+            "status": "ok",
+            "scorecard": {
+                "sim_date": str(row[0]) if row else report_data.get("end_date", ""),
+                "equity": equity,
+                "cumulative_return": ret,
+                "current_drawdown": float(row[3]) if row else mdd,
+                "max_drawdown": mdd,
+                "sharpe_ratio": sharpe,
+                "profit_factor": pf,
+                "n_wins": n_wins,
+                "n_losses": n_losses,
+                "win_rate": round(win_rate, 2),
+                "gross_profit": gross_profit,
+                "gross_loss": gross_loss,
+                "peak_equity": float(row[11]) if row else equity,
+                "quality": {
+                    "sharpe": sharpe_quality,
+                    "profit_factor": pf_quality,
+                    "max_drawdown": mdd_quality,
+                    "win_rate": win_quality,
+                    "return": ret_quality,
+                },
+            },
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+    finally:
+        db.close()
+
+
 @app.post("/api/ensemble-tuning/run")
 async def ensemble_tuning_run(payload: dict = Body(default={})):
     """Start hybrid ensemble tuning simulation."""

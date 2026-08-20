@@ -87,6 +87,45 @@ interface PredictiveLiftReport {
   };
 }
 
+interface EquityCurvePoint {
+  date: string;
+  equity: number;
+  daily_return: number;
+  cumulative_return: number;
+  drawdown: number;
+  max_drawdown: number;
+  sharpe: number;
+  profit_factor: number;
+  peak_equity: number;
+  n_wins: number;
+  n_losses: number;
+  gross_profit: number;
+  gross_loss: number;
+}
+
+interface Scorecard {
+  sim_date: string;
+  equity: number;
+  cumulative_return: number;
+  current_drawdown: number;
+  max_drawdown: number;
+  sharpe_ratio: number;
+  profit_factor: number;
+  n_wins: number;
+  n_losses: number;
+  win_rate: number;
+  gross_profit: number;
+  gross_loss: number;
+  peak_equity: number;
+  quality: {
+    sharpe: string;
+    profit_factor: string;
+    max_drawdown: string;
+    win_rate: string;
+    return: string;
+  };
+}
+
 // ── Constants ────────────────────────────────────────────────────────────
 
 const TYPE_COLORS: Record<string, string> = {
@@ -626,6 +665,292 @@ function AccuracyComparisonChart({ report }: { report: PredictiveLiftReport | nu
   );
 }
 
+// ── Equity Curve & Drawdown Underwater Chart (Canvas 2D, rAF) ────────────
+
+function EquityDrawdownChart({ data }: { data: EquityCurvePoint[] }) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const rafRef = useRef(0);
+  const dataRef = useRef<EquityCurvePoint[]>(data);
+  const animRef = useRef(0);
+
+  useEffect(() => { dataRef.current = data; }, [data]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const draw = () => {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+
+      const W = rect.width;
+      const H = rect.height;
+      const padding = { top: 15, right: 60, bottom: 20, left: 60 };
+      const chartW = W - padding.left - padding.right;
+      const totalH = H - padding.top - padding.bottom;
+      const equityH = totalH * 0.55;
+      const ddH = totalH * 0.40;
+      const gap = totalH * 0.05;
+
+      ctx.fillStyle = "rgba(0,0,0,0.3)";
+      ctx.fillRect(0, 0, W, H);
+
+      const pts = dataRef.current;
+      if (pts.length < 2) {
+        ctx.fillStyle = "rgba(255,255,255,0.3)";
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("Menunggu data kurva ekuitas...", W / 2, H / 2);
+        return;
+      }
+
+      const animP = Math.min(1, animRef.current);
+      animRef.current += 0.03;
+
+      const minEq = Math.min(...pts.map((p) => p.equity));
+      const maxEq = Math.max(...pts.map((p) => p.equity));
+      const eqRange = maxEq - minEq || 1;
+      const minDD = Math.min(...pts.map((p) => p.drawdown), -1);
+      const ddRange = Math.abs(minDD) || 1;
+
+      // ── Equity Curve (top) ──
+      ctx.strokeStyle = "rgba(255,255,255,0.05)";
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 4; i++) {
+        const y = padding.top + (equityH / 4) * i;
+        ctx.beginPath();
+        ctx.moveTo(padding.left, y);
+        ctx.lineTo(padding.left + chartW, y);
+        ctx.stroke();
+      }
+
+      // Y labels equity
+      ctx.fillStyle = "rgba(255,255,255,0.4)";
+      ctx.font = "9px monospace";
+      ctx.textAlign = "right";
+      for (let i = 0; i <= 4; i++) {
+        const val = maxEq - (eqRange / 4) * i;
+        const y = padding.top + (equityH / 4) * i;
+        ctx.fillText(`Rp ${(val / 1e6).toFixed(0)}Jt`, padding.left - 5, y + 3);
+      }
+
+      // Equity line
+      const gradEq = ctx.createLinearGradient(0, padding.top, 0, padding.top + equityH);
+      gradEq.addColorStop(0, "#10b981");
+      gradEq.addColorStop(1, "#059669");
+      ctx.strokeStyle = gradEq;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      pts.forEach((p, i) => {
+        const x = padding.left + (i / (pts.length - 1)) * chartW;
+        const y = padding.top + equityH - ((p.equity - minEq) / eqRange) * equityH * animP;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // Fill under equity
+      ctx.lineTo(padding.left + chartW, padding.top + equityH);
+      ctx.lineTo(padding.left, padding.top + equityH);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(16,185,129,0.08)";
+      ctx.fill();
+
+      // ── Drawdown Underwater (bottom, inverted) ──
+      const ddTop = padding.top + equityH + gap;
+      ctx.strokeStyle = "rgba(255,255,255,0.05)";
+      for (let i = 0; i <= 3; i++) {
+        const y = ddTop + (ddH / 3) * i;
+        ctx.beginPath();
+        ctx.moveTo(padding.left, y);
+        ctx.lineTo(padding.left + chartW, y);
+        ctx.stroke();
+      }
+
+      // Y labels drawdown
+      ctx.fillStyle = "rgba(255,255,255,0.4)";
+      ctx.textAlign = "right";
+      for (let i = 0; i <= 3; i++) {
+        const val = -ddRange * (i / 3);
+        const y = ddTop + (ddH / 3) * i;
+        ctx.fillText(`${val.toFixed(1)}%`, padding.left - 5, y + 3);
+      }
+
+      // Zero line
+      ctx.strokeStyle = "rgba(255,255,255,0.15)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(padding.left, ddTop);
+      ctx.lineTo(padding.left + chartW, ddTop);
+      ctx.stroke();
+
+      // Drawdown area (red, inverted)
+      ctx.beginPath();
+      ctx.moveTo(padding.left, ddTop);
+      pts.forEach((p, i) => {
+        const x = padding.left + (i / (pts.length - 1)) * chartW;
+        const ddVal = Math.min(0, p.drawdown);
+        const y = ddTop + (Math.abs(ddVal) / ddRange) * ddH * animP;
+        ctx.lineTo(x, y);
+      });
+      ctx.lineTo(padding.left + chartW, ddTop);
+      ctx.closePath();
+
+      const gradDD = ctx.createLinearGradient(0, ddTop, 0, ddTop + ddH);
+      gradDD.addColorStop(0, "rgba(239,68,68,0.05)");
+      gradDD.addColorStop(1, "rgba(239,68,68,0.35)");
+      ctx.fillStyle = gradDD;
+      ctx.fill();
+
+      // Drawdown line
+      ctx.strokeStyle = "#ef4444";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      pts.forEach((p, i) => {
+        const x = padding.left + (i / (pts.length - 1)) * chartW;
+        const ddVal = Math.min(0, p.drawdown);
+        const y = ddTop + (Math.abs(ddVal) / ddRange) * ddH * animP;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // Labels
+      ctx.fillStyle = "#10b981";
+      ctx.font = "9px sans-serif";
+      ctx.textAlign = "left";
+      ctx.fillText("Kurva Ekuitas", padding.left + 5, padding.top + 10);
+      ctx.fillStyle = "#ef4444";
+      ctx.fillText("Penurunan Modal (Drawdown)", padding.left + 5, ddTop + ddH - 3);
+
+      // X-axis date labels
+      ctx.fillStyle = "rgba(255,255,255,0.3)";
+      ctx.font = "8px monospace";
+      ctx.textAlign = "center";
+      const labelCount = Math.min(5, pts.length);
+      for (let i = 0; i < labelCount; i++) {
+        const idx = Math.floor((i / (labelCount - 1)) * (pts.length - 1));
+        const x = padding.left + (idx / (pts.length - 1)) * chartW;
+        ctx.fillText(pts[idx].date.slice(5), x, H - 5);
+      }
+    };
+
+    const loop = () => {
+      draw();
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    rafRef.current = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  return <canvas ref={canvasRef} className="w-full h-full" style={{ minHeight: 260 }} />;
+}
+
+// ── Institutional Performance Scorecard ──────────────────────────────────
+
+function PerformanceScorecard({ scorecard }: { scorecard: Scorecard | null }) {
+  if (!scorecard) {
+    return (
+      <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
+        Menunggu data scorecard...
+      </div>
+    );
+  }
+
+  const qualityColor = (q: string) => {
+    if (q === "Sangat Baik" || q === "Aman") return "text-emerald-400 bg-emerald-500/10 border-emerald-500/30";
+    if (q === "Baik") return "text-blue-400 bg-blue-500/10 border-blue-500/30";
+    if (q === "Cukup" || q === "Waspada") return "text-yellow-400 bg-yellow-500/10 border-yellow-500/30";
+    return "text-red-400 bg-red-500/10 border-red-500/30";
+  };
+
+  const qualityDot = (q: string) => {
+    if (q === "Sangat Baik" || q === "Aman") return "🟢";
+    if (q === "Baik") return "🔵";
+    if (q === "Cukup" || q === "Waspada") return "🟡";
+    return "🔴";
+  };
+
+  return (
+    <div className="space-y-2 h-full overflow-y-auto">
+      <div className="text-[10px] text-muted-foreground text-center pb-1 border-b border-border/30">
+        Snapshot: {scorecard.sim_date}
+      </div>
+
+      {/* Sharpe Ratio */}
+      <div className={cn("rounded-lg border p-2.5", qualityColor(scorecard.quality.sharpe))}>
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-semibold uppercase tracking-wider">Sharpe Ratio</span>
+          <span className="text-[9px]">{qualityDot(scorecard.quality.sharpe)} {scorecard.quality.sharpe}</span>
+        </div>
+        <div className="text-2xl font-bold tabular-nums mt-0.5">
+          {scorecard.sharpe_ratio.toFixed(2)}
+        </div>
+        <div className="text-[9px] opacity-60">Rf = 4.5% (SBN 10-th)</div>
+      </div>
+
+      {/* Profit Factor */}
+      <div className={cn("rounded-lg border p-2.5", qualityColor(scorecard.quality.profit_factor))}>
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-semibold uppercase tracking-wider">Profit Factor</span>
+          <span className="text-[9px]">{qualityDot(scorecard.quality.profit_factor)} {scorecard.quality.profit_factor}</span>
+        </div>
+        <div className="text-2xl font-bold tabular-nums mt-0.5">
+          {scorecard.profit_factor.toFixed(2)}
+        </div>
+        <div className="text-[9px] opacity-60">
+          Gross Profit: Rp {(scorecard.gross_profit / 1e6).toFixed(1)}Jt | Loss: Rp {(scorecard.gross_loss / 1e6).toFixed(1)}Jt
+        </div>
+      </div>
+
+      {/* Max Drawdown */}
+      <div className={cn("rounded-lg border p-2.5", qualityColor(scorecard.quality.max_drawdown))}>
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-semibold uppercase tracking-wider">Max Drawdown</span>
+          <span className="text-[9px]">{qualityDot(scorecard.quality.max_drawdown)} {scorecard.quality.max_drawdown}</span>
+        </div>
+        <div className="text-2xl font-bold tabular-nums mt-0.5">
+          {scorecard.max_drawdown.toFixed(1)}%
+        </div>
+        <div className="text-[9px] opacity-60">DD Saat Ini: {scorecard.current_drawdown.toFixed(1)}%</div>
+      </div>
+
+      {/* Win Rate */}
+      <div className={cn("rounded-lg border p-2.5", qualityColor(scorecard.quality.win_rate))}>
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-semibold uppercase tracking-wider">Win Rate</span>
+          <span className="text-[9px]">{qualityDot(scorecard.quality.win_rate)} {scorecard.quality.win_rate}</span>
+        </div>
+        <div className="text-2xl font-bold tabular-nums mt-0.5">
+          {scorecard.win_rate.toFixed(1)}%
+        </div>
+        <div className="text-[9px] opacity-60">
+          {scorecard.n_wins} Menang / {scorecard.n_losses} Kalah
+        </div>
+      </div>
+
+      {/* Return on Capital */}
+      <div className={cn("rounded-lg border p-2.5", qualityColor(scorecard.quality.return))}>
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-semibold uppercase tracking-wider">Return on Capital</span>
+          <span className="text-[9px]">{qualityDot(scorecard.quality.return)} {scorecard.quality.return}</span>
+        </div>
+        <div className="text-2xl font-bold tabular-nums mt-0.5">
+          {scorecard.cumulative_return >= 0 ? "+" : ""}{scorecard.cumulative_return.toFixed(1)}%
+        </div>
+        <div className="text-[9px] opacity-60">
+          Ekuitas: Rp {(scorecard.equity / 1e6).toFixed(1)}Jt
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main Page ────────────────────────────────────────────────────────────
 
 export default function ManajemenEnginePage() {
@@ -637,6 +962,8 @@ export default function ManajemenEnginePage() {
   const [loading, setLoading] = useState(true);
   const [liftReport, setLiftReport] = useState<PredictiveLiftReport | null>(null);
   const [calculatingLift, setCalculatingLift] = useState(false);
+  const [equityCurve, setEquityCurve] = useState<EquityCurvePoint[]>([]);
+  const [scorecard, setScorecard] = useState<Scorecard | null>(null);
   const prevLogLen = useRef(0);
   const tickRef = useRef(0);
   const pausedRef = useRef(false);
@@ -692,16 +1019,35 @@ export default function ManajemenEnginePage() {
     } catch { /* ignore */ }
   }, []);
 
+  const fetchRiskMetrics = useCallback(async () => {
+    try {
+      const [eqRes, scRes] = await Promise.all([
+        fetch("/api/risk-metrics/equity-curve"),
+        fetch("/api/risk-metrics/scorecard"),
+      ]);
+      if (eqRes.ok) {
+        const eqData = await eqRes.json();
+        if (eqData.equity_curve) setEquityCurve(eqData.equity_curve);
+      }
+      if (scRes.ok) {
+        const scData = await scRes.json();
+        if (scData.scorecard) setScorecard(scData.scorecard);
+      }
+    } catch { /* ignore */ }
+  }, []);
+
   useEffect(() => {
     fetchEngines().then(() => setLoading(false));
     fetchProgress();
     fetchLiftReport();
+    fetchRiskMetrics();
     const id = setInterval(() => {
       fetchEngines();
       if (!pausedRef.current) fetchProgress();
+      fetchRiskMetrics();
     }, 2000);
     return () => clearInterval(id);
-  }, [fetchEngines, fetchProgress, fetchLiftReport]);
+  }, [fetchEngines, fetchProgress, fetchLiftReport, fetchRiskMetrics]);
 
   const handleToggle = useCallback(async (name: string, active: boolean) => {
     setEngines((prev) =>
@@ -951,7 +1297,35 @@ export default function ManajemenEnginePage() {
           )}
         </div>
 
-        {/* Panel 4: Terminal Log (full width) */}
+        {/* Panel 4: Equity Curve & Drawdown Underwater Chart (8 cols) */}
+        <div className="col-span-12 lg:col-span-8 rounded-xl border border-border bg-card/50 p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <TrendingUp className="w-4 h-4 text-emerald-400" />
+            <h2 className="text-sm font-semibold">Kurva Ekuitas & Wilayah Penurunan Modal</h2>
+            <span className="text-[10px] text-muted-foreground ml-auto">
+              Canvas 2D · rAF · &gt;55 FPS
+            </span>
+          </div>
+          <div className="w-full" style={{ height: 300 }}>
+            <EquityDrawdownChart data={equityCurve} />
+          </div>
+        </div>
+
+        {/* Panel 5: Institutional Performance Scorecard (4 cols) */}
+        <div className="col-span-12 lg:col-span-4 rounded-xl border border-border bg-card/50 p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Activity className="w-4 h-4 text-purple-400" />
+            <h2 className="text-sm font-semibold">Skor Kinerja Institusional</h2>
+            <span className="text-[10px] text-muted-foreground ml-auto">
+              {scorecard ? scorecard.sim_date : "—"}
+            </span>
+          </div>
+          <div style={{ height: 300 }}>
+            <PerformanceScorecard scorecard={scorecard} />
+          </div>
+        </div>
+
+        {/* Panel 6: Terminal Log (full width) */}
         <div className="col-span-12 rounded-xl border border-border bg-card/50 p-4">
           <div className="flex items-center gap-2 mb-3">
             <Terminal className="w-4 h-4 text-emerald-400" />

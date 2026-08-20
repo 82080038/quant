@@ -2,15 +2,15 @@
   "start_date": "2025-08-20",
   "end_date": "2026-08-20",
   "trading_days": 361,
-  "total_predictions": 10103,
-  "total_correct": 3037,
-  "overall_da": 30.06,
-  "overall_mape": 151.45,
-  "overall_f1": 0.6265,
-  "final_equity": 202158849.37,
-  "total_return_pct": 102.16,
-  "max_drawdown_pct": -35.87,
-  "sharpe_ratio": 3.1921,
+  "total_predictions": 10743,
+  "total_correct": 3933,
+  "overall_da": 36.61,
+  "overall_mape": 161.6,
+  "overall_f1": 0.6077,
+  "final_equity": 77518100.73,
+  "total_return_pct": -22.48,
+  "max_drawdown_pct": -38.14,
+  "sharpe_ratio": 1.2591,
   "lookahead_violations": 0,
   "active_engines": [
     {
@@ -26,15 +26,15 @@
       "weight_percentage": 6.0
     },
     {
-      "engine_name": "volume_features",
-      "engine_type": "VOLUME",
-      "accuracy_score": 24.13,
-      "weight_percentage": 5.0
-    },
-    {
       "engine_name": "astronacci",
       "engine_type": "TIME_CYCLE",
       "accuracy_score": 0.0,
+      "weight_percentage": 5.0
+    },
+    {
+      "engine_name": "volume_features",
+      "engine_type": "VOLUME",
+      "accuracy_score": 24.13,
       "weight_percentage": 5.0
     },
     {
@@ -62,33 +62,15 @@
       "weight_percentage": 4.0
     },
     {
-      "engine_name": "dcc_garch",
-      "engine_type": "VOLATILITY",
-      "accuracy_score": 0.0,
-      "weight_percentage": 3.0
-    },
-    {
-      "engine_name": "relationship",
-      "engine_type": "RELATIONSHIP",
-      "accuracy_score": 0.0,
-      "weight_percentage": 3.0
-    },
-    {
       "engine_name": "transformer_predictor",
       "engine_type": "DEEP_LEARNING",
       "accuracy_score": 0.0,
       "weight_percentage": 3.0
     },
     {
-      "engine_name": "vae_feature_extractor",
-      "engine_type": "DEEP_LEARNING",
-      "accuracy_score": 0.0,
-      "weight_percentage": 3.0
-    },
-    {
-      "engine_name": "lstm_signal_predictor",
-      "engine_type": "DEEP_LEARNING",
-      "accuracy_score": 0.0,
+      "engine_name": "alpha_regime_switch",
+      "engine_type": "ALPHA",
+      "accuracy_score": 19.91,
       "weight_percentage": 3.0
     },
     {
@@ -104,9 +86,39 @@
       "weight_percentage": 3.0
     },
     {
-      "engine_name": "strategy_selector",
-      "engine_type": "META",
+      "engine_name": "vae_feature_extractor",
+      "engine_type": "DEEP_LEARNING",
       "accuracy_score": 0.0,
+      "weight_percentage": 3.0
+    },
+    {
+      "engine_name": "relationship",
+      "engine_type": "RELATIONSHIP",
+      "accuracy_score": 0.0,
+      "weight_percentage": 3.0
+    },
+    {
+      "engine_name": "lstm_signal_predictor",
+      "engine_type": "DEEP_LEARNING",
+      "accuracy_score": 0.0,
+      "weight_percentage": 3.0
+    },
+    {
+      "engine_name": "dcc_garch",
+      "engine_type": "VOLATILITY",
+      "accuracy_score": 0.0,
+      "weight_percentage": 3.0
+    },
+    {
+      "engine_name": "technical",
+      "engine_type": "TECHNICAL",
+      "accuracy_score": 17.22,
+      "weight_percentage": 3.0
+    },
+    {
+      "engine_name": "hmm_regime",
+      "engine_type": "REGIME",
+      "accuracy_score": 16.03,
       "weight_percentage": 2.0
     },
     {
@@ -128,8 +140,8 @@
       "weight_percentage": 2.0
     },
     {
-      "engine_name": "fundamental",
-      "engine_type": "FUNDAMENTAL",
+      "engine_name": "strategy_selector",
+      "engine_type": "META",
       "accuracy_score": 0.0,
       "weight_percentage": 2.0
     },
@@ -164,327 +176,209 @@
       "weight_percentage": 2.0
     },
     {
+      "engine_name": "fundamental",
+      "engine_type": "FUNDAMENTAL",
+      "accuracy_score": 0.0,
+      "weight_percentage": 2.0
+    },
+    {
       "engine_name": "holiday_effect",
       "engine_type": "TIME_CYCLE",
       "accuracy_score": 0.0,
       "weight_percentage": 1.0
     }
   ],
-  "deactivated_engines": [
-    "alpha_regime_switch",
-    "technical",
-    "hmm_regime"
-  ],
+  "deactivated_engines": [],
   "per_asset_results": {
     "CL=F": {
       "total_predictions": 359,
-      "correct": 129,
-      "directional_accuracy": 35.93,
-      "mape": 90.87
+      "correct": 120,
+      "directional_accuracy": 33.43,
+      "mape": 94.12
     },
     "GC=F": {
       "total_predictions": 359,
-      "correct": 131,
-      "directional_accuracy": 36.49,
-      "mape": 109.55
+      "correct": 127,
+      "directional_accuracy": 35.38,
+      "mape": 114.2
     },
     "HG=F": {
       "total_predictions": 358,
-      "correct": 129,
-      "directional_accuracy": 36.03,
-      "mape": 99.85
+      "correct": 130,
+      "directional_accuracy": 36.31,
+      "mape": 100.56
     },
     "^DJI": {
       "total_predictions": 359,
-      "correct": 139,
-      "directional_accuracy": 38.72,
-      "mape": 119.17
+      "correct": 100,
+      "directional_accuracy": 27.86,
+      "mape": 152.29
     },
     "^GDAXI": {
       "total_predictions": 358,
-      "correct": 141,
-      "directional_accuracy": 39.39,
-      "mape": 127.86
+      "correct": 107,
+      "directional_accuracy": 29.89,
+      "mape": 131.48
     },
     "^HSI": {
       "total_predictions": 358,
-      "correct": 141,
-      "directional_accuracy": 39.39,
-      "mape": 92.23
+      "correct": 126,
+      "directional_accuracy": 35.2,
+      "mape": 100.41
     },
     "PALM.JK": {
       "total_predictions": 358,
-      "correct": 108,
-      "directional_accuracy": 30.17,
-      "mape": 78.88
+      "correct": 118,
+      "directional_accuracy": 32.96,
+      "mape": 79.96
     },
     "AALI.JK": {
       "total_predictions": 358,
-      "correct": 89,
-      "directional_accuracy": 24.86,
-      "mape": 75.61
+      "correct": 104,
+      "directional_accuracy": 29.05,
+      "mape": 75.75
     },
     "^N225": {
       "total_predictions": 358,
-      "correct": 127,
-      "directional_accuracy": 35.47,
-      "mape": 104.64
+      "correct": 123,
+      "directional_accuracy": 34.36,
+      "mape": 106.68
     },
     "000001.SS": {
       "total_predictions": 358,
-      "correct": 146,
-      "directional_accuracy": 40.78,
-      "mape": 114.68
+      "correct": 131,
+      "directional_accuracy": 36.59,
+      "mape": 120.56
     },
     "IDR=X": {
-      "total_predictions": 351,
-      "correct": 59,
-      "directional_accuracy": 16.81,
-      "mape": 199.95
+      "total_predictions": 358,
+      "correct": 111,
+      "directional_accuracy": 31.01,
+      "mape": 200.54
     },
     "^FTSE": {
       "total_predictions": 358,
-      "correct": 162,
-      "directional_accuracy": 45.25,
-      "mape": 125.03
+      "correct": 149,
+      "directional_accuracy": 41.62,
+      "mape": 148.77
     },
     "EURSAR=X": {
-      "total_predictions": 351,
-      "correct": 86,
-      "directional_accuracy": 24.5,
-      "mape": 202.32
+      "total_predictions": 358,
+      "correct": 101,
+      "directional_accuracy": 28.21,
+      "mape": 219.77
     },
     "EURMYR=X": {
-      "total_predictions": 307,
-      "correct": 80,
-      "directional_accuracy": 26.06,
-      "mape": 211.81
+      "total_predictions": 358,
+      "correct": 155,
+      "directional_accuracy": 43.3,
+      "mape": 224.22
     },
     "EURTWD=X": {
-      "total_predictions": 318,
-      "correct": 110,
-      "directional_accuracy": 34.59,
-      "mape": 158.25
+      "total_predictions": 358,
+      "correct": 150,
+      "directional_accuracy": 41.9,
+      "mape": 163.12
     },
     "EURINR=X": {
-      "total_predictions": 313,
-      "correct": 85,
-      "directional_accuracy": 27.16,
-      "mape": 157.91
+      "total_predictions": 358,
+      "correct": 139,
+      "directional_accuracy": 38.83,
+      "mape": 150.97
     },
     "EURBRL=X": {
-      "total_predictions": 330,
-      "correct": 71,
-      "directional_accuracy": 21.52,
-      "mape": 127.31
+      "total_predictions": 358,
+      "correct": 110,
+      "directional_accuracy": 30.73,
+      "mape": 140.64
     },
     "EURSGD=X": {
-      "total_predictions": 262,
-      "correct": 67,
-      "directional_accuracy": 25.57,
-      "mape": 270.77
+      "total_predictions": 358,
+      "correct": 194,
+      "directional_accuracy": 54.19,
+      "mape": 272.3
     },
     "EURUSD=X": {
-      "total_predictions": 327,
-      "correct": 61,
-      "directional_accuracy": 18.65,
-      "mape": 200.39
+      "total_predictions": 358,
+      "correct": 133,
+      "directional_accuracy": 37.15,
+      "mape": 212.08
     },
     "CHFIDR=X": {
-      "total_predictions": 342,
-      "correct": 86,
-      "directional_accuracy": 25.15,
-      "mape": 158.55
+      "total_predictions": 358,
+      "correct": 144,
+      "directional_accuracy": 40.22,
+      "mape": 156.82
     },
     "CADIDR=X": {
-      "total_predictions": 309,
-      "correct": 88,
-      "directional_accuracy": 28.48,
-      "mape": 179.24
+      "total_predictions": 358,
+      "correct": 142,
+      "directional_accuracy": 39.66,
+      "mape": 197.17
     },
     "EURGBP=X": {
-      "total_predictions": 305,
-      "correct": 78,
-      "directional_accuracy": 25.57,
-      "mape": 281.25
+      "total_predictions": 358,
+      "correct": 170,
+      "directional_accuracy": 47.49,
+      "mape": 284.17
     },
     "AUDUSD=X": {
-      "total_predictions": 333,
-      "correct": 94,
-      "directional_accuracy": 28.23,
-      "mape": 152.17
-    },
-    "EURIDR=X": {
-      "total_predictions": 332,
-      "correct": 109,
-      "directional_accuracy": 32.83,
-      "mape": 142.69
-    },
-    "EURHKD=X": {
-      "total_predictions": 334,
-      "correct": 64,
-      "directional_accuracy": 19.16,
-      "mape": 204.79
-    },
-    "EURJPY=X": {
-      "total_predictions": 301,
-      "correct": 65,
-      "directional_accuracy": 21.59,
-      "mape": 198.33
-    },
-    "EURKRW=X": {
-      "total_predictions": 340,
-      "correct": 85,
-      "directional_accuracy": 25.0,
-      "mape": 185.16
-    },
-    "EURPHP=X": {
-      "total_predictions": 352,
-      "correct": 121,
-      "directional_accuracy": 34.38,
-      "mape": 126.74
-    },
-    "EURZAR=X": {
-      "total_predictions": 331,
-      "correct": 99,
-      "directional_accuracy": 29.91,
-      "mape": 171.04
+      "total_predictions": 358,
+      "correct": 139,
+      "directional_accuracy": 38.83,
+      "mape": 158.11
     },
     "EURTHB=X": {
-      "total_predictions": 324,
-      "correct": 87,
-      "directional_accuracy": 26.85,
-      "mape": 160.72
+      "total_predictions": 358,
+      "correct": 111,
+      "directional_accuracy": 31.01,
+      "mape": 169.62
+    },
+    "EURIDR=X": {
+      "total_predictions": 358,
+      "correct": 134,
+      "directional_accuracy": 37.43,
+      "mape": 137.32
+    },
+    "EURHKD=X": {
+      "total_predictions": 358,
+      "correct": 141,
+      "directional_accuracy": 39.39,
+      "mape": 215.83
+    },
+    "EURJPY=X": {
+      "total_predictions": 358,
+      "correct": 152,
+      "directional_accuracy": 42.46,
+      "mape": 218.96
+    },
+    "EURKRW=X": {
+      "total_predictions": 358,
+      "correct": 115,
+      "directional_accuracy": 32.12,
+      "mape": 187.27
+    },
+    "EURPHP=X": {
+      "total_predictions": 358,
+      "correct": 139,
+      "directional_accuracy": 38.83,
+      "mape": 123.77
+    },
+    "EURZAR=X": {
+      "total_predictions": 358,
+      "correct": 118,
+      "directional_accuracy": 32.96,
+      "mape": 190.8
     }
   },
   "daily_results": [
     {
       "sim_date": "2026-08-07",
-      "ticker": "^DJI",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.0273,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0273,
-      "actual_return": 0.17,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-07",
-      "ticker": "^GDAXI",
-      "n_active_engines": 4,
-      "ensemble_signal": 0.0302,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0302,
-      "actual_return": 0.02,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-07",
-      "ticker": "^HSI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1803,
-      "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1803,
-      "actual_return": 1.05,
-      "actual_direction": "NAIK",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-07",
-      "ticker": "PALM.JK",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0684,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0684,
-      "actual_return": 0.0,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-07",
-      "ticker": "AALI.JK",
-      "n_active_engines": 5,
-      "ensemble_signal": 0.0435,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0435,
-      "actual_return": -1.71,
-      "actual_direction": "TURUN",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-07",
-      "ticker": "^N225",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0603,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0603,
-      "actual_return": 2.08,
-      "actual_direction": "NAIK",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-07",
-      "ticker": "000001.SS",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0164,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0164,
-      "actual_return": 0.67,
-      "actual_direction": "NAIK",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-07",
-      "ticker": "IDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
-      "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
-      "actual_return": 0.22,
-      "actual_direction": "DATAR",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-07",
-      "ticker": "^FTSE",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0927,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0927,
-      "actual_return": -0.35,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-07",
-      "ticker": "EURSAR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
-      "actual_return": 0.12,
-      "actual_direction": "DATAR",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-07",
       "ticker": "EURMYR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0067,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
+      "ensemble_confidence": 0.0067,
       "actual_return": -0.37,
       "actual_direction": "DATAR",
       "correct": true,
@@ -493,10 +387,10 @@
     {
       "sim_date": "2026-08-07",
       "ticker": "EURTWD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0984,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "ensemble_confidence": 0.0984,
       "actual_return": 0.37,
       "actual_direction": "DATAR",
       "correct": true,
@@ -505,10 +399,10 @@
     {
       "sim_date": "2026-08-07",
       "ticker": "EURINR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1215,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1215,
       "actual_return": -0.09,
       "actual_direction": "DATAR",
       "correct": false,
@@ -517,82 +411,94 @@
     {
       "sim_date": "2026-08-07",
       "ticker": "EURBRL=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0981,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0981,
       "actual_return": -0.47,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-07",
       "ticker": "EURSGD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0859,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0859,
       "actual_return": -0.1,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-07",
       "ticker": "EURUSD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.03,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.03,
       "actual_return": 0.27,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-07",
+      "ticker": "CHFIDR=X",
+      "n_active_engines": 5,
+      "ensemble_signal": -0.058,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.058,
+      "actual_return": -0.13,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_regime_switch"
+    },
+    {
+      "sim_date": "2026-08-07",
       "ticker": "CADIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
-      "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0302,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0302,
       "actual_return": -0.19,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-07",
       "ticker": "EURGBP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0309,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0309,
       "actual_return": 0.01,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-07",
       "ticker": "AUDUSD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.035,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.035,
       "actual_return": 0.43,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-07",
       "ticker": "EURTHB=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1203,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1203,
       "actual_return": -0.35,
       "actual_direction": "DATAR",
       "correct": false,
@@ -601,46 +507,46 @@
     {
       "sim_date": "2026-08-07",
       "ticker": "EURIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0499,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0499,
       "actual_return": -0.61,
       "actual_direction": "TURUN",
-      "correct": true,
+      "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-07",
       "ticker": "EURHKD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0297,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0297,
       "actual_return": 0.29,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-07",
+      "ticker": "EURJPY=X",
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1052,
+      "ensemble_direction": "TURUN",
+      "ensemble_confidence": 0.1052,
+      "actual_return": -0.04,
       "actual_direction": "DATAR",
       "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-07",
-      "ticker": "EURJPY=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0333,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
-      "actual_return": -0.04,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-07",
       "ticker": "EURKRW=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1821,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1821,
       "actual_return": -1.23,
       "actual_direction": "TURUN",
       "correct": true,
@@ -649,22 +555,34 @@
     {
       "sim_date": "2026-08-07",
       "ticker": "EURPHP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.152,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.152,
       "actual_return": -2.39,
       "actual_direction": "TURUN",
       "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
+      "sim_date": "2026-08-07",
+      "ticker": "EURZAR=X",
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0281,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0281,
+      "actual_return": -0.94,
+      "actual_direction": "TURUN",
+      "correct": false,
+      "top_contributor": "alpha_regime_switch"
+    },
+    {
       "sim_date": "2026-08-08",
       "ticker": "CL=F",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0713,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0713,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1243,
+      "ensemble_direction": "TURUN",
+      "ensemble_confidence": 0.1243,
       "actual_return": 5.05,
       "actual_direction": "NAIK",
       "correct": false,
@@ -673,22 +591,22 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "GC=F",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.117,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.117,
+      "n_active_engines": 7,
+      "ensemble_signal": -0.0383,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0383,
       "actual_return": 0.49,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-08",
       "ticker": "HG=F",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.0368,
+      "n_active_engines": 7,
+      "ensemble_signal": 0.0279,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0368,
+      "ensemble_confidence": 0.0279,
       "actual_return": 0.37,
       "actual_direction": "DATAR",
       "correct": true,
@@ -697,10 +615,10 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "^DJI",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.0273,
+      "n_active_engines": 7,
+      "ensemble_signal": 0.0445,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0273,
+      "ensemble_confidence": 0.0445,
       "actual_return": -0.34,
       "actual_direction": "DATAR",
       "correct": true,
@@ -709,22 +627,22 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "^GDAXI",
-      "n_active_engines": 4,
-      "ensemble_signal": 0.0302,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0302,
+      "n_active_engines": 7,
+      "ensemble_signal": 0.1006,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1006,
       "actual_return": 0.26,
       "actual_direction": "DATAR",
-      "correct": true,
+      "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-08",
       "ticker": "^HSI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1803,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.2265,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1803,
+      "ensemble_confidence": 0.2265,
       "actual_return": -1.1,
       "actual_direction": "TURUN",
       "correct": false,
@@ -733,34 +651,34 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "PALM.JK",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0684,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0684,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1293,
+      "ensemble_direction": "TURUN",
+      "ensemble_confidence": 0.1293,
       "actual_return": -1.37,
       "actual_direction": "TURUN",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-08",
-      "ticker": "AALI.JK",
-      "n_active_engines": 5,
-      "ensemble_signal": 0.0435,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0435,
-      "actual_return": 0.0,
-      "actual_direction": "DATAR",
       "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-08",
+      "ticker": "AALI.JK",
+      "n_active_engines": 8,
+      "ensemble_signal": 0.1148,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1148,
+      "actual_return": 0.0,
+      "actual_direction": "DATAR",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-08",
       "ticker": "^N225",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0603,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0878,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0603,
+      "ensemble_confidence": 0.0878,
       "actual_return": 0.86,
       "actual_direction": "NAIK",
       "correct": false,
@@ -769,10 +687,10 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "000001.SS",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0164,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0477,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0164,
+      "ensemble_confidence": 0.0477,
       "actual_return": -0.82,
       "actual_direction": "TURUN",
       "correct": false,
@@ -781,10 +699,10 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "IDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1377,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1377,
       "actual_return": -0.66,
       "actual_direction": "TURUN",
       "correct": false,
@@ -793,22 +711,22 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "^FTSE",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0927,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0927,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1638,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1638,
       "actual_return": -0.17,
       "actual_direction": "DATAR",
-      "correct": true,
+      "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-08",
       "ticker": "EURSAR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1405,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "ensemble_confidence": 0.1405,
       "actual_return": 0.0,
       "actual_direction": "DATAR",
       "correct": false,
@@ -817,10 +735,10 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "EURMYR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0067,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
+      "ensemble_confidence": 0.0067,
       "actual_return": 0.3,
       "actual_direction": "DATAR",
       "correct": true,
@@ -829,10 +747,10 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "EURTWD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0984,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "ensemble_confidence": 0.0984,
       "actual_return": -0.15,
       "actual_direction": "DATAR",
       "correct": true,
@@ -841,10 +759,10 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "EURINR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1215,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1215,
       "actual_return": 0.42,
       "actual_direction": "DATAR",
       "correct": false,
@@ -853,82 +771,94 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "EURBRL=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0981,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0981,
       "actual_return": 0.35,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-08",
       "ticker": "EURSGD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0859,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0859,
       "actual_return": 0.05,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-08",
       "ticker": "EURUSD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.03,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.03,
       "actual_return": -0.09,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-08",
+      "ticker": "CHFIDR=X",
+      "n_active_engines": 5,
+      "ensemble_signal": -0.058,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.058,
+      "actual_return": -0.23,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_regime_switch"
+    },
+    {
+      "sim_date": "2026-08-08",
       "ticker": "CADIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
-      "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0302,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0302,
       "actual_return": 0.09,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-08",
       "ticker": "EURGBP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0309,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0309,
       "actual_return": -0.25,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-08",
       "ticker": "AUDUSD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.035,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.035,
       "actual_return": -0.11,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-08",
       "ticker": "EURTHB=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1203,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1203,
       "actual_return": 0.16,
       "actual_direction": "DATAR",
       "correct": false,
@@ -937,34 +867,34 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "EURIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0499,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0499,
       "actual_return": 0.04,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-08",
       "ticker": "EURHKD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0297,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0297,
       "actual_return": -0.09,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-08",
       "ticker": "EURJPY=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0333,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1052,
+      "ensemble_direction": "TURUN",
+      "ensemble_confidence": 0.1052,
       "actual_return": 0.71,
       "actual_direction": "NAIK",
       "correct": false,
@@ -973,10 +903,10 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "EURKRW=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1821,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1821,
       "actual_return": 1.03,
       "actual_direction": "NAIK",
       "correct": false,
@@ -985,22 +915,34 @@
     {
       "sim_date": "2026-08-08",
       "ticker": "EURPHP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.152,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.152,
       "actual_return": 2.89,
       "actual_direction": "NAIK",
       "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
+      "sim_date": "2026-08-08",
+      "ticker": "EURZAR=X",
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0281,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0281,
+      "actual_return": 0.16,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_regime_switch"
+    },
+    {
       "sim_date": "2026-08-10",
       "ticker": "CL=F",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0314,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0158,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0314,
+      "ensemble_confidence": 0.0158,
       "actual_return": 1.3,
       "actual_direction": "NAIK",
       "correct": false,
@@ -1009,22 +951,22 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "GC=F",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.1399,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1399,
+      "n_active_engines": 7,
+      "ensemble_signal": -0.0741,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0741,
       "actual_return": 0.49,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-10",
       "ticker": "HG=F",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.0249,
+      "n_active_engines": 7,
+      "ensemble_signal": 0.0406,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0249,
+      "ensemble_confidence": 0.0406,
       "actual_return": 0.27,
       "actual_direction": "DATAR",
       "correct": true,
@@ -1033,34 +975,34 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "^DJI",
-      "n_active_engines": 4,
-      "ensemble_signal": 0.0474,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0474,
+      "n_active_engines": 7,
+      "ensemble_signal": 0.1122,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1122,
       "actual_return": -0.34,
       "actual_direction": "DATAR",
-      "correct": true,
+      "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-10",
       "ticker": "^GDAXI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0511,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0511,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.122,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.122,
       "actual_return": 0.26,
       "actual_direction": "DATAR",
-      "correct": true,
+      "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-10",
       "ticker": "^HSI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1729,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.2216,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1729,
+      "ensemble_confidence": 0.2216,
       "actual_return": -1.1,
       "actual_direction": "TURUN",
       "correct": false,
@@ -1069,34 +1011,34 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "PALM.JK",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0818,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0818,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1322,
+      "ensemble_direction": "TURUN",
+      "ensemble_confidence": 0.1322,
       "actual_return": -1.37,
       "actual_direction": "TURUN",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-10",
-      "ticker": "AALI.JK",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0421,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0421,
-      "actual_return": 0.0,
-      "actual_direction": "DATAR",
       "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-10",
+      "ticker": "AALI.JK",
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1124,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1124,
+      "actual_return": 0.0,
+      "actual_direction": "DATAR",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-10",
       "ticker": "^N225",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0164,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0488,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0164,
+      "ensemble_confidence": 0.0488,
       "actual_return": 0.86,
       "actual_direction": "NAIK",
       "correct": false,
@@ -1105,10 +1047,10 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "000001.SS",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.0769,
+      "n_active_engines": 7,
+      "ensemble_signal": -0.098,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0769,
+      "ensemble_confidence": 0.098,
       "actual_return": -0.82,
       "actual_direction": "TURUN",
       "correct": false,
@@ -1117,10 +1059,10 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "IDR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1884,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1667,
+      "ensemble_confidence": 0.1884,
       "actual_return": -0.02,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1129,22 +1071,22 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "^FTSE",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0862,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0862,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.15,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.15,
       "actual_return": -0.17,
       "actual_direction": "DATAR",
-      "correct": true,
+      "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-10",
       "ticker": "EURSAR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1325,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1325,
       "actual_return": 0.0,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1153,10 +1095,10 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "EURMYR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0027,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
+      "ensemble_confidence": 0.0027,
       "actual_return": 0.3,
       "actual_direction": "DATAR",
       "correct": true,
@@ -1165,22 +1107,22 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "EURTWD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0333,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1009,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1009,
       "actual_return": -0.15,
       "actual_direction": "DATAR",
-      "correct": true,
+      "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-10",
       "ticker": "EURINR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1214,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1214,
       "actual_return": 0.42,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1189,46 +1131,46 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "EURBRL=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0999,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0999,
       "actual_return": 0.35,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-10",
       "ticker": "EURSGD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0874,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0874,
       "actual_return": 0.05,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-10",
       "ticker": "EURUSD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0851,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0851,
       "actual_return": -0.09,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-10",
       "ticker": "CHFIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1753,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1753,
       "actual_return": -0.23,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1237,46 +1179,46 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "CADIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
-      "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0291,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0291,
       "actual_return": 0.09,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-10",
       "ticker": "EURGBP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0308,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0308,
       "actual_return": -0.25,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-10",
       "ticker": "AUDUSD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0204,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0204,
       "actual_return": -0.11,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-10",
       "ticker": "EURTHB=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0517,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "ensemble_confidence": 0.0517,
       "actual_return": 0.16,
       "actual_direction": "DATAR",
       "correct": true,
@@ -1285,10 +1227,10 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "EURIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1577,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1577,
       "actual_return": 0.04,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1297,22 +1239,22 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "EURHKD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0848,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0848,
       "actual_return": -0.09,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-10",
       "ticker": "EURJPY=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0333,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1053,
+      "ensemble_direction": "TURUN",
+      "ensemble_confidence": 0.1053,
       "actual_return": 0.71,
       "actual_direction": "NAIK",
       "correct": false,
@@ -1321,10 +1263,10 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "EURKRW=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1849,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1849,
       "actual_return": 1.03,
       "actual_direction": "NAIK",
       "correct": false,
@@ -1333,22 +1275,34 @@
     {
       "sim_date": "2026-08-10",
       "ticker": "EURPHP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1819,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1819,
       "actual_return": 2.89,
       "actual_direction": "NAIK",
       "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
+      "sim_date": "2026-08-10",
+      "ticker": "EURZAR=X",
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0235,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0235,
+      "actual_return": 0.16,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_regime_switch"
+    },
+    {
       "sim_date": "2026-08-11",
       "ticker": "CL=F",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0876,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0349,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0876,
+      "ensemble_confidence": 0.0349,
       "actual_return": 1.26,
       "actual_direction": "NAIK",
       "correct": false,
@@ -1357,10 +1311,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "GC=F",
-      "n_active_engines": 5,
-      "ensemble_signal": -0.2026,
+      "n_active_engines": 8,
+      "ensemble_signal": -0.1135,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.2026,
+      "ensemble_confidence": 0.1135,
       "actual_return": 1.8,
       "actual_direction": "NAIK",
       "correct": false,
@@ -1369,10 +1323,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "HG=F",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1463,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.2015,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1463,
+      "ensemble_confidence": 0.2015,
       "actual_return": -0.23,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1381,22 +1335,22 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "^DJI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0402,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0402,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1076,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1076,
       "actual_return": -0.01,
       "actual_direction": "DATAR",
-      "correct": true,
+      "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-11",
       "ticker": "^GDAXI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1179,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1809,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1179,
+      "ensemble_confidence": 0.1809,
       "actual_return": -0.23,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1405,10 +1359,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "^HSI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1024,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1256,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1024,
+      "ensemble_confidence": 0.1256,
       "actual_return": -0.83,
       "actual_direction": "TURUN",
       "correct": false,
@@ -1417,10 +1371,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "PALM.JK",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1404,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1969,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1404,
+      "ensemble_confidence": 0.1969,
       "actual_return": 0.69,
       "actual_direction": "NAIK",
       "correct": false,
@@ -1429,10 +1383,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "AALI.JK",
-      "n_active_engines": 4,
-      "ensemble_signal": 0.1059,
+      "n_active_engines": 7,
+      "ensemble_signal": 0.1858,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1059,
+      "ensemble_confidence": 0.1858,
       "actual_return": -0.35,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1441,10 +1395,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "^N225",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0164,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0488,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0164,
+      "ensemble_confidence": 0.0488,
       "actual_return": 1.13,
       "actual_direction": "NAIK",
       "correct": false,
@@ -1453,10 +1407,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "000001.SS",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.2097,
+      "n_active_engines": 7,
+      "ensemble_signal": -0.136,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.2097,
+      "ensemble_confidence": 0.136,
       "actual_return": 0.32,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1465,10 +1419,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "IDR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1884,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1667,
+      "ensemble_confidence": 0.1884,
       "actual_return": 0.17,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1477,22 +1431,22 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "^FTSE",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0632,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0632,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1086,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1086,
       "actual_return": -0.1,
       "actual_direction": "DATAR",
-      "correct": true,
+      "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-11",
       "ticker": "EURSAR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1829,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "ensemble_confidence": 0.1829,
       "actual_return": 0.0,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1501,10 +1455,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "EURMYR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0932,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "ensemble_confidence": 0.0932,
       "actual_return": -0.01,
       "actual_direction": "DATAR",
       "correct": true,
@@ -1513,10 +1467,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "EURTWD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1687,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1687,
       "actual_return": -0.04,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1524,11 +1478,23 @@
     },
     {
       "sim_date": "2026-08-11",
+      "ticker": "EURINR=X",
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0431,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0431,
+      "actual_return": 0.13,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_regime_switch"
+    },
+    {
+      "sim_date": "2026-08-11",
       "ticker": "EURBRL=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0993,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0993,
       "actual_return": 1.31,
       "actual_direction": "NAIK",
       "correct": false,
@@ -1537,34 +1503,34 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "EURSGD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0865,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0865,
       "actual_return": -0.09,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-11",
       "ticker": "EURUSD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0857,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0857,
       "actual_return": -0.02,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-11",
       "ticker": "CHFIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.176,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.176,
       "actual_return": 0.02,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1573,10 +1539,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "CADIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1238,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1238,
       "actual_return": 0.27,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1585,22 +1551,34 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "EURGBP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0345,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0345,
       "actual_return": 0.0,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-11",
-      "ticker": "EURTHB=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0333,
+      "ticker": "AUDUSD=X",
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0729,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "ensemble_confidence": 0.0729,
+      "actual_return": 0.13,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_regime_switch"
+    },
+    {
+      "sim_date": "2026-08-11",
+      "ticker": "EURTHB=X",
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0527,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0527,
       "actual_return": 0.42,
       "actual_direction": "DATAR",
       "correct": true,
@@ -1609,10 +1587,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "EURIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1575,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1575,
       "actual_return": 0.15,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1621,10 +1599,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "EURHKD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0029,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
+      "ensemble_confidence": 0.0029,
       "actual_return": -0.01,
       "actual_direction": "DATAR",
       "correct": true,
@@ -1633,10 +1611,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "EURJPY=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.169,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.169,
       "actual_return": 0.05,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1645,10 +1623,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "EURKRW=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1807,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1807,
       "actual_return": -0.41,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1657,10 +1635,10 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "EURPHP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1668,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1668,
       "actual_return": 0.5,
       "actual_direction": "NAIK",
       "correct": false,
@@ -1669,22 +1647,22 @@
     {
       "sim_date": "2026-08-11",
       "ticker": "EURZAR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0689,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0689,
       "actual_return": -0.03,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-12",
       "ticker": "CL=F",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0919,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0347,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0919,
+      "ensemble_confidence": 0.0347,
       "actual_return": -1.93,
       "actual_direction": "TURUN",
       "correct": false,
@@ -1693,22 +1671,22 @@
     {
       "sim_date": "2026-08-12",
       "ticker": "GC=F",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.1559,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1559,
+      "n_active_engines": 7,
+      "ensemble_signal": -0.079,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.079,
       "actual_return": -0.08,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-12",
       "ticker": "HG=F",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0224,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0849,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0224,
+      "ensemble_confidence": 0.0849,
       "actual_return": -0.07,
       "actual_direction": "DATAR",
       "correct": true,
@@ -1717,10 +1695,10 @@
     {
       "sim_date": "2026-08-12",
       "ticker": "^DJI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1072,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1606,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1072,
+      "ensemble_confidence": 0.1606,
       "actual_return": -0.03,
       "actual_direction": "DATAR",
       "correct": false,
@@ -1729,8 +1707,296 @@
     {
       "sim_date": "2026-08-12",
       "ticker": "^GDAXI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0357,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1095,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1095,
+      "actual_return": -0.12,
+      "actual_direction": "DATAR",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "^HSI",
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1093,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1093,
+      "actual_return": -0.17,
+      "actual_direction": "DATAR",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "PALM.JK",
+      "n_active_engines": 6,
+      "ensemble_signal": -0.091,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.091,
+      "actual_return": 0.0,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "AALI.JK",
+      "n_active_engines": 7,
+      "ensemble_signal": 0.1181,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1181,
+      "actual_return": 0.0,
+      "actual_direction": "DATAR",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "^N225",
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1179,
+      "ensemble_direction": "TURUN",
+      "ensemble_confidence": 0.1179,
+      "actual_return": 1.13,
+      "actual_direction": "NAIK",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "000001.SS",
+      "n_active_engines": 7,
+      "ensemble_signal": -0.0342,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0342,
+      "actual_return": -0.5,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "IDR=X",
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1884,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1884,
+      "actual_return": 0.17,
+      "actual_direction": "DATAR",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "^FTSE",
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1286,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1286,
+      "actual_return": -0.56,
+      "actual_direction": "TURUN",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURSAR=X",
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1821,
+      "ensemble_direction": "TURUN",
+      "ensemble_confidence": 0.1821,
+      "actual_return": 0.05,
+      "actual_direction": "DATAR",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURMYR=X",
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0932,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0932,
+      "actual_return": -0.17,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURTWD=X",
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1686,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1686,
+      "actual_return": -0.17,
+      "actual_direction": "DATAR",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURINR=X",
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1618,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1618,
+      "actual_return": -0.23,
+      "actual_direction": "DATAR",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURBRL=X",
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0553,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0553,
+      "actual_return": 0.3,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_regime_switch"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURSGD=X",
+      "n_active_engines": 5,
+      "ensemble_signal": -0.031,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.031,
+      "actual_return": -0.1,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURUSD=X",
+      "n_active_engines": 6,
+      "ensemble_signal": 0.014,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.014,
+      "actual_return": -0.12,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_reversal"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "CHFIDR=X",
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1754,
+      "ensemble_direction": "TURUN",
+      "ensemble_confidence": 0.1754,
+      "actual_return": -0.07,
+      "actual_direction": "DATAR",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "CADIDR=X",
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0446,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0446,
+      "actual_return": 0.03,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURGBP=X",
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0344,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0344,
+      "actual_return": -0.07,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "AUDUSD=X",
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0738,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0738,
+      "actual_return": 0.0,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_regime_switch"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURTHB=X",
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0219,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0219,
+      "actual_return": -0.31,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURIDR=X",
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1567,
+      "ensemble_direction": "TURUN",
+      "ensemble_confidence": 0.1567,
+      "actual_return": 2.89,
+      "actual_direction": "NAIK",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURHKD=X",
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0144,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0144,
+      "actual_return": -0.14,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_reversal"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURJPY=X",
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0994,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0994,
+      "actual_return": -0.1,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURKRW=X",
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1809,
+      "ensemble_direction": "TURUN",
+      "ensemble_confidence": 0.1809,
+      "actual_return": 0.26,
+      "actual_direction": "DATAR",
+      "correct": false,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-12",
+      "ticker": "EURPHP=X",
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0357,
       "ensemble_direction": "DATAR",
       "ensemble_confidence": 0.0357,
       "actual_return": -0.12,
@@ -1740,275 +2006,11 @@
     },
     {
       "sim_date": "2026-08-12",
-      "ticker": "^HSI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.099,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.099,
-      "actual_return": -0.17,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "PALM.JK",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.029,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.029,
-      "actual_return": 0.0,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "AALI.JK",
-      "n_active_engines": 4,
-      "ensemble_signal": 0.0591,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0591,
-      "actual_return": 0.0,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "^N225",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0846,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0846,
-      "actual_return": 1.13,
-      "actual_direction": "NAIK",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "000001.SS",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.0967,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0967,
-      "actual_return": -0.5,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "IDR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1667,
-      "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1667,
-      "actual_return": 0.17,
-      "actual_direction": "DATAR",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "^FTSE",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0884,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0884,
-      "actual_return": -0.56,
-      "actual_direction": "TURUN",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "EURSAR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
-      "actual_return": 0.05,
-      "actual_direction": "DATAR",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "EURMYR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0333,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
-      "actual_return": -0.17,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "EURTWD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
-      "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
-      "actual_return": -0.17,
-      "actual_direction": "DATAR",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "EURINR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
-      "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
-      "actual_return": -0.23,
-      "actual_direction": "DATAR",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "EURSGD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
-      "actual_return": -0.1,
-      "actual_direction": "DATAR",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "EURUSD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0667,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
-      "actual_return": -0.12,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_reversal"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "CHFIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
-      "actual_return": -0.07,
-      "actual_direction": "DATAR",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "CADIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
-      "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
-      "actual_return": 0.03,
-      "actual_direction": "DATAR",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "EURGBP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
-      "actual_return": -0.07,
-      "actual_direction": "DATAR",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "EURTHB=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0333,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
-      "actual_return": -0.31,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "EURIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
-      "actual_return": 2.89,
-      "actual_direction": "NAIK",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "EURHKD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0667,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
-      "actual_return": -0.14,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_reversal"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "EURJPY=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0333,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
-      "actual_return": -0.1,
-      "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "EURKRW=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
-      "actual_return": 0.26,
-      "actual_direction": "DATAR",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
-      "ticker": "EURPHP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
-      "actual_return": -0.12,
-      "actual_direction": "DATAR",
-      "correct": false,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-12",
       "ticker": "EURZAR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1625,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1625,
       "actual_return": -0.43,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2017,10 +2019,10 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "CL=F",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.057,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0086,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.057,
+      "ensemble_confidence": 0.0086,
       "actual_return": -0.27,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2029,22 +2031,22 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "GC=F",
-      "n_active_engines": 5,
-      "ensemble_signal": -0.1672,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1672,
+      "n_active_engines": 8,
+      "ensemble_signal": -0.0791,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0791,
       "actual_return": -1.75,
       "actual_direction": "TURUN",
-      "correct": true,
+      "correct": false,
       "top_contributor": "alpha_reversal"
     },
     {
       "sim_date": "2026-08-13",
       "ticker": "HG=F",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1803,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.2239,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1803,
+      "ensemble_confidence": 0.2239,
       "actual_return": 0.11,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2053,34 +2055,34 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "^DJI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0717,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0717,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1301,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1301,
       "actual_return": 0.12,
       "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-13",
-      "ticker": "^GDAXI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.035,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.035,
-      "actual_return": 0.53,
-      "actual_direction": "NAIK",
       "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-13",
+      "ticker": "^GDAXI",
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1082,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1082,
+      "actual_return": 0.53,
+      "actual_direction": "NAIK",
+      "correct": true,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-13",
       "ticker": "^HSI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0929,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0929,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1156,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1156,
       "actual_return": -1.1,
       "actual_direction": "TURUN",
       "correct": false,
@@ -2089,34 +2091,34 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "PALM.JK",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0254,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0254,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1018,
+      "ensemble_direction": "TURUN",
+      "ensemble_confidence": 0.1018,
       "actual_return": -1.38,
       "actual_direction": "TURUN",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-13",
       "ticker": "AALI.JK",
-      "n_active_engines": 4,
-      "ensemble_signal": 0.0586,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0586,
+      "n_active_engines": 7,
+      "ensemble_signal": 0.1327,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1327,
       "actual_return": 4.18,
       "actual_direction": "NAIK",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-13",
       "ticker": "^N225",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.1542,
+      "n_active_engines": 7,
+      "ensemble_signal": -0.1669,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1542,
+      "ensemble_confidence": 0.1669,
       "actual_return": 0.6,
       "actual_direction": "NAIK",
       "correct": false,
@@ -2125,10 +2127,10 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "000001.SS",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.2171,
+      "n_active_engines": 7,
+      "ensemble_signal": -0.1412,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.2171,
+      "ensemble_confidence": 0.1412,
       "actual_return": 0.01,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2137,10 +2139,10 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "IDR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1884,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1667,
+      "ensemble_confidence": 0.1884,
       "actual_return": 0.06,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2149,10 +2151,10 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "^FTSE",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0486,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0824,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0486,
+      "ensemble_confidence": 0.0824,
       "actual_return": -0.21,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2161,10 +2163,10 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "EURSAR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1812,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "ensemble_confidence": 0.1812,
       "actual_return": 0.03,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2173,10 +2175,10 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "EURMYR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1719,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1719,
       "actual_return": 0.04,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2185,10 +2187,10 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "EURTWD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1436,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1436,
       "actual_return": -0.19,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2197,10 +2199,10 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "EURINR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1607,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1607,
       "actual_return": 0.16,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2208,23 +2210,35 @@
     },
     {
       "sim_date": "2026-08-13",
+      "ticker": "EURBRL=X",
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0565,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0565,
+      "actual_return": 0.12,
+      "actual_direction": "DATAR",
+      "correct": true,
+      "top_contributor": "alpha_regime_switch"
+    },
+    {
+      "sim_date": "2026-08-13",
       "ticker": "EURSGD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0327,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0327,
       "actual_return": 0.28,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-13",
       "ticker": "EURUSD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0129,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
+      "ensemble_confidence": 0.0129,
       "actual_return": 0.32,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2233,10 +2247,10 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "CHFIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.175,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.175,
       "actual_return": -0.07,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2245,34 +2259,34 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "CADIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
-      "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0453,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0453,
       "actual_return": 0.15,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-13",
       "ticker": "EURGBP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0466,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0466,
       "actual_return": 0.11,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-13",
       "ticker": "AUDUSD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.011,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
+      "ensemble_confidence": 0.011,
       "actual_return": 0.28,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2281,10 +2295,10 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "EURTHB=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0104,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "ensemble_confidence": 0.0104,
       "actual_return": 0.34,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2293,22 +2307,22 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "EURIDR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0976,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0976,
       "actual_return": -2.73,
       "actual_direction": "TURUN",
-      "correct": true,
+      "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-13",
       "ticker": "EURHKD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0131,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
+      "ensemble_confidence": 0.0131,
       "actual_return": 0.06,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2317,10 +2331,10 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "EURJPY=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0995,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "ensemble_confidence": 0.0995,
       "actual_return": 0.36,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2329,10 +2343,10 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "EURKRW=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1796,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1796,
       "actual_return": 0.08,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2341,22 +2355,22 @@
     {
       "sim_date": "2026-08-13",
       "ticker": "EURPHP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0347,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0347,
       "actual_return": 0.28,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-13",
       "ticker": "EURZAR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0074,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "ensemble_confidence": 0.0074,
       "actual_return": 0.36,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2365,10 +2379,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "CL=F",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.059,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0765,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.059,
+      "ensemble_confidence": 0.0765,
       "actual_return": 0.0,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2377,22 +2391,22 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "GC=F",
-      "n_active_engines": 4,
-      "ensemble_signal": 0.0901,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0901,
+      "n_active_engines": 7,
+      "ensemble_signal": 0.1378,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1378,
       "actual_return": 1.3,
       "actual_direction": "NAIK",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-14",
       "ticker": "HG=F",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1803,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.2246,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1803,
+      "ensemble_confidence": 0.2246,
       "actual_return": 0.07,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2401,10 +2415,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "^DJI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.117,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1714,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.117,
+      "ensemble_confidence": 0.1714,
       "actual_return": -0.19,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2413,34 +2427,34 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "^GDAXI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0667,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1389,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1389,
       "actual_return": 0.06,
       "actual_direction": "DATAR",
-      "correct": true,
-      "top_contributor": "alpha_momentum"
-    },
-    {
-      "sim_date": "2026-08-14",
-      "ticker": "^HSI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.096,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.096,
-      "actual_return": 1.34,
-      "actual_direction": "NAIK",
       "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-14",
+      "ticker": "^HSI",
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1039,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1039,
+      "actual_return": 1.34,
+      "actual_direction": "NAIK",
+      "correct": true,
+      "top_contributor": "alpha_momentum"
+    },
+    {
+      "sim_date": "2026-08-14",
       "ticker": "PALM.JK",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0797,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0797,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1333,
+      "ensemble_direction": "TURUN",
+      "ensemble_confidence": 0.1333,
       "actual_return": 0.7,
       "actual_direction": "NAIK",
       "correct": false,
@@ -2449,10 +2463,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "AALI.JK",
-      "n_active_engines": 4,
-      "ensemble_signal": 0.1077,
+      "n_active_engines": 7,
+      "ensemble_signal": 0.1659,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1077,
+      "ensemble_confidence": 0.1659,
       "actual_return": 3.01,
       "actual_direction": "NAIK",
       "correct": true,
@@ -2461,10 +2475,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "^N225",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.1358,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1358,
+      "n_active_engines": 7,
+      "ensemble_signal": -0.0776,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0776,
       "actual_return": 0.73,
       "actual_direction": "NAIK",
       "correct": false,
@@ -2473,10 +2487,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "000001.SS",
-      "n_active_engines": 4,
-      "ensemble_signal": -0.1013,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1013,
+      "n_active_engines": 7,
+      "ensemble_signal": -0.0386,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0386,
       "actual_return": 1.41,
       "actual_direction": "NAIK",
       "correct": false,
@@ -2485,10 +2499,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "IDR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1885,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1667,
+      "ensemble_confidence": 0.1885,
       "actual_return": -0.24,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2497,22 +2511,22 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "^FTSE",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0806,
-      "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0806,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1085,
+      "ensemble_direction": "NAIK",
+      "ensemble_confidence": 0.1085,
       "actual_return": -0.28,
       "actual_direction": "DATAR",
-      "correct": true,
+      "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-14",
       "ticker": "EURSAR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1805,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1667,
+      "ensemble_confidence": 0.1805,
       "actual_return": 3.56,
       "actual_direction": "NAIK",
       "correct": false,
@@ -2521,10 +2535,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "EURMYR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1726,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1726,
       "actual_return": 2.77,
       "actual_direction": "NAIK",
       "correct": true,
@@ -2533,10 +2547,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "EURTWD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.1295,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1295,
       "actual_return": -0.41,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2545,22 +2559,22 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "EURINR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
-      "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0684,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0684,
       "actual_return": 0.81,
       "actual_direction": "NAIK",
-      "correct": true,
+      "correct": false,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-14",
       "ticker": "EURBRL=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0827,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "ensemble_confidence": 0.0827,
       "actual_return": 1.11,
       "actual_direction": "NAIK",
       "correct": false,
@@ -2569,10 +2583,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "EURSGD=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1219,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1219,
       "actual_return": -0.02,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2581,10 +2595,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "EURUSD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0152,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
+      "ensemble_confidence": 0.0152,
       "actual_return": 0.25,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2593,10 +2607,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "CHFIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1757,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1757,
       "actual_return": 0.27,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2605,34 +2619,34 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "CADIDR=X",
-      "n_active_engines": 2,
-      "ensemble_signal": 0.1071,
-      "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": 0.0463,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0463,
       "actual_return": 0.25,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-14",
       "ticker": "EURGBP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0444,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0444,
       "actual_return": 0.02,
       "actual_direction": "DATAR",
-      "correct": false,
+      "correct": true,
       "top_contributor": "alpha_momentum"
     },
     {
       "sim_date": "2026-08-14",
       "ticker": "AUDUSD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0127,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
+      "ensemble_confidence": 0.0127,
       "actual_return": 0.65,
       "actual_direction": "NAIK",
       "correct": false,
@@ -2641,10 +2655,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "EURTHB=X",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0208,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "ensemble_confidence": 0.0208,
       "actual_return": -0.03,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2653,10 +2667,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "EURIDR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0667,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0296,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
+      "ensemble_confidence": 0.0296,
       "actual_return": 3.24,
       "actual_direction": "NAIK",
       "correct": false,
@@ -2665,10 +2679,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "EURHKD=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0667,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.0135,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0667,
+      "ensemble_confidence": 0.0135,
       "actual_return": 0.47,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2677,10 +2691,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "EURJPY=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0747,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "ensemble_confidence": 0.0747,
       "actual_return": 0.1,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2689,10 +2703,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "EURKRW=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.1552,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "ensemble_confidence": 0.1552,
       "actual_return": 0.09,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2701,10 +2715,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "EURPHP=X",
-      "n_active_engines": 2,
-      "ensemble_signal": -0.1071,
-      "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1071,
+      "n_active_engines": 5,
+      "ensemble_signal": -0.0335,
+      "ensemble_direction": "DATAR",
+      "ensemble_confidence": 0.0335,
       "actual_return": 0.95,
       "actual_direction": "NAIK",
       "correct": false,
@@ -2713,10 +2727,10 @@
     {
       "sim_date": "2026-08-14",
       "ticker": "EURZAR=X",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.0333,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.0932,
       "ensemble_direction": "DATAR",
-      "ensemble_confidence": 0.0333,
+      "ensemble_confidence": 0.0932,
       "actual_return": 0.4,
       "actual_direction": "DATAR",
       "correct": true,
@@ -2725,10 +2739,10 @@
     {
       "sim_date": "2026-08-15",
       "ticker": "CL=F",
-      "n_active_engines": 3,
-      "ensemble_signal": -0.1054,
+      "n_active_engines": 6,
+      "ensemble_signal": -0.1273,
       "ensemble_direction": "TURUN",
-      "ensemble_confidence": 0.1054,
+      "ensemble_confidence": 0.1273,
       "actual_return": 2.55,
       "actual_direction": "NAIK",
       "correct": false,
@@ -2737,10 +2751,10 @@
     {
       "sim_date": "2026-08-15",
       "ticker": "GC=F",
-      "n_active_engines": 4,
-      "ensemble_signal": 0.1077,
+      "n_active_engines": 7,
+      "ensemble_signal": 0.1666,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1077,
+      "ensemble_confidence": 0.1666,
       "actual_return": -0.44,
       "actual_direction": "DATAR",
       "correct": false,
@@ -2749,10 +2763,10 @@
     {
       "sim_date": "2026-08-15",
       "ticker": "^DJI",
-      "n_active_engines": 3,
-      "ensemble_signal": 0.1244,
+      "n_active_engines": 6,
+      "ensemble_signal": 0.1774,
       "ensemble_direction": "NAIK",
-      "ensemble_confidence": 0.1244,
+      "ensemble_confidence": 0.1774,
       "actual_return": -0.51,
       "actual_direction": "TURUN",
       "correct": false,
@@ -2760,24 +2774,2931 @@
     }
   ],
   "orchestration_log": [
-    "[MANAJEMEN ENGINE] Engine Aktif: 26 engine dimuat dari registry",
+    "[MANAJEMEN ENGINE] Engine Aktif: 29 engine dimuat dari registry",
     "[MANAJEMEN ENGINE] Mengaktifkan Engine: fama_french (Bobot: 50%)",
     "[MANAJEMEN ENGINE] Mengaktifkan Engine: alpha_momentum (Bobot: 6%)",
-    "[MANAJEMEN ENGINE] Mengaktifkan Engine: volume_features (Bobot: 5%)",
     "[MANAJEMEN ENGINE] Mengaktifkan Engine: astronacci (Bobot: 5%)",
+    "[MANAJEMEN ENGINE] Mengaktifkan Engine: volume_features (Bobot: 5%)",
     "[MANAJEMEN ENGINE] Mengaktifkan Engine: causality_analyzer (Bobot: 4%)",
-    "[MANAJEMEN ENGINE] Mematikan Engine: alpha_regime_switch (Akurasi Rendah: 19.9%)",
-    "[MANAJEMEN ENGINE] Mematikan Engine: technical (Akurasi Rendah: 17.2%)",
-    "[MANAJEMEN ENGINE] Mematikan Engine: hmm_regime (Akurasi Rendah: 16.0%)",
-    "[SIMULASI PREDIKSI] Memulai Prediksi Ulang Kombinasi Hybrid untuk 12 engine aktif",
+    "[SIMULASI PREDIKSI] Memulai Prediksi Ulang Kombinasi Hybrid untuk 15 engine aktif",
     "[SIMULASI PREDIKSI] Universe: 30 ticker \u00d7 361 hari bursa",
-    "[SIMULASI PREDIKSI] Hari 50/361 | DA: 23.3% | Ekuitas: Rp 140.10Jt",
-    "[SIMULASI PREDIKSI] Hari 100/361 | DA: 19.2% | Ekuitas: Rp 155.36Jt",
-    "[SIMULASI PREDIKSI] Hari 150/361 | DA: 20.0% | Ekuitas: Rp 167.82Jt",
-    "[SIMULASI PREDIKSI] Hari 200/361 | DA: 37.9% | Ekuitas: Rp 185.51Jt",
-    "[SIMULASI PREDIKSI] Hari 250/361 | DA: 33.3% | Ekuitas: Rp 152.32Jt",
-    "[SIMULASI PREDIKSI] Hari 300/361 | DA: 30.8% | Ekuitas: Rp 162.73Jt",
-    "[SIMULASI PREDIKSI] Hari 350/361 | DA: 26.9% | Ekuitas: Rp 205.93Jt",
-    "[SIMULASI PREDIKSI] Selesai: 10103 prediksi | DA: 30.1% | F1: 0.627"
+    "[MANAJEMEN RISIKO] Hari 50 | Sharpe: 6.18 | PF: 1.12 | MDD: -6.4% | DD saat ini: -0.5%",
+    "[SIMULASI PREDIKSI] Hari 50/361 | DA: 43.3% | Ekuitas: Rp 101.24Jt",
+    "[MANAJEMEN RISIKO] Hari 100 | Sharpe: 0.34 | PF: 1.09 | MDD: -7.4% | DD saat ini: -1.5%",
+    "[SIMULASI PREDIKSI] Hari 100/361 | DA: 43.3% | Ekuitas: Rp 100.62Jt",
+    "[MANAJEMEN RISIKO] Hari 150 | Sharpe: 3.76 | PF: 1.17 | MDD: -7.4% | DD saat ini: -1.0%",
+    "[SIMULASI PREDIKSI] Hari 150/361 | DA: 36.7% | Ekuitas: Rp 106.62Jt",
+    "[MANAJEMEN RISIKO] Hari 200 | Sharpe: 3.11 | PF: 1.23 | MDD: -7.4% | DD saat ini: -1.6%",
+    "[SIMULASI PREDIKSI] Hari 200/361 | DA: 16.7% | Ekuitas: Rp 112.69Jt",
+    "[MANAJEMEN RISIKO] CIRCUIT BREAKER AKTIF: Drawdown -13.1% melebihi batas -10%!",
+    "[MANAJEMEN RISIKO] Emergency Halt: Menghentikan pembukaan posisi baru, memperketat Stop Loss",
+    "[MANAJEMEN RISIKO] Bobot engine defensif dinaikkan: fama_french, volume_price_analysis, garch_volatility",
+    "[MANAJEMEN RISIKO] Hari 250 | Sharpe: -5.04 | PF: 1.01 | MDD: -23.7% | DD saat ini: -23.7%",
+    "[SIMULASI PREDIKSI] Hari 250/361 | DA: 36.7% | Ekuitas: Rp 92.25Jt",
+    "[MANAJEMEN RISIKO] Hari 300 | Sharpe: 6.19 | PF: 0.96 | MDD: -37.6% | DD saat ini: -33.2%",
+    "[SIMULASI PREDIKSI] Hari 300/361 | DA: 40.0% | Ekuitas: Rp 80.83Jt",
+    "[MANAJEMEN RISIKO] Hari 350 | Sharpe: 5.25 | PF: 0.97 | MDD: -38.1% | DD saat ini: -34.5%",
+    "[SIMULASI PREDIKSI] Hari 350/361 | DA: 50.0% | Ekuitas: Rp 79.24Jt",
+    "[SIMULASI PREDIKSI] Selesai: 10743 prediksi | DA: 36.6% | F1: 0.608",
+    "[MANAJEMEN RISIKO] Sharpe Ratio: 1.26 | Profit Factor: 0.96 | MDD: -38.1% | Win Rate: 53.2%",
+    "[MANAJEMEN RISIKO] Sharpe Ratio positif: 1.26. Sistem menguntungkan tetapi perlu pemantauan."
+  ],
+  "profit_factor": 0.963,
+  "win_rate": 53.2,
+  "n_wins": 191,
+  "n_losses": 168,
+  "gross_profit": 199949999.89,
+  "gross_loss": 207641429.04,
+  "risk_free_rate": 0.045,
+  "circuit_breaker_triggered": true,
+  "equity_curve": [
+    {
+      "day": 1,
+      "date": "2025-08-20",
+      "equity": 100114730.63,
+      "drawdown": 0.0,
+      "daily_return": 0.001147,
+      "cumulative_return": 0.1147
+    },
+    {
+      "day": 2,
+      "date": "2025-08-21",
+      "equity": 99937433.66,
+      "drawdown": -0.1771,
+      "daily_return": -0.001771,
+      "cumulative_return": -0.0626
+    },
+    {
+      "day": 3,
+      "date": "2025-08-22",
+      "equity": 99944131.79,
+      "drawdown": -0.1704,
+      "daily_return": 6.7e-05,
+      "cumulative_return": -0.0559
+    },
+    {
+      "day": 4,
+      "date": "2025-08-23",
+      "equity": 94946925.2,
+      "drawdown": -5.1619,
+      "daily_return": -0.05,
+      "cumulative_return": -5.0531
+    },
+    {
+      "day": 5,
+      "date": "2025-08-24",
+      "equity": 99694271.46,
+      "drawdown": -0.42,
+      "daily_return": 0.05,
+      "cumulative_return": -0.3057
+    },
+    {
+      "day": 6,
+      "date": "2025-08-25",
+      "equity": 99510622.02,
+      "drawdown": -0.6034,
+      "daily_return": -0.001842,
+      "cumulative_return": -0.4894
+    },
+    {
+      "day": 7,
+      "date": "2025-08-26",
+      "equity": 99283884.37,
+      "drawdown": -0.8299,
+      "daily_return": -0.002279,
+      "cumulative_return": -0.7161
+    },
+    {
+      "day": 8,
+      "date": "2025-08-27",
+      "equity": 100739038.36,
+      "drawdown": 0.0,
+      "daily_return": 0.014656,
+      "cumulative_return": 0.739
+    },
+    {
+      "day": 9,
+      "date": "2025-08-28",
+      "equity": 100187462.72,
+      "drawdown": -0.5475,
+      "daily_return": -0.005475,
+      "cumulative_return": 0.1875
+    },
+    {
+      "day": 10,
+      "date": "2025-08-29",
+      "equity": 99883244.83,
+      "drawdown": -0.8495,
+      "daily_return": -0.003036,
+      "cumulative_return": -0.1168
+    },
+    {
+      "day": 11,
+      "date": "2025-08-30",
+      "equity": 94889082.59,
+      "drawdown": -5.807,
+      "daily_return": -0.05,
+      "cumulative_return": -5.1109
+    },
+    {
+      "day": 12,
+      "date": "2025-08-31",
+      "equity": 99633536.72,
+      "drawdown": -1.0974,
+      "daily_return": 0.05,
+      "cumulative_return": -0.3665
+    },
+    {
+      "day": 13,
+      "date": "2025-09-01",
+      "equity": 100859588.48,
+      "drawdown": 0.0,
+      "daily_return": 0.012306,
+      "cumulative_return": 0.8596
+    },
+    {
+      "day": 14,
+      "date": "2025-09-02",
+      "equity": 100130847.93,
+      "drawdown": -0.7225,
+      "daily_return": -0.007225,
+      "cumulative_return": 0.1308
+    },
+    {
+      "day": 15,
+      "date": "2025-09-03",
+      "equity": 99877959.81,
+      "drawdown": -0.9733,
+      "daily_return": -0.002526,
+      "cumulative_return": -0.122
+    },
+    {
+      "day": 16,
+      "date": "2025-09-04",
+      "equity": 100688329.02,
+      "drawdown": -0.1698,
+      "daily_return": 0.008114,
+      "cumulative_return": 0.6883
+    },
+    {
+      "day": 17,
+      "date": "2025-09-05",
+      "equity": 101082455.12,
+      "drawdown": 0.0,
+      "daily_return": 0.003914,
+      "cumulative_return": 1.0825
+    },
+    {
+      "day": 18,
+      "date": "2025-09-06",
+      "equity": 96028332.37,
+      "drawdown": -5.0,
+      "daily_return": -0.05,
+      "cumulative_return": -3.9717
+    },
+    {
+      "day": 19,
+      "date": "2025-09-07",
+      "equity": 100829748.99,
+      "drawdown": -0.25,
+      "daily_return": 0.05,
+      "cumulative_return": 0.8297
+    },
+    {
+      "day": 20,
+      "date": "2025-09-08",
+      "equity": 100997275.26,
+      "drawdown": -0.0843,
+      "daily_return": 0.001661,
+      "cumulative_return": 0.9973
+    },
+    {
+      "day": 21,
+      "date": "2025-09-09",
+      "equity": 100300506.95,
+      "drawdown": -0.7736,
+      "daily_return": -0.006899,
+      "cumulative_return": 0.3005
+    },
+    {
+      "day": 22,
+      "date": "2025-09-10",
+      "equity": 100830602.42,
+      "drawdown": -0.2492,
+      "daily_return": 0.005285,
+      "cumulative_return": 0.8306
+    },
+    {
+      "day": 23,
+      "date": "2025-09-11",
+      "equity": 101208437.9,
+      "drawdown": 0.0,
+      "daily_return": 0.003747,
+      "cumulative_return": 1.2084
+    },
+    {
+      "day": 24,
+      "date": "2025-09-12",
+      "equity": 101352474.0,
+      "drawdown": 0.0,
+      "daily_return": 0.001423,
+      "cumulative_return": 1.3525
+    },
+    {
+      "day": 25,
+      "date": "2025-09-13",
+      "equity": 96284850.3,
+      "drawdown": -5.0,
+      "daily_return": -0.05,
+      "cumulative_return": -3.7151
+    },
+    {
+      "day": 26,
+      "date": "2025-09-14",
+      "equity": 101099092.81,
+      "drawdown": -0.25,
+      "daily_return": 0.05,
+      "cumulative_return": 1.0991
+    },
+    {
+      "day": 27,
+      "date": "2025-09-15",
+      "equity": 101250270.31,
+      "drawdown": -0.1008,
+      "daily_return": 0.001495,
+      "cumulative_return": 1.2503
+    },
+    {
+      "day": 28,
+      "date": "2025-09-16",
+      "equity": 101782921.99,
+      "drawdown": 0.0,
+      "daily_return": 0.005261,
+      "cumulative_return": 1.7829
+    },
+    {
+      "day": 29,
+      "date": "2025-09-17",
+      "equity": 100698848.87,
+      "drawdown": -1.0651,
+      "daily_return": -0.010651,
+      "cumulative_return": 0.6988
+    },
+    {
+      "day": 30,
+      "date": "2025-09-18",
+      "equity": 100441806.38,
+      "drawdown": -1.3176,
+      "daily_return": -0.002553,
+      "cumulative_return": 0.4418
+    },
+    {
+      "day": 31,
+      "date": "2025-09-19",
+      "equity": 101035207.82,
+      "drawdown": -0.7346,
+      "daily_return": 0.005908,
+      "cumulative_return": 1.0352
+    },
+    {
+      "day": 32,
+      "date": "2025-09-20",
+      "equity": 95983447.43,
+      "drawdown": -5.6979,
+      "daily_return": -0.05,
+      "cumulative_return": -4.0166
+    },
+    {
+      "day": 33,
+      "date": "2025-09-21",
+      "equity": 100782619.8,
+      "drawdown": -0.9828,
+      "daily_return": 0.05,
+      "cumulative_return": 0.7826
+    },
+    {
+      "day": 34,
+      "date": "2025-09-22",
+      "equity": 100233239.27,
+      "drawdown": -1.5225,
+      "daily_return": -0.005451,
+      "cumulative_return": 0.2332
+    },
+    {
+      "day": 35,
+      "date": "2025-09-23",
+      "equity": 101046282.29,
+      "drawdown": -0.7237,
+      "daily_return": 0.008112,
+      "cumulative_return": 1.0463
+    },
+    {
+      "day": 36,
+      "date": "2025-09-24",
+      "equity": 100803602.07,
+      "drawdown": -0.9622,
+      "daily_return": -0.002402,
+      "cumulative_return": 0.8036
+    },
+    {
+      "day": 37,
+      "date": "2025-09-25",
+      "equity": 99731955.66,
+      "drawdown": -2.015,
+      "daily_return": -0.010631,
+      "cumulative_return": -0.268
+    },
+    {
+      "day": 38,
+      "date": "2025-09-26",
+      "equity": 100248823.28,
+      "drawdown": -1.5072,
+      "daily_return": 0.005183,
+      "cumulative_return": 0.2488
+    },
+    {
+      "day": 39,
+      "date": "2025-09-27",
+      "equity": 95236382.12,
+      "drawdown": -6.4319,
+      "daily_return": -0.05,
+      "cumulative_return": -4.7636
+    },
+    {
+      "day": 40,
+      "date": "2025-09-28",
+      "equity": 99998201.22,
+      "drawdown": -1.7535,
+      "daily_return": 0.05,
+      "cumulative_return": -0.0018
+    },
+    {
+      "day": 41,
+      "date": "2025-09-29",
+      "equity": 99603359.41,
+      "drawdown": -2.1414,
+      "daily_return": -0.003948,
+      "cumulative_return": -0.3966
+    },
+    {
+      "day": 42,
+      "date": "2025-09-30",
+      "equity": 100141703.16,
+      "drawdown": -1.6125,
+      "daily_return": 0.005405,
+      "cumulative_return": 0.1417
+    },
+    {
+      "day": 43,
+      "date": "2025-10-01",
+      "equity": 100200703.53,
+      "drawdown": -1.5545,
+      "daily_return": 0.000589,
+      "cumulative_return": 0.2007
+    },
+    {
+      "day": 44,
+      "date": "2025-10-02",
+      "equity": 100242139.61,
+      "drawdown": -1.5138,
+      "daily_return": 0.000414,
+      "cumulative_return": 0.2421
+    },
+    {
+      "day": 45,
+      "date": "2025-10-03",
+      "equity": 100429625.09,
+      "drawdown": -1.3296,
+      "daily_return": 0.00187,
+      "cumulative_return": 0.4296
+    },
+    {
+      "day": 46,
+      "date": "2025-10-04",
+      "equity": 95408143.84,
+      "drawdown": -6.2631,
+      "daily_return": -0.05,
+      "cumulative_return": -4.5919
+    },
+    {
+      "day": 47,
+      "date": "2025-10-05",
+      "equity": 100178551.03,
+      "drawdown": -1.5763,
+      "daily_return": 0.05,
+      "cumulative_return": 0.1786
+    },
+    {
+      "day": 48,
+      "date": "2025-10-06",
+      "equity": 100587539.87,
+      "drawdown": -1.1744,
+      "daily_return": 0.004083,
+      "cumulative_return": 0.5875
+    },
+    {
+      "day": 49,
+      "date": "2025-10-07",
+      "equity": 101028167.88,
+      "drawdown": -0.7415,
+      "daily_return": 0.004381,
+      "cumulative_return": 1.0282
+    },
+    {
+      "day": 50,
+      "date": "2025-10-08",
+      "equity": 101237816.73,
+      "drawdown": -0.5356,
+      "daily_return": 0.002075,
+      "cumulative_return": 1.2378
+    },
+    {
+      "day": 51,
+      "date": "2025-10-09",
+      "equity": 100582777.15,
+      "drawdown": -1.1791,
+      "daily_return": -0.00647,
+      "cumulative_return": 0.5828
+    },
+    {
+      "day": 52,
+      "date": "2025-10-10",
+      "equity": 99635757.01,
+      "drawdown": -2.1096,
+      "daily_return": -0.009415,
+      "cumulative_return": -0.3642
+    },
+    {
+      "day": 53,
+      "date": "2025-10-11",
+      "equity": 94653969.16,
+      "drawdown": -7.0041,
+      "daily_return": -0.05,
+      "cumulative_return": -5.346
+    },
+    {
+      "day": 54,
+      "date": "2025-10-12",
+      "equity": 99386667.62,
+      "drawdown": -2.3543,
+      "daily_return": 0.05,
+      "cumulative_return": -0.6133
+    },
+    {
+      "day": 55,
+      "date": "2025-10-13",
+      "equity": 99644446.49,
+      "drawdown": -2.101,
+      "daily_return": 0.002594,
+      "cumulative_return": -0.3556
+    },
+    {
+      "day": 56,
+      "date": "2025-10-14",
+      "equity": 100316113.89,
+      "drawdown": -1.4411,
+      "daily_return": 0.006741,
+      "cumulative_return": 0.3161
+    },
+    {
+      "day": 57,
+      "date": "2025-10-15",
+      "equity": 100281471.52,
+      "drawdown": -1.4751,
+      "daily_return": -0.000345,
+      "cumulative_return": 0.2815
+    },
+    {
+      "day": 58,
+      "date": "2025-10-16",
+      "equity": 99216044.67,
+      "drawdown": -2.5219,
+      "daily_return": -0.010624,
+      "cumulative_return": -0.784
+    },
+    {
+      "day": 59,
+      "date": "2025-10-17",
+      "equity": 99247161.87,
+      "drawdown": -2.4913,
+      "daily_return": 0.000314,
+      "cumulative_return": -0.7528
+    },
+    {
+      "day": 60,
+      "date": "2025-10-18",
+      "equity": 94284803.78,
+      "drawdown": -7.3668,
+      "daily_return": -0.05,
+      "cumulative_return": -5.7152
+    },
+    {
+      "day": 61,
+      "date": "2025-10-19",
+      "equity": 98999043.96,
+      "drawdown": -2.7351,
+      "daily_return": 0.05,
+      "cumulative_return": -1.001
+    },
+    {
+      "day": 62,
+      "date": "2025-10-20",
+      "equity": 99436056.45,
+      "drawdown": -2.3058,
+      "daily_return": 0.004414,
+      "cumulative_return": -0.5639
+    },
+    {
+      "day": 63,
+      "date": "2025-10-21",
+      "equity": 99324298.83,
+      "drawdown": -2.4156,
+      "daily_return": -0.001124,
+      "cumulative_return": -0.6757
+    },
+    {
+      "day": 64,
+      "date": "2025-10-22",
+      "equity": 98719452.71,
+      "drawdown": -3.0098,
+      "daily_return": -0.00609,
+      "cumulative_return": -1.2805
+    },
+    {
+      "day": 65,
+      "date": "2025-10-23",
+      "equity": 98909494.89,
+      "drawdown": -2.8231,
+      "daily_return": 0.001925,
+      "cumulative_return": -1.0905
+    },
+    {
+      "day": 66,
+      "date": "2025-10-24",
+      "equity": 98924540.6,
+      "drawdown": -2.8083,
+      "daily_return": 0.000152,
+      "cumulative_return": -1.0755
+    },
+    {
+      "day": 67,
+      "date": "2025-10-25",
+      "equity": 99486227.09,
+      "drawdown": -2.2565,
+      "daily_return": 0.005678,
+      "cumulative_return": -0.5138
+    },
+    {
+      "day": 68,
+      "date": "2025-10-26",
+      "equity": 100006312.41,
+      "drawdown": -1.7455,
+      "daily_return": 0.005228,
+      "cumulative_return": 0.0063
+    },
+    {
+      "day": 69,
+      "date": "2025-10-27",
+      "equity": 100449258.89,
+      "drawdown": -1.3103,
+      "daily_return": 0.004429,
+      "cumulative_return": 0.4493
+    },
+    {
+      "day": 70,
+      "date": "2025-10-28",
+      "equity": 99871033.12,
+      "drawdown": -1.8784,
+      "daily_return": -0.005756,
+      "cumulative_return": -0.129
+    },
+    {
+      "day": 71,
+      "date": "2025-10-29",
+      "equity": 99471151.23,
+      "drawdown": -2.2713,
+      "daily_return": -0.004004,
+      "cumulative_return": -0.5288
+    },
+    {
+      "day": 72,
+      "date": "2025-10-30",
+      "equity": 98960118.03,
+      "drawdown": -2.7734,
+      "daily_return": -0.005138,
+      "cumulative_return": -1.0399
+    },
+    {
+      "day": 73,
+      "date": "2025-10-31",
+      "equity": 99096450.89,
+      "drawdown": -2.6394,
+      "daily_return": 0.001378,
+      "cumulative_return": -0.9035
+    },
+    {
+      "day": 74,
+      "date": "2025-11-01",
+      "equity": 99390586.39,
+      "drawdown": -2.3504,
+      "daily_return": 0.002968,
+      "cumulative_return": -0.6094
+    },
+    {
+      "day": 75,
+      "date": "2025-11-02",
+      "equity": 99486747.68,
+      "drawdown": -2.256,
+      "daily_return": 0.000968,
+      "cumulative_return": -0.5133
+    },
+    {
+      "day": 76,
+      "date": "2025-11-03",
+      "equity": 99479980.15,
+      "drawdown": -2.2626,
+      "daily_return": -6.8e-05,
+      "cumulative_return": -0.52
+    },
+    {
+      "day": 77,
+      "date": "2025-11-04",
+      "equity": 99386082.21,
+      "drawdown": -2.3549,
+      "daily_return": -0.000944,
+      "cumulative_return": -0.6139
+    },
+    {
+      "day": 78,
+      "date": "2025-11-05",
+      "equity": 99872495.41,
+      "drawdown": -1.877,
+      "daily_return": 0.004894,
+      "cumulative_return": -0.1275
+    },
+    {
+      "day": 79,
+      "date": "2025-11-06",
+      "equity": 99478574.01,
+      "drawdown": -2.264,
+      "daily_return": -0.003944,
+      "cumulative_return": -0.5214
+    },
+    {
+      "day": 80,
+      "date": "2025-11-07",
+      "equity": 99709242.95,
+      "drawdown": -2.0374,
+      "daily_return": 0.002319,
+      "cumulative_return": -0.2908
+    },
+    {
+      "day": 81,
+      "date": "2025-11-08",
+      "equity": 100559876.68,
+      "drawdown": -1.2016,
+      "daily_return": 0.008531,
+      "cumulative_return": 0.5599
+    },
+    {
+      "day": 82,
+      "date": "2025-11-09",
+      "equity": 101207112.24,
+      "drawdown": -0.5657,
+      "daily_return": 0.006436,
+      "cumulative_return": 1.2071
+    },
+    {
+      "day": 83,
+      "date": "2025-11-10",
+      "equity": 101842435.3,
+      "drawdown": 0.0,
+      "daily_return": 0.006277,
+      "cumulative_return": 1.8424
+    },
+    {
+      "day": 84,
+      "date": "2025-11-11",
+      "equity": 101845028.26,
+      "drawdown": 0.0,
+      "daily_return": 2.5e-05,
+      "cumulative_return": 1.845
+    },
+    {
+      "day": 85,
+      "date": "2025-11-12",
+      "equity": 102098288.95,
+      "drawdown": 0.0,
+      "daily_return": 0.002487,
+      "cumulative_return": 2.0983
+    },
+    {
+      "day": 86,
+      "date": "2025-11-13",
+      "equity": 101680254.04,
+      "drawdown": -0.4094,
+      "daily_return": -0.004094,
+      "cumulative_return": 1.6803
+    },
+    {
+      "day": 87,
+      "date": "2025-11-14",
+      "equity": 101055072.9,
+      "drawdown": -1.0218,
+      "daily_return": -0.006149,
+      "cumulative_return": 1.0551
+    },
+    {
+      "day": 88,
+      "date": "2025-11-15",
+      "equity": 100941770.26,
+      "drawdown": -1.1328,
+      "daily_return": -0.001121,
+      "cumulative_return": 0.9418
+    },
+    {
+      "day": 89,
+      "date": "2025-11-16",
+      "equity": 100888106.55,
+      "drawdown": -1.1853,
+      "daily_return": -0.000532,
+      "cumulative_return": 0.8881
+    },
+    {
+      "day": 90,
+      "date": "2025-11-17",
+      "equity": 100281005.88,
+      "drawdown": -1.7799,
+      "daily_return": -0.006018,
+      "cumulative_return": 0.281
+    },
+    {
+      "day": 91,
+      "date": "2025-11-18",
+      "equity": 100403444.22,
+      "drawdown": -1.66,
+      "daily_return": 0.001221,
+      "cumulative_return": 0.4034
+    },
+    {
+      "day": 92,
+      "date": "2025-11-19",
+      "equity": 100462373.8,
+      "drawdown": -1.6023,
+      "daily_return": 0.000587,
+      "cumulative_return": 0.4624
+    },
+    {
+      "day": 93,
+      "date": "2025-11-20",
+      "equity": 100327284.39,
+      "drawdown": -1.7346,
+      "daily_return": -0.001345,
+      "cumulative_return": 0.3273
+    },
+    {
+      "day": 94,
+      "date": "2025-11-21",
+      "equity": 100392072.09,
+      "drawdown": -1.6712,
+      "daily_return": 0.000646,
+      "cumulative_return": 0.3921
+    },
+    {
+      "day": 95,
+      "date": "2025-11-22",
+      "equity": 100183773.65,
+      "drawdown": -1.8752,
+      "daily_return": -0.002075,
+      "cumulative_return": 0.1838
+    },
+    {
+      "day": 96,
+      "date": "2025-11-23",
+      "equity": 100399189.17,
+      "drawdown": -1.6642,
+      "daily_return": 0.00215,
+      "cumulative_return": 0.3992
+    },
+    {
+      "day": 97,
+      "date": "2025-11-24",
+      "equity": 100527151.15,
+      "drawdown": -1.5388,
+      "daily_return": 0.001275,
+      "cumulative_return": 0.5272
+    },
+    {
+      "day": 98,
+      "date": "2025-11-25",
+      "equity": 100558309.54,
+      "drawdown": -1.5083,
+      "daily_return": 0.00031,
+      "cumulative_return": 0.5583
+    },
+    {
+      "day": 99,
+      "date": "2025-11-26",
+      "equity": 100326011.55,
+      "drawdown": -1.7359,
+      "daily_return": -0.00231,
+      "cumulative_return": 0.326
+    },
+    {
+      "day": 100,
+      "date": "2025-11-27",
+      "equity": 100617750.09,
+      "drawdown": -1.4501,
+      "daily_return": 0.002908,
+      "cumulative_return": 0.6178
+    },
+    {
+      "day": 101,
+      "date": "2025-11-28",
+      "equity": 100335024.3,
+      "drawdown": -1.727,
+      "daily_return": -0.00281,
+      "cumulative_return": 0.335
+    },
+    {
+      "day": 102,
+      "date": "2025-11-29",
+      "equity": 100633993.01,
+      "drawdown": -1.4342,
+      "daily_return": 0.00298,
+      "cumulative_return": 0.634
+    },
+    {
+      "day": 103,
+      "date": "2025-11-30",
+      "equity": 101045979.81,
+      "drawdown": -1.0307,
+      "daily_return": 0.004094,
+      "cumulative_return": 1.046
+    },
+    {
+      "day": 104,
+      "date": "2025-12-01",
+      "equity": 100683145.17,
+      "drawdown": -1.3861,
+      "daily_return": -0.003591,
+      "cumulative_return": 0.6831
+    },
+    {
+      "day": 105,
+      "date": "2025-12-02",
+      "equity": 100996374.72,
+      "drawdown": -1.0793,
+      "daily_return": 0.003111,
+      "cumulative_return": 0.9964
+    },
+    {
+      "day": 106,
+      "date": "2025-12-03",
+      "equity": 100929899.14,
+      "drawdown": -1.1444,
+      "daily_return": -0.000658,
+      "cumulative_return": 0.9299
+    },
+    {
+      "day": 107,
+      "date": "2025-12-04",
+      "equity": 100592923.36,
+      "drawdown": -1.4744,
+      "daily_return": -0.003339,
+      "cumulative_return": 0.5929
+    },
+    {
+      "day": 108,
+      "date": "2025-12-05",
+      "equity": 100526257.76,
+      "drawdown": -1.5397,
+      "daily_return": -0.000663,
+      "cumulative_return": 0.5263
+    },
+    {
+      "day": 109,
+      "date": "2025-12-06",
+      "equity": 100666258.82,
+      "drawdown": -1.4026,
+      "daily_return": 0.001393,
+      "cumulative_return": 0.6663
+    },
+    {
+      "day": 110,
+      "date": "2025-12-07",
+      "equity": 101073024.74,
+      "drawdown": -1.0042,
+      "daily_return": 0.004041,
+      "cumulative_return": 1.073
+    },
+    {
+      "day": 111,
+      "date": "2025-12-08",
+      "equity": 101199060.75,
+      "drawdown": -0.8807,
+      "daily_return": 0.001247,
+      "cumulative_return": 1.1991
+    },
+    {
+      "day": 112,
+      "date": "2025-12-09",
+      "equity": 100808476.89,
+      "drawdown": -1.2633,
+      "daily_return": -0.00386,
+      "cumulative_return": 0.8085
+    },
+    {
+      "day": 113,
+      "date": "2025-12-10",
+      "equity": 101035784.26,
+      "drawdown": -1.0407,
+      "daily_return": 0.002255,
+      "cumulative_return": 1.0358
+    },
+    {
+      "day": 114,
+      "date": "2025-12-11",
+      "equity": 100605542.81,
+      "drawdown": -1.4621,
+      "daily_return": -0.004258,
+      "cumulative_return": 0.6055
+    },
+    {
+      "day": 115,
+      "date": "2025-12-12",
+      "equity": 100520419.32,
+      "drawdown": -1.5454,
+      "daily_return": -0.000846,
+      "cumulative_return": 0.5204
+    },
+    {
+      "day": 116,
+      "date": "2025-12-13",
+      "equity": 100994475.26,
+      "drawdown": -1.0811,
+      "daily_return": 0.004716,
+      "cumulative_return": 0.9945
+    },
+    {
+      "day": 117,
+      "date": "2025-12-14",
+      "equity": 101359626.65,
+      "drawdown": -0.7235,
+      "daily_return": 0.003616,
+      "cumulative_return": 1.3596
+    },
+    {
+      "day": 118,
+      "date": "2025-12-15",
+      "equity": 101351008.37,
+      "drawdown": -0.7319,
+      "daily_return": -8.5e-05,
+      "cumulative_return": 1.351
+    },
+    {
+      "day": 119,
+      "date": "2025-12-16",
+      "equity": 101233289.04,
+      "drawdown": -0.8472,
+      "daily_return": -0.001162,
+      "cumulative_return": 1.2333
+    },
+    {
+      "day": 120,
+      "date": "2025-12-17",
+      "equity": 101189388.19,
+      "drawdown": -0.8902,
+      "daily_return": -0.000434,
+      "cumulative_return": 1.1894
+    },
+    {
+      "day": 121,
+      "date": "2025-12-18",
+      "equity": 101885474.81,
+      "drawdown": -0.2084,
+      "daily_return": 0.006879,
+      "cumulative_return": 1.8855
+    },
+    {
+      "day": 122,
+      "date": "2025-12-19",
+      "equity": 101282880.39,
+      "drawdown": -0.7987,
+      "daily_return": -0.005914,
+      "cumulative_return": 1.2829
+    },
+    {
+      "day": 123,
+      "date": "2025-12-20",
+      "equity": 102131859.32,
+      "drawdown": 0.0,
+      "daily_return": 0.008382,
+      "cumulative_return": 2.1319
+    },
+    {
+      "day": 124,
+      "date": "2025-12-21",
+      "equity": 103028988.19,
+      "drawdown": 0.0,
+      "daily_return": 0.008784,
+      "cumulative_return": 3.029
+    },
+    {
+      "day": 125,
+      "date": "2025-12-22",
+      "equity": 103728817.58,
+      "drawdown": 0.0,
+      "daily_return": 0.006793,
+      "cumulative_return": 3.7288
+    },
+    {
+      "day": 126,
+      "date": "2025-12-23",
+      "equity": 104008463.17,
+      "drawdown": 0.0,
+      "daily_return": 0.002696,
+      "cumulative_return": 4.0085
+    },
+    {
+      "day": 127,
+      "date": "2025-12-24",
+      "equity": 103448324.75,
+      "drawdown": -0.5386,
+      "daily_return": -0.005386,
+      "cumulative_return": 3.4483
+    },
+    {
+      "day": 128,
+      "date": "2025-12-25",
+      "equity": 104455978.99,
+      "drawdown": 0.0,
+      "daily_return": 0.009741,
+      "cumulative_return": 4.456
+    },
+    {
+      "day": 129,
+      "date": "2025-12-26",
+      "equity": 104386241.06,
+      "drawdown": -0.0668,
+      "daily_return": -0.000668,
+      "cumulative_return": 4.3862
+    },
+    {
+      "day": 130,
+      "date": "2025-12-27",
+      "equity": 102953552.1,
+      "drawdown": -1.4383,
+      "daily_return": -0.013725,
+      "cumulative_return": 2.9536
+    },
+    {
+      "day": 131,
+      "date": "2025-12-28",
+      "equity": 103372347.26,
+      "drawdown": -1.0374,
+      "daily_return": 0.004068,
+      "cumulative_return": 3.3723
+    },
+    {
+      "day": 132,
+      "date": "2025-12-29",
+      "equity": 103819074.35,
+      "drawdown": -0.6097,
+      "daily_return": 0.004322,
+      "cumulative_return": 3.8191
+    },
+    {
+      "day": 133,
+      "date": "2025-12-30",
+      "equity": 103445350.29,
+      "drawdown": -0.9675,
+      "daily_return": -0.0036,
+      "cumulative_return": 3.4454
+    },
+    {
+      "day": 134,
+      "date": "2025-12-31",
+      "equity": 103632559.16,
+      "drawdown": -0.7883,
+      "daily_return": 0.00181,
+      "cumulative_return": 3.6326
+    },
+    {
+      "day": 135,
+      "date": "2026-01-01",
+      "equity": 103689407.72,
+      "drawdown": -0.7339,
+      "daily_return": 0.000549,
+      "cumulative_return": 3.6894
+    },
+    {
+      "day": 136,
+      "date": "2026-01-02",
+      "equity": 102913990.68,
+      "drawdown": -1.4762,
+      "daily_return": -0.007478,
+      "cumulative_return": 2.914
+    },
+    {
+      "day": 137,
+      "date": "2026-01-03",
+      "equity": 103946390.47,
+      "drawdown": -0.4879,
+      "daily_return": 0.010032,
+      "cumulative_return": 3.9464
+    },
+    {
+      "day": 138,
+      "date": "2026-01-04",
+      "equity": 105002449.33,
+      "drawdown": 0.0,
+      "daily_return": 0.01016,
+      "cumulative_return": 5.0024
+    },
+    {
+      "day": 139,
+      "date": "2026-01-05",
+      "equity": 106339606.04,
+      "drawdown": 0.0,
+      "daily_return": 0.012735,
+      "cumulative_return": 6.3396
+    },
+    {
+      "day": 140,
+      "date": "2026-01-06",
+      "equity": 105385060.18,
+      "drawdown": -0.8976,
+      "daily_return": -0.008976,
+      "cumulative_return": 5.3851
+    },
+    {
+      "day": 141,
+      "date": "2026-01-07",
+      "equity": 104704431.51,
+      "drawdown": -1.5377,
+      "daily_return": -0.006458,
+      "cumulative_return": 4.7044
+    },
+    {
+      "day": 142,
+      "date": "2026-01-08",
+      "equity": 105015959.68,
+      "drawdown": -1.2447,
+      "daily_return": 0.002975,
+      "cumulative_return": 5.016
+    },
+    {
+      "day": 143,
+      "date": "2026-01-09",
+      "equity": 105388874.9,
+      "drawdown": -0.8941,
+      "daily_return": 0.003551,
+      "cumulative_return": 5.3889
+    },
+    {
+      "day": 144,
+      "date": "2026-01-10",
+      "equity": 106488053.38,
+      "drawdown": 0.0,
+      "daily_return": 0.01043,
+      "cumulative_return": 6.4881
+    },
+    {
+      "day": 145,
+      "date": "2026-01-11",
+      "equity": 107196772.3,
+      "drawdown": 0.0,
+      "daily_return": 0.006655,
+      "cumulative_return": 7.1968
+    },
+    {
+      "day": 146,
+      "date": "2026-01-12",
+      "equity": 107665635.63,
+      "drawdown": 0.0,
+      "daily_return": 0.004374,
+      "cumulative_return": 7.6656
+    },
+    {
+      "day": 147,
+      "date": "2026-01-13",
+      "equity": 107751637.65,
+      "drawdown": 0.0,
+      "daily_return": 0.000799,
+      "cumulative_return": 7.7516
+    },
+    {
+      "day": 148,
+      "date": "2026-01-14",
+      "equity": 107231463.31,
+      "drawdown": -0.4828,
+      "daily_return": -0.004828,
+      "cumulative_return": 7.2315
+    },
+    {
+      "day": 149,
+      "date": "2026-01-15",
+      "equity": 107265378.86,
+      "drawdown": -0.4513,
+      "daily_return": 0.000316,
+      "cumulative_return": 7.2654
+    },
+    {
+      "day": 150,
+      "date": "2026-01-16",
+      "equity": 106624087.5,
+      "drawdown": -1.0464,
+      "daily_return": -0.005979,
+      "cumulative_return": 6.6241
+    },
+    {
+      "day": 151,
+      "date": "2026-01-17",
+      "equity": 106843573.62,
+      "drawdown": -0.8427,
+      "daily_return": 0.002059,
+      "cumulative_return": 6.8436
+    },
+    {
+      "day": 152,
+      "date": "2026-01-18",
+      "equity": 107327944.61,
+      "drawdown": -0.3932,
+      "daily_return": 0.004533,
+      "cumulative_return": 7.3279
+    },
+    {
+      "day": 153,
+      "date": "2026-01-19",
+      "equity": 107948130.67,
+      "drawdown": 0.0,
+      "daily_return": 0.005778,
+      "cumulative_return": 7.9481
+    },
+    {
+      "day": 154,
+      "date": "2026-01-20",
+      "equity": 108102546.27,
+      "drawdown": 0.0,
+      "daily_return": 0.00143,
+      "cumulative_return": 8.1025
+    },
+    {
+      "day": 155,
+      "date": "2026-01-21",
+      "equity": 108333290.13,
+      "drawdown": 0.0,
+      "daily_return": 0.002134,
+      "cumulative_return": 8.3333
+    },
+    {
+      "day": 156,
+      "date": "2026-01-22",
+      "equity": 108795967.0,
+      "drawdown": 0.0,
+      "daily_return": 0.004271,
+      "cumulative_return": 8.796
+    },
+    {
+      "day": 157,
+      "date": "2026-01-23",
+      "equity": 109922707.72,
+      "drawdown": 0.0,
+      "daily_return": 0.010356,
+      "cumulative_return": 9.9227
+    },
+    {
+      "day": 158,
+      "date": "2026-01-24",
+      "equity": 110168225.64,
+      "drawdown": 0.0,
+      "daily_return": 0.002234,
+      "cumulative_return": 10.1682
+    },
+    {
+      "day": 159,
+      "date": "2026-01-25",
+      "equity": 110057459.29,
+      "drawdown": -0.1005,
+      "daily_return": -0.001005,
+      "cumulative_return": 10.0575
+    },
+    {
+      "day": 160,
+      "date": "2026-01-26",
+      "equity": 110140608.64,
+      "drawdown": -0.0251,
+      "daily_return": 0.000756,
+      "cumulative_return": 10.1406
+    },
+    {
+      "day": 161,
+      "date": "2026-01-27",
+      "equity": 110568657.27,
+      "drawdown": 0.0,
+      "daily_return": 0.003886,
+      "cumulative_return": 10.5687
+    },
+    {
+      "day": 162,
+      "date": "2026-01-28",
+      "equity": 110710900.18,
+      "drawdown": 0.0,
+      "daily_return": 0.001286,
+      "cumulative_return": 10.7109
+    },
+    {
+      "day": 163,
+      "date": "2026-01-29",
+      "equity": 109218268.1,
+      "drawdown": -1.3482,
+      "daily_return": -0.013482,
+      "cumulative_return": 9.2183
+    },
+    {
+      "day": 164,
+      "date": "2026-01-30",
+      "equity": 107016668.64,
+      "drawdown": -3.3368,
+      "daily_return": -0.020158,
+      "cumulative_return": 7.0167
+    },
+    {
+      "day": 165,
+      "date": "2026-01-31",
+      "equity": 106407566.61,
+      "drawdown": -3.887,
+      "daily_return": -0.005692,
+      "cumulative_return": 6.4076
+    },
+    {
+      "day": 166,
+      "date": "2026-02-01",
+      "equity": 105986875.75,
+      "drawdown": -4.267,
+      "daily_return": -0.003954,
+      "cumulative_return": 5.9869
+    },
+    {
+      "day": 167,
+      "date": "2026-02-02",
+      "equity": 106080941.45,
+      "drawdown": -4.182,
+      "daily_return": 0.000888,
+      "cumulative_return": 6.0809
+    },
+    {
+      "day": 168,
+      "date": "2026-02-03",
+      "equity": 108278019.31,
+      "drawdown": -2.1975,
+      "daily_return": 0.020711,
+      "cumulative_return": 8.278
+    },
+    {
+      "day": 169,
+      "date": "2026-02-04",
+      "equity": 107421378.15,
+      "drawdown": -2.9713,
+      "daily_return": -0.007911,
+      "cumulative_return": 7.4214
+    },
+    {
+      "day": 170,
+      "date": "2026-02-05",
+      "equity": 107507561.66,
+      "drawdown": -2.8934,
+      "daily_return": 0.000802,
+      "cumulative_return": 7.5076
+    },
+    {
+      "day": 171,
+      "date": "2026-02-06",
+      "equity": 108036453.19,
+      "drawdown": -2.4157,
+      "daily_return": 0.00492,
+      "cumulative_return": 8.0365
+    },
+    {
+      "day": 172,
+      "date": "2026-02-07",
+      "equity": 109563872.26,
+      "drawdown": -1.0361,
+      "daily_return": 0.014138,
+      "cumulative_return": 9.5639
+    },
+    {
+      "day": 173,
+      "date": "2026-02-08",
+      "equity": 110363403.43,
+      "drawdown": -0.3139,
+      "daily_return": 0.007297,
+      "cumulative_return": 10.3634
+    },
+    {
+      "day": 174,
+      "date": "2026-02-09",
+      "equity": 111839512.59,
+      "drawdown": 0.0,
+      "daily_return": 0.013375,
+      "cumulative_return": 11.8395
+    },
+    {
+      "day": 175,
+      "date": "2026-02-10",
+      "equity": 112005901.63,
+      "drawdown": 0.0,
+      "daily_return": 0.001488,
+      "cumulative_return": 12.0059
+    },
+    {
+      "day": 176,
+      "date": "2026-02-11",
+      "equity": 110374969.09,
+      "drawdown": -1.4561,
+      "daily_return": -0.014561,
+      "cumulative_return": 10.375
+    },
+    {
+      "day": 177,
+      "date": "2026-02-12",
+      "equity": 109991661.16,
+      "drawdown": -1.7983,
+      "daily_return": -0.003473,
+      "cumulative_return": 9.9917
+    },
+    {
+      "day": 178,
+      "date": "2026-02-13",
+      "equity": 109239959.65,
+      "drawdown": -2.4695,
+      "daily_return": -0.006834,
+      "cumulative_return": 9.24
+    },
+    {
+      "day": 179,
+      "date": "2026-02-14",
+      "equity": 109151379.88,
+      "drawdown": -2.5485,
+      "daily_return": -0.000811,
+      "cumulative_return": 9.1514
+    },
+    {
+      "day": 180,
+      "date": "2026-02-15",
+      "equity": 110827792.64,
+      "drawdown": -1.0518,
+      "daily_return": 0.015359,
+      "cumulative_return": 10.8278
+    },
+    {
+      "day": 181,
+      "date": "2026-02-16",
+      "equity": 112342723.23,
+      "drawdown": 0.0,
+      "daily_return": 0.013669,
+      "cumulative_return": 12.3427
+    },
+    {
+      "day": 182,
+      "date": "2026-02-17",
+      "equity": 113187533.82,
+      "drawdown": 0.0,
+      "daily_return": 0.00752,
+      "cumulative_return": 13.1875
+    },
+    {
+      "day": 183,
+      "date": "2026-02-18",
+      "equity": 112502835.51,
+      "drawdown": -0.6049,
+      "daily_return": -0.006049,
+      "cumulative_return": 12.5028
+    },
+    {
+      "day": 184,
+      "date": "2026-02-19",
+      "equity": 112613158.92,
+      "drawdown": -0.5075,
+      "daily_return": 0.000981,
+      "cumulative_return": 12.6132
+    },
+    {
+      "day": 185,
+      "date": "2026-02-20",
+      "equity": 112318885.12,
+      "drawdown": -0.7674,
+      "daily_return": -0.002613,
+      "cumulative_return": 12.3189
+    },
+    {
+      "day": 186,
+      "date": "2026-02-21",
+      "equity": 112624230.77,
+      "drawdown": -0.4977,
+      "daily_return": 0.002719,
+      "cumulative_return": 12.6242
+    },
+    {
+      "day": 187,
+      "date": "2026-02-22",
+      "equity": 113115299.64,
+      "drawdown": -0.0638,
+      "daily_return": 0.00436,
+      "cumulative_return": 13.1153
+    },
+    {
+      "day": 188,
+      "date": "2026-02-23",
+      "equity": 113401370.61,
+      "drawdown": 0.0,
+      "daily_return": 0.002529,
+      "cumulative_return": 13.4014
+    },
+    {
+      "day": 189,
+      "date": "2026-02-24",
+      "equity": 114303055.45,
+      "drawdown": 0.0,
+      "daily_return": 0.007951,
+      "cumulative_return": 14.3031
+    },
+    {
+      "day": 190,
+      "date": "2026-02-25",
+      "equity": 114162502.89,
+      "drawdown": -0.123,
+      "daily_return": -0.00123,
+      "cumulative_return": 14.1625
+    },
+    {
+      "day": 191,
+      "date": "2026-02-26",
+      "equity": 114506222.56,
+      "drawdown": 0.0,
+      "daily_return": 0.003011,
+      "cumulative_return": 14.5062
+    },
+    {
+      "day": 192,
+      "date": "2026-02-27",
+      "equity": 114154384.8,
+      "drawdown": -0.3073,
+      "daily_return": -0.003073,
+      "cumulative_return": 14.1544
+    },
+    {
+      "day": 193,
+      "date": "2026-02-28",
+      "equity": 114441376.91,
+      "drawdown": -0.0566,
+      "daily_return": 0.002514,
+      "cumulative_return": 14.4414
+    },
+    {
+      "day": 194,
+      "date": "2026-03-01",
+      "equity": 114172274.71,
+      "drawdown": -0.2916,
+      "daily_return": -0.002351,
+      "cumulative_return": 14.1723
+    },
+    {
+      "day": 195,
+      "date": "2026-03-02",
+      "equity": 113086016.38,
+      "drawdown": -1.2403,
+      "daily_return": -0.009514,
+      "cumulative_return": 13.086
+    },
+    {
+      "day": 196,
+      "date": "2026-03-03",
+      "equity": 111972298.76,
+      "drawdown": -2.2129,
+      "daily_return": -0.009848,
+      "cumulative_return": 11.9723
+    },
+    {
+      "day": 197,
+      "date": "2026-03-04",
+      "equity": 111820679.91,
+      "drawdown": -2.3453,
+      "daily_return": -0.001354,
+      "cumulative_return": 11.8207
+    },
+    {
+      "day": 198,
+      "date": "2026-03-05",
+      "equity": 112823651.54,
+      "drawdown": -1.4694,
+      "daily_return": 0.008969,
+      "cumulative_return": 12.8237
+    },
+    {
+      "day": 199,
+      "date": "2026-03-06",
+      "equity": 112771323.9,
+      "drawdown": -1.5151,
+      "daily_return": -0.000464,
+      "cumulative_return": 12.7713
+    },
+    {
+      "day": 200,
+      "date": "2026-03-07",
+      "equity": 112692475.59,
+      "drawdown": -1.584,
+      "daily_return": -0.000699,
+      "cumulative_return": 12.6925
+    },
+    {
+      "day": 201,
+      "date": "2026-03-08",
+      "equity": 113033228.16,
+      "drawdown": -1.2864,
+      "daily_return": 0.003024,
+      "cumulative_return": 13.0332
+    },
+    {
+      "day": 202,
+      "date": "2026-03-09",
+      "equity": 112427909.12,
+      "drawdown": -1.815,
+      "daily_return": -0.005355,
+      "cumulative_return": 12.4279
+    },
+    {
+      "day": 203,
+      "date": "2026-03-10",
+      "equity": 112422319.76,
+      "drawdown": -1.8199,
+      "daily_return": -5e-05,
+      "cumulative_return": 12.4223
+    },
+    {
+      "day": 204,
+      "date": "2026-03-11",
+      "equity": 112717410.5,
+      "drawdown": -1.5622,
+      "daily_return": 0.002625,
+      "cumulative_return": 12.7174
+    },
+    {
+      "day": 205,
+      "date": "2026-03-12",
+      "equity": 112951618.69,
+      "drawdown": -1.3577,
+      "daily_return": 0.002078,
+      "cumulative_return": 12.9516
+    },
+    {
+      "day": 206,
+      "date": "2026-03-13",
+      "equity": 112916691.17,
+      "drawdown": -1.3882,
+      "daily_return": -0.000309,
+      "cumulative_return": 12.9167
+    },
+    {
+      "day": 207,
+      "date": "2026-03-14",
+      "equity": 112043510.82,
+      "drawdown": -2.1507,
+      "daily_return": -0.007733,
+      "cumulative_return": 12.0435
+    },
+    {
+      "day": 208,
+      "date": "2026-03-15",
+      "equity": 112292252.82,
+      "drawdown": -1.9335,
+      "daily_return": 0.00222,
+      "cumulative_return": 12.2923
+    },
+    {
+      "day": 209,
+      "date": "2026-03-16",
+      "equity": 112080748.48,
+      "drawdown": -2.1182,
+      "daily_return": -0.001884,
+      "cumulative_return": 12.0807
+    },
+    {
+      "day": 210,
+      "date": "2026-03-17",
+      "equity": 111259226.37,
+      "drawdown": -2.8357,
+      "daily_return": -0.00733,
+      "cumulative_return": 11.2592
+    },
+    {
+      "day": 211,
+      "date": "2026-03-18",
+      "equity": 111331707.09,
+      "drawdown": -2.7724,
+      "daily_return": 0.000651,
+      "cumulative_return": 11.3317
+    },
+    {
+      "day": 212,
+      "date": "2026-03-19",
+      "equity": 111260849.41,
+      "drawdown": -2.8342,
+      "daily_return": -0.000636,
+      "cumulative_return": 11.2608
+    },
+    {
+      "day": 213,
+      "date": "2026-03-20",
+      "equity": 111568673.42,
+      "drawdown": -2.5654,
+      "daily_return": 0.002767,
+      "cumulative_return": 11.5687
+    },
+    {
+      "day": 214,
+      "date": "2026-03-21",
+      "equity": 109697077.65,
+      "drawdown": -4.1999,
+      "daily_return": -0.016775,
+      "cumulative_return": 9.6971
+    },
+    {
+      "day": 215,
+      "date": "2026-03-22",
+      "equity": 109601896.35,
+      "drawdown": -4.283,
+      "daily_return": -0.000868,
+      "cumulative_return": 9.6019
+    },
+    {
+      "day": 216,
+      "date": "2026-03-23",
+      "equity": 108767768.29,
+      "drawdown": -5.0115,
+      "daily_return": -0.007611,
+      "cumulative_return": 8.7678
+    },
+    {
+      "day": 217,
+      "date": "2026-03-24",
+      "equity": 108225129.62,
+      "drawdown": -5.4854,
+      "daily_return": -0.004989,
+      "cumulative_return": 8.2251
+    },
+    {
+      "day": 218,
+      "date": "2026-03-25",
+      "equity": 108735768.64,
+      "drawdown": -5.0394,
+      "daily_return": 0.004718,
+      "cumulative_return": 8.7358
+    },
+    {
+      "day": 219,
+      "date": "2026-03-26",
+      "equity": 109869989.1,
+      "drawdown": -4.0489,
+      "daily_return": 0.010431,
+      "cumulative_return": 9.87
+    },
+    {
+      "day": 220,
+      "date": "2026-03-27",
+      "equity": 109798253.91,
+      "drawdown": -4.1115,
+      "daily_return": -0.000653,
+      "cumulative_return": 9.7983
+    },
+    {
+      "day": 221,
+      "date": "2026-03-28",
+      "equity": 104308341.21,
+      "drawdown": -8.906,
+      "daily_return": -0.05,
+      "cumulative_return": 4.3083
+    },
+    {
+      "day": 222,
+      "date": "2026-03-29",
+      "equity": 109523758.27,
+      "drawdown": -4.3513,
+      "daily_return": 0.05,
+      "cumulative_return": 9.5238
+    },
+    {
+      "day": 223,
+      "date": "2026-03-30",
+      "equity": 114999946.19,
+      "drawdown": 0.0,
+      "daily_return": 0.05,
+      "cumulative_return": 14.9999
+    },
+    {
+      "day": 224,
+      "date": "2026-03-31",
+      "equity": 113212700.17,
+      "drawdown": -1.5541,
+      "daily_return": -0.015541,
+      "cumulative_return": 13.2127
+    },
+    {
+      "day": 225,
+      "date": "2026-04-01",
+      "equity": 113420215.47,
+      "drawdown": -1.3737,
+      "daily_return": 0.001833,
+      "cumulative_return": 13.4202
+    },
+    {
+      "day": 226,
+      "date": "2026-04-02",
+      "equity": 115131945.07,
+      "drawdown": 0.0,
+      "daily_return": 0.015092,
+      "cumulative_return": 15.1319
+    },
+    {
+      "day": 227,
+      "date": "2026-04-03",
+      "equity": 115182657.31,
+      "drawdown": 0.0,
+      "daily_return": 0.00044,
+      "cumulative_return": 15.1827
+    },
+    {
+      "day": 228,
+      "date": "2026-04-04",
+      "equity": 120941790.18,
+      "drawdown": 0.0,
+      "daily_return": 0.05,
+      "cumulative_return": 20.9418
+    },
+    {
+      "day": 229,
+      "date": "2026-04-05",
+      "equity": 114894700.67,
+      "drawdown": -5.0,
+      "daily_return": -0.05,
+      "cumulative_return": 14.8947
+    },
+    {
+      "day": 230,
+      "date": "2026-04-06",
+      "equity": 109149965.63,
+      "drawdown": -9.75,
+      "daily_return": -0.05,
+      "cumulative_return": 9.15
+    },
+    {
+      "day": 231,
+      "date": "2026-04-07",
+      "equity": 105050173.02,
+      "drawdown": -13.1399,
+      "daily_return": -0.037561,
+      "cumulative_return": 5.0502
+    },
+    {
+      "day": 232,
+      "date": "2026-04-08",
+      "equity": 104978395.88,
+      "drawdown": -13.1992,
+      "daily_return": -0.000683,
+      "cumulative_return": 4.9784
+    },
+    {
+      "day": 233,
+      "date": "2026-04-09",
+      "equity": 104566424.21,
+      "drawdown": -13.5399,
+      "daily_return": -0.003924,
+      "cumulative_return": 4.5664
+    },
+    {
+      "day": 234,
+      "date": "2026-04-10",
+      "equity": 104695735.52,
+      "drawdown": -13.433,
+      "daily_return": 0.001237,
+      "cumulative_return": 4.6957
+    },
+    {
+      "day": 235,
+      "date": "2026-04-11",
+      "equity": 109930522.29,
+      "drawdown": -9.1046,
+      "daily_return": 0.05,
+      "cumulative_return": 9.9305
+    },
+    {
+      "day": 236,
+      "date": "2026-04-12",
+      "equity": 104433996.18,
+      "drawdown": -13.6494,
+      "daily_return": -0.05,
+      "cumulative_return": 4.434
+    },
+    {
+      "day": 237,
+      "date": "2026-04-13",
+      "equity": 99212296.37,
+      "drawdown": -17.9669,
+      "daily_return": -0.05,
+      "cumulative_return": -0.7877
+    },
+    {
+      "day": 238,
+      "date": "2026-04-14",
+      "equity": 99142568.96,
+      "drawdown": -18.0246,
+      "daily_return": -0.000703,
+      "cumulative_return": -0.8574
+    },
+    {
+      "day": 239,
+      "date": "2026-04-15",
+      "equity": 99462072.89,
+      "drawdown": -17.7604,
+      "daily_return": 0.003223,
+      "cumulative_return": -0.5379
+    },
+    {
+      "day": 240,
+      "date": "2026-04-16",
+      "equity": 97626745.54,
+      "drawdown": -19.2779,
+      "daily_return": -0.018453,
+      "cumulative_return": -2.3733
+    },
+    {
+      "day": 241,
+      "date": "2026-04-17",
+      "equity": 97795554.66,
+      "drawdown": -19.1383,
+      "daily_return": 0.001729,
+      "cumulative_return": -2.2044
+    },
+    {
+      "day": 242,
+      "date": "2026-04-18",
+      "equity": 102685332.39,
+      "drawdown": -15.0952,
+      "daily_return": 0.05,
+      "cumulative_return": 2.6853
+    },
+    {
+      "day": 243,
+      "date": "2026-04-19",
+      "equity": 97551065.77,
+      "drawdown": -19.3405,
+      "daily_return": -0.05,
+      "cumulative_return": -2.4489
+    },
+    {
+      "day": 244,
+      "date": "2026-04-20",
+      "equity": 92673512.48,
+      "drawdown": -23.3735,
+      "daily_return": -0.05,
+      "cumulative_return": -7.3265
+    },
+    {
+      "day": 245,
+      "date": "2026-04-21",
+      "equity": 92861945.54,
+      "drawdown": -23.2177,
+      "daily_return": 0.002033,
+      "cumulative_return": -7.1381
+    },
+    {
+      "day": 246,
+      "date": "2026-04-22",
+      "equity": 92846537.99,
+      "drawdown": -23.2304,
+      "daily_return": -0.000166,
+      "cumulative_return": -7.1535
+    },
+    {
+      "day": 247,
+      "date": "2026-04-23",
+      "equity": 92616415.56,
+      "drawdown": -23.4207,
+      "daily_return": -0.002479,
+      "cumulative_return": -7.3836
+    },
+    {
+      "day": 248,
+      "date": "2026-04-24",
+      "equity": 92480863.64,
+      "drawdown": -23.5327,
+      "daily_return": -0.001464,
+      "cumulative_return": -7.5191
+    },
+    {
+      "day": 249,
+      "date": "2026-04-25",
+      "equity": 97104906.82,
+      "drawdown": -19.7094,
+      "daily_return": 0.05,
+      "cumulative_return": -2.8951
+    },
+    {
+      "day": 250,
+      "date": "2026-04-26",
+      "equity": 92249661.48,
+      "drawdown": -23.7239,
+      "daily_return": -0.05,
+      "cumulative_return": -7.7503
+    },
+    {
+      "day": 251,
+      "date": "2026-04-27",
+      "equity": 87637178.41,
+      "drawdown": -27.5377,
+      "daily_return": -0.05,
+      "cumulative_return": -12.3628
+    },
+    {
+      "day": 252,
+      "date": "2026-04-28",
+      "equity": 88312654.3,
+      "drawdown": -26.9792,
+      "daily_return": 0.007708,
+      "cumulative_return": -11.6873
+    },
+    {
+      "day": 253,
+      "date": "2026-04-29",
+      "equity": 87984466.49,
+      "drawdown": -27.2506,
+      "daily_return": -0.003716,
+      "cumulative_return": -12.0155
+    },
+    {
+      "day": 254,
+      "date": "2026-04-30",
+      "equity": 88285558.68,
+      "drawdown": -27.0016,
+      "daily_return": 0.003422,
+      "cumulative_return": -11.7144
+    },
+    {
+      "day": 255,
+      "date": "2026-05-01",
+      "equity": 88442051.33,
+      "drawdown": -26.8722,
+      "daily_return": 0.001773,
+      "cumulative_return": -11.5579
+    },
+    {
+      "day": 256,
+      "date": "2026-05-02",
+      "equity": 92864153.9,
+      "drawdown": -23.2158,
+      "daily_return": 0.05,
+      "cumulative_return": -7.1358
+    },
+    {
+      "day": 257,
+      "date": "2026-05-03",
+      "equity": 88220946.21,
+      "drawdown": -27.055,
+      "daily_return": -0.05,
+      "cumulative_return": -11.7791
+    },
+    {
+      "day": 258,
+      "date": "2026-05-04",
+      "equity": 83809898.9,
+      "drawdown": -30.7023,
+      "daily_return": -0.05,
+      "cumulative_return": -16.1901
+    },
+    {
+      "day": 259,
+      "date": "2026-05-05",
+      "equity": 83046082.71,
+      "drawdown": -31.3338,
+      "daily_return": -0.009114,
+      "cumulative_return": -16.9539
+    },
+    {
+      "day": 260,
+      "date": "2026-05-06",
+      "equity": 82673917.68,
+      "drawdown": -31.6416,
+      "daily_return": -0.004481,
+      "cumulative_return": -17.3261
+    },
+    {
+      "day": 261,
+      "date": "2026-05-07",
+      "equity": 82350931.01,
+      "drawdown": -31.9086,
+      "daily_return": -0.003907,
+      "cumulative_return": -17.6491
+    },
+    {
+      "day": 262,
+      "date": "2026-05-08",
+      "equity": 82858124.49,
+      "drawdown": -31.4893,
+      "daily_return": 0.006159,
+      "cumulative_return": -17.1419
+    },
+    {
+      "day": 263,
+      "date": "2026-05-09",
+      "equity": 87001030.71,
+      "drawdown": -28.0637,
+      "daily_return": 0.05,
+      "cumulative_return": -12.999
+    },
+    {
+      "day": 264,
+      "date": "2026-05-10",
+      "equity": 82650979.18,
+      "drawdown": -31.6605,
+      "daily_return": -0.05,
+      "cumulative_return": -17.349
+    },
+    {
+      "day": 265,
+      "date": "2026-05-11",
+      "equity": 78518430.22,
+      "drawdown": -35.0775,
+      "daily_return": -0.05,
+      "cumulative_return": -21.4816
+    },
+    {
+      "day": 266,
+      "date": "2026-05-12",
+      "equity": 78409814.69,
+      "drawdown": -35.1673,
+      "daily_return": -0.001383,
+      "cumulative_return": -21.5902
+    },
+    {
+      "day": 267,
+      "date": "2026-05-13",
+      "equity": 77794671.01,
+      "drawdown": -35.6759,
+      "daily_return": -0.007845,
+      "cumulative_return": -22.2053
+    },
+    {
+      "day": 268,
+      "date": "2026-05-14",
+      "equity": 78051229.22,
+      "drawdown": -35.4638,
+      "daily_return": 0.003298,
+      "cumulative_return": -21.9488
+    },
+    {
+      "day": 269,
+      "date": "2026-05-15",
+      "equity": 77743571.12,
+      "drawdown": -35.7182,
+      "daily_return": -0.003942,
+      "cumulative_return": -22.2564
+    },
+    {
+      "day": 270,
+      "date": "2026-05-16",
+      "equity": 78351275.63,
+      "drawdown": -35.2157,
+      "daily_return": 0.007817,
+      "cumulative_return": -21.6487
+    },
+    {
+      "day": 271,
+      "date": "2026-05-17",
+      "equity": 78732587.24,
+      "drawdown": -34.9004,
+      "daily_return": 0.004867,
+      "cumulative_return": -21.2674
+    },
+    {
+      "day": 272,
+      "date": "2026-05-18",
+      "equity": 79138266.98,
+      "drawdown": -34.565,
+      "daily_return": 0.005153,
+      "cumulative_return": -20.8617
+    },
+    {
+      "day": 273,
+      "date": "2026-05-19",
+      "equity": 78508419.6,
+      "drawdown": -35.0858,
+      "daily_return": -0.007959,
+      "cumulative_return": -21.4916
+    },
+    {
+      "day": 274,
+      "date": "2026-05-20",
+      "equity": 78660295.89,
+      "drawdown": -34.9602,
+      "daily_return": 0.001935,
+      "cumulative_return": -21.3397
+    },
+    {
+      "day": 275,
+      "date": "2026-05-21",
+      "equity": 79271550.86,
+      "drawdown": -34.4548,
+      "daily_return": 0.007771,
+      "cumulative_return": -20.7284
+    },
+    {
+      "day": 276,
+      "date": "2026-05-22",
+      "equity": 79511391.84,
+      "drawdown": -34.2565,
+      "daily_return": 0.003026,
+      "cumulative_return": -20.4886
+    },
+    {
+      "day": 277,
+      "date": "2026-05-23",
+      "equity": 75535822.25,
+      "drawdown": -37.5437,
+      "daily_return": -0.05,
+      "cumulative_return": -24.4642
+    },
+    {
+      "day": 278,
+      "date": "2026-05-24",
+      "equity": 79312613.36,
+      "drawdown": -34.4208,
+      "daily_return": 0.05,
+      "cumulative_return": -20.6874
+    },
+    {
+      "day": 279,
+      "date": "2026-05-25",
+      "equity": 79546533.92,
+      "drawdown": -34.2274,
+      "daily_return": 0.002949,
+      "cumulative_return": -20.4535
+    },
+    {
+      "day": 280,
+      "date": "2026-05-26",
+      "equity": 79540648.78,
+      "drawdown": -34.2323,
+      "daily_return": -7.4e-05,
+      "cumulative_return": -20.4594
+    },
+    {
+      "day": 281,
+      "date": "2026-05-27",
+      "equity": 79559839.52,
+      "drawdown": -34.2164,
+      "daily_return": 0.000241,
+      "cumulative_return": -20.4402
+    },
+    {
+      "day": 282,
+      "date": "2026-05-28",
+      "equity": 79833139.16,
+      "drawdown": -33.9904,
+      "daily_return": 0.003435,
+      "cumulative_return": -20.1669
+    },
+    {
+      "day": 283,
+      "date": "2026-05-29",
+      "equity": 79478831.2,
+      "drawdown": -34.2834,
+      "daily_return": -0.004438,
+      "cumulative_return": -20.5212
+    },
+    {
+      "day": 284,
+      "date": "2026-05-30",
+      "equity": 75504889.64,
+      "drawdown": -37.5692,
+      "daily_return": -0.05,
+      "cumulative_return": -24.4951
+    },
+    {
+      "day": 285,
+      "date": "2026-05-31",
+      "equity": 79280134.12,
+      "drawdown": -34.4477,
+      "daily_return": 0.05,
+      "cumulative_return": -20.7199
+    },
+    {
+      "day": 286,
+      "date": "2026-06-01",
+      "equity": 78941638.03,
+      "drawdown": -34.7276,
+      "daily_return": -0.00427,
+      "cumulative_return": -21.0584
+    },
+    {
+      "day": 287,
+      "date": "2026-06-02",
+      "equity": 79995499.14,
+      "drawdown": -33.8562,
+      "daily_return": 0.01335,
+      "cumulative_return": -20.0045
+    },
+    {
+      "day": 288,
+      "date": "2026-06-03",
+      "equity": 80148328.7,
+      "drawdown": -33.7298,
+      "daily_return": 0.00191,
+      "cumulative_return": -19.8517
+    },
+    {
+      "day": 289,
+      "date": "2026-06-04",
+      "equity": 80145183.69,
+      "drawdown": -33.7324,
+      "daily_return": -3.9e-05,
+      "cumulative_return": -19.8548
+    },
+    {
+      "day": 290,
+      "date": "2026-06-05",
+      "equity": 80496300.98,
+      "drawdown": -33.4421,
+      "daily_return": 0.004381,
+      "cumulative_return": -19.5037
+    },
+    {
+      "day": 291,
+      "date": "2026-06-06",
+      "equity": 76471485.93,
+      "drawdown": -36.77,
+      "daily_return": -0.05,
+      "cumulative_return": -23.5285
+    },
+    {
+      "day": 292,
+      "date": "2026-06-07",
+      "equity": 80295060.23,
+      "drawdown": -33.6085,
+      "daily_return": 0.05,
+      "cumulative_return": -19.7049
+    },
+    {
+      "day": 293,
+      "date": "2026-06-08",
+      "equity": 80545321.67,
+      "drawdown": -33.4016,
+      "daily_return": 0.003117,
+      "cumulative_return": -19.4547
+    },
+    {
+      "day": 294,
+      "date": "2026-06-09",
+      "equity": 79769313.46,
+      "drawdown": -34.0432,
+      "daily_return": -0.009634,
+      "cumulative_return": -20.2307
+    },
+    {
+      "day": 295,
+      "date": "2026-06-10",
+      "equity": 79590974.39,
+      "drawdown": -34.1907,
+      "daily_return": -0.002236,
+      "cumulative_return": -20.409
+    },
+    {
+      "day": 296,
+      "date": "2026-06-11",
+      "equity": 80097806.91,
+      "drawdown": -33.7716,
+      "daily_return": 0.006368,
+      "cumulative_return": -19.9022
+    },
+    {
+      "day": 297,
+      "date": "2026-06-12",
+      "equity": 80612606.29,
+      "drawdown": -33.3459,
+      "daily_return": 0.006427,
+      "cumulative_return": -19.3874
+    },
+    {
+      "day": 298,
+      "date": "2026-06-13",
+      "equity": 76581975.98,
+      "drawdown": -36.6786,
+      "daily_return": -0.05,
+      "cumulative_return": -23.418
+    },
+    {
+      "day": 299,
+      "date": "2026-06-14",
+      "equity": 80411074.78,
+      "drawdown": -33.5126,
+      "daily_return": 0.05,
+      "cumulative_return": -19.5889
+    },
+    {
+      "day": 300,
+      "date": "2026-06-15",
+      "equity": 80825026.97,
+      "drawdown": -33.1703,
+      "daily_return": 0.005148,
+      "cumulative_return": -19.175
+    },
+    {
+      "day": 301,
+      "date": "2026-06-16",
+      "equity": 80677924.61,
+      "drawdown": -33.2919,
+      "daily_return": -0.00182,
+      "cumulative_return": -19.3221
+    },
+    {
+      "day": 302,
+      "date": "2026-06-17",
+      "equity": 81150615.72,
+      "drawdown": -32.9011,
+      "daily_return": 0.005859,
+      "cumulative_return": -18.8494
+    },
+    {
+      "day": 303,
+      "date": "2026-06-18",
+      "equity": 81210513.34,
+      "drawdown": -32.8516,
+      "daily_return": 0.000738,
+      "cumulative_return": -18.7895
+    },
+    {
+      "day": 304,
+      "date": "2026-06-19",
+      "equity": 81305567.45,
+      "drawdown": -32.773,
+      "daily_return": 0.00117,
+      "cumulative_return": -18.6944
+    },
+    {
+      "day": 305,
+      "date": "2026-06-20",
+      "equity": 77240289.08,
+      "drawdown": -36.1343,
+      "daily_return": -0.05,
+      "cumulative_return": -22.7597
+    },
+    {
+      "day": 306,
+      "date": "2026-06-21",
+      "equity": 81102303.54,
+      "drawdown": -32.941,
+      "daily_return": 0.05,
+      "cumulative_return": -18.8977
+    },
+    {
+      "day": 307,
+      "date": "2026-06-22",
+      "equity": 81719158.76,
+      "drawdown": -32.431,
+      "daily_return": 0.007606,
+      "cumulative_return": -18.2808
+    },
+    {
+      "day": 308,
+      "date": "2026-06-23",
+      "equity": 82500490.73,
+      "drawdown": -31.785,
+      "daily_return": 0.009561,
+      "cumulative_return": -17.4995
+    },
+    {
+      "day": 309,
+      "date": "2026-06-24",
+      "equity": 83412478.29,
+      "drawdown": -31.0309,
+      "daily_return": 0.011054,
+      "cumulative_return": -16.5875
+    },
+    {
+      "day": 310,
+      "date": "2026-06-25",
+      "equity": 82674278.52,
+      "drawdown": -31.6413,
+      "daily_return": -0.00885,
+      "cumulative_return": -17.3257
+    },
+    {
+      "day": 311,
+      "date": "2026-06-26",
+      "equity": 83037577.38,
+      "drawdown": -31.3409,
+      "daily_return": 0.004394,
+      "cumulative_return": -16.9624
+    },
+    {
+      "day": 312,
+      "date": "2026-06-27",
+      "equity": 78885698.51,
+      "drawdown": -34.7738,
+      "daily_return": -0.05,
+      "cumulative_return": -21.1143
+    },
+    {
+      "day": 313,
+      "date": "2026-06-28",
+      "equity": 82829983.43,
+      "drawdown": -31.5125,
+      "daily_return": 0.05,
+      "cumulative_return": -17.17
+    },
+    {
+      "day": 314,
+      "date": "2026-06-29",
+      "equity": 82686000.6,
+      "drawdown": -31.6316,
+      "daily_return": -0.001738,
+      "cumulative_return": -17.314
+    },
+    {
+      "day": 315,
+      "date": "2026-06-30",
+      "equity": 82494675.24,
+      "drawdown": -31.7898,
+      "daily_return": -0.002314,
+      "cumulative_return": -17.5053
+    },
+    {
+      "day": 316,
+      "date": "2026-07-01",
+      "equity": 82805580.07,
+      "drawdown": -31.5327,
+      "daily_return": 0.003769,
+      "cumulative_return": -17.1944
+    },
+    {
+      "day": 317,
+      "date": "2026-07-02",
+      "equity": 82788427.35,
+      "drawdown": -31.5469,
+      "daily_return": -0.000207,
+      "cumulative_return": -17.2116
+    },
+    {
+      "day": 318,
+      "date": "2026-07-03",
+      "equity": 82753130.12,
+      "drawdown": -31.5761,
+      "daily_return": -0.000426,
+      "cumulative_return": -17.2469
+    },
+    {
+      "day": 319,
+      "date": "2026-07-04",
+      "equity": 78615473.62,
+      "drawdown": -34.9973,
+      "daily_return": -0.05,
+      "cumulative_return": -21.3845
+    },
+    {
+      "day": 320,
+      "date": "2026-07-05",
+      "equity": 82546247.3,
+      "drawdown": -31.7471,
+      "daily_return": 0.05,
+      "cumulative_return": -17.4538
+    },
+    {
+      "day": 321,
+      "date": "2026-07-06",
+      "equity": 81631870.33,
+      "drawdown": -32.5032,
+      "daily_return": -0.011077,
+      "cumulative_return": -18.3681
+    },
+    {
+      "day": 322,
+      "date": "2026-07-07",
+      "equity": 80680704.79,
+      "drawdown": -33.2896,
+      "daily_return": -0.011652,
+      "cumulative_return": -19.3193
+    },
+    {
+      "day": 323,
+      "date": "2026-07-08",
+      "equity": 80491964.22,
+      "drawdown": -33.4457,
+      "daily_return": -0.002339,
+      "cumulative_return": -19.508
+    },
+    {
+      "day": 324,
+      "date": "2026-07-09",
+      "equity": 80509731.01,
+      "drawdown": -33.431,
+      "daily_return": 0.000221,
+      "cumulative_return": -19.4903
+    },
+    {
+      "day": 325,
+      "date": "2026-07-10",
+      "equity": 81032478.88,
+      "drawdown": -32.9988,
+      "daily_return": 0.006493,
+      "cumulative_return": -18.9675
+    },
+    {
+      "day": 326,
+      "date": "2026-07-11",
+      "equity": 76980854.94,
+      "drawdown": -36.3488,
+      "daily_return": -0.05,
+      "cumulative_return": -23.0191
+    },
+    {
+      "day": 327,
+      "date": "2026-07-12",
+      "equity": 80829897.69,
+      "drawdown": -33.1663,
+      "daily_return": 0.05,
+      "cumulative_return": -19.1701
+    },
+    {
+      "day": 328,
+      "date": "2026-07-13",
+      "equity": 80132053.65,
+      "drawdown": -33.7433,
+      "daily_return": -0.008633,
+      "cumulative_return": -19.8679
+    },
+    {
+      "day": 329,
+      "date": "2026-07-14",
+      "equity": 80040268.42,
+      "drawdown": -33.8192,
+      "daily_return": -0.001145,
+      "cumulative_return": -19.9597
+    },
+    {
+      "day": 330,
+      "date": "2026-07-15",
+      "equity": 79848810.29,
+      "drawdown": -33.9775,
+      "daily_return": -0.002392,
+      "cumulative_return": -20.1512
+    },
+    {
+      "day": 331,
+      "date": "2026-07-16",
+      "equity": 79298244.51,
+      "drawdown": -34.4327,
+      "daily_return": -0.006895,
+      "cumulative_return": -20.7018
+    },
+    {
+      "day": 332,
+      "date": "2026-07-17",
+      "equity": 78872430.25,
+      "drawdown": -34.7848,
+      "daily_return": -0.00537,
+      "cumulative_return": -21.1276
+    },
+    {
+      "day": 333,
+      "date": "2026-07-18",
+      "equity": 74928808.74,
+      "drawdown": -38.0456,
+      "daily_return": -0.05,
+      "cumulative_return": -25.0712
+    },
+    {
+      "day": 334,
+      "date": "2026-07-19",
+      "equity": 78675249.17,
+      "drawdown": -34.9478,
+      "daily_return": 0.05,
+      "cumulative_return": -21.3248
+    },
+    {
+      "day": 335,
+      "date": "2026-07-20",
+      "equity": 79248401.38,
+      "drawdown": -34.4739,
+      "daily_return": 0.007285,
+      "cumulative_return": -20.7516
+    },
+    {
+      "day": 336,
+      "date": "2026-07-21",
+      "equity": 79325180.18,
+      "drawdown": -34.4104,
+      "daily_return": 0.000969,
+      "cumulative_return": -20.6748
+    },
+    {
+      "day": 337,
+      "date": "2026-07-22",
+      "equity": 78950593.72,
+      "drawdown": -34.7202,
+      "daily_return": -0.004722,
+      "cumulative_return": -21.0494
+    },
+    {
+      "day": 338,
+      "date": "2026-07-23",
+      "equity": 78739351.45,
+      "drawdown": -34.8948,
+      "daily_return": -0.002676,
+      "cumulative_return": -21.2606
+    },
+    {
+      "day": 339,
+      "date": "2026-07-24",
+      "equity": 78747540.64,
+      "drawdown": -34.8881,
+      "daily_return": 0.000104,
+      "cumulative_return": -21.2525
+    },
+    {
+      "day": 340,
+      "date": "2026-07-25",
+      "equity": 74810163.6,
+      "drawdown": -38.1437,
+      "daily_return": -0.05,
+      "cumulative_return": -25.1898
+    },
+    {
+      "day": 341,
+      "date": "2026-07-26",
+      "equity": 78550671.78,
+      "drawdown": -35.0508,
+      "daily_return": 0.05,
+      "cumulative_return": -21.4493
+    },
+    {
+      "day": 342,
+      "date": "2026-07-27",
+      "equity": 78830351.98,
+      "drawdown": -34.8196,
+      "daily_return": 0.003561,
+      "cumulative_return": -21.1696
+    },
+    {
+      "day": 343,
+      "date": "2026-07-28",
+      "equity": 78950966.29,
+      "drawdown": -34.7199,
+      "daily_return": 0.00153,
+      "cumulative_return": -21.049
+    },
+    {
+      "day": 344,
+      "date": "2026-07-29",
+      "equity": 79127202.46,
+      "drawdown": -34.5741,
+      "daily_return": 0.002232,
+      "cumulative_return": -20.8728
+    },
+    {
+      "day": 345,
+      "date": "2026-07-30",
+      "equity": 78743867.89,
+      "drawdown": -34.8911,
+      "daily_return": -0.004845,
+      "cumulative_return": -21.2561
+    },
+    {
+      "day": 346,
+      "date": "2026-07-31",
+      "equity": 78322835.27,
+      "drawdown": -35.2392,
+      "daily_return": -0.005347,
+      "cumulative_return": -21.6772
+    },
+    {
+      "day": 347,
+      "date": "2026-08-01",
+      "equity": 79193493.87,
+      "drawdown": -34.5193,
+      "daily_return": 0.011116,
+      "cumulative_return": -20.8065
+    },
+    {
+      "day": 348,
+      "date": "2026-08-03",
+      "equity": 79726593.78,
+      "drawdown": -34.0785,
+      "daily_return": 0.006732,
+      "cumulative_return": -20.2734
+    },
+    {
+      "day": 349,
+      "date": "2026-08-04",
+      "equity": 79216462.32,
+      "drawdown": -34.5003,
+      "daily_return": -0.006399,
+      "cumulative_return": -20.7835
+    },
+    {
+      "day": 350,
+      "date": "2026-08-05",
+      "equity": 79238315.87,
+      "drawdown": -34.4823,
+      "daily_return": 0.000276,
+      "cumulative_return": -20.7617
+    },
+    {
+      "day": 351,
+      "date": "2026-08-06",
+      "equity": 79101865.74,
+      "drawdown": -34.5951,
+      "daily_return": -0.001722,
+      "cumulative_return": -20.8981
+    },
+    {
+      "day": 352,
+      "date": "2026-08-07",
+      "equity": 79010959.4,
+      "drawdown": -34.6703,
+      "daily_return": -0.001149,
+      "cumulative_return": -20.989
+    },
+    {
+      "day": 353,
+      "date": "2026-08-08",
+      "equity": 78268084.24,
+      "drawdown": -35.2845,
+      "daily_return": -0.009402,
+      "cumulative_return": -21.7319
+    },
+    {
+      "day": 354,
+      "date": "2026-08-10",
+      "equity": 77941868.1,
+      "drawdown": -35.5542,
+      "daily_return": -0.004168,
+      "cumulative_return": -22.0581
+    },
+    {
+      "day": 355,
+      "date": "2026-08-11",
+      "equity": 77593759.08,
+      "drawdown": -35.8421,
+      "daily_return": -0.004466,
+      "cumulative_return": -22.4062
+    },
+    {
+      "day": 356,
+      "date": "2026-08-12",
+      "equity": 77211501.44,
+      "drawdown": -36.1581,
+      "daily_return": -0.004926,
+      "cumulative_return": -22.7885
+    },
+    {
+      "day": 357,
+      "date": "2026-08-13",
+      "equity": 77570171.32,
+      "drawdown": -35.8616,
+      "daily_return": 0.004645,
+      "cumulative_return": -22.4298
+    },
+    {
+      "day": 358,
+      "date": "2026-08-14",
+      "equity": 77790165.79,
+      "drawdown": -35.6797,
+      "daily_return": 0.002836,
+      "cumulative_return": -22.2098
+    },
+    {
+      "day": 359,
+      "date": "2026-08-15",
+      "equity": 77518100.73,
+      "drawdown": -35.9046,
+      "daily_return": -0.003497,
+      "cumulative_return": -22.4819
+    },
+    {
+      "day": 360,
+      "date": "2026-08-17",
+      "equity": 77518100.73,
+      "drawdown": -35.9046,
+      "daily_return": 0.0,
+      "cumulative_return": -22.4819
+    },
+    {
+      "day": 361,
+      "date": "2026-08-18",
+      "equity": 77518100.73,
+      "drawdown": -35.9046,
+      "daily_return": 0.0,
+      "cumulative_return": -22.4819
+    }
   ]
 }

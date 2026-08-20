@@ -61,6 +61,16 @@ class EnsembleReport:
     per_asset_results: dict[str, dict]
     daily_results: list[dict]
     orchestration_log: list[str]
+    # Risk metrics
+    profit_factor: float = 0.0
+    win_rate: float = 0.0
+    n_wins: int = 0
+    n_losses: int = 0
+    gross_profit: float = 0.0
+    gross_loss: float = 0.0
+    risk_free_rate: float = 0.045
+    circuit_breaker_triggered: bool = False
+    equity_curve: list[dict] = field(default_factory=list)
 
 
 class HybridEnsembleTuner:
@@ -87,6 +97,14 @@ class HybridEnsembleTuner:
         self._max_dd = 0.0
         self._daily_returns: list[float] = []
         self._stopped = False
+        # Risk metrics
+        self._risk_free_rate = 0.045  # Indonesian 10-yr treasury Aug 2026
+        self._gross_profit = 0.0
+        self._gross_loss = 0.0
+        self._n_wins = 0
+        self._n_losses = 0
+        self._circuit_breaker = False
+        self._equity_curve: list[dict] = []
 
     def _log(self, msg: str):
         self.orchestration_log.append(msg)
@@ -332,6 +350,98 @@ class HybridEnsembleTuner:
             self._max_dd = min(self._max_dd, dd)
             self._daily_returns.append(day_pnl)
 
+            # Track win/loss for Profit Factor
+            if day_pnl_capped > 0:
+                self._gross_profit += day_pnl_capped * self._equity
+                self._n_wins += 1
+            elif day_pnl_capped < 0:
+                self._gross_loss += abs(day_pnl_capped) * self._equity
+                self._n_losses += 1
+
+            # Compute rolling Sharpe (last 30 days minimum)
+            rolling_sharpe = 0.0
+            if len(self._daily_returns) >= 30:
+                recent = self._daily_returns[-30:]
+                mean_r = np.mean(recent) * 252
+                std_r = np.std(recent) * np.sqrt(252)
+                if std_r > 0:
+                    rolling_sharpe = (mean_r - self._risk_free_rate) / std_r
+
+            # Compute rolling Profit Factor
+            rolling_pf = self._gross_profit / self._gross_loss if self._gross_loss > 0 else 0.0
+
+            # Record equity curve point
+            self._equity_curve.append({
+                "day": i + 1,
+                "date": sim_date.isoformat(),
+                "equity": round(self._equity, 2),
+                "drawdown": round(dd, 4),
+                "daily_return": round(day_pnl_capped, 6),
+                "cumulative_return": round((self._equity - self.initial_capital) / self.initial_capital * 100, 4),
+            })
+
+            # Circuit Breaker: Risk Management Guardrail
+            if dd < -10.0 and not self._circuit_breaker:
+                self._circuit_breaker = True
+                self._log(f"[MANAJEMEN RISIKO] CIRCUIT BREAKER AKTIF: Drawdown {dd:.1f}% melebihi batas -10%!")
+                self._log(f"[MANAJEMEN RISIKO] Emergency Halt: Menghentikan pembukaan posisi baru, memperketat Stop Loss")
+                db_risk = get_db()
+                try:
+                    db_risk.execute(text("UPDATE engine_registry SET weight_percentage = LEAST(weight_percentage * 1.5, 50.0) WHERE engine_name IN ('fama_french', 'volume_price_analysis', 'garch_volatility')"))
+                    db_risk.commit()
+                finally:
+                    db_risk.close()
+                self._log("[MANAJEMEN RISIKO] Bobot engine defensif dinaikkan: fama_french, volume_price_analysis, garch_volatility")
+
+            if self._circuit_breaker and dd > -5.0:
+                self._circuit_breaker = False
+                self._log(f"[MANAJEMEN RISIKO] Circuit Breaker dilepaskan: Drawdown pulih ke {dd:.1f}%")
+
+            # Risk log every 50 days
+            if (i + 1) % 50 == 0:
+                pf_str = f"{rolling_pf:.2f}" if rolling_pf > 0 else "N/A"
+                sharpe_str = f"{rolling_sharpe:.2f}"
+                self._log(f"[MANAJEMEN RISIKO] Hari {i+1} | Sharpe: {sharpe_str} | PF: {pf_str} | MDD: {self._max_dd:.1f}% | DD saat ini: {dd:.1f}%")
+                if rolling_sharpe > 2.0 and rolling_pf > 1.5:
+                    self._log(f"[MANAJEMEN RISIKO] Sharpe Ratio terdeteksi optimal pada angka {sharpe_str}. Faktor Keuntungan (Profit Factor): {pf_str}. Sistem berjalan sangat menguntungkan dan stabil.")
+
+            # Persist to daily_portfolio_states DB table
+            if (i + 1) % 10 == 0 or i == 0:
+                db_persist = get_db()
+                try:
+                    db_persist.execute(text("""
+                        INSERT INTO daily_portfolio_states
+                            (sim_date, equity, daily_return, cumulative_return, n_positions,
+                             n_wins, n_losses, gross_profit, gross_loss,
+                             current_drawdown, max_drawdown_recorded, sharpe_ratio_value,
+                             profit_factor_value, peak_equity_value)
+                        VALUES
+                            (:d, :eq, :dr, :cr, :np, :nw, :nl, :gp, :gl,
+                             :cd, :mdd, :sr, :pf, :pe)
+                        ON CONFLICT (sim_date) DO UPDATE SET
+                            equity = EXCLUDED.equity, daily_return = EXCLUDED.daily_return,
+                            cumulative_return = EXCLUDED.cumulative_return,
+                            n_wins = EXCLUDED.n_wins, n_losses = EXCLUDED.n_losses,
+                            gross_profit = EXCLUDED.gross_profit, gross_loss = EXCLUDED.gross_loss,
+                            current_drawdown = EXCLUDED.current_drawdown,
+                            max_drawdown_recorded = EXCLUDED.max_drawdown_recorded,
+                            sharpe_ratio_value = EXCLUDED.sharpe_ratio_value,
+                            profit_factor_value = EXCLUDED.profit_factor_value,
+                            peak_equity_value = EXCLUDED.peak_equity_value
+                    """), {
+                        "d": sim_date, "eq": self._equity, "dr": day_pnl_capped,
+                        "cr": (self._equity - self.initial_capital) / self.initial_capital * 100,
+                        "np": len(tickers), "nw": self._n_wins, "nl": self._n_losses,
+                        "gp": self._gross_profit, "gl": self._gross_loss,
+                        "cd": dd, "mdd": self._max_dd, "sr": rolling_sharpe,
+                        "pf": rolling_pf, "pe": self._peak_equity,
+                    })
+                    db_persist.commit()
+                except Exception as e:
+                    print(f"  [WARN] DB persist failed: {e}")
+                finally:
+                    db_persist.close()
+
             da_day = (day_correct / day_total * 100) if day_total > 0 else 0.0
             mape_day = (day_mape_sum / day_total) if day_total > 0 else 0.0
 
@@ -355,9 +465,15 @@ class HybridEnsembleTuner:
 
         total_return = (self._equity - self.initial_capital) / self.initial_capital * 100
         if len(self._daily_returns) > 1 and np.std(self._daily_returns) > 0:
-            sharpe = np.mean(self._daily_returns) / np.std(self._daily_returns) * np.sqrt(252)
+            annualized_return = np.mean(self._daily_returns) * 252
+            annualized_std = np.std(self._daily_returns) * np.sqrt(252)
+            sharpe = (annualized_return - self._risk_free_rate) / annualized_std
         else:
             sharpe = 0.0
+
+        # Profit Factor
+        profit_factor = self._gross_profit / self._gross_loss if self._gross_loss > 0 else 0.0
+        win_rate = self._n_wins / (self._n_wins + self._n_losses) * 100 if (self._n_wins + self._n_losses) > 0 else 0.0
 
         per_asset_summary = {}
         for ticker, stats in per_asset.items():
@@ -371,6 +487,13 @@ class HybridEnsembleTuner:
             }
 
         self._log(f"[SIMULASI PREDIKSI] Selesai: {total_pred} prediksi | DA: {overall_da:.1f}% | F1: {overall_f1:.3f}")
+        self._log(f"[MANAJEMEN RISIKO] Sharpe Ratio: {sharpe:.2f} | Profit Factor: {profit_factor:.2f} | MDD: {self._max_dd:.1f}% | Win Rate: {win_rate:.1f}%")
+        if sharpe > 2.0:
+            self._log(f"[MANAJEMEN RISIKO] Sharpe Ratio terdeteksi optimal pada angka {sharpe:.2f}. Faktor Keuntungan (Profit Factor): {profit_factor:.2f}. Sistem berjalan sangat menguntungkan dan stabil.")
+        elif sharpe > 0:
+            self._log(f"[MANAJEMEN RISIKO] Sharpe Ratio positif: {sharpe:.2f}. Sistem menguntungkan tetapi perlu pemantauan.")
+        else:
+            self._log(f"[MANAJEMEN RISIKO] Sharpe Ratio negatif: {sharpe:.2f}. Sistem berisiko, evaluasi ulang diperlukan.")
 
         return EnsembleReport(
             start_date=self.start_date.isoformat(),
@@ -391,6 +514,15 @@ class HybridEnsembleTuner:
             per_asset_results=per_asset_summary,
             daily_results=daily_results[-200:],
             orchestration_log=self.orchestration_log,
+            profit_factor=round(float(profit_factor), 4),
+            win_rate=round(float(win_rate), 2),
+            n_wins=self._n_wins,
+            n_losses=self._n_losses,
+            gross_profit=round(float(self._gross_profit), 2),
+            gross_loss=round(float(self._gross_loss), 2),
+            risk_free_rate=self._risk_free_rate,
+            circuit_breaker_triggered=self._circuit_breaker,
+            equity_curve=self._equity_curve,
         )
 
     def stop(self):

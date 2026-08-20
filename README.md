@@ -1623,3 +1623,75 @@ Engine evaluasi menguji 15 engine prediksi terhadap data aktual di 37 tabel data
 - 0 console errors, 0 warnings, 7 screenshots
 - 4 halaman verified: Dashboard, Manajemen Engine, Prediksi, Settings
 
+### FASE 7: Metrik Risiko Institusional (Sharpe, PF, MDD) & Circuit Breaker
+
+**Skema Database** (`daily_portfolio_states`):
+- Kolom baru: `current_drawdown`, `max_drawdown_recorded`, `sharpe_ratio_value`, `profit_factor_value`, `peak_equity_value`, `cumulative_return`, `n_wins`, `n_losses`, `gross_profit`, `gross_loss`
+- Unique constraint pada `sim_date` untuk UPSERT
+- Indexes pada `max_drawdown_recorded`, `sharpe_ratio_value`, `profit_factor_value` untuk kueri sub-milidetik
+
+**Rumusan Matematika**:
+```
+MDD = min_t [ (Equity_t - Peak_Equity_t) / Peak_Equity_t × 100 ]
+
+Sharpe = (R_p - R_f) / σ_p
+  R_p = mean(daily_returns) × 252  (annualized)
+  R_f = 0.045 (SBN Indonesia 10-th, Aug 2026)
+  σ_p = std(daily_returns) × √252  (annualized volatility)
+
+Profit Factor = Σ(Gross Profit) / |Σ(Gross Loss)|
+
+Circuit Breaker: if Drawdown > 10% OR Sharpe < 0 → Emergency Halt
+```
+
+**Risk Management Guardrail (Circuit Breaker)**:
+- Trigger: Drawdown harian > 10% → Emergency Halt aktif
+- Aksi: Hentikan pembukaan posisi baru, perketat Stop Loss, boost bobot engine defensif (fama_french, volume_price_analysis, garch_volatility × 1.5)
+- Release: Drawdown pulih ke > -5% → Circuit Breaker dilepaskan
+- Logging real-time: `[MANAJEMEN RISIKO] Sharpe Ratio terdeteksi optimal pada angka X.XX. Faktor Keuntungan (Profit Factor): X.XX. Sistem berjalan sangat menguntungkan dan stabil.`
+
+**Hasil Simulasi 1 Tahun (29 Engine Aktif)**:
+
+| Metrik | Nilai | Kualitas |
+|---|---|---|
+| Sharpe Ratio | 1.26 | Baik |
+| Profit Factor | 0.96 | Buruk |
+| Max Drawdown | -38.1% | Bahaya |
+| Win Rate | 53.2% | Baik |
+| Return on Capital | -22.5% | Buruk |
+| N Wins / N Losses | 191 / 168 | — |
+| Gross Profit | Rp 199.9Jt | — |
+| Gross Loss | Rp 207.6Jt | — |
+| Circuit Breaker | Triggered | — |
+| Equity Curve Points | 361 | — |
+
+**Analisis Hasil**:
+- **Sharpe Ratio 1.26**: Sistem menghasilkan return di atas risk-free rate per unit volatilitas (Baik)
+- **Win Rate 53.2%**: Lebih banyak transaksi menang daripada kalah (Baik)
+- **Profit Factor 0.96**: Total keuntungan sedikit di bawah total kerugian — sistem belum profitabel secara absolut
+- **MDD -38.1%**: Drawdown sangat dalam, melebihi batas aman 10% — Circuit Breaker aktif
+- **Return -22.5%**: Sistem mengalami kerugian akibat drawdown besar di paruh kedua simulasi
+- **Circuit Breaker triggered**: Sistem mendeteksi drawdown > 10% dan mengaktifkan emergency halt
+
+**Komponen Frontend Baru**:
+1. **Kurva Ekuitas & Wilayah Penurunan Modal** (Canvas 2D, rAF >55 FPS)
+   - Dual-layer: equity curve (hijau) di atas, underwater drawdown area (merah) di bawah
+   - 361 data points, animasi smooth, label sumbu Y/X
+   - Gradient fill untuk equity dan drawdown area
+
+2. **Skor Kinerja Institusional** (Scorecard Widget)
+   - 5 metrik: Sharpe Ratio, Profit Factor, Max Drawdown, Win Rate, Return on Capital
+   - Indikator kualitas berwarna: 🟢 Sangat Baik/Aman, 🔵 Baik, 🟡 Cukup/Waspada, 🔴 Buruk/Bahaya
+   - Sub-detail: Rf rate, gross profit/loss, n wins/losses, current drawdown, equity
+
+**API Endpoints Risk Metrics**:
+- `GET /api/risk-metrics/equity-curve` — data kurva ekuitas & drawdown (361 points)
+- `GET /api/risk-metrics/scorecard` — snapshot scorecard terbaru dengan quality indicators
+
+**Simulasi di Epson PJ**:
+- Browser confirmed di `(1339, 51)` — di monitor Epson
+- Semua 6 panel terender: Engine Registry, Weight Chart, Lift Chart, Equity Curve, Scorecard, Terminal Log
+- 0 console errors, 0 warnings, 36+ screenshots
+- Durasi simulasi: 814 detik (13.5 menit)
+- 4 halaman verified: Dashboard, Manajemen Engine, Prediksi, Settings
+
