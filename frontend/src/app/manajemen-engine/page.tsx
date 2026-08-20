@@ -13,6 +13,8 @@ import {
   Play,
   Trash2,
   RefreshCw,
+  BarChart3,
+  Calculator,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -45,6 +47,44 @@ interface EnsembleProgress {
 interface WeightHistoryPoint {
   tick: number;
   weights: Record<string, number>;
+}
+
+interface HorizonResult {
+  horizon: string;
+  forward_days: number;
+  condition_a_da: number;
+  condition_b_da: number;
+  delta_da: number;
+  lift_pct: number;
+  condition_a_mape: number;
+  condition_b_mape: number;
+  condition_a_f1: number;
+  condition_b_f1: number;
+  n_predictions: number;
+}
+
+interface AssetClassResult {
+  asset_class: string;
+  n_tickers: number;
+  horizons: HorizonResult[];
+}
+
+interface PredictiveLiftReport {
+  start_date: string;
+  end_date: string;
+  condition_a_description: string;
+  condition_b_description: string;
+  asset_class_results: AssetClassResult[];
+  overall_a_da: number;
+  overall_b_da: number;
+  overall_delta: number;
+  overall_lift_pct: number;
+  summary: {
+    total_predictions: number;
+    horizon_summary: Record<string, { condition_a_da: number; condition_b_da: number; delta: number }>;
+    active_engines_count: number;
+    deactivated_engines_count: number;
+  };
 }
 
 // ── Constants ────────────────────────────────────────────────────────────
@@ -394,6 +434,198 @@ function TerminalLog({
   );
 }
 
+// ── Accuracy Comparison Matrix Chart (Canvas 2D, rAF) ────────────────────
+
+function AccuracyComparisonChart({ report }: { report: PredictiveLiftReport | null }) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const rafRef = useRef(0);
+  const reportRef = useRef<PredictiveLiftReport | null>(report);
+  const animProgressRef = useRef(0);
+
+  useEffect(() => { reportRef.current = report; }, [report]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const draw = () => {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+
+      const W = rect.width;
+      const H = rect.height;
+      const padding = { top: 30, right: 80, bottom: 40, left: 100 };
+      const chartW = W - padding.left - padding.right;
+      const chartH = H - padding.top - padding.bottom;
+
+      // Background
+      ctx.fillStyle = "rgba(0,0,0,0.3)";
+      ctx.fillRect(0, 0, W, H);
+
+      const rpt = reportRef.current;
+      if (!rpt || !rpt.asset_class_results || rpt.asset_class_results.length === 0) {
+        ctx.fillStyle = "rgba(255,255,255,0.3)";
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("Menunggu data predictive lift...", W / 2, H / 2);
+        return;
+      }
+
+      // Gather all bars: asset_class × horizon
+      const horizons = ["+1 Hari", "+1 Minggu", "+1 Bulan", "+1 Tahun"];
+      const assetClasses = rpt.asset_class_results.map((a) => a.asset_class);
+
+      // Group by horizon, each horizon has N asset classes × 2 conditions
+      const groupCount = horizons.length;
+      const assetCount = assetClasses.length;
+      const barPairWidth = chartW / groupCount / (assetCount + 0.5);
+      const barWidth = barPairWidth * 0.38;
+      const barGap = barPairWidth * 0.04;
+      const groupGap = chartW / groupCount * 0.1;
+
+      // Animate bars growing
+      const animP = Math.min(1, animProgressRef.current);
+      animProgressRef.current += 0.04;
+
+      // Grid
+      ctx.strokeStyle = "rgba(255,255,255,0.05)";
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 5; i++) {
+        const y = padding.top + (chartH / 5) * i;
+        ctx.beginPath();
+        ctx.moveTo(padding.left, y);
+        ctx.lineTo(padding.left + chartW, y);
+        ctx.stroke();
+      }
+
+      // Y-axis labels
+      ctx.fillStyle = "rgba(255,255,255,0.4)";
+      ctx.font = "10px monospace";
+      ctx.textAlign = "right";
+      for (let i = 0; i <= 5; i++) {
+        const val = 100 - i * 20;
+        const y = padding.top + (chartH / 5) * i;
+        ctx.fillText(`${val}%`, padding.left - 5, y + 3);
+      }
+
+      // Draw bars
+      horizons.forEach((horizon, gIdx) => {
+        const groupX = padding.left + (chartW / groupCount) * gIdx + groupGap / 2;
+        const groupInnerW = (chartW / groupCount) - groupGap;
+
+        assetClasses.forEach((acName, aIdx) => {
+          const ac = rpt.asset_class_results.find((a) => a.asset_class === acName);
+          if (!ac) return;
+          const hResult = ac.horizons.find((h) => h.horizon === horizon);
+          if (!hResult) return;
+
+          const pairX = groupX + (groupInnerW / assetCount) * aIdx;
+          const pairInnerW = (groupInnerW / assetCount) - 4;
+
+          // Condition A bar (blue/gray)
+          const aHeight = (hResult.condition_a_da / 100) * chartH * animP;
+          const aBarX = pairX + (pairInnerW - barWidth * 2 - barGap) / 2;
+          const aBarY = padding.top + chartH - aHeight;
+
+          const gradA = ctx.createLinearGradient(0, aBarY, 0, padding.top + chartH);
+          gradA.addColorStop(0, "#64748b");
+          gradA.addColorStop(1, "#475569");
+          ctx.fillStyle = gradA;
+          ctx.fillRect(aBarX, aBarY, barWidth, aHeight);
+
+          // Condition B bar (purple/emerald)
+          const bHeight = (hResult.condition_b_da / 100) * chartH * animP;
+          const bBarX = aBarX + barWidth + barGap;
+          const bBarY = padding.top + chartH - bHeight;
+
+          const gradB = ctx.createLinearGradient(0, bBarY, 0, padding.top + chartH);
+          const isLift = hResult.delta_da > 0;
+          gradB.addColorStop(0, isLift ? "#10b981" : "#ef4444");
+          gradB.addColorStop(1, isLift ? "#059669" : "#dc2626");
+          ctx.fillStyle = gradB;
+          ctx.fillRect(bBarX, bBarY, barWidth, bHeight);
+
+          // Value labels on top (when animation done)
+          if (animP > 0.9) {
+            ctx.font = "8px monospace";
+            ctx.textAlign = "center";
+            ctx.fillStyle = "#94a3b8";
+            ctx.fillText(`${hResult.condition_a_da.toFixed(0)}%`, aBarX + barWidth / 2, aBarY - 3);
+            ctx.fillStyle = isLift ? "#10b981" : "#ef4444";
+            ctx.fillText(`${hResult.condition_b_da.toFixed(0)}%`, bBarX + barWidth / 2, bBarY - 3);
+
+            // Delta label
+            const deltaColor = hResult.delta_da > 0 ? "#10b981" : "#ef4444";
+            ctx.fillStyle = deltaColor;
+            ctx.font = "7px monospace";
+            ctx.fillText(
+              `${hResult.delta_da > 0 ? "▲" : "▼"}${Math.abs(hResult.delta_da).toFixed(0)}%`,
+              (aBarX + bBarX + barWidth) / 2,
+              Math.min(aBarY, bBarY) - 10
+            );
+          }
+        });
+
+        // Horizon label
+        ctx.fillStyle = "rgba(255,255,255,0.6)";
+        ctx.font = "10px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(horizon, groupX + groupInnerW / 2, H - 10);
+      });
+
+      // Asset class labels on left
+      ctx.font = "9px sans-serif";
+      ctx.textAlign = "left";
+      assetClasses.forEach((ac, i) => {
+        const colors = ["#3b82f6", "#10b981", "#f59e0b", "#8b5cf6"];
+        ctx.fillStyle = colors[i % colors.length];
+        const y = padding.top + 5 + i * 14;
+        ctx.fillRect(padding.left - 90, y - 7, 8, 8);
+        ctx.fillStyle = "rgba(255,255,255,0.6)";
+        ctx.fillText(ac, padding.left - 78, y);
+      });
+
+      // Legend (top-right)
+      ctx.font = "9px monospace";
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#64748b";
+      ctx.fillRect(padding.left + chartW + 10, padding.top, 8, 8);
+      ctx.fillStyle = "rgba(255,255,255,0.6)";
+      ctx.fillText("Sebelum (Fib)", padding.left + chartW + 22, padding.top + 7);
+      ctx.fillStyle = "#10b981";
+      ctx.fillRect(padding.left + chartW + 10, padding.top + 14, 8, 8);
+      ctx.fillStyle = "rgba(255,255,255,0.6)";
+      ctx.fillText("Sesudah (Hybrid)", padding.left + chartW + 22, padding.top + 21);
+
+      // Title
+      ctx.fillStyle = "rgba(255,255,255,0.8)";
+      ctx.font = "bold 11px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("Matriks Perbandingan Akurasi: Sebelum vs Sesudah Manajemen Engine", W / 2, 15);
+    };
+
+    const loop = () => {
+      draw();
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    rafRef.current = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="w-full h-full"
+      style={{ minHeight: 260 }}
+    />
+  );
+}
+
 // ── Main Page ────────────────────────────────────────────────────────────
 
 export default function ManajemenEnginePage() {
@@ -403,6 +635,8 @@ export default function ManajemenEnginePage() {
   const [weightHistory, setWeightHistory] = useState<WeightHistoryPoint[]>([]);
   const [paused, setPaused] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [liftReport, setLiftReport] = useState<PredictiveLiftReport | null>(null);
+  const [calculatingLift, setCalculatingLift] = useState(false);
   const prevLogLen = useRef(0);
   const tickRef = useRef(0);
   const pausedRef = useRef(false);
@@ -448,15 +682,26 @@ export default function ManajemenEnginePage() {
     } catch { /* ignore */ }
   }, []);
 
+  const fetchLiftReport = useCallback(async () => {
+    try {
+      const res = await fetch("/api/predictive-lift/report");
+      if (res.ok) {
+        const data = await res.json();
+        if (data.status !== "not_found") setLiftReport(data);
+      }
+    } catch { /* ignore */ }
+  }, []);
+
   useEffect(() => {
     fetchEngines().then(() => setLoading(false));
     fetchProgress();
+    fetchLiftReport();
     const id = setInterval(() => {
       fetchEngines();
       if (!pausedRef.current) fetchProgress();
     }, 2000);
     return () => clearInterval(id);
-  }, [fetchEngines, fetchProgress]);
+  }, [fetchEngines, fetchProgress, fetchLiftReport]);
 
   const handleToggle = useCallback(async (name: string, active: boolean) => {
     setEngines((prev) =>
@@ -469,6 +714,26 @@ export default function ManajemenEnginePage() {
         body: JSON.stringify({ engine_name: name, is_active: active }),
       });
     } catch { /* ignore */ }
+  }, []);
+
+  const recalculateLift = useCallback(async () => {
+    setCalculatingLift(true);
+    try {
+      await fetch("/api/predictive-lift/calculate", { method: "POST" });
+      // Poll for completion
+      const pollId = setInterval(async () => {
+        const res = await fetch("/api/predictive-lift/report");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.status !== "not_found" && data.asset_class_results) {
+            setLiftReport(data);
+            setCalculatingLift(false);
+            clearInterval(pollId);
+          }
+        }
+      }, 3000);
+      setTimeout(() => { clearInterval(pollId); setCalculatingLift(false); }, 120000);
+    } catch { setCalculatingLift(false); }
   }, []);
 
   const startTuning = useCallback(async () => {
@@ -635,7 +900,58 @@ export default function ManajemenEnginePage() {
           </div>
         </div>
 
-        {/* Panel 3: Terminal Log (full width) */}
+        {/* Panel 3: Accuracy Comparison Matrix (full width) */}
+        <div className="col-span-12 rounded-xl border border-border bg-card/50 p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <BarChart3 className="w-4 h-4 text-emerald-400" />
+            <h2 className="text-sm font-semibold">Matriks Perbandingan Akurasi (Predictive Lift)</h2>
+            <span className="text-[10px] text-muted-foreground ml-auto">
+              Sebelum (Fibonacci) vs Sesudah (Hybrid Ensemble)
+            </span>
+            <button
+              onClick={recalculateLift}
+              disabled={calculatingLift}
+              className="px-2 py-1 rounded-md border border-border text-[10px] hover:bg-accent disabled:opacity-50 flex items-center gap-1 ml-2"
+            >
+              {calculatingLift ? <Activity className="w-3 h-3 animate-spin" /> : <Calculator className="w-3 h-3" />}
+              {calculatingLift ? "Menghitung..." : "Hitung Ulang"}
+            </button>
+          </div>
+          <div className="w-full" style={{ height: 300 }}>
+            <AccuracyComparisonChart report={liftReport} />
+          </div>
+          {/* Lift summary stats */}
+          {liftReport && (
+            <div className="grid grid-cols-5 gap-2 mt-3">
+              <div className="rounded-md border border-border/50 p-2 text-center">
+                <div className="text-[10px] text-muted-foreground">DA Sebelum</div>
+                <div className="text-lg font-bold text-slate-400">{liftReport.overall_a_da}%</div>
+              </div>
+              <div className="rounded-md border border-border/50 p-2 text-center">
+                <div className="text-[10px] text-muted-foreground">DA Sesudah</div>
+                <div className="text-lg font-bold text-emerald-400">{liftReport.overall_b_da}%</div>
+              </div>
+              <div className="rounded-md border border-border/50 p-2 text-center">
+                <div className="text-[10px] text-muted-foreground">Delta (Δ)</div>
+                <div className={`text-lg font-bold ${liftReport.overall_delta >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                  {liftReport.overall_delta >= 0 ? "+" : ""}{liftReport.overall_delta}%
+                </div>
+              </div>
+              <div className="rounded-md border border-border/50 p-2 text-center">
+                <div className="text-[10px] text-muted-foreground">Lift %</div>
+                <div className={`text-lg font-bold ${liftReport.overall_lift_pct >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                  {liftReport.overall_lift_pct >= 0 ? "+" : ""}{liftReport.overall_lift_pct}%
+                </div>
+              </div>
+              <div className="rounded-md border border-border/50 p-2 text-center">
+                <div className="text-[10px] text-muted-foreground">Total Prediksi</div>
+                <div className="text-lg font-bold text-blue-400">{liftReport.summary?.total_predictions ?? 0}</div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Panel 4: Terminal Log (full width) */}
         <div className="col-span-12 rounded-xl border border-border bg-card/50 p-4">
           <div className="flex items-center gap-2 mb-3">
             <Terminal className="w-4 h-4 text-emerald-400" />

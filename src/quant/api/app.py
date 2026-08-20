@@ -1290,6 +1290,41 @@ async def engine_registry_history():
     return {"status": "ok", "history": history}
 
 
+@app.get("/api/predictive-lift/report")
+async def predictive_lift_report():
+    """Get predictive lift comparison report (Condition A vs B)."""
+    report_path = Path(__file__).resolve().parents[3] / "docs" / "PREDICTIVE_LIFT_REPORT.json"
+    if not report_path.exists():
+        return {"status": "not_found", "message": "Belum ada laporan predictive lift"}
+    with open(report_path, "r") as f:
+        return json.load(f)
+
+
+@app.post("/api/predictive-lift/calculate")
+async def predictive_lift_calculate():
+    """Trigger predictive lift calculation in background."""
+    import sys as _sys
+    import threading as _threading
+
+    def _calc():
+        _sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
+        try:
+            from predictive_lift_calculator import PredictiveLiftCalculator
+            from dataclasses import asdict as _asdict
+            calc = PredictiveLiftCalculator()
+            report = calc.run()
+            report_path = Path(__file__).resolve().parents[3] / "docs" / "PREDICTIVE_LIFT_REPORT.json"
+            with open(report_path, "w") as f:
+                json.dump(_asdict(report), f, indent=2, default=str)
+            print(f"[OK] Predictive lift report saved to {report_path}")
+        except Exception as e:
+            print(f"[ERROR] Predictive lift calculation failed: {e}")
+
+    thread = _threading.Thread(target=_calc, daemon=True)
+    thread.start()
+    return {"status": "started", "message": "Perhitungan predictive lift dimulai"}
+
+
 @app.post("/api/ensemble-tuning/run")
 async def ensemble_tuning_run(payload: dict = Body(default={})):
     """Start hybrid ensemble tuning simulation."""

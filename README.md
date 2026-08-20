@@ -1576,3 +1576,50 @@ Engine evaluasi menguji 15 engine prediksi terhadap data aktual di 37 tabel data
 - Hasil: 493s durasi, 0 console errors, 0 warnings, 0 self-heals, 27 screenshots
 - Semua 7 halaman verified: Dashboard, Sinyal, Portofolio, Prediksi, Backtest, Manajemen Engine, Pengaturan
 
+### FASE 6: Predictive Lift Metrics & Accuracy Comparison Chart
+
+**Script Kalkulasi** (`scripts/predictive_lift_calculator.py`):
+- Membandingkan dua kondisi sistem:
+  - **Kondisi A (Sebelum)**: Single Fibonacci Engine (fama_french only, weight=100%)
+  - **Kondisi B (Sesudah)**: Hybrid Ensemble (12 active engines, weighted average, poor engines deactivated)
+- Rumus: `ΔAkurasi = DA_B - DA_A` dan `Lift% = (DA_B - DA_A) / DA_A × 100`
+- Evaluasi multi-horizon: +1 Hari, +1 Minggu, +1 Bulan, +1 Tahun
+- 4 kelas aset: Saham (26 ticker), Forex (1), Komoditas (3), Crypto
+- Total 6.466 prediksi tanpa look-ahead bias
+
+**Hasil Perhitungan**:
+
+| Kelas Aset | Horizon | DA A (Fib) | DA B (Hybrid) | Δ | F1 A→B |
+|---|---|---|---|---|---|
+| Saham | +1 Hari | 67.4% | 30.4% | -36.9% | 0→0.619 |
+| Saham | +1 Bulan | 18.8% | 34.4% | +15.7% | 0→0.600 |
+| Saham | +1 Tahun | 2.5% | 32.8% | +30.3% | 0→0.649 |
+| Forex | +1 Bulan | 17.9% | 41.9% | +24.0% | 0→0.667 |
+| Komoditas | +1 Bulan | 7.3% | 35.3% | +27.9% | 0→0.683 |
+| Komoditas | +1 Tahun | 0.0% | 23.7% | +23.7% | 0→0.692 |
+
+**Temuan Kunci**:
+- **Hybrid ensemble unggul pada horizon panjang** (+1 Bulan, +1 Tahun) untuk semua kelas aset
+- **Fibonacci tunggal unggul pada horizon pendek** (+1 Hari) untuk Saham dan Forex
+- **F1 Score meningkat dramatis**: 0.000 → 0.57–1.00 (hybrid ensemble menghasilkan prediksi naik/turun yang seimbang)
+- **Overall DA**: 39.59% → 31.85% (Δ -7.74%) — penurunan short-term tapi peningkatan signifikan long-term
+- **Lift tertinggi**: Komoditas +1 Bulan (+380%), Saham +1 Tahun (+1221.8%)
+
+**Grafik Matriks Perbandingan Akurasi**:
+- Canvas 2D dengan `requestAnimationFrame` (>55 FPS)
+- Bar chart berdampingan: Sebelum (abu-abu) vs Sesudah (hijau=positif/merah=negatif)
+- 4 kelompok horizon × 3 kelas aset = 12 pasang bar
+- Label delta (▲/▼) dan nilai persentase di atas setiap bar
+- Summary stats: DA Sebelum, DA Sesudah, Delta, Lift%, Total Prediksi
+- Tombol "Hitung Ulang" untuk trigger kalkulasi ulang via API
+
+**API Endpoints Predictive Lift**:
+- `GET /api/predictive-lift/report` — laporan predictive lift
+- `POST /api/predictive-lift/calculate` — trigger kalkulasi ulang di background
+
+**Simulasi di Epson PJ**:
+- Browser confirmed di `(1339, 51)` — di monitor Epson
+- Semua 4 panel terender: Engine Registry Grid, Weight Chart, Lift Chart, Terminal Log
+- 0 console errors, 0 warnings, 7 screenshots
+- 4 halaman verified: Dashboard, Manajemen Engine, Prediksi, Settings
+

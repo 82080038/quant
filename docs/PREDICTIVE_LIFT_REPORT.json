@@ -1,0 +1,213 @@
+{
+  "start_date": "2025-08-20",
+  "end_date": "2026-08-20",
+  "condition_a_description": "Single Fibonacci Engine (fama_french only, weight=100%)",
+  "condition_b_description": "Hybrid Ensemble (12 active engines, weighted average, poor engines deactivated)",
+  "asset_class_results": [
+    {
+      "asset_class": "Forex",
+      "n_tickers": 1,
+      "horizons": [
+        {
+          "horizon": "+1 Hari",
+          "forward_days": 1,
+          "condition_a_da": 56.94,
+          "condition_b_da": 26.87,
+          "delta_da": -30.08,
+          "lift_pct": -52.82,
+          "condition_a_mape": 54.86,
+          "condition_b_mape": 54.48,
+          "condition_a_f1": 0,
+          "condition_b_f1": 0.6061,
+          "n_predictions": 72
+        },
+        {
+          "horizon": "+1 Minggu",
+          "forward_days": 5,
+          "condition_a_da": 47.89,
+          "condition_b_da": 31.82,
+          "delta_da": -16.07,
+          "lift_pct": -33.56,
+          "condition_a_mape": 50.0,
+          "condition_b_mape": 50.0,
+          "condition_a_f1": 0,
+          "condition_b_f1": 0.65,
+          "n_predictions": 71
+        },
+        {
+          "horizon": "+1 Bulan",
+          "forward_days": 21,
+          "condition_a_da": 17.91,
+          "condition_b_da": 41.94,
+          "delta_da": 24.03,
+          "lift_pct": 134.14,
+          "condition_a_mape": 50.0,
+          "condition_b_mape": 50.0,
+          "condition_a_f1": 0,
+          "condition_b_f1": 0.6667,
+          "n_predictions": 67
+        },
+        {
+          "horizon": "+1 Tahun",
+          "forward_days": 252,
+          "condition_a_da": 0.0,
+          "condition_b_da": 100.0,
+          "delta_da": 100.0,
+          "lift_pct": 0.0,
+          "condition_a_mape": 50.0,
+          "condition_b_mape": 50.0,
+          "condition_a_f1": 0,
+          "condition_b_f1": 1.0,
+          "n_predictions": 2
+        }
+      ]
+    },
+    {
+      "asset_class": "Komoditas",
+      "n_tickers": 3,
+      "horizons": [
+        {
+          "horizon": "+1 Hari",
+          "forward_days": 1,
+          "condition_a_da": 38.89,
+          "condition_b_da": 35.65,
+          "delta_da": -3.24,
+          "lift_pct": -8.33,
+          "condition_a_mape": 59.03,
+          "condition_b_mape": 59.03,
+          "condition_a_f1": 0,
+          "condition_b_f1": 0.5977,
+          "n_predictions": 216
+        },
+        {
+          "horizon": "+1 Minggu",
+          "forward_days": 5,
+          "condition_a_da": 11.74,
+          "condition_b_da": 31.46,
+          "delta_da": 19.72,
+          "lift_pct": 168.0,
+          "condition_a_mape": 50.0,
+          "condition_b_mape": 50.0,
+          "condition_a_f1": 0,
+          "condition_b_f1": 0.6087,
+          "n_predictions": 213
+        },
+        {
+          "horizon": "+1 Bulan",
+          "forward_days": 21,
+          "condition_a_da": 7.35,
+          "condition_b_da": 35.29,
+          "delta_da": 27.94,
+          "lift_pct": 380.0,
+          "condition_a_mape": 50.0,
+          "condition_b_mape": 50.0,
+          "condition_a_f1": 0,
+          "condition_b_f1": 0.6833,
+          "n_predictions": 204
+        },
+        {
+          "horizon": "+1 Tahun",
+          "forward_days": 252,
+          "condition_a_da": 0.0,
+          "condition_b_da": 23.68,
+          "delta_da": 23.68,
+          "lift_pct": 0.0,
+          "condition_a_mape": 50.0,
+          "condition_b_mape": 50.0,
+          "condition_a_f1": 0,
+          "condition_b_f1": 0.6923,
+          "n_predictions": 38
+        }
+      ]
+    },
+    {
+      "asset_class": "Saham",
+      "n_tickers": 26,
+      "horizons": [
+        {
+          "horizon": "+1 Hari",
+          "forward_days": 1,
+          "condition_a_da": 67.36,
+          "condition_b_da": 30.44,
+          "delta_da": -36.92,
+          "lift_pct": -54.81,
+          "condition_a_mape": 54.51,
+          "condition_b_mape": 54.77,
+          "condition_a_f1": 0,
+          "condition_b_f1": 0.619,
+          "n_predictions": 1872
+        },
+        {
+          "horizon": "+1 Minggu",
+          "forward_days": 5,
+          "condition_a_da": 41.06,
+          "condition_b_da": 29.88,
+          "delta_da": -11.18,
+          "lift_pct": -27.24,
+          "condition_a_mape": 50.3,
+          "condition_b_mape": 50.29,
+          "condition_a_f1": 0,
+          "condition_b_f1": 0.5697,
+          "n_predictions": 1846
+        },
+        {
+          "horizon": "+1 Bulan",
+          "forward_days": 21,
+          "condition_a_da": 18.75,
+          "condition_b_da": 34.44,
+          "delta_da": 15.69,
+          "lift_pct": 83.66,
+          "condition_a_mape": 50.2,
+          "condition_b_mape": 50.21,
+          "condition_a_f1": 0,
+          "condition_b_f1": 0.6,
+          "n_predictions": 1744
+        },
+        {
+          "horizon": "+1 Tahun",
+          "forward_days": 252,
+          "condition_a_da": 2.48,
+          "condition_b_da": 32.77,
+          "delta_da": 30.29,
+          "lift_pct": 1221.85,
+          "condition_a_mape": 50.0,
+          "condition_b_mape": 50.0,
+          "condition_a_f1": 0,
+          "condition_b_f1": 0.6486,
+          "n_predictions": 121
+        }
+      ]
+    }
+  ],
+  "overall_a_da": 39.59,
+  "overall_b_da": 31.85,
+  "overall_delta": -7.74,
+  "overall_lift_pct": -19.55,
+  "summary": {
+    "total_predictions": 6466,
+    "horizon_summary": {
+      "+1 Hari": {
+        "condition_a_da": 64.17,
+        "condition_b_da": 30.84,
+        "delta": -33.32
+      },
+      "+1 Minggu": {
+        "condition_a_da": 38.36,
+        "condition_b_da": 30.1,
+        "delta": -8.25
+      },
+      "+1 Bulan": {
+        "condition_a_da": 17.57,
+        "condition_b_da": 34.78,
+        "delta": 17.21
+      },
+      "+1 Tahun": {
+        "condition_a_da": 1.86,
+        "condition_b_da": 31.46,
+        "delta": 29.6
+      }
+    },
+    "active_engines_count": 12,
+    "deactivated_engines_count": 17
+  }
+}
