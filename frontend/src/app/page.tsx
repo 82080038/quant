@@ -31,6 +31,7 @@ import {
   Activity,
   ArrowDown,
   ArrowUp,
+  Cpu,
   Moon,
   TrendingUp,
   Wallet,
@@ -40,6 +41,7 @@ import { ObservabilityConsole } from "@/components/observability-console";
 import { TickerTape } from "@/components/ticker-tape";
 import { CelestialFibonacciChart } from "@/components/celestial-fibonacci-chart";
 import { MultiHorizonProjection } from "@/components/multi-horizon-projection";
+import { EngineOrchestrationLog } from "@/components/engine-orchestration-log";
 import { CrosshairProvider, useCrosshairStore } from "@/components/crosshair-context";
 import { getWsClient, useWsLatest, type WsMessage } from "@/lib/ws-client";
 import { useFpsGuard } from "@/lib/use-fps-guard";
@@ -575,10 +577,21 @@ export default function DashboardPage() {
             <IhsgChart ihsg={ihsg} tickRing={tickRing} />
           </Widget>
 
-          {/* Tier 3: Multi-Horizon Projection (6 cols) + Observability Console (full width) */}
+          {/* Tier 3: Multi-Horizon Projection (6 cols) */}
           <MultiHorizonProjection />
 
-          {/* Tier 3: BE Observability Console (full width, auto height) */}
+          {/* Tier 3: Engine Orchestration Log (6 cols) */}
+          <Widget
+            title="Manajemen Engine & Log Orkestrasi"
+            icon={<Cpu className="w-3.5 h-3.5" />}
+            accent="text-purple-400"
+            className="col-span-6"
+            bodyClassName="!p-3"
+          >
+            <EngineOrchestrationLog />
+          </Widget>
+
+          {/* Tier 4: BE Observability Console (full width, auto height) */}
           <div className="col-span-12" style={{ gridAutoRows: "auto" }}>
             <ObservabilityConsole />
           </div>

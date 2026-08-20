@@ -1191,6 +1191,133 @@ async def prediction_sim_report():
         return json.load(f)
 
 
+# ── Hybrid Ensemble Tuning ────────────────────────────────────────────────
+
+_ensemble_state: dict[str, Any] = {
+    "running": False,
+    "done": False,
+    "current_day": 0,
+    "total_trading_days": 0,
+    "sim_date": None,
+    "directional_accuracy": 0.0,
+    "equity": 0.0,
+    "n_predictions": 0,
+    "n_correct": 0,
+    "message": "",
+    "orchestration_log": [],
+    "active_engines": [],
+    "deactivated_engines": [],
+}
+_ensemble_lock = _threading.Lock()
+
+
+@app.get("/api/engine-registry")
+async def engine_registry_status():
+    """Get engine registry status from DB."""
+    from sqlalchemy import text as _text
+    from quant.core.db import get_db as _get_db
+    db = _get_db()
+    try:
+        rows = db.execute(_text("""
+            SELECT engine_name, engine_type, is_active, accuracy_score, weight_percentage
+            FROM engine_registry
+            ORDER BY accuracy_score DESC, weight_percentage DESC
+        """)).fetchall()
+        return {
+            "status": "ok",
+            "engines": [
+                {"engine_name": r[0], "engine_type": r[1], "is_active": r[2],
+                 "accuracy_score": float(r[3]), "weight_percentage": float(r[4])}
+                for r in rows
+            ],
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+    finally:
+        db.close()
+
+
+@app.post("/api/ensemble-tuning/run")
+async def ensemble_tuning_run(payload: dict = Body(default={})):
+    """Start hybrid ensemble tuning simulation."""
+    with _ensemble_lock:
+        if _ensemble_state["running"]:
+            return {"status": "already_running"}
+        _ensemble_state.update({
+            "running": True, "done": False, "current_day": 0,
+            "total_trading_days": 0, "sim_date": None,
+            "directional_accuracy": 0.0, "equity": 0.0,
+            "n_predictions": 0, "n_correct": 0,
+            "message": "Memulai ensemble tuning...",
+            "orchestration_log": [], "active_engines": [], "deactivated_engines": [],
+        })
+
+    def _run():
+        import sys as _sys
+        _sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
+        from hybrid_ensemble_tuner import HybridEnsembleTuner
+        from datetime import date as _date
+
+        try:
+            tuner = HybridEnsembleTuner(
+                start_date=_date.today() - timedelta(days=365),
+                end_date=_date.today(),
+                universe_size=30,
+            )
+
+            def progress_cb(day_num, total, da, equity, sim_date_str):
+                with _ensemble_lock:
+                    _ensemble_state["current_day"] = day_num
+                    _ensemble_state["total_trading_days"] = total
+                    _ensemble_state["directional_accuracy"] = da
+                    _ensemble_state["equity"] = equity
+                    _ensemble_state["sim_date"] = sim_date_str
+                    _ensemble_state["message"] = f"Hari {day_num}/{total} — DA: {da:.1f}%"
+
+            report = tuner.run(progress_cb=progress_cb)
+
+            with _ensemble_lock:
+                _ensemble_state["running"] = False
+                _ensemble_state["done"] = True
+                _ensemble_state["message"] = f"Selesai: DA {report.overall_da}%"
+                _ensemble_state["orchestration_log"] = report.orchestration_log
+                _ensemble_state["active_engines"] = report.active_engines
+                _ensemble_state["deactivated_engines"] = report.deactivated_engines
+
+            from dataclasses import asdict as _asdict
+            report_path = Path(__file__).resolve().parents[3] / "docs" / "ENSEMBLE_TUNING_REPORT.json"
+            with open(report_path, "w") as f:
+                json.dump(_asdict(report), f, indent=2, default=str)
+
+        except Exception as e:
+            with _ensemble_lock:
+                _ensemble_state["running"] = False
+                _ensemble_state["done"] = False
+                _ensemble_state["message"] = f"Error: {e}"
+            print(f"[ERROR] Ensemble tuning failed: {e}")
+
+    thread = _threading.Thread(target=_run, daemon=True)
+    thread.start()
+    return {"status": "started", "message": "Ensemble tuning dimulai"}
+
+
+@app.get("/api/ensemble-tuning/progress")
+async def ensemble_tuning_progress():
+    """Get live ensemble tuning progress."""
+    with _ensemble_lock:
+        return dict(_ensemble_state)
+
+
+@app.get("/api/ensemble-tuning/report")
+async def ensemble_tuning_report():
+    """Get ensemble tuning report."""
+    report_path = Path(__file__).resolve().parents[3] / "docs" / "ENSEMBLE_TUNING_REPORT.json"
+    if not report_path.exists():
+        return {"status": "not_found", "message": "Belum ada laporan ensemble tuning"}
+    with open(report_path, "r") as f:
+        return json.load(f)
+
+
 # ── Cosmos (Astronacci Celestial View) ────────────────────────────────────
 
 @app.get("/api/cosmos/astronacci")

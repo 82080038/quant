@@ -1512,3 +1512,46 @@ Engine evaluasi menguji 15 engine prediksi terhadap data aktual di 37 tabel data
 - Hasil: 17s durasi, 0 console errors, 0 warnings, 8 screenshots
 - Semua 5 halaman verified: Dashboard, Sinyal, Portofolio, Backtest, Pengaturan
 
+### FASE 4: Engine Registry Toggle & Hybrid Ensemble Tuning
+
+**Engine Registry Database** (`engine_registry` table):
+- 29 engine terdaftar dengan kolom kontrol: `engine_id`, `engine_name`, `engine_type`, `is_active`, `accuracy_score`, `weight_percentage`
+- 15 engine sinyal terdaftar di `EngineRegistry._SIGNAL_METHODS`
+- 14 modul tambahan: Deep Learning (VAE, Transformer, LSTM, XGBoost/LGBM), Astronacci, DCC-GARCH, Causality Analyzer, Screener Agent, dll.
+- Auto-deactivation: engine dengan DA < 20% dimatikan (`is_active = FALSE`)
+- Weight boosting: engine dengan DA >= 50% dinaikkan bobotnya hingga 50%
+
+**Hybrid Ensemble Method** (`scripts/hybrid_ensemble_tuner.py`):
+- Weighted Average Method: sinyal ensemble = Σ(signal × weight) / Σ(weight)
+- Hanya engine aktif dari DB yang berkontribusi
+- Simulasi 1 tahun: 30 ticker × 361 hari bursa × 26 engine aktif = 10.103 prediksi
+- Hasil: DA 30.06%, F1 0.6265, Imbal Hasil +102.16%, Sharpe 3.19
+- 3 engine dimatikan otomatis: `alpha_regime_switch` (19.9%), `technical` (17.2%), `hmm_regime` (16.0%)
+- 1 engine di-boost: `fama_french` (63.5% DA → bobot 50%)
+
+**Live Orchestration Log** (`frontend/src/components/engine-orchestration-log.tsx`):
+- Panel dashboard dengan engine badges (aktif/mati, akurasi, bobot)
+- Log real-time: `[MANAJEMEN ENGINE] Mengaktifkan/Mematikan Engine...`
+- Progress bar simulasi ensemble
+- Polling API setiap 3 detik
+
+**Multi-Monitor Detection** (`scripts/monitor_detector.py`):
+- Deteksi otomatis via `xrandr --listmonitors`
+- 3 monitor: HDMI-0 (Lenovo 1920×1080), HDMI-1-0 (Epson PJ 1440×900), DVI-D-1-0 (1280×800)
+- Epson PJ terdeteksi di koordinat (1339, 0)
+- Playwright `--window-position=1339,0 --start-maximized` memaksa browser di Epson
+
+**API Endpoints Ensemble**:
+- `GET /api/engine-registry` — status semua engine (aktif/mati, akurasi, bobot)
+- `POST /api/ensemble-tuning/run` — mulai simulasi ensemble
+- `GET /api/ensemble-tuning/progress` — progress live
+- `GET /api/ensemble-tuning/report` — laporan lengkap
+
+**Simulasi Ensemble di Epson PJ**:
+- Playwright Headed Mode di HDMI-1-0 (1440×900) dengan `--window-position=1339,0`
+- Browser confirmed di Epson: `window.screenX = 1339`
+- Strict error monitoring: `page.on('pageerror')` + `page.on('console')` + `page.on('requestfailed')`
+- Self-healing loop: reload page jika error terdeteksi
+- Hasil: 537s durasi, 0 console errors, 0 warnings, 0 self-heals, 26 screenshots
+- Semua 6 halaman verified: Dashboard, Sinyal, Portofolio, Prediksi, Backtest, Pengaturan
+
