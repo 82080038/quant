@@ -80,10 +80,10 @@ export function MarketClockWidget() {
 
   if (!data && loading) {
     return (
-      <Widget title="Global Market Clock" icon={<Globe className="w-4 h-4" />}>
+      <Widget title="Jam Pasar Global" icon={<Globe className="w-4 h-4" />}>
         <div className="flex items-center justify-center h-32 text-slate-500">
           <Clock className="w-5 h-5 animate-pulse mr-2" />
-          Loading sessions...
+          Memuat sesi bursa...
         </div>
       </Widget>
     );
@@ -100,7 +100,7 @@ export function MarketClockWidget() {
   });
 
   return (
-    <Widget title="Global Market Clock" icon={<Globe className="w-4 h-4" />}>
+    <Widget title="Jam Pasar Global" icon={<Globe className="w-4 h-4" />}>
       {/* Header: current times */}
       <div className="flex items-center gap-4 mb-3 pb-3 border-b border-slate-700/50">
         <div className="flex items-center gap-2">
@@ -114,7 +114,7 @@ export function MarketClockWidget() {
           <span className="text-sm font-mono text-amber-300">{data.current_time_wib}</span>
         </div>
         <div className="ml-auto text-xs text-slate-500">
-          {data.open_count}/{data.total} open
+          {data.open_count}/{data.total} buka
         </div>
       </div>
 

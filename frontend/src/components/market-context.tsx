@@ -94,10 +94,10 @@ function getIdxSession(exchanges: ExchangeStatus[]): { label: string; color: str
   const idx = exchanges.find(e => e.name === "IDX");
   if (!idx) return { label: "—", color: "text-muted-foreground" };
   switch (idx.status) {
-    case "active": return { label: "Regular (09:00-15:50 WIB)", color: "text-green-500" };
-    case "pre-open": return { label: "Pre-Open", color: "text-yellow-500" };
-    case "closing": return { label: "Closing Auction", color: "text-yellow-500" };
-    case "after-hours": return { label: "After-Hours", color: "text-blue-500" };
+    case "active": return { label: "Reguler (09:00-15:50 WIB)", color: "text-green-500" };
+    case "pre-open": return { label: "Pra-Pembukaan", color: "text-yellow-500" };
+    case "closing": return { label: "Lelang Penutupan", color: "text-yellow-500" };
+    case "after-hours": return { label: "Pasca-Penutupan", color: "text-blue-500" };
     default: return { label: "Tutup", color: "text-muted-foreground" };
   }
 }

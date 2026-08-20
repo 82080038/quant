@@ -1405,3 +1405,110 @@ Research-based redesign following best practices from TradingView, Bloomberg Ter
 - **Browser simulation**: 231s, 0 console errors, 19 screenshots
 - **All 5 dashboard pages verified**: Dashboard, Signals, Portfolio, Backtest, Settings
 
+---
+
+## Lokalisasi Bahasa Indonesia & Engine Evaluasi Prediksi
+
+### FASE 1: Lokalisasi Bahasa Front-End
+
+Seluruh komponen frontend diterjemahkan ke Bahasa Indonesia standar finansial:
+
+**Dashboard Utama**:
+- "Portofolio" → "Nilai Aset Bersih" (NAB)
+- "Movers & Breadth" → "Pergerakan & Breadth Pasar"
+- "Gainers/Losers" → "Saham Penguatan/Saham Pelemahan"
+- "Posisi" → "Posisi Portofolio"
+- "Sinyal" → "Feed Sinyal"
+- "IHSG Live" → "Grafik Live IHSG"
+- "BE Observability" → "Konsol Observabilitas Backend"
+
+**Konsol Observabilitas**:
+- "DB" → "Basis Data", "ON/OFF" → "AKTIF/MATI"
+- "Backpressure" → "Tekanan Balik", "WS dropped" → "WS Jatuh"
+- "Log ring" → "Ring Buffer Log"
+
+**Header & Sidebar**:
+- "Idle" → "Siaga", "Next:" → "Berikutnya:"
+- "Stale" → "Terlambat", "Trading" → "Transaksi"
+- "Scheduler" → "Penjadwal", "Screener" → "Saring Saham"
+
+**Backtest Page**:
+- "Run 1-Year Simulation" → "Jalankan Simulasi 1 Tahun"
+- "Simulating..." → "Menyimulasikan..."
+- "Simulation Complete" → "Simulasi Selesai"
+- "Trading Days" → "Hari Bursa", "Total Trades" → "Total Transaksi"
+- "Return" → "Imbal Hasil", "Max Drawdown" → "Penurunan Maks"
+- "Intercepted Errors" → "Error Terintersepsi"
+- "Live Hot-Patches" → "Perbaikan Langsung"
+
+**Market Context**:
+- "Pre-Open" → "Pra-Pembukaan"
+- "Closing Auction" → "Lelang Penutupan"
+- "After-Hours" → "Pasca-Penutupan"
+
+### FASE 2: Engine Evaluasi Prediksi & Penalaan Akurasi
+
+**Modul Evaluasi**: `scripts/eval_prediction_accuracy.py`
+
+Engine evaluasi menguji 15 engine prediksi terhadap data aktual di 37 tabel database:
+
+| Metrik | Rumus | Keterangan |
+|---|---|---|
+| Directional Accuracy (DA) | Σ(prediksi_arah == aktual_arah) / N × 100% | Persentase arah prediksi benar |
+| MAPE | Σ\|aktual - prediksi\| / \|aktual\| / N × 100% | Rata-rata error persentase |
+| F1 Score Directional | 2 × (Precision × Recall) / (Precision + Recall) | Harmonic mean untuk klasifikasi arah |
+| Root Cause Attribution | Σ(faktor_pemicu_teridentifikasi) / N × 100% | Persentase faktor pemicu terverifikasi |
+
+**Hasil Evaluasi (55 ticker × 12 tanggal × 15 engine = 7.500 prediksi)**:
+
+| Engine | DA% | MAPE% | F1 | Decision |
+|---|---|---|---|---|
+| hmm_regime | 24.3 | 80.5 | 0.174 | REPLACE |
+| technical | 21.1 | 80.6 | 0.118 | REPLACE |
+| alpha_momentum | 18.4 | 81.0 | 0.411 | REPLACE |
+| alpha_regime_switch | 13.8 | 81.0 | 0.487 | REPLACE |
+| volume_features | 12.0 | 80.7 | 0.428 | REPLACE |
+| alpha_reversal | 4.6 | 80.6 | 0.327 | REPLACE |
+| alpha_mean_reversion | 0.3 | 80.5 | 0.333 | REPLACE |
+| fundamental | 0.0 | 80.5 | 0.000 | REPLACE |
+| global_market | 0.0 | 80.5 | 0.000 | REPLACE |
+| sentiment | 0.0 | 80.5 | 0.000 | REPLACE |
+| relationship | 0.0 | 80.5 | 0.000 | REPLACE |
+| fama_french | 0.0 | 80.5 | 0.000 | REPLACE |
+
+**Decision Matrix**:
+- DA ≥ 75%: KEEP (engine stabil, pertahankan)
+- DA 50-74%: TUNE (adjust hyperparameter: bobot korelasi makro, time-lag, Fibonacci pivots)
+- DA < 50%: REPLACE (ganti dengan model ARIMA/GARCH time-series)
+
+**Modul Auto-Tuning**: `scripts/auto_tune_engines.py`
+- 12 engine di-mark REPLACE → parameter disimpan ke tabel `engine_tuning_params`
+- Replacement model: ARIMA/GARCH dengan volatilitas kondisional
+
+**Data Gaps Ditemukan**:
+1. **Data Volume Komoditas** — harga komoditas (minyak, emas, tembaga, batubara) terbatas
+2. **Data Crypto & Forex** — data harga ETH, BTC, USD/IDR kurang lengkap
+
+**API Endpoints Evaluasi**:
+- `GET /api/evaluation/report` — laporan evaluasi lengkap
+- `POST /api/evaluation/run` — jalankan evaluasi di background
+- `GET /api/evaluation/status` — progress evaluasi
+- `GET /api/projections/multi-horizon` — proyeksi +1Hari/+1Minggu/+1Bulan/+1Tahun
+- `GET /api/evaluation/data-gaps` — daftar data gap
+
+### FASE 3: Proyeksi Multi-Horizon & Simulasi Live
+
+**Widget Proyeksi Multi-Horizon** (`frontend/src/components/multi-horizon-projection.tsx`):
+- Tabel proyeksi: +1 Hari, +1 Minggu, +1 Bulan, +1 Tahun
+- Arah prediksi (Naik/Turun) dengan estimasi magnitud (%)
+- Faktor pemicu utama (root cause) per ticker
+- Engine accuracy badges (KEEP/TUNE/REPLACE)
+- Tombol "Evaluasi Ulang" untuk re-run evaluasi
+- Auto-refresh setiap 30 detik
+
+**Simulasi Live di Epson PJ**:
+- Playwright Headed Mode di HDMI-1-0 (1440×900)
+- Strict error monitoring: `page.on('pageerror')` + `page.on('console')`
+- Hasil: 17s durasi, 0 console errors, 0 warnings, 8 screenshots
+- Semua 5 halaman verified: Dashboard, Sinyal, Portofolio, Backtest, Pengaturan
+

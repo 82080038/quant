@@ -1,9 +1,10 @@
 """FastAPI application for quant trading system."""
 
-from fastapi import FastAPI, Query, Body
+from fastapi import FastAPI, Query, Body, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import date, timedelta
 from sqlalchemy import text
+from typing import Any
 import json
 import os
 from pathlib import Path
@@ -976,6 +977,83 @@ async def fe_cache_latest_state():
     if not state:
         return {"status": "not_found", "message": "No daily state available yet"}
     return {"status": "ok", "state": state}
+
+
+# ── Prediction Evaluation & Multi-Horizon Projections ─────────────────────
+
+_eval_state: dict[str, Any] = {"running": False, "done": False, "progress": "", "report": None}
+
+
+@app.get("/api/evaluation/report")
+async def get_evaluation_report():
+    """Get the latest prediction evaluation report."""
+    import json as _json
+    from pathlib import Path as _Path
+    report_path = _Path(__file__).parent.parent.parent.parent / "docs" / "PREDICTION_EVALUATION_REPORT.json"
+    if not report_path.exists():
+        return {"status": "not_found", "message": "Belum ada laporan evaluasi. Jalankan evaluasi terlebih dahulu."}
+    with open(report_path, "r") as f:
+        return _json.load(f)
+
+
+@app.post("/api/evaluation/run")
+async def run_evaluation(background_tasks: BackgroundTasks):
+    """Run prediction evaluation in background."""
+    if _eval_state["running"]:
+        return {"status": "already_running", "message": "Evaluasi sedang berjalan"}
+    _eval_state.update({"running": True, "done": False, "progress": "Memulai evaluasi...", "report": None})
+
+    def _run_eval():
+        try:
+            import sys
+            sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "scripts"))
+            from eval_prediction_accuracy import BacktestEvaluationEngine
+            engine = BacktestEvaluationEngine(lookback_days=60, sample_tickers=50)
+            report = engine.evaluate()
+            report_path = Path(__file__).parent.parent.parent.parent / "docs" / "PREDICTION_EVALUATION_REPORT.json"
+            engine.save_report(report, report_path)
+            _eval_state.update({
+                "running": False, "done": True,
+                "progress": f"Selesai: {report.total_predictions} prediksi dievaluasi",
+                "report": {"total_predictions": report.total_predictions, "total_tickers": report.total_tickers_evaluated},
+            })
+        except Exception as e:
+            _eval_state.update({"running": False, "done": False, "progress": f"Error: {e}"})
+
+    background_tasks.add_task(_run_eval)
+    return {"status": "started", "message": "Evaluasi dimulai di background"}
+
+
+@app.get("/api/evaluation/status")
+async def evaluation_status():
+    """Get evaluation progress status."""
+    return _eval_state
+
+
+@app.get("/api/projections/multi-horizon")
+async def multi_horizon_projections():
+    """Get multi-horizon projections (+1D, +1W, +1M, +1Y)."""
+    import json as _json
+    from pathlib import Path as _Path
+    report_path = _Path(__file__).parent.parent.parent.parent / "docs" / "PREDICTION_EVALUATION_REPORT.json"
+    if not report_path.exists():
+        return {"status": "not_found", "projections": []}
+    with open(report_path, "r") as f:
+        report = _json.load(f)
+    return {"status": "ok", "projections": report.get("multi_horizon_projections", [])}
+
+
+@app.get("/api/evaluation/data-gaps")
+async def evaluation_data_gaps():
+    """Get identified data gaps."""
+    import json as _json
+    from pathlib import Path as _Path
+    report_path = _Path(__file__).parent.parent.parent.parent / "docs" / "PREDICTION_EVALUATION_REPORT.json"
+    if not report_path.exists():
+        return {"status": "not_found", "gaps": []}
+    with open(report_path, "r") as f:
+        report = _json.load(f)
+    return {"status": "ok", "gaps": report.get("data_gaps", [])}
 
 
 # ── Cosmos (Astronacci Celestial View) ────────────────────────────────────

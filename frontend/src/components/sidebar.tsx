@@ -35,12 +35,12 @@ const navSections: NavSection[] = [
     items: [
       { href: "/", label: "Dashboard", icon: LayoutDashboard },
       { href: "/signals", label: "Sinyal", icon: BellRing },
-      { href: "/screener", label: "Screener", icon: Search },
-      { href: "/stock", label: "Saham", icon: TrendingUp },
+      { href: "/screener", label: "Saring Saham", icon: Search },
+      { href: "/stock", label: "Detail Saham", icon: TrendingUp },
     ],
   },
   {
-    title: "Trading",
+    title: "Transaksi",
     items: [
       { href: "/portfolio", label: "Portofolio", icon: Wallet },
       { href: "/backtest", label: "Backtest", icon: FlaskConical },
@@ -53,7 +53,7 @@ const navSections: NavSection[] = [
       { href: "/reports", label: "Laporan", icon: FileText },
       { href: "/cosmos", label: "Kosmos", icon: Orbit },
       { href: "/data", label: "Data & Sumber", icon: Database },
-      { href: "/scheduler", label: "Scheduler", icon: Clock },
+      { href: "/scheduler", label: "Penjadwal", icon: Clock },
       { href: "/settings", label: "Pengaturan", icon: Settings },
     ],
   },

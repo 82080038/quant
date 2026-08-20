@@ -1,0 +1,893 @@
+{
+  "eval_date": "2026-08-20",
+  "period_start": "2026-06-21",
+  "period_end": "2026-08-20",
+  "total_tickers_evaluated": 55,
+  "total_predictions": 7500,
+  "engine_scores": [
+    {
+      "engine": "technical",
+      "total_predictions": 625,
+      "directional_accuracy": 21.12,
+      "mape": 80.57,
+      "f1_score": 0.1181,
+      "precision": 0.0664,
+      "recall": 0.5323,
+      "root_cause_attribution": 100.0,
+      "decision": "REPLACE",
+      "avg_confidence": 0.3056
+    },
+    {
+      "engine": "fundamental",
+      "total_predictions": 625,
+      "directional_accuracy": 0.0,
+      "mape": 80.45,
+      "f1_score": 0,
+      "precision": 0,
+      "recall": 0,
+      "root_cause_attribution": 100.0,
+      "decision": "REPLACE",
+      "avg_confidence": 0.0
+    },
+    {
+      "engine": "macro",
+      "total_predictions": 0,
+      "directional_accuracy": 0,
+      "mape": 0,
+      "f1_score": 0,
+      "precision": 0,
+      "recall": 0,
+      "root_cause_attribution": 0,
+      "decision": "NO_DATA",
+      "avg_confidence": 0
+    },
+    {
+      "engine": "global_market",
+      "total_predictions": 625,
+      "directional_accuracy": 0.0,
+      "mape": 80.45,
+      "f1_score": 0,
+      "precision": 0,
+      "recall": 0,
+      "root_cause_attribution": 100.0,
+      "decision": "REPLACE",
+      "avg_confidence": 0.0
+    },
+    {
+      "engine": "sentiment",
+      "total_predictions": 625,
+      "directional_accuracy": 0.0,
+      "mape": 80.45,
+      "f1_score": 0,
+      "precision": 0,
+      "recall": 0,
+      "root_cause_attribution": 100.0,
+      "decision": "REPLACE",
+      "avg_confidence": 0.0
+    },
+    {
+      "engine": "relationship",
+      "total_predictions": 625,
+      "directional_accuracy": 0.0,
+      "mape": 80.45,
+      "f1_score": 0,
+      "precision": 0,
+      "recall": 0,
+      "root_cause_attribution": 100.0,
+      "decision": "REPLACE",
+      "avg_confidence": 0.0
+    },
+    {
+      "engine": "alpha_mean_reversion",
+      "total_predictions": 625,
+      "directional_accuracy": 0.32,
+      "mape": 80.47,
+      "f1_score": 0.3333,
+      "precision": 1.0,
+      "recall": 0.2,
+      "root_cause_attribution": 100.0,
+      "decision": "REPLACE",
+      "avg_confidence": 0.0096
+    },
+    {
+      "engine": "alpha_reversal",
+      "total_predictions": 625,
+      "directional_accuracy": 4.64,
+      "mape": 80.63,
+      "f1_score": 0.3273,
+      "precision": 0.3103,
+      "recall": 0.3462,
+      "root_cause_attribution": 100.0,
+      "decision": "REPLACE",
+      "avg_confidence": 0.1056
+    },
+    {
+      "engine": "alpha_momentum",
+      "total_predictions": 625,
+      "directional_accuracy": 18.4,
+      "mape": 80.99,
+      "f1_score": 0.4108,
+      "precision": 0.3089,
+      "recall": 0.6129,
+      "root_cause_attribution": 100.0,
+      "decision": "REPLACE",
+      "avg_confidence": 0.3584
+    },
+    {
+      "engine": "alpha_regime_switch",
+      "total_predictions": 625,
+      "directional_accuracy": 13.76,
+      "mape": 81.01,
+      "f1_score": 0.4875,
+      "precision": 0.398,
+      "recall": 0.629,
+      "root_cause_attribution": 100.0,
+      "decision": "REPLACE",
+      "avg_confidence": 0.2688
+    },
+    {
+      "engine": "hmm_regime",
+      "total_predictions": 625,
+      "directional_accuracy": 24.32,
+      "mape": 80.47,
+      "f1_score": 0.1745,
+      "precision": 0.0978,
+      "recall": 0.8065,
+      "root_cause_attribution": 100.0,
+      "decision": "REPLACE",
+      "avg_confidence": 0.3203
+    },
+    {
+      "engine": "fama_french",
+      "total_predictions": 625,
+      "directional_accuracy": 0.0,
+      "mape": 80.45,
+      "f1_score": 0,
+      "precision": 0,
+      "recall": 0,
+      "root_cause_attribution": 100.0,
+      "decision": "REPLACE",
+      "avg_confidence": 0.0
+    },
+    {
+      "engine": "holiday_effect",
+      "total_predictions": 0,
+      "directional_accuracy": 0,
+      "mape": 0,
+      "f1_score": 0,
+      "precision": 0,
+      "recall": 0,
+      "root_cause_attribution": 0,
+      "decision": "NO_DATA",
+      "avg_confidence": 0
+    },
+    {
+      "engine": "volume_features",
+      "total_predictions": 625,
+      "directional_accuracy": 12.0,
+      "mape": 80.66,
+      "f1_score": 0.4276,
+      "precision": 0.3523,
+      "recall": 0.5439,
+      "root_cause_attribution": 100.0,
+      "decision": "REPLACE",
+      "avg_confidence": 0.1434
+    },
+    {
+      "engine": "policy_events",
+      "total_predictions": 0,
+      "directional_accuracy": 0,
+      "mape": 0,
+      "f1_score": 0,
+      "precision": 0,
+      "recall": 0,
+      "root_cause_attribution": 0,
+      "decision": "NO_DATA",
+      "avg_confidence": 0
+    }
+  ],
+  "data_gaps": [
+    {
+      "gap": "Data Volume Komoditas",
+      "description": "Data harga komoditas (minyak, emas, tembaga, batubara) terbatas",
+      "current_count": 3,
+      "needed": "10+ seri komoditas dengan volume perdagangan harian",
+      "impact": "Korelasi makro lintas aset tidak menangkap dampak komoditas"
+    },
+    {
+      "gap": "Data Crypto & Forex",
+      "description": "Data harga ETH, BTC, dan USD/IDR kurang lengkap",
+      "current_count": 0,
+      "needed": "90+ hari data harian untuk ETH, BTC, USD/IDR",
+      "impact": "Prediksi korelasi crypto-forex-equity tidak akurat"
+    }
+  ],
+  "tuning_actions": [
+    {
+      "engine": "technical",
+      "action": "REPLACE",
+      "current_da": 21.12,
+      "replacement_model": "ARIMA/GARCH time-series model dengan volatilitas kondisional",
+      "rationale": "Engine gagal menghasilkan arah yang benar (<50% DA), perlu model runtun waktu yang lebih tangguh"
+    },
+    {
+      "engine": "fundamental",
+      "action": "REPLACE",
+      "current_da": 0.0,
+      "replacement_model": "ARIMA/GARCH time-series model dengan volatilitas kondisional",
+      "rationale": "Engine gagal menghasilkan arah yang benar (<50% DA), perlu model runtun waktu yang lebih tangguh"
+    },
+    {
+      "engine": "global_market",
+      "action": "REPLACE",
+      "current_da": 0.0,
+      "replacement_model": "ARIMA/GARCH time-series model dengan volatilitas kondisional",
+      "rationale": "Engine gagal menghasilkan arah yang benar (<50% DA), perlu model runtun waktu yang lebih tangguh"
+    },
+    {
+      "engine": "sentiment",
+      "action": "REPLACE",
+      "current_da": 0.0,
+      "replacement_model": "ARIMA/GARCH time-series model dengan volatilitas kondisional",
+      "rationale": "Engine gagal menghasilkan arah yang benar (<50% DA), perlu model runtun waktu yang lebih tangguh"
+    },
+    {
+      "engine": "relationship",
+      "action": "REPLACE",
+      "current_da": 0.0,
+      "replacement_model": "ARIMA/GARCH time-series model dengan volatilitas kondisional",
+      "rationale": "Engine gagal menghasilkan arah yang benar (<50% DA), perlu model runtun waktu yang lebih tangguh"
+    },
+    {
+      "engine": "alpha_mean_reversion",
+      "action": "REPLACE",
+      "current_da": 0.32,
+      "replacement_model": "ARIMA/GARCH time-series model dengan volatilitas kondisional",
+      "rationale": "Engine gagal menghasilkan arah yang benar (<50% DA), perlu model runtun waktu yang lebih tangguh"
+    },
+    {
+      "engine": "alpha_reversal",
+      "action": "REPLACE",
+      "current_da": 4.64,
+      "replacement_model": "ARIMA/GARCH time-series model dengan volatilitas kondisional",
+      "rationale": "Engine gagal menghasilkan arah yang benar (<50% DA), perlu model runtun waktu yang lebih tangguh"
+    },
+    {
+      "engine": "alpha_momentum",
+      "action": "REPLACE",
+      "current_da": 18.4,
+      "replacement_model": "ARIMA/GARCH time-series model dengan volatilitas kondisional",
+      "rationale": "Engine gagal menghasilkan arah yang benar (<50% DA), perlu model runtun waktu yang lebih tangguh"
+    },
+    {
+      "engine": "alpha_regime_switch",
+      "action": "REPLACE",
+      "current_da": 13.76,
+      "replacement_model": "ARIMA/GARCH time-series model dengan volatilitas kondisional",
+      "rationale": "Engine gagal menghasilkan arah yang benar (<50% DA), perlu model runtun waktu yang lebih tangguh"
+    },
+    {
+      "engine": "hmm_regime",
+      "action": "REPLACE",
+      "current_da": 24.32,
+      "replacement_model": "ARIMA/GARCH time-series model dengan volatilitas kondisional",
+      "rationale": "Engine gagal menghasilkan arah yang benar (<50% DA), perlu model runtun waktu yang lebih tangguh"
+    },
+    {
+      "engine": "fama_french",
+      "action": "REPLACE",
+      "current_da": 0.0,
+      "replacement_model": "ARIMA/GARCH time-series model dengan volatilitas kondisional",
+      "rationale": "Engine gagal menghasilkan arah yang benar (<50% DA), perlu model runtun waktu yang lebih tangguh"
+    },
+    {
+      "engine": "volume_features",
+      "action": "REPLACE",
+      "current_da": 12.0,
+      "replacement_model": "ARIMA/GARCH time-series model dengan volatilitas kondisional",
+      "rationale": "Engine gagal menghasilkan arah yang benar (<50% DA), perlu model runtun waktu yang lebih tangguh"
+    }
+  ],
+  "multi_horizon_projections": [
+    {
+      "ticker": "IPPE.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.06,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "IPPE.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.12,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "IPPE.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.26,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "IPPE.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.89,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "FIMP.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.11,
+      "confidence": 0.3932,
+      "root_cause": "Score=67.0, Trend=sideways",
+      "top_engine": "technical"
+    },
+    {
+      "ticker": "FIMP.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.24,
+      "confidence": 0.3932,
+      "root_cause": "Score=67.0, Trend=sideways",
+      "top_engine": "technical"
+    },
+    {
+      "ticker": "FIMP.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.5,
+      "confidence": 0.3932,
+      "root_cause": "Score=67.0, Trend=sideways",
+      "top_engine": "technical"
+    },
+    {
+      "ticker": "FIMP.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.71,
+      "confidence": 0.3932,
+      "root_cause": "Score=67.0, Trend=sideways",
+      "top_engine": "technical"
+    },
+    {
+      "ticker": "ARTI.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.06,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "ARTI.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.12,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "ARTI.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.26,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "ARTI.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.89,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "RAFI.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.12,
+      "confidence": 0.4058,
+      "root_cause": "Score=68.5, Trend=sideways",
+      "top_engine": "technical"
+    },
+    {
+      "ticker": "RAFI.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.27,
+      "confidence": 0.4058,
+      "root_cause": "Score=68.5, Trend=sideways",
+      "top_engine": "technical"
+    },
+    {
+      "ticker": "RAFI.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.57,
+      "confidence": 0.4058,
+      "root_cause": "Score=68.5, Trend=sideways",
+      "top_engine": "technical"
+    },
+    {
+      "ticker": "RAFI.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.92,
+      "confidence": 0.4058,
+      "root_cause": "Score=68.5, Trend=sideways",
+      "top_engine": "technical"
+    },
+    {
+      "ticker": "INAF.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.06,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "INAF.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.12,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "INAF.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.26,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "INAF.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.89,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "TOYS.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.34,
+      "confidence": 0.4681,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "TOYS.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.75,
+      "confidence": 0.4681,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "TOYS.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.57,
+      "confidence": 0.4681,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "TOYS.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 5.32,
+      "confidence": 0.4681,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "ZINC.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 0.32,
+      "confidence": 0.5699,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "ZINC.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 0.71,
+      "confidence": 0.5699,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "ZINC.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 1.49,
+      "confidence": 0.5699,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "ZINC.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "TURUN",
+      "estimated_magnitude_pct": 5.05,
+      "confidence": 0.5699,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "IBST.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.51,
+      "confidence": 0.6273,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "IBST.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.14,
+      "confidence": 0.6273,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "IBST.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 2.39,
+      "confidence": 0.6273,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "IBST.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 8.08,
+      "confidence": 0.6273,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "ZBRA.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.34,
+      "confidence": 0.4681,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "ZBRA.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.75,
+      "confidence": 0.4681,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "ZBRA.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.57,
+      "confidence": 0.4681,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "ZBRA.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 5.32,
+      "confidence": 0.4681,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "PMMP.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.27,
+      "confidence": 0.3745,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "PMMP.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.6,
+      "confidence": 0.3745,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "PMMP.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.26,
+      "confidence": 0.3745,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "PMMP.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 4.26,
+      "confidence": 0.3745,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "^FTSE",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.75,
+      "confidence": 0.4601,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^FTSE",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.68,
+      "confidence": 0.4601,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^FTSE",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 3.51,
+      "confidence": 0.4601,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^FTSE",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 11.89,
+      "confidence": 0.4601,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^AXJO",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.9,
+      "confidence": 0.4317,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^AXJO",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 2.0,
+      "confidence": 0.4317,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^AXJO",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 4.2,
+      "confidence": 0.4317,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "^AXJO",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 14.21,
+      "confidence": 0.4317,
+      "root_cause": "EWMA momentum",
+      "top_engine": "alpha_momentum"
+    },
+    {
+      "ticker": "BOSS.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.06,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "BOSS.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.12,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "BOSS.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.26,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "BOSS.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.89,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "GLOB.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.27,
+      "confidence": 0.376,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.36",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "GLOB.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.6,
+      "confidence": 0.376,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.36",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "GLOB.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 1.26,
+      "confidence": 0.376,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.36",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "GLOB.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 4.26,
+      "confidence": 0.376,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.36",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "LMSH.JK",
+      "horizon": "+1Hari",
+      "horizon_days": 1,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.06,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "LMSH.JK",
+      "horizon": "+1Minggu",
+      "horizon_days": 5,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.12,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "LMSH.JK",
+      "horizon": "+1Bulan",
+      "horizon_days": 22,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.26,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    },
+    {
+      "ticker": "LMSH.JK",
+      "horizon": "+1Tahun",
+      "horizon_days": 252,
+      "direction": "NAIK",
+      "estimated_magnitude_pct": 0.89,
+      "confidence": 0.4731,
+      "root_cause": "Regime=regime=trending, vol_pctile=0.50",
+      "top_engine": "hmm_regime"
+    }
+  ]
+}

@@ -303,7 +303,7 @@ export default function BacktestPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-sm">
             <Zap className="w-4 h-4 text-yellow-400" />
-            1-Year Temporal Simulation Control
+            Kontrol Simulasi Temporal 1 Tahun
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -316,11 +316,11 @@ export default function BacktestPage() {
                 className="px-6 py-2 rounded-md bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700 disabled:opacity-50 flex items-center gap-2"
               >
                 {simRunning ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />}
-                {simRunning ? "Simulating..." : "Run 1-Year Simulation"}
+                {simRunning ? "Menyimulasikan..." : "Jalankan Simulasi 1 Tahun"}
               </button>
               {simProgress?.done && (
                 <span className="flex items-center gap-1 text-sm text-emerald-400 font-medium">
-                  <CheckCircle2 className="w-4 h-4" /> Simulation Complete
+                  <CheckCircle2 className="w-4 h-4" /> Simulasi Selesai
                 </span>
               )}
               {simProgress && !simProgress.done && !simProgress.running && (
@@ -344,7 +344,7 @@ export default function BacktestPage() {
                   />
                 </div>
                 <p className="text-xs text-muted-foreground text-center">
-                  Day {simProgress.current_day} / {simProgress.total_trading_days} trading days
+                  Hari {simProgress.current_day} / {simProgress.total_trading_days} hari bursa
                   {simProgress.sim_date && ` | ${simProgress.sim_date}`}
                 </p>
               </>
@@ -354,15 +354,15 @@ export default function BacktestPage() {
             {simProgress && simProgress.running && (
               <div className="grid grid-cols-3 md:grid-cols-6 gap-3 text-sm">
                 <div className="rounded-md border border-border p-2">
-                  <p className="text-xs text-muted-foreground">Equity</p>
-                  <p className="font-bold font-mono">{(simProgress.equity / 1_000_000).toFixed(2)}M</p>
+                  <p className="text-xs text-muted-foreground">Ekuitas</p>
+                  <p className="font-bold font-mono">{(simProgress.equity / 1_000_000).toFixed(2)}Jt</p>
                 </div>
                 <div className="rounded-md border border-border p-2">
-                  <p className="text-xs text-muted-foreground">Cash</p>
-                  <p className="font-bold font-mono text-muted-foreground">{(simProgress.cash / 1_000_000).toFixed(1)}M</p>
+                  <p className="text-xs text-muted-foreground">Kas</p>
+                  <p className="font-bold font-mono text-muted-foreground">{(simProgress.cash / 1_000_000).toFixed(1)}Jt</p>
                 </div>
                 <div className="rounded-md border border-border p-2">
-                  <p className="text-xs text-muted-foreground">Positions</p>
+                  <p className="text-xs text-muted-foreground">Posisi</p>
                   <p className="font-bold">{simProgress.n_positions}</p>
                 </div>
                 <div className="rounded-md border border-border p-2">
@@ -374,7 +374,7 @@ export default function BacktestPage() {
                   <p className="font-bold text-emerald-400">{simProgress.lookahead_violations}</p>
                 </div>
                 <div className="rounded-md border border-border p-2">
-                  <p className="text-xs text-muted-foreground">Errors</p>
+                  <p className="text-xs text-muted-foreground">Error</p>
                   <p className={`font-bold ${simProgress.errors_intercepted > 0 ? "text-red-400" : "text-emerald-400"}`}>{simProgress.errors_intercepted}</p>
                 </div>
               </div>
@@ -386,10 +386,10 @@ export default function BacktestPage() {
                 <table className="w-full text-xs">
                   <thead className="sticky top-0 bg-card">
                     <tr className="border-b border-border text-left">
-                      <th className="px-2 py-1">Date</th>
-                      <th className="px-2 py-1 text-right">Equity</th>
+                      <th className="px-2 py-1">Tanggal</th>
+                      <th className="px-2 py-1 text-right">Ekuitas</th>
                       <th className="px-2 py-1 text-center">Pos</th>
-                      <th className="px-2 py-1 text-center">Trades</th>
+                      <th className="px-2 py-1 text-center">Transaksi</th>
                       <th className="px-2 py-1">Regime</th>
                       <th className="px-2 py-1 text-center">PIT</th>
                       <th className="px-2 py-1 text-center">Err</th>
@@ -416,7 +416,7 @@ export default function BacktestPage() {
             {simProgress && simProgress.error_log && simProgress.error_log.length > 0 && (
               <div className="rounded-md border border-red-500/30 bg-red-500/5 p-3">
                 <p className="text-xs font-medium text-red-400 mb-2 flex items-center gap-1">
-                  <AlertTriangle className="w-3 h-3" /> Intercepted Errors ({simProgress.error_log.length})
+                  <AlertTriangle className="w-3 h-3" /> Error Terintersepsi ({simProgress.error_log.length})
                 </p>
                 <div className="space-y-1 max-h-32 overflow-y-auto">
                   {simProgress.error_log.map((e, i) => (
@@ -434,12 +434,12 @@ export default function BacktestPage() {
             {/* Hot-patch log */}
             {simProgress && simProgress.patch_log && simProgress.patch_log.length > 0 && (
               <div className="rounded-md border border-yellow-500/30 bg-yellow-500/5 p-3">
-                <p className="text-xs font-medium text-yellow-400 mb-2">🔧 Live Hot-Patches ({simProgress.patch_log.length})</p>
+                <p className="text-xs font-medium text-yellow-400 mb-2">🔧 Perbaikan Langsung ({simProgress.patch_log.length})</p>
                 <div className="space-y-1">
                   {simProgress.patch_log.map((p, i) => (
                     <div key={i} className="text-xs">
                       <span className="font-mono text-yellow-400">#{p.bug_id}</span>{" "}
-                      <span className="text-muted-foreground">Day {p.sim_day}</span>{" "}
+                      <span className="text-muted-foreground">Hari {p.sim_day}</span> {" "}
                       <span>{p.fix_description}</span>
                     </div>
                   ))}
@@ -458,13 +458,13 @@ export default function BacktestPage() {
               <CalendarDays className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
               <div className="text-sm space-y-1">
                 <p className="font-medium text-emerald-600 dark:text-emerald-400">
-                  1-Year Temporal Trading Simulation — Completed
+                  Simulasi Trading Temporal 1 Tahun — Selesai
                 </p>
                 <p className="text-muted-foreground">
-                  Period: {temporal.start_date} → {temporal.end_date} |
-                  {temporal.trading_days} trading days executed |
-                  {temporal.skipped_holidays} holidays skipped |
-                  Look-ahead violations: {temporal.lookahead_violations}
+                  Periode: {temporal.start_date} → {temporal.end_date} |
+                  {temporal.trading_days} hari bursa dieksekusi |
+                  {temporal.skipped_holidays} hari libur dilewati |
+                  Pelanggaran look-ahead: {temporal.lookahead_violations}
                 </p>
               </div>
             </div>
@@ -473,19 +473,19 @@ export default function BacktestPage() {
           {/* Temporal Metrics Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
             <Card>
-              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><CalendarDays className="w-3 h-3" /> Trading Days</CardTitle></CardHeader>
+              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><CalendarDays className="w-3 h-3" /> Hari Bursa</CardTitle></CardHeader>
               <CardContent><p className="text-xl font-bold">{temporal.trading_days}</p></CardContent>
             </Card>
             <Card>
-              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><Activity className="w-3 h-3" /> Total Trades</CardTitle></CardHeader>
+              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><Activity className="w-3 h-3" /> Total Transaksi</CardTitle></CardHeader>
               <CardContent><p className="text-xl font-bold">{temporal.total_trades}</p></CardContent>
             </Card>
             <Card>
-              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><TrendingUp className="w-3 h-3" /> Return</CardTitle></CardHeader>
+              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><TrendingUp className="w-3 h-3" /> Imbal Hasil</CardTitle></CardHeader>
               <CardContent><p className={`text-xl font-bold ${temporal.total_return_pct >= 0 ? "text-emerald-400" : "text-red-400"}`}>{temporal.total_return_pct > 0 ? "+" : ""}{temporal.total_return_pct.toFixed(2)}%</p></CardContent>
             </Card>
             <Card>
-              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><TrendingDown className="w-3 h-3" /> Max Drawdown</CardTitle></CardHeader>
+              <CardHeader className="pb-1"><CardTitle className="text-xs flex items-center gap-1"><TrendingDown className="w-3 h-3" /> Penurunan Maks</CardTitle></CardHeader>
               <CardContent><p className="text-xl font-bold text-red-400">{temporal.max_drawdown_pct.toFixed(2)}%</p></CardContent>
             </Card>
             <Card>

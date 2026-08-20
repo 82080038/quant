@@ -79,7 +79,7 @@ export function ObservabilityConsole() {
 
   return (
     <Widget
-      title="BE Observability"
+      title="Konsol Observabilitas Backend"
       icon={<Activity className="w-3.5 h-3.5" />}
       accent="text-primary"
       right={
@@ -105,21 +105,21 @@ export function ObservabilityConsole() {
     >
       <div className="grid grid-cols-2 gap-2 p-2 border-b border-border/50 flex-shrink-0">
         <div className="space-y-1">
-          <StatusItem label="DB" status={dbStatus} detail={metric?.db?.connected ? "ON" : "OFF"} />
-          <StatusItem label="API" status={apiStatus} detail={`${limiterCount} limiter`} />
-          <StatusItem label="WS" status={wsStatus} detail={`${status.wsRecv}↘`} />
+          <StatusItem label="Basis Data" status={dbStatus} detail={metric?.db?.connected ? "AKTIF" : "MATI"} />
+          <StatusItem label="API" status={apiStatus} detail={`${limiterCount} pembatas`} />
+          <StatusItem label="WebSocket" status={wsStatus} detail={`${status.wsRecv}↘`} />
           <StatusItem label="SSE" status={sseStatus} detail={`${logs.length} log`} />
         </div>
         <div className="space-y-1">
           <StatusItem
-            label="Backpressure"
+            label="Tekanan Balik"
             status={throttleRate != null ? "warn" : "ok"}
-            detail={throttleRate != null ? `${throttleRate}/s` : "OFF"}
+            detail={throttleRate != null ? `${throttleRate}/dtk` : "MATI"}
           />
-          <StatusItem label="WS dropped" status={status.wsDropped > 0 ? "warn" : "ok"} detail={`${status.wsDropped}`} />
-          <StatusItem label="WS sent" status="idle" detail={`${status.wsSent}↗`} />
+          <StatusItem label="WS Jatuh" status={status.wsDropped > 0 ? "warn" : "ok"} detail={`${status.wsDropped}`} />
+          <StatusItem label="WS Kirim" status="idle" detail={`${status.wsSent}↗`} />
           <StatusItem
-            label="Log ring"
+            label="Ring Buffer Log"
             status="idle"
             detail={`${metric?.log_ring_size ?? 0}`}
           />
@@ -136,7 +136,7 @@ export function ObservabilityConsole() {
       >
         {logs.length === 0 ? (
           <div className="text-muted-foreground/60 italic px-1">
-            Menunggu stream log dari BE…
+            Menunggu stream log dari backend…
           </div>
         ) : (
           <VirtualLogList logs={logs} paused={paused} autoScroll={autoScroll} containerRef={logBoxRef} />

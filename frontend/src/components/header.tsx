@@ -64,7 +64,7 @@ export function Header() {
         ) : (
           <div className="flex items-center gap-2 shrink-0">
             <CheckCircle2 className="w-3 h-3 text-green-500 shrink-0" />
-            <span className="text-muted-foreground shrink-0">Idle</span>
+            <span className="text-muted-foreground shrink-0">Siaga</span>
           </div>
         )}
 
@@ -74,7 +74,7 @@ export function Header() {
         {s.nextTask ? (
           <div className="flex items-center gap-2 shrink-0">
             <Timer className="w-3 h-3 text-primary shrink-0" />
-            <span className="text-muted-foreground shrink-0">Next:</span>
+            <span className="text-muted-foreground shrink-0">Berikutnya:</span>
             <span className="font-medium text-primary shrink-0">{s.nextTask.task_id}</span>
             <span className="font-mono text-primary shrink-0">
               {s.countdown}
@@ -103,7 +103,7 @@ export function Header() {
             <div className="flex items-center gap-2 shrink-0">
               <AlertTriangle className="w-3 h-3 text-orange-500 shrink-0" />
               <span className="text-orange-500 font-medium shrink-0">
-                Stale: {s.stale.length} task
+                Terlambat: {s.stale.length} task
               </span>
               <span className="text-muted-foreground text-[10px] shrink-0">
                 ({s.stale.slice(0, 3).join(", ")}{s.stale.length > 3 ? "…" : ""})
@@ -112,7 +112,7 @@ export function Header() {
           </>
         )}
 
-        {/* Upcoming queue preview */}
+        {/* Pratinjau antrian akan datang */}
         {s.upcoming.length > 1 && (
           <>
             <div className="w-px h-3 bg-border shrink-0" />
@@ -134,7 +134,7 @@ export function Header() {
           </>
         )}
 
-        {/* Next IDX holiday */}
+        {/* Libur IDX berikutnya */}
         {s.nextIdxHoliday && (
           <>
             <div className="w-px h-3 bg-border shrink-0" />
@@ -151,7 +151,7 @@ export function Header() {
           </>
         )}
 
-        {/* Other exchange holidays today */}
+        {/* Libur bursa lain hari ini */}
         {s.holidays.filter(h => h.days_until === 0 && h.mic_code !== "XIDX").length > 0 && (
           <>
             <div className="w-px h-3 bg-border shrink-0" />

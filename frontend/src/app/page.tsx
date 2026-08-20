@@ -1,16 +1,16 @@
 "use client";
 
 /**
- * Astronacci Trading Dashboard — dense, real-time, single-user.
+ * Dashboard Astronacci — padat, real-time, single-user.
  *
- * Layout: fixed CSS grid (no page scroll). Seven widget zones:
- *   A: KPI (NAV / Return / PnL / positions)
- *   B: Movers (gainers / losers)
- *   C: IHSG live chart (recharts + WS tick sparkline, crosshair-synced)
- *   D: Portfolio positions table
- *   E: Signals live feed (WS `signals` channel + REST attribution fallback)
- *   F: Market breadth (gainers vs losers, derived from movers)
- *   G: BE Observability Console (SSE logs + status indicators)
+ * Layout: CSS grid tetap (tanpa scroll halaman). Tujuh zona widget:
+ *   A: KPI (NAB / Imbal Hasil / PnL / posisi)
+ *   B: Pergerakan (penguatan / pelemahan)
+ *   C: Grafik Live IHSG (recharts + WS tick sparkline, crosshair-synced)
+ *   D: Tabel posisi portofolio
+ *   E: Feed sinyal live (WS kanal `signals` + REST atribusi fallback)
+ *   F: Breadth pasar (penguatan vs pelemahan, diturunkan dari pergerakan)
+ *   G: Konsol Observabilitas Backend (log SSE + indikator status)
  *
  * Anti-freeze:
  *   - REST for initial load; WS for live ticks. WS messages mutate refs and
@@ -39,6 +39,7 @@ import { Widget } from "@/components/widget";
 import { ObservabilityConsole } from "@/components/observability-console";
 import { TickerTape } from "@/components/ticker-tape";
 import { CelestialFibonacciChart } from "@/components/celestial-fibonacci-chart";
+import { MultiHorizonProjection } from "@/components/multi-horizon-projection";
 import { CrosshairProvider, useCrosshairStore } from "@/components/crosshair-context";
 import { getWsClient, useWsLatest, type WsMessage } from "@/lib/ws-client";
 import { useFpsGuard } from "@/lib/use-fps-guard";
@@ -156,7 +157,7 @@ function IhsgChart({ ihsg, tickRing }: { ihsg: IhsgData | null; tickRing: { t: n
           {chg != null ? `${chg > 0 ? "+" : ""}${chg.toFixed(2)}` : "—"} ({fmtPct(pct)})
         </span>
         <span className="text-[10px] text-muted-foreground ml-auto">
-          {data.length > 1 ? `${data.length} tick live` : "menunggu WS tick…"}
+          {data.length > 1 ? `${data.length} tick live` : "menunggu tick WS…"}
         </span>
       </div>
       <div
@@ -247,7 +248,7 @@ function SignalsFeed({ restSignals }: { restSignals: SignalAttr[] }) {
   return (
     <div className="space-y-1 text-xs">
       {items.length === 0 ? (
-        <div className="text-muted-foreground/60 italic">Menunggu sinyal…</div>
+        <div className="text-muted-foreground/60 italic">Menunggu sinyal masuk…</div>
       ) : (
         items.map((s, i) => {
           const dirColor =
@@ -393,9 +394,9 @@ export default function DashboardPage() {
             <span className="text-muted-foreground">{moon.phase}</span>
           </span>
           <div className="w-px h-3.5 bg-border/40 shrink-0" />
-          <span className="text-muted-foreground shrink-0">G:</span>
+          <span className="text-muted-foreground shrink-0">Naik:</span>
           <span className="text-emerald-400 font-mono tabular-nums shrink-0">{breadth.g}</span>
-          <span className="text-muted-foreground shrink-0">L:</span>
+          <span className="text-muted-foreground shrink-0">Turun:</span>
           <span className="text-red-400 font-mono tabular-nums shrink-0">{breadth.l}</span>
           {feState && (
             <>
@@ -410,7 +411,7 @@ export default function DashboardPage() {
             </>
           )}
           <div className="ml-auto flex items-center gap-3 shrink-0">
-            <span className="text-muted-foreground">Update:</span>
+            <span className="text-muted-foreground">Pembaruan:</span>
             <span className="font-mono tabular-nums">{lastUpdate || "—"}</span>
             <div className="w-px h-3.5 bg-border/40" />
             <span className="text-muted-foreground">FPS:</span>
@@ -436,7 +437,7 @@ export default function DashboardPage() {
 
           {/* Tier 1 Hero: Portfolio NAV (3 cols × 1 row) */}
           <Widget
-            title="Portofolio"
+            title="Nilai Aset Bersih"
             icon={<Wallet className="w-3.5 h-3.5" />}
             accent="text-primary"
             className="col-span-3"
@@ -444,22 +445,22 @@ export default function DashboardPage() {
           >
             <div className="space-y-2">
               <div>
-                <p className="text-[10px] text-muted-foreground uppercase">NAV</p>
+                <p className="text-[10px] text-muted-foreground uppercase">NAB</p>
                 <p className="text-xl font-bold tabular-nums">Rp {portfolio ? fmtIDR(portfolio.total_nav) : "—"}</p>
               </div>
               <div>
-                <p className="text-[10px] text-muted-foreground uppercase">Unrealized PnL</p>
+                <p className="text-[10px] text-muted-foreground uppercase">PnL Belum Terealisasi</p>
                 <p className={cn("text-lg font-bold tabular-nums", totalPnl >= 0 ? "text-emerald-400" : "text-red-400")}>
                   {totalPnl >= 0 ? "+" : ""}Rp {fmtIDR(totalPnl)}
                 </p>
               </div>
               <div>
-                <p className="text-[10px] text-muted-foreground uppercase">Cash</p>
+                <p className="text-[10px] text-muted-foreground uppercase">Kas</p>
                 <p className="text-sm font-mono tabular-nums">Rp {portfolio ? fmtIDR(portfolio.cash) : "—"}</p>
               </div>
               {feState && (
                 <div className="pt-1 border-t border-border/30">
-                  <p className="text-[10px] text-muted-foreground uppercase">Sim Equity (cache)</p>
+                  <p className="text-[10px] text-muted-foreground uppercase">Ekuitas Simulasi (cache)</p>
                   <p className="text-sm font-bold tabular-nums text-emerald-400">
                     Rp {fmtIDR(feState.equity)} <span className="text-[10px] text-muted-foreground font-normal">({feState.sim_date})</span>
                   </p>
@@ -470,7 +471,7 @@ export default function DashboardPage() {
 
           {/* Tier 2 Feature: Movers & Breadth (3 cols × 1 row) */}
           <Widget
-            title="Movers & Breadth"
+            title="Pergerakan & Breadth Pasar"
             icon={<TrendingUp className="w-3.5 h-3.5" />}
             accent="text-emerald-400"
             className="col-span-3"
@@ -479,8 +480,8 @@ export default function DashboardPage() {
             <div className="space-y-2 text-xs">
               <div>
                 <div className="flex justify-between text-[10px] text-muted-foreground mb-1">
-                  <span>Gainers {breadth.g}</span>
-                  <span>Losers {breadth.l}</span>
+                  <span>Penguatan {breadth.g}</span>
+                  <span>Pelemahan {breadth.l}</span>
                 </div>
                 <div className="h-2 rounded-full overflow-hidden flex bg-border/40">
                   <div className="bg-emerald-500/80" style={{ width: `${breadth.gPct}%` }} />
@@ -489,7 +490,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <p className="text-[10px] text-emerald-400/80 uppercase mb-1 flex items-center gap-1">
-                  <ArrowUp className="w-3 h-3" /> Gainers
+                  <ArrowUp className="w-3 h-3" /> Saham Penguatan
                 </p>
                 {movers?.gainers.slice(0, 4).map((m) => (
                   <div key={m.ticker} className="flex items-center gap-2 py-0.5">
@@ -501,7 +502,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <p className="text-[10px] text-red-400/80 uppercase mb-1 flex items-center gap-1">
-                  <ArrowDown className="w-3 h-3" /> Losers
+                  <ArrowDown className="w-3 h-3" /> Saham Pelemahan
                 </p>
                 {movers?.losers.slice(0, 4).map((m) => (
                   <div key={m.ticker} className="flex items-center gap-2 py-0.5">
@@ -516,14 +517,14 @@ export default function DashboardPage() {
 
           {/* Tier 2 Feature: Positions (3 cols × 1 row) */}
           <Widget
-            title="Posisi"
+            title="Posisi Portofolio"
             icon={<Wallet className="w-3.5 h-3.5" />}
             className="col-span-3"
             right={<span className="text-[10px] text-muted-foreground tabular-nums">{positions.length} pos</span>}
           >
             <div className="text-xs space-y-1">
               {positions.length === 0 && !feState ? (
-                <div className="text-muted-foreground/60 italic">Belum ada posisi</div>
+                <div className="text-muted-foreground/60 italic">Belum ada posisi terbuka</div>
               ) : (
                 <>
                   {positions.slice(0, 8).map(([ticker, p]) => (
@@ -537,7 +538,7 @@ export default function DashboardPage() {
                   ))}
                   {feState && Object.keys(feState.positions).length > 0 && (
                     <div className="pt-1 border-t border-border/30 mt-1">
-                      <p className="text-[10px] text-muted-foreground uppercase mb-1">Sim Positions (cache)</p>
+                      <p className="text-[10px] text-muted-foreground uppercase mb-1">Posisi Simulasi (cache)</p>
                       {Object.entries(feState.positions).slice(0, 4).map(([ticker, p]) => (
                         <div key={ticker} className="flex items-center gap-2 py-0.5">
                           <span className="font-mono font-semibold w-16 shrink-0 tabular-nums">{ticker}</span>
@@ -554,7 +555,7 @@ export default function DashboardPage() {
 
           {/* Tier 2 Feature: Signals (3 cols × 1 row) */}
           <Widget
-            title="Sinyal"
+            title="Feed Sinyal"
             icon={<TrendingUp className="w-3.5 h-3.5" />}
             accent="text-primary"
             className="col-span-3"
@@ -565,7 +566,7 @@ export default function DashboardPage() {
 
           {/* Tier 2 Feature: IHSG Live Chart (6 cols × 1 row) */}
           <Widget
-            title="IHSG Live"
+            title="Grafik Live IHSG"
             icon={<Activity className="w-3.5 h-3.5" />}
             accent="text-emerald-400"
             className="col-span-6"
@@ -573,6 +574,9 @@ export default function DashboardPage() {
           >
             <IhsgChart ihsg={ihsg} tickRing={tickRing} />
           </Widget>
+
+          {/* Tier 3: Multi-Horizon Projection (6 cols) + Observability Console (full width) */}
+          <MultiHorizonProjection />
 
           {/* Tier 3: BE Observability Console (full width, auto height) */}
           <div className="col-span-12" style={{ gridAutoRows: "auto" }}>
