@@ -130,6 +130,14 @@ const TRIGGER_LABELS: Record<string, { label: string; icon: typeof Clock; color:
   manual_force: { label: "Force Manual", icon: RefreshCw, color: "text-red-400" },
 };
 
+const REGIME_COLORS: Record<string, string> = {
+  bull: "text-emerald-400",
+  bear: "text-red-400",
+  sideways: "text-yellow-400",
+  crisis: "text-orange-400",
+  unknown: "text-muted-foreground",
+};
+
 export default function BacktestPage() {
   const [status, setStatus] = useState<RunnerStatus | null>(null);
   const [latest, setLatest] = useState<BacktestRun | null>(null);
@@ -196,6 +204,11 @@ export default function BacktestPage() {
     }
   };
 
+  const equityChartData = useMemo(() => {
+    if (!temporal) return [];
+    return temporal.equity_curve.map((d) => ({ ...d, equity: d.equity / 1_000_000 }));
+  }, [temporal]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -207,19 +220,6 @@ export default function BacktestPage() {
   const triggerInfo = latest
     ? TRIGGER_LABELS[latest.trigger] || TRIGGER_LABELS.manual_force
     : null;
-
-  const equityChartData = useMemo(() => {
-    if (!temporal) return [];
-    return temporal.equity_curve.map((d) => ({ ...d, equity: d.equity / 1_000_000 }));
-  }, [temporal]);
-
-  const regimeColors: Record<string, string> = {
-    bull: "text-emerald-400",
-    bear: "text-red-400",
-    sideways: "text-yellow-400",
-    crisis: "text-orange-400",
-    unknown: "text-muted-foreground",
-  };
 
   return (
     <div className="space-y-6">
@@ -367,7 +367,7 @@ export default function BacktestPage() {
                         <td className="py-1 pr-3 text-right font-mono text-muted-foreground">{(d.cash / 1_000_000).toFixed(1)}M</td>
                         <td className="py-1 pr-3 text-center">{d.n_positions}</td>
                         <td className="py-1 pr-3 text-center">{d.n_trades}</td>
-                        <td className={`py-1 pr-3 ${regimeColors[d.regime] || "text-muted-foreground"}`}>{d.regime}</td>
+                        <td className={`py-1 pr-3 ${REGIME_COLORS[d.regime] || "text-muted-foreground"}`}>{d.regime}</td>
                         <td className="py-1 pr-3 text-center">{d.active_cycles}</td>
                         <td className="py-1 pr-3 text-center">{d.lookahead_check ? "✓" : "✗"}</td>
                       </tr>
