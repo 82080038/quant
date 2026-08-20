@@ -19,8 +19,8 @@ export function PageContainer({ children }: { children: ReactNode }) {
   const fixed = FIXED_ROUTES.has(pathname);
 
   if (fixed) {
-    // Dashboard manages its own grid; fill the main area edge-to-edge.
-    return <div className="h-full w-full overflow-hidden">{children}</div>;
+    // Dashboard: scrollable so widgets get adequate space.
+    return <div className="h-full w-full overflow-auto">{children}</div>;
   }
   // Legacy pages: padded, vertically scrollable.
   return <div className="h-full w-full overflow-auto p-6">{children}</div>;

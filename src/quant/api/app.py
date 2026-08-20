@@ -762,8 +762,108 @@ async def backtest_trigger(payload: dict = Body(default={})):
 
 @app.get("/api/cosmos/astronacci")
 async def cosmos_astronacci(days: int = Query(7, ge=1, le=90)):
-    """Return astronacci cycle data for the celestial visualization."""
-    return {"cycles": [], "days": days}
+    """Return astronacci cycle data for the celestial visualization.
+
+    Returns bodies (planetary positions), zodiac signs, active cycles,
+    and confluence signal — matching the frontend AstronacciResponse interface.
+    """
+    from datetime import datetime, timedelta, timezone
+    from quant.signals.astronacci import (
+        AstronacciEngine,
+        MoonPhaseCalculator,
+        RetrogradeCalculator,
+        IngressCalculator,
+        PLANETARY_BODIES,
+        ZODIAC_SIGNS,
+        _geocentric_ecliptic_lon,
+        _zodiac_sign,
+        _ephem_to_datetime,
+    )
+    import ephem
+
+    now = datetime.now(timezone.utc)
+    start = now - timedelta(days=1)
+    end = now + timedelta(days=days)
+
+    engine = AstronacciEngine(include_fibonacci=False)
+    cycles = engine.compute(start, end)
+
+    # Compute planetary body positions
+    bodies = []
+    start_ephem = ephem.Date(start.replace(tzinfo=None))
+
+    # Sun
+    sun = ephem.Sun()
+    sun_lon = _geocentric_ecliptic_lon(sun, start_ephem)
+    bodies.append({
+        "name": "SUN",
+        "kind": "star",
+        "lon_deg": round(sun_lon, 4),
+        "zodiac": _zodiac_sign(sun_lon),
+        "distance_au": 1.0,
+        "orbit_ring": 0,
+    })
+
+    # Moon
+    moon = ephem.Moon()
+    moon_lon = _geocentric_ecliptic_lon(moon, start_ephem)
+    moon_phase = moon.phase / 100.0 if hasattr(moon, 'phase') else 0.0
+    phase_name = "New Moon"
+    if moon_phase < 0.03:
+        phase_name = "New Moon"
+    elif moon_phase < 0.47:
+        phase_name = "Waxing Crescent"
+    elif moon_phase < 0.53:
+        phase_name = "First Quarter"
+    elif moon_phase < 0.97:
+        phase_name = "Waxing Gibbous"
+    elif moon_phase >= 0.97:
+        phase_name = "Full Moon"
+    bodies.append({
+        "name": "MOON",
+        "kind": "satellite",
+        "lon_deg": round(moon_lon, 4),
+        "zodiac": _zodiac_sign(moon_lon),
+        "distance_au": 0.00257,
+        "orbit_ring": 1,
+        "phase": moon_phase,
+        "phase_name": phase_name,
+        "illumination_pct": round(moon_phase * 100, 1),
+    })
+
+    # Planets
+    orbit_rings = {"MERCURY": 2, "VENUS": 3, "MARS": 4, "JUPITER": 5, "SATURN": 6, "URANUS": 7, "NEPTUNE": 8, "PLUTO": 9}
+    for name, body_cls in PLANETARY_BODIES.items():
+        body = body_cls()
+        lon = _geocentric_ecliptic_lon(body, start_ephem)
+        # Check retrograde by comparing longitude yesterday vs today
+        try:
+            prev_date = ephem.Date(start_ephem - 1)
+            body_prev = body_cls()
+            lon_prev = _geocentric_ecliptic_lon(body_prev, prev_date)
+            is_retro = lon_prev > lon
+        except Exception:
+            is_retro = False
+        bodies.append({
+            "name": name,
+            "kind": "planet",
+            "lon_deg": round(lon, 4),
+            "zodiac": _zodiac_sign(lon),
+            "distance_au": round(float(body.sun_distance) if hasattr(body, 'sun_distance') else 0, 4),
+            "orbit_ring": orbit_rings.get(name, 5),
+            "retrograde": is_retro,
+        })
+
+    # Compute signal (without Fibonacci confluence — no price data here)
+    signal = engine.compute_signal(now, window_days=days)
+
+    return {
+        "as_of": now.isoformat(),
+        "bodies": bodies,
+        "zodiac_signs": ZODIAC_SIGNS,
+        "active_cycles": [c.to_dict() for c in cycles],
+        "signal": signal,
+    }
 
 
 @app.get("/api/cosmos/satellites")

@@ -756,7 +756,7 @@ function formatLocalTime(iso: string, timezone: string): string {
       ctx.stroke();
 
       // ── Moon orbiting Earth ──
-      const moon = dataRef.current.astro?.bodies.find((b) => b.name === "MOON");
+      const moon = dataRef.current.astro?.bodies?.find((b) => b.name === "MOON");
       if (moon) {
         const moonOrbitR = earthR + 40;
         const moonAng = (moon.lon_deg * Math.PI) / 180 + t * 0.3;
@@ -882,7 +882,7 @@ function formatLocalTime(iso: string, timezone: string): string {
   }, [paused, project]);
 
   // ── Derived display values ──
-  const moonBody = useMemo(() => astro?.bodies.find((b) => b.name === "MOON"), [astro]);
+  const moonBody = useMemo(() => astro?.bodies?.find((b) => b.name === "MOON"), [astro]);
   const signal = astro?.signal;
   const openExchanges = useMemo(
     () => exchanges.filter((e) => e.market_status.is_open),
@@ -1164,7 +1164,7 @@ function formatLocalTime(iso: string, timezone: string): string {
 
           {rotateTab === "siklus" && (
             <div className="space-y-1">
-              {astro?.active_cycles.slice(0, 3).map((c) => (
+              {astro?.active_cycles?.slice(0, 3).map((c) => (
                 <div key={c.cycle_type + c.start_at} className="rounded bg-white/5 border border-white/5 p-1.5">
                   <div className="flex items-center justify-between gap-1">
                     <span className="text-white/90 text-[10px] font-medium truncate">{c.title}</span>
@@ -1178,7 +1178,7 @@ function formatLocalTime(iso: string, timezone: string): string {
                   </div>
                 </div>
               ))}
-              {(!astro || astro.active_cycles.length === 0) && <p className="text-white/40 text-[10px]">Tidak ada siklus aktif.</p>}
+              {(!astro || !astro.active_cycles || astro.active_cycles.length === 0) && <p className="text-white/40 text-[10px]">Tidak ada siklus aktif.</p>}
             </div>
           )}
 
@@ -1224,13 +1224,13 @@ function formatLocalTime(iso: string, timezone: string): string {
 
           {topTab === "zodiak" && (
             <div className="text-[10px] text-white/60">
-              {astro?.bodies.filter(b => b.name !== "SUN" && b.name !== "MOON").slice(0, 5).map(b => (
+              {astro?.bodies?.filter(b => b.name !== "SUN" && b.name !== "MOON").slice(0, 5).map(b => (
                 <div key={b.name} className="flex justify-between">
                   <span style={{ color: PLANET_COLORS[b.name] ?? "#888" }}>{b.name.slice(0, 3)}</span>
                   <span>{b.lon_deg.toFixed(1)}°{b.retrograde ? " ℞" : ""}</span>
                 </div>
               ))}
-              <div className="text-white/40 mt-1">{astro?.active_cycles.length ?? 0} siklus aktif</div>
+              <div className="text-white/40 mt-1">{astro?.active_cycles?.length ?? 0} siklus aktif</div>
             </div>
           )}
 

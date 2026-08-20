@@ -1,25 +1,9 @@
 "use client";
 
-import { Clock, CircleDot, Globe, Building2, FlaskConical, Radio, Timer, Loader2, AlertTriangle, CheckCircle2, CalendarClock } from "lucide-react";
+import { Clock, CircleDot, Globe, FlaskConical, Radio, Timer, Loader2, AlertTriangle, CheckCircle2, CalendarClock } from "lucide-react";
 import { useMarket } from "./market-context";
 import { useScheduler } from "./scheduler-context";
 import { cn } from "@/lib/utils";
-
-const STATUS_COLORS: Record<string, string> = {
-  active: "text-green-500",
-  "pre-open": "text-yellow-500",
-  closing: "text-yellow-500",
-  "after-hours": "text-blue-500",
-  closed: "text-muted-foreground",
-};
-
-const STATUS_LABELS: Record<string, string> = {
-  active: "Aktif",
-  "pre-open": "Pre-Open",
-  closing: "Closing",
-  "after-hours": "After-Hrs",
-  closed: "Tutup",
-};
 
 export function Header() {
   const m = useMarket();
@@ -67,31 +51,7 @@ export function Header() {
         </div>
       </div>
 
-      {/* Row 2: Exchange statuses */}
-      <div className="h-8 flex items-center gap-1 px-6 border-t border-border/50 overflow-x-auto">
-        <Building2 className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-        {m.exchanges.map(ex => (
-          <div
-            key={ex.mic}
-            className={cn(
-              "flex items-center gap-1 px-2 py-0.5 rounded text-xs shrink-0",
-              ex.status === "active" && "bg-green-500/10",
-              ex.status === "pre-open" && "bg-yellow-500/10",
-            )}
-          >
-            <CircleDot className={cn("w-2.5 h-2.5", STATUS_COLORS[ex.status])} />
-            <span className={cn("font-medium", STATUS_COLORS[ex.status])}>{ex.name}</span>
-            <span className="text-muted-foreground text-[10px]">
-              {STATUS_LABELS[ex.status]}
-            </span>
-            <span className="text-muted-foreground text-[10px] font-mono">
-              {ex.localTime.split(" ").pop()}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      {/* Row 3: Scheduler status — countdown & render status */}
+      {/* Row 2: Scheduler status — countdown & render status */}
       <div className="h-7 flex items-center gap-3 px-6 border-t border-border/50 text-xs overflow-x-auto">
         {/* Running tasks */}
         {s.running.length > 0 ? (

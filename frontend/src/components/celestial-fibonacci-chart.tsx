@@ -103,10 +103,10 @@ function drawChart(
     return;
   }
 
-  const padLeft = 8;
-  const padRight = 52;
-  const padTop = 8;
-  const padBottom = 18;
+  const padLeft = 10;
+  const padRight = 68;
+  const padTop = 12;
+  const padBottom = 22;
   const chartW = w - padLeft - padRight;
   const chartH = h - padTop - padBottom;
 
@@ -130,8 +130,10 @@ function drawChart(
   ctx.strokeStyle = "rgba(100,150,255,0.06)";
   ctx.lineWidth = 0.5;
   for (let r = 0.2; r < 1.0; r += 0.2) {
+    const arcRadius = Math.max(0, chartW * r * 0.5);
+    if (arcRadius < 1) continue;
     ctx.beginPath();
-    ctx.arc(padLeft + chartW / 2, padTop + chartH / 2, chartW * r * 0.5, 0, Math.PI * 2);
+    ctx.arc(padLeft + chartW / 2, padTop + chartH / 2, arcRadius, 0, Math.PI * 2);
     ctx.stroke();
   }
 
@@ -148,7 +150,7 @@ function drawChart(
     }
   }
 
-  ctx.font = "8px monospace";
+  ctx.font = "10px monospace";
   ctx.textAlign = "center";
   for (const zone of FIB_TIME_ZONES) {
     if (zone >= candles.length) break;
@@ -161,15 +163,15 @@ function drawChart(
     ctx.lineTo(x, padTop + chartH);
     ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle = "rgba(168,85,247,0.5)";
-    ctx.fillText(String(zone), x, padTop + chartH + 10);
+    ctx.fillStyle = "rgba(168,85,247,0.6)";
+    ctx.fillText(String(zone), x, padTop + chartH + 12);
   }
 
   const fibHigh = maxPrice;
   const fibLow = minPrice;
   const fibRange = fibHigh - fibLow;
 
-  ctx.font = "9px monospace";
+  ctx.font = "11px monospace";
   ctx.textAlign = "left";
   for (const fib of FIB_LEVELS) {
     const price = fibHigh - fibRange * fib.level;
@@ -185,11 +187,11 @@ function drawChart(
     ctx.setLineDash([]);
 
     ctx.fillStyle = fib.color;
-    ctx.fillText(`${fib.pct} ${price.toFixed(2)}`, padLeft + chartW + 2, y + 3);
+    ctx.fillText(`${fib.pct} ${price.toFixed(2)}`, padLeft + chartW + 4, y + 4);
   }
 
   const candleSpacing = chartW / candles.length;
-  const candleWidth = Math.max(1, Math.min(6, candleSpacing * 0.6));
+  const candleWidth = Math.max(1.5, Math.min(8, candleSpacing * 0.65));
 
   for (let i = 0; i < candles.length; i++) {
     const c = candles[i];
@@ -224,17 +226,17 @@ function drawChart(
     ctx.setLineDash([]);
 
     ctx.fillStyle = "#22c55e";
-    ctx.font = "9px monospace";
+    ctx.font = "11px monospace";
     ctx.textAlign = "left";
-    ctx.fillText(`> ${livePrice.toFixed(2)}`, padLeft + chartW + 2, y + 3);
+    ctx.fillText(`> ${livePrice.toFixed(2)}`, padLeft + chartW + 4, y + 4);
   }
 
   const lastCandle = candles[candles.length - 1];
   const displayPrice = livePrice ?? lastCandle.close;
   ctx.fillStyle = "#e2e8f0";
-  ctx.font = "bold 11px monospace";
+  ctx.font = "bold 13px monospace";
   ctx.textAlign = "left";
-  ctx.fillText(displayPrice.toFixed(2), padLeft + 2, padTop + 10);
+  ctx.fillText(displayPrice.toFixed(2), padLeft + 4, padTop + 14);
 }
 
 export function CelestialFibonacciChart({
@@ -323,7 +325,7 @@ export function CelestialFibonacciChart({
       bodyClassName="!p-0"
     >
       <div
-        className="relative w-full h-full min-h-[180px]"
+        className="relative w-full h-full min-h-[280px]"
         style={{ willChange: "transform" }}
       >
         <canvas

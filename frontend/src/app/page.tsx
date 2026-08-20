@@ -31,16 +31,12 @@ import {
   Activity,
   ArrowDown,
   ArrowUp,
-  Gauge,
-  Radio,
-  TrendingDown,
   TrendingUp,
   Wallet,
 } from "lucide-react";
 import { Widget } from "@/components/widget";
 import { ObservabilityConsole } from "@/components/observability-console";
-import { MarketClockWidget } from "@/components/market-clock-widget";
-import { ExchangeTimelineHeader } from "@/components/exchange-timeline-header";
+import { TickerTape } from "@/components/ticker-tape";
 import { CelestialFibonacciChart } from "@/components/celestial-fibonacci-chart";
 import { CrosshairProvider, useCrosshairStore } from "@/components/crosshair-context";
 import { getWsClient, useWsLatest, type WsMessage } from "@/lib/ws-client";
@@ -261,6 +257,7 @@ export default function DashboardPage() {
 
   // WS tick ring buffer for the IHSG live chart (ref-backed, coalesced).
   const tickRingRef = useRef<{ t: number; p: number }[]>([]);
+  const [tickRing, setTickRing] = useState<{ t: number; p: number }[]>([]);
   const [, bumpRing] = useState(0);
 
   // ── REST initial load (kept; WS augments live) ──
@@ -306,6 +303,7 @@ export default function DashboardPage() {
         const ring = tickRingRef.current;
         if (ring.length >= 240) ring.shift();
         ring.push({ t: Number(msg.ts ?? Date.now()), p: msg.p });
+        setTickRing([...ring]);
         // Coalesced re-render via rAF (shared flush in ws-client).
         bumpRing((n) => n + 1);
       }
@@ -340,9 +338,9 @@ export default function DashboardPage() {
 
   return (
     <CrosshairProvider>
-      <div className="h-full w-full flex flex-col gap-2 p-2 overflow-hidden">
-        {/* Exchange timeline header — global session strip sorted by WIB open time */}
-        <ExchangeTimelineHeader />
+      <div className="min-h-full w-full flex flex-col gap-2 p-2">
+        {/* Ticker Tape — global indices, forex, commodities in one scrolling strip */}
+        <TickerTape />
 
         {/* IHSG / breadth / FPS compact bar */}
         <div className="flex items-center gap-4 px-3 h-7 rounded-md border border-border/60 bg-card/60 backdrop-blur-sm text-xs overflow-hidden shrink-0">
@@ -368,15 +366,15 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Main widget grid: 12 cols, 2 rows + observability row */}
+        {/* Main widget grid: 12 cols, auto rows with generous min-heights */}
         <div
-          className="flex-1 min-h-0 grid gap-2"
+          className="grid gap-2"
           style={{
             gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
-            gridTemplateRows: "minmax(0, 1fr) minmax(0, 1fr) auto",
+            gridAutoRows: "minmax(320px, auto)",
           }}
         >
-          {/* Row 1 */}
+          {/* Row 1: Portfolio + Movers/Breadth (consolidated) + Celestial Fibonacci */}
           <Widget
             title="Portofolio"
             icon={<Wallet className="w-3.5 h-3.5" />}
@@ -403,18 +401,29 @@ export default function DashboardPage() {
           </Widget>
 
           <Widget
-            title="Movers"
+            title="Movers & Breadth"
             icon={<TrendingUp className="w-3.5 h-3.5" />}
             accent="text-emerald-400"
             className="col-span-3"
             right={<span className="text-[10px] text-muted-foreground">{movers?.as_of ?? "—"}</span>}
           >
             <div className="space-y-2 text-xs">
+              {/* Breadth bar (consolidated from separate widget) */}
+              <div>
+                <div className="flex justify-between text-[10px] text-muted-foreground mb-1">
+                  <span>Gainers {breadth.g}</span>
+                  <span>Losers {breadth.l}</span>
+                </div>
+                <div className="h-2 rounded-full overflow-hidden flex bg-border/40">
+                  <div className="bg-emerald-500/80" style={{ width: `${breadth.gPct}%` }} />
+                  <div className="bg-red-500/80" style={{ width: `${breadth.lPct}%` }} />
+                </div>
+              </div>
               <div>
                 <p className="text-[10px] text-emerald-400/80 uppercase mb-1 flex items-center gap-1">
                   <ArrowUp className="w-3 h-3" /> Gainers
                 </p>
-                {movers?.gainers.slice(0, 5).map((m) => (
+                {movers?.gainers.slice(0, 4).map((m) => (
                   <div key={m.ticker} className="flex items-center gap-2 py-0.5">
                     <span className="font-mono font-semibold w-14">{m.ticker}</span>
                     <span className="font-mono ml-auto">{m.close.toLocaleString("en-US", { maximumFractionDigits: 0 })}</span>
@@ -426,7 +435,7 @@ export default function DashboardPage() {
                 <p className="text-[10px] text-red-400/80 uppercase mb-1 flex items-center gap-1">
                   <ArrowDown className="w-3 h-3" /> Losers
                 </p>
-                {movers?.losers.slice(0, 5).map((m) => (
+                {movers?.losers.slice(0, 4).map((m) => (
                   <div key={m.ticker} className="flex items-center gap-2 py-0.5">
                     <span className="font-mono font-semibold w-14">{m.ticker}</span>
                     <span className="font-mono ml-auto">{m.close.toLocaleString("en-US", { maximumFractionDigits: 0 })}</span>
@@ -442,7 +451,7 @@ export default function DashboardPage() {
             className="col-span-6"
           />
 
-          {/* Row 2 */}
+          {/* Row 2: Positions + Signals + IHSG Live Chart */}
           <Widget
             title="Posisi"
             icon={<Wallet className="w-3.5 h-3.5" />}
@@ -477,53 +486,17 @@ export default function DashboardPage() {
           </Widget>
 
           <Widget
-            title="Market Breadth"
-            icon={<Gauge className="w-3.5 h-3.5" />}
-            accent="text-primary"
+            title="IHSG Live"
+            icon={<Activity className="w-3.5 h-3.5" />}
+            accent="text-emerald-400"
             className="col-span-6"
+            right={<span className="text-[10px] text-muted-foreground">{tickRing.length} tick</span>}
           >
-            <div className="space-y-3">
-              <div>
-                <div className="flex justify-between text-[10px] text-muted-foreground mb-1">
-                  <span>Gainers {breadth.g}</span>
-                  <span>Losers {breadth.l}</span>
-                </div>
-                <div className="h-3 rounded-full overflow-hidden flex bg-border/40">
-                  <div className="bg-emerald-500/80" style={{ width: `${breadth.gPct}%` }} />
-                  <div className="bg-red-500/80" style={{ width: `${breadth.lPct}%` }} />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="rounded-md border border-border/50 p-2">
-                  <p className="text-[10px] text-muted-foreground uppercase">Top Gainer</p>
-                  <p className="font-mono font-semibold">
-                    {movers?.gainers[0]
-                      ? `${movers.gainers[0].ticker} ${fmtPct(movers.gainers[0].pct_change)}`
-                      : "—"}
-                  </p>
-                </div>
-                <div className="rounded-md border border-border/50 p-2">
-                  <p className="text-[10px] text-muted-foreground uppercase">Top Loser</p>
-                  <p className="font-mono font-semibold">
-                    {movers?.losers[0]
-                      ? `${movers.losers[0].ticker} ${fmtPct(movers.losers[0].pct_change)}`
-                      : "—"}
-                  </p>
-                </div>
-              </div>
-              <div className="text-[10px] text-muted-foreground italic">
-                {loading ? "Memuat data pasar…" : `Diperbarui ${lastUpdate}`}
-              </div>
-            </div>
+            <IhsgChart ihsg={ihsg} tickRing={tickRing} />
           </Widget>
 
-          {/* Global Market Clock */}
-          <div className="col-span-3">
-            <MarketClockWidget />
-          </div>
-
           {/* Row 3: BE Observability Console (full width) */}
-          <div className="col-span-12">
+          <div className="col-span-12" style={{ gridAutoRows: "auto" }}>
             <ObservabilityConsole />
           </div>
         </div>

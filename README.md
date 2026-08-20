@@ -1191,3 +1191,57 @@ Total Scenarios: 8
 ✅ Passed: 8 | ❌ Failed: 0 | ⏭️ Skipped: 0
 Total Errors: 0 | Self-Healing Actions: 0
 ```
+
+---
+
+## UI Cleaning & De-Duplication Report (2026-08-20)
+
+### [UI CLEANING & DE-DUPLICATION LOG]
+
+| Component Removed | Reason | Replacement |
+|---|---|---|
+| `ExchangeTimelineHeader` (24 exchange cards) | Duplicated exchange data shown in 3 places | `TickerTape` — single scrolling strip |
+| `MarketClockWidget` (24 session rows) | Same exchange sessions as timeline header | TickerTape + Header Row 1 (IDX status) |
+| Header Row 2 (8 exchange status badges) | Redundant with timeline header | Removed; TickerTape covers global markets |
+| `Market Breadth` widget (separate) | Used same movers data as Movers widget | Merged into `Movers & Breadth` widget |
+
+**Ticker Tape Component** (`frontend/src/components/ticker-tape.tsx`):
+- Horizontal scrolling strip showing IHSG, global indices (Nikkei, KOSPI, S&P 500, etc.), and USD/IDR
+- CSS GPU acceleration via `will-change: transform`
+- `requestAnimationFrame` drives scroll at 0.4px/frame, pauses on hover
+- Content duplicated x2 for seamless infinite loop
+- No React re-renders during scroll — pure transform animation
+- Polls `/api/scheduler/sessions-with-indices` + `/api/prices/ihsg` + `/api/cosmos/kurs` every 30s
+
+### [DATA FIDELITY FIXES]
+
+| Fix | File | Description |
+|---|---|---|
+| Negative canvas radius | `celestial-fibonacci-chart.tsx:132` | Clamped arc radius to `Math.max(0, ...)` to prevent `IndexSizeError` |
+| Undefined `bodies.find()` | `cosmos/page.tsx:759,885` | Added optional chaining `?.` on `astro?.bodies` |
+| Undefined `active_cycles` | `cosmos/page.tsx:1167,1181,1233` | Added optional chaining on `astro?.active_cycles` |
+| Stub `/api/cosmos/astronacci` | `api/app.py:763` | Implemented full endpoint with planetary positions, zodiac, cycles, signal |
+| Missing `world-land-simple.json` | `frontend/public/` | Created placeholder file (empty polygons) |
+| Missing `favicon.ico` | `frontend/public/` | Created SVG-based favicon |
+| Widget font sizes too small | `globals.css:158-176` | Header 11px→12px, padding 6px→8px, body padding 10px→12px |
+| Chart labels too small | `celestial-fibonacci-chart.tsx` | Fib zones 8px→10px, price levels 9px→11px, main price 11px→13px |
+| Chart min-height too small | `celestial-fibonacci-chart.tsx:328` | 180px→280px for better visibility |
+| Dashboard fixed viewport | `page-container.tsx:21` | Changed `overflow-hidden`→`overflow-auto` to allow scrolling |
+| Grid rows too tight | `page.tsx:376` | `minmax(0,1fr)`→`minmax(320px,auto)` for adequate widget height |
+
+### [PERFORMANCE & GITHUB SYNC STATUS]
+
+**Playwright Headed Validation (Epson PJ — HDMI-1-0, 1440×900)**:
+```
+Target Monitor: HDMI-1-0 (EPSON PJ)
+Browser Position: 1339,0
+Total Scenarios: 8
+✅ Passed: 8 | ❌ Failed: 0 | ⏭️ Skipped: 0
+Total Errors: 0 | Self-Healing Actions: 0
+FPS: Stable >55 FPS (no freeze detected)
+```
+
+**Playwright Spec Tests**: 2/2 passed (dashboard ticker tape + scrolling animation)
+
+**Git Status**: Code committed and pushed to GitHub.
+
