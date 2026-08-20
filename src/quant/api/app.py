@@ -760,6 +760,31 @@ async def backtest_trigger(payload: dict = Body(default={})):
 
 # ── Temporal Backtest Simulation ─────────────────────────────────────────
 
+import threading as _threading
+
+_temporal_sim_state = {
+    "running": False,
+    "current_day": 0,
+    "total_trading_days": 0,
+    "sim_date": None,
+    "equity": 0.0,
+    "cash": 0.0,
+    "n_positions": 0,
+    "n_trades_today": 0,
+    "regime": "unknown",
+    "active_cycles": 0,
+    "lookahead_violations": 0,
+    "errors_intercepted": 0,
+    "hot_patches": 0,
+    "day_log": [],
+    "error_log": [],
+    "patch_log": [],
+    "done": False,
+    "message": "",
+}
+_temporal_sim_lock = _threading.Lock()
+
+
 @app.get("/api/temporal-backtest/report")
 async def temporal_backtest_report():
     """Return the 1-year temporal trading simulation report."""
@@ -771,6 +796,145 @@ async def temporal_backtest_report():
         return {"status": "not_found", "message": "Run scripts/run_temporal_backtest.py first"}
     with open(report_path) as f:
         return json.load(f)
+
+
+@app.get("/api/temporal-backtest/progress")
+async def temporal_backtest_progress():
+    """Return live simulation progress."""
+    with _temporal_sim_lock:
+        return dict(_temporal_sim_state)
+
+
+@app.post("/api/temporal-backtest/run")
+async def temporal_backtest_run(payload: dict = Body(default={})):
+    """Start the temporal backtest simulation in background."""
+    with _temporal_sim_lock:
+        if _temporal_sim_state["running"]:
+            return {"status": "already_running", "message": "Simulation already in progress"}
+        _temporal_sim_state.update({
+            "running": True, "done": False, "current_day": 0,
+            "total_trading_days": 0, "sim_date": None, "equity": 0.0,
+            "cash": 0.0, "n_positions": 0, "n_trades_today": 0,
+            "regime": "unknown", "active_cycles": 0,
+            "lookahead_violations": 0, "errors_intercepted": 0,
+            "hot_patches": 0, "day_log": [], "error_log": [],
+            "patch_log": [], "message": "Starting...",
+        })
+
+    start_str = payload.get("start", "2025-08-20")
+    end_str = payload.get("end", "2026-08-18")
+    universe_size = payload.get("universe_size", 15)
+
+    def _run_in_thread():
+        import sys as _sys
+        _sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
+        from run_temporal_backtest import TemporalBacktestSimulator, INITIAL_CAPITAL
+        from datetime import date as _date
+
+        try:
+            sim = TemporalBacktestSimulator(
+                start_date=_date.fromisoformat(start_str),
+                end_date=_date.fromisoformat(end_str),
+                universe_size=universe_size,
+            )
+
+            # Monkey-patch the run loop to emit progress
+            original_run = sim.run
+            total_td = len(sim._trading_days)
+
+            with _temporal_sim_lock:
+                _temporal_sim_state["total_trading_days"] = total_td
+                _temporal_sim_state["message"] = f"Simulating {total_td} trading days..."
+
+            # Patch _build_report to intercept daily results
+            original_build = sim._build_report
+
+            def patched_run():
+                # We need to intercept the daily loop. Instead of re-running,
+                # we'll wrap the run method and poll sim state after each day.
+                # The simplest approach: call run() but update state via
+                # daily_results which are appended during execution.
+                # We'll use a thread to poll.
+                import time as _time
+
+                result = original_run()
+
+                # After completion, update state from result
+                with _temporal_sim_lock:
+                    _temporal_sim_state["running"] = False
+                    _temporal_sim_state["done"] = True
+                    _temporal_sim_state["current_day"] = result.trading_days
+                    _temporal_sim_state["equity"] = result.final_equity
+                    _temporal_sim_state["lookahead_violations"] = result.lookahead_violations
+                    _temporal_sim_state["errors_intercepted"] = len(result.intercepted_errors)
+                    _temporal_sim_state["hot_patches"] = len(result.hot_patches)
+                    _temporal_sim_state["message"] = "Simulation complete"
+                    _temporal_sim_state["day_log"] = result.daily_results[-30:]
+                    _temporal_sim_state["patch_log"] = result.hot_patches
+
+                # Save report
+                from dataclasses import asdict as _asdict
+                import json as _json
+                report_path = Path(__file__).resolve().parents[3] / "docs" / "TEMPORAL_BACKTEST_REPORT.json"
+                report_path.parent.mkdir(parents=True, exist_ok=True)
+                with open(report_path, "w") as f:
+                    _json.dump(_asdict(result), f, indent=2, default=str)
+
+                return result
+
+            sim.run = patched_run
+
+            # Replace daily_results with an observable list to emit progress
+            class ObservableList(list):
+                def append(self_, item):
+                    super().append(item)
+                    with _temporal_sim_lock:
+                        _temporal_sim_state["current_day"] = len(self_)
+                        _temporal_sim_state["sim_date"] = item.sim_date
+                        _temporal_sim_state["equity"] = item.equity
+                        _temporal_sim_state["cash"] = item.cash
+                        _temporal_sim_state["n_positions"] = item.n_positions
+                        _temporal_sim_state["n_trades_today"] = item.n_trades
+                        _temporal_sim_state["regime"] = item.regime
+                        _temporal_sim_state["active_cycles"] = item.active_cycles
+                        _temporal_sim_state["lookahead_violations"] = sim.lookahead_violations
+                        _temporal_sim_state["errors_intercepted"] = len(sim.intercepted_errors)
+                        _temporal_sim_state["hot_patches"] = len(sim.hot_patches.records)
+                        _temporal_sim_state["message"] = f"Day {len(self_)}/{total_td} | {item.sim_date} | {item.regime}"
+                        _temporal_sim_state["day_log"] = [
+                            {"sim_date": d.sim_date, "equity": d.equity, "cash": d.cash,
+                             "n_positions": d.n_positions, "n_trades": d.n_trades,
+                             "regime": d.regime, "active_cycles": d.active_cycles,
+                             "lookahead_check": d.lookahead_check, "had_error": d.had_error}
+                            for d in self_[-20:]
+                        ]
+
+            sim.daily_results = ObservableList(sim.daily_results)
+
+            # Replace intercepted_errors with observable list
+            class ObservableErrList(list):
+                def append(self_, item):
+                    super().append(item)
+                    with _temporal_sim_lock:
+                        _temporal_sim_state["error_log"] = [
+                            {"sim_date": e.sim_date, "stage": e.stage, "error_type": e.error_type, "error_msg": e.error_msg, "severity": e.severity}
+                            for e in self_[-20:]
+                        ]
+
+            sim.intercepted_errors = ObservableErrList(sim.intercepted_errors)
+
+            sim.run()
+
+        except Exception as exc:
+            with _temporal_sim_lock:
+                _temporal_sim_state["running"] = False
+                _temporal_sim_state["done"] = False
+                _temporal_sim_state["message"] = f"Error: {exc}"
+
+    thread = _threading.Thread(target=_run_in_thread, daemon=True)
+    thread.start()
+
+    return {"status": "started", "message": "Simulation started in background"}
 
 
 # ── Cosmos (Astronacci Celestial View) ────────────────────────────────────

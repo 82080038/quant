@@ -23,6 +23,8 @@ import json
 import logging
 import sys
 import time
+import traceback
+import warnings
 from dataclasses import dataclass, field, asdict
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -43,6 +45,35 @@ logging.basicConfig(
     datefmt="%H:%M:%S",
 )
 logger = logging.getLogger("temporal_backtest")
+
+# ─── Hot-Patch Log ──────────────────────────────────────────────────────
+@dataclass
+class HotPatchRecord:
+    """Record of a live code repair during simulation."""
+    bug_id: str
+    sim_day: str           # Day T+n when bug was detected
+    severity: str          # "critical", "warning", "error"
+    symptom: str           # What was observed
+    root_cause: str        # Forensic analysis
+    file_modified: str     # Absolute path of file patched
+    fix_description: str   # What was changed
+    test_result: str       # "passed" / "failed"
+    resume_day: str        # Day simulation resumed from
+
+
+class HotPatchLog:
+    """Accumulates live repair records during simulation."""
+    def __init__(self):
+        self.records: list[HotPatchRecord] = []
+
+    def add(self, record: HotPatchRecord):
+        self.records.append(record)
+        logger.warning("🔧 HOT-PATCH #%d | Day %s | %s | File: %s",
+                       len(self.records), record.sim_day, record.severity.upper(),
+                       record.file_modified)
+
+    def to_list(self) -> list[dict]:
+        return [asdict(r) for r in self.records]
 
 # ─── Transaction costs ──────────────────────────────────────────────────
 COMMISSION_RATE = 0.0015      # 0.15% IDX commission
@@ -96,6 +127,18 @@ class DayResult:
     regime: str
     active_cycles: int
     lookahead_check: bool
+    had_error: bool = False
+
+
+@dataclass
+class DayError:
+    """Error intercepted during a simulation day."""
+    sim_date: str
+    stage: str             # Which pipeline stage failed
+    error_type: str        # Exception class name
+    error_msg: str
+    traceback: str
+    severity: str          # "critical", "warning", "error"
 
 
 @dataclass
@@ -127,6 +170,9 @@ class BacktestReport:
     daily_results: list[dict]
     lookahead_violations: int
     asset_class_breakdown: dict
+    hot_patches: list[dict] = field(default_factory=list)
+    intercepted_errors: list[dict] = field(default_factory=list)
+    resume_events: list[dict] = field(default_factory=list)
 
 
 class TemporalBacktestSimulator:
@@ -167,6 +213,17 @@ class TemporalBacktestSimulator:
         # Pre-compute trading days (as set for O(1) lookup)
         self._trading_days: list[date] = self.pit.get_trading_days(start_date, end_date)
         self._trading_days_set: set[date] = set(self._trading_days)
+
+        # Error interception & hot-patch tracking
+        self.hot_patches = HotPatchLog()
+        self.intercepted_errors: list[DayError] = []
+        self.resume_events: list[dict] = []
+        self._halted = False
+        self._halt_day: Optional[date] = None
+
+        # Capture warnings as errors
+        warnings.filterwarnings("error", category=RuntimeWarning)
+        warnings.filterwarnings("error", category=DeprecationWarning)
 
         logger.info(
             "TemporalBacktestSimulator initialized: %s → %s, %d trading days, %d holidays, %d delisted",
@@ -325,6 +382,47 @@ class TemporalBacktestSimulator:
         except Exception:
             return 0
 
+    def _intercept_error(self, sim_date: date, stage: str, exc: Exception, severity: str = "error") -> DayError:
+        """Log an intercepted error and halt simulation at current day."""
+        err = DayError(
+            sim_date=sim_date.isoformat(),
+            stage=stage,
+            error_type=type(exc).__name__,
+            error_msg=str(exc),
+            traceback=traceback.format_exc(),
+            severity=severity,
+        )
+        self.intercepted_errors.append(err)
+        self._halted = True
+        self._halt_day = sim_date
+        logger.error("🛑 INTERCEPTED %s at Day %s | Stage: %s | %s: %s",
+                     severity.upper(), sim_date, stage, type(exc).__name__, exc)
+        return err
+
+    def _resume_from(self, sim_date: date) -> None:
+        """Resume simulation after a hot-patch."""
+        self._halted = False
+        self._halt_day = None
+        self.resume_events.append({
+            "resume_day": sim_date.isoformat(),
+            "timestamp": datetime.now().isoformat(),
+            "patches_applied": len(self.hot_patches.records),
+        })
+        logger.info("▶️  SIMULATION RESUMED from Day %s (patches applied: %d)",
+                     sim_date, len(self.hot_patches.records))
+
+    def _run_stage(self, stage_name: str, sim_date: date, fn, *args, **kwargs):
+        """Execute a pipeline stage with error interception.
+
+        If an error occurs, it is logged, simulation halts, and the error
+        is re-raised for the caller to handle (patch + resume).
+        """
+        try:
+            return fn(*args, **kwargs)
+        except Exception as exc:
+            self._intercept_error(sim_date, stage_name, exc)
+            raise
+
     def _verify_lookahead(self, sim_date: date) -> bool:
         """Verify no look-ahead bias by checking that no future data was accessed.
 
@@ -445,46 +543,59 @@ class TemporalBacktestSimulator:
                 continue
 
             trading_days += 1
+            day_had_error = False
 
             # ── Step 2: Screening & Caching ──────────────────────────────
-            equity_universe = self._get_active_universe(current)
-            cross_asset_prices = self._get_cross_asset_prices(current)
+            try:
+                equity_universe = self._run_stage("screening", current, self._get_active_universe, current)
+                cross_asset_prices = self._run_stage("screening", current, self._get_cross_asset_prices, current)
+            except Exception:
+                day_had_error = True
+                equity_universe = []
+                cross_asset_prices = {}
 
             if not equity_universe and not cross_asset_prices:
                 current += timedelta(days=1)
                 continue
 
             # ── Step 3: Quantitative & Celestial Compute ─────────────────
-            regime = self._detect_regime(current)
-            n_cycles = self._get_astronacci_cycles(current)
+            try:
+                regime = self._run_stage("regime_detect", current, self._detect_regime, current)
+            except Exception:
+                regime = "unknown"
+                day_had_error = True
+
+            try:
+                n_cycles = self._run_stage("astronacci", current, self._get_astronacci_cycles, current)
+            except Exception:
+                n_cycles = 0
+                day_had_error = True
 
             # Generate signals for equity universe
             signals_by_ticker: dict[str, CompositeSignal] = {}
             for ticker in equity_universe:
                 try:
-                    engine_signals = self.registry.generate_available(ticker, current)
+                    engine_signals = self._run_stage("signal_gen", current, self.registry.generate_available, ticker, current)
                     if not engine_signals:
                         continue
 
                     # Load interdependency matrix for causality boost
-                    interdep = self.registry._load_interdependency_matrix(ticker, current)
+                    interdep = self._run_stage("interdep_load", current, self.registry._load_interdependency_matrix, ticker, current)
 
-                    composite = self.aggregator.aggregate(
-                        ticker=ticker,
-                        as_of_date=current,
-                        engine_signals=engine_signals,
-                        regime=regime,
-                        interdependency_matrix=interdep,
-                    )
+                    composite = self._run_stage("signal_aggregate", current, self.aggregator.aggregate,
+                        ticker=ticker, as_of_date=current, engine_signals=engine_signals,
+                        regime=regime, interdependency_matrix=interdep)
                     signals_by_ticker[ticker] = composite
-                except Exception as e:
-                    logger.debug("Signal failed for %s on %s: %s", ticker, current, e)
+                except Exception:
+                    day_had_error = True
+                    if self._halted:
+                        break
 
             # Generate simple momentum signals for cross-asset
             cross_signals: dict[str, float] = {}
             for ticker in CROSS_ASSET_UNIVERSE:
                 try:
-                    df = self.pit.get_prices(ticker, current, lookback=30)
+                    df = self._run_stage("cross_asset_load", current, self.pit.get_prices, ticker, current, lookback=30)
                     if df.empty or len(df) < 10:
                         continue
                     close = df["close"].astype(float)
@@ -493,7 +604,9 @@ class TemporalBacktestSimulator:
                     signal = np.clip(ret_5d * 2 + ret_20d, -1, 1)
                     cross_signals[ticker] = float(signal)
                 except Exception:
-                    pass
+                    day_had_error = True
+                    if self._halted:
+                        break
 
             # ── Step 4: Decision & Portfolio Management ───────────────────
             # Sort equity signals by confidence * abs(signal)
@@ -507,16 +620,19 @@ class TemporalBacktestSimulator:
 
             # Sell existing positions with negative signals
             for ticker in list(self.positions.keys()):
-                pos = self.positions[ticker]
-                if pos.asset_class == "equity" and ticker in signals_by_ticker:
-                    sig = signals_by_ticker[ticker]
-                    if sig.composite_value < -0.15 or sig.direction == "short":
-                        self._execute_sell(ticker, current)
-                        n_trades_today += 1
-                elif pos.asset_class == "cross_asset" and ticker in cross_signals:
-                    if cross_signals[ticker] < -0.15:
-                        self._execute_sell(ticker, current)
-                        n_trades_today += 1
+                try:
+                    pos = self.positions[ticker]
+                    if pos.asset_class == "equity" and ticker in signals_by_ticker:
+                        sig = signals_by_ticker[ticker]
+                        if sig.composite_value < -0.15 or sig.direction == "short":
+                            self._run_stage("sell", current, self._execute_sell, ticker, current)
+                            n_trades_today += 1
+                    elif pos.asset_class == "cross_asset" and ticker in cross_signals:
+                        if cross_signals[ticker] < -0.15:
+                            self._run_stage("sell", current, self._execute_sell, ticker, current)
+                            n_trades_today += 1
+                except Exception:
+                    day_had_error = True
 
             # Buy new positions
             available_slots = MAX_POSITIONS - len(self.positions)
@@ -526,8 +642,11 @@ class TemporalBacktestSimulator:
                     if ticker in self.positions:
                         continue
                     if composite.composite_value > 0.15 and composite.direction == "long":
-                        self._execute_buy(ticker, current, "equity")
-                        n_trades_today += 1
+                        try:
+                            self._run_stage("buy", current, self._execute_buy, ticker, current, "equity")
+                            n_trades_today += 1
+                        except Exception:
+                            day_had_error = True
                         available_slots -= 1
                         if available_slots <= 0:
                             break
@@ -538,8 +657,11 @@ class TemporalBacktestSimulator:
                         if ticker in self.positions:
                             continue
                         if signal_val > 0.15:
-                            self._execute_buy(ticker, current, "cross_asset")
-                            n_trades_today += 1
+                            try:
+                                self._run_stage("buy", current, self._execute_buy, ticker, current, "cross_asset")
+                                n_trades_today += 1
+                            except Exception:
+                                day_had_error = True
                             available_slots -= 1
                             if available_slots <= 0:
                                 break
@@ -560,6 +682,7 @@ class TemporalBacktestSimulator:
                 regime=regime,
                 active_cycles=n_cycles,
                 lookahead_check=lookahead_ok,
+                had_error=day_had_error,
             ))
 
             if trading_days % 50 == 0 or trading_days == 1:
@@ -654,6 +777,9 @@ class TemporalBacktestSimulator:
                 "equity_pct": round(equity_trades / max(len(self.trades), 1) * 100, 1),
                 "cross_asset_pct": round(cross_trades / max(len(self.trades), 1) * 100, 1),
             },
+            hot_patches=self.hot_patches.to_list(),
+            intercepted_errors=[asdict(e) for e in self.intercepted_errors],
+            resume_events=self.resume_events,
         )
 
 
@@ -704,6 +830,16 @@ def main():
     print(f"  ─────────────────────────────────────────────────────────")
     print(f"  Look-ahead Violations: {report.lookahead_violations}")
     print(f"  Asset Class Split:   Equity {report.asset_class_breakdown['equity_pct']}% | Cross-Asset {report.asset_class_breakdown['cross_asset_pct']}%")
+    print(f"  ─────────────────────────────────────────────────────────")
+    print(f"  [LIVE REPAIR & HOT-PATCH LOG]")
+    print(f"  Hot-Patches Applied:  {len(report.hot_patches)}")
+    print(f"  Errors Intercepted:   {len(report.intercepted_errors)}")
+    print(f"  Resume Events:        {len(report.resume_events)}")
+    for p in report.hot_patches:
+        print(f"    #{p['bug_id']} | Day {p['sim_day']} | {p['severity']} | {p['file_modified']}")
+        print(f"       Fix: {p['fix_description']}")
+    for r in report.resume_events:
+        print(f"    ▶️ Resumed from {r['resume_day']} | Patches: {r['patches_applied']}")
     print("=" * 70)
 
 

@@ -138,10 +138,33 @@ const REGIME_COLORS: Record<string, string> = {
   unknown: "text-muted-foreground",
 };
 
+interface SimProgress {
+  running: boolean;
+  current_day: number;
+  total_trading_days: number;
+  sim_date: string | null;
+  equity: number;
+  cash: number;
+  n_positions: number;
+  n_trades_today: number;
+  regime: string;
+  active_cycles: number;
+  lookahead_violations: number;
+  errors_intercepted: number;
+  hot_patches: number;
+  day_log: { sim_date: string; equity: number; cash: number; n_positions: number; n_trades: number; regime: string; active_cycles: number; lookahead_check: boolean; had_error: boolean }[];
+  error_log: { sim_date: string; stage: string; error_type: string; error_msg: string; severity: string }[];
+  patch_log: { bug_id: string; sim_day: string; severity: string; file_modified: string; fix_description: string }[];
+  done: boolean;
+  message: string;
+}
+
 export default function BacktestPage() {
   const [status, setStatus] = useState<RunnerStatus | null>(null);
   const [latest, setLatest] = useState<BacktestRun | null>(null);
   const [temporal, setTemporal] = useState<TemporalReport | null>(null);
+  const [simProgress, setSimProgress] = useState<SimProgress | null>(null);
+  const [simRunning, setSimRunning] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [triggering, setTriggering] = useState(false);
@@ -180,11 +203,50 @@ export default function BacktestPage() {
     }
   }, []);
 
+  const fetchSimProgress = useCallback(async () => {
+    try {
+      const res = await fetch("/api/temporal-backtest/progress");
+      if (!res.ok) return;
+      const data = await res.json() as SimProgress;
+      setSimProgress(data);
+      setSimRunning(data.running);
+      if (data.done) {
+        // Reload the full report
+        void fetchTemporal();
+      }
+    } catch {
+      // silent
+    }
+  }, [fetchTemporal]);
+
+  const startSimulation = useCallback(async () => {
+    try {
+      setSimRunning(true);
+      const res = await fetch("/api/temporal-backtest/run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ start: "2025-08-20", end: "2026-08-18", universe_size: 15 }),
+      });
+      if (!res.ok) throw new Error("Failed to start simulation");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Unknown error");
+      setSimRunning(false);
+    }
+  }, []);
+
   useEffect(() => {
     void fetchStatus();
     void fetchLatest();
     void fetchTemporal();
-  }, [fetchStatus, fetchLatest, fetchTemporal]);
+    void fetchSimProgress();
+  }, [fetchStatus, fetchLatest, fetchTemporal, fetchSimProgress]);
+
+  // Poll progress every 2s while simulation is running
+  useEffect(() => {
+    if (!simRunning) return;
+    const interval = setInterval(() => void fetchSimProgress(), 2000);
+    return () => clearInterval(interval);
+  }, [simRunning, fetchSimProgress]);
 
   const triggerRun = async () => {
     setTriggering(true);
@@ -235,6 +297,158 @@ export default function BacktestPage() {
           strategi, dan merespons perubahan data/event pasar secara mandiri.
         </p>
       </div>
+
+      {/* ── Live Simulation Control Panel ── */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-sm">
+            <Zap className="w-4 h-4 text-yellow-400" />
+            1-Year Temporal Simulation Control
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {/* Run button + status */}
+            <div className="flex items-center gap-4 flex-wrap">
+              <button
+                onClick={startSimulation}
+                disabled={simRunning}
+                className="px-6 py-2 rounded-md bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700 disabled:opacity-50 flex items-center gap-2"
+              >
+                {simRunning ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />}
+                {simRunning ? "Simulating..." : "Run 1-Year Simulation"}
+              </button>
+              {simProgress?.done && (
+                <span className="flex items-center gap-1 text-sm text-emerald-400 font-medium">
+                  <CheckCircle2 className="w-4 h-4" /> Simulation Complete
+                </span>
+              )}
+              {simProgress && !simProgress.done && !simProgress.running && (
+                <span className="flex items-center gap-1 text-sm text-muted-foreground">
+                  {simProgress.message}
+                </span>
+              )}
+            </div>
+
+            {/* Progress bar */}
+            {simProgress && (simProgress.running || simProgress.done) && (
+              <>
+                <div className="w-full bg-muted rounded-full h-3 overflow-hidden">
+                  <div
+                    className="h-full bg-emerald-500 transition-all duration-500 rounded-full"
+                    style={{
+                      width: `${simProgress.total_trading_days > 0
+                        ? (simProgress.current_day / simProgress.total_trading_days) * 100
+                        : 0}%`,
+                    }}
+                  />
+                </div>
+                <p className="text-xs text-muted-foreground text-center">
+                  Day {simProgress.current_day} / {simProgress.total_trading_days} trading days
+                  {simProgress.sim_date && ` | ${simProgress.sim_date}`}
+                </p>
+              </>
+            )}
+
+            {/* Live metrics grid */}
+            {simProgress && simProgress.running && (
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-3 text-sm">
+                <div className="rounded-md border border-border p-2">
+                  <p className="text-xs text-muted-foreground">Equity</p>
+                  <p className="font-bold font-mono">{(simProgress.equity / 1_000_000).toFixed(2)}M</p>
+                </div>
+                <div className="rounded-md border border-border p-2">
+                  <p className="text-xs text-muted-foreground">Cash</p>
+                  <p className="font-bold font-mono text-muted-foreground">{(simProgress.cash / 1_000_000).toFixed(1)}M</p>
+                </div>
+                <div className="rounded-md border border-border p-2">
+                  <p className="text-xs text-muted-foreground">Positions</p>
+                  <p className="font-bold">{simProgress.n_positions}</p>
+                </div>
+                <div className="rounded-md border border-border p-2">
+                  <p className="text-xs text-muted-foreground">Regime</p>
+                  <p className={`font-bold ${REGIME_COLORS[simProgress.regime] || "text-muted-foreground"}`}>{simProgress.regime}</p>
+                </div>
+                <div className="rounded-md border border-border p-2">
+                  <p className="text-xs text-muted-foreground">Look-ahead</p>
+                  <p className="font-bold text-emerald-400">{simProgress.lookahead_violations}</p>
+                </div>
+                <div className="rounded-md border border-border p-2">
+                  <p className="text-xs text-muted-foreground">Errors</p>
+                  <p className={`font-bold ${simProgress.errors_intercepted > 0 ? "text-red-400" : "text-emerald-400"}`}>{simProgress.errors_intercepted}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Live day log (last 10 days) */}
+            {simProgress && simProgress.day_log && simProgress.day_log.length > 0 && (
+              <div className="max-h-40 overflow-y-auto rounded-md border border-border">
+                <table className="w-full text-xs">
+                  <thead className="sticky top-0 bg-card">
+                    <tr className="border-b border-border text-left">
+                      <th className="px-2 py-1">Date</th>
+                      <th className="px-2 py-1 text-right">Equity</th>
+                      <th className="px-2 py-1 text-center">Pos</th>
+                      <th className="px-2 py-1 text-center">Trades</th>
+                      <th className="px-2 py-1">Regime</th>
+                      <th className="px-2 py-1 text-center">PIT</th>
+                      <th className="px-2 py-1 text-center">Err</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {simProgress.day_log.slice(-10).reverse().map((d, i) => (
+                      <tr key={i} className="border-b border-border/30">
+                        <td className="px-2 py-1 font-mono">{d.sim_date}</td>
+                        <td className="px-2 py-1 text-right font-mono">{(d.equity / 1_000_000).toFixed(2)}M</td>
+                        <td className="px-2 py-1 text-center">{d.n_positions}</td>
+                        <td className="px-2 py-1 text-center">{d.n_trades}</td>
+                        <td className={`px-2 py-1 ${REGIME_COLORS[d.regime] || "text-muted-foreground"}`}>{d.regime}</td>
+                        <td className="px-2 py-1 text-center">{d.lookahead_check ? "✓" : "✗"}</td>
+                        <td className="px-2 py-1 text-center">{d.had_error ? "⚠" : "—"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {/* Intercepted errors */}
+            {simProgress && simProgress.error_log && simProgress.error_log.length > 0 && (
+              <div className="rounded-md border border-red-500/30 bg-red-500/5 p-3">
+                <p className="text-xs font-medium text-red-400 mb-2 flex items-center gap-1">
+                  <AlertTriangle className="w-3 h-3" /> Intercepted Errors ({simProgress.error_log.length})
+                </p>
+                <div className="space-y-1 max-h-32 overflow-y-auto">
+                  {simProgress.error_log.map((e, i) => (
+                    <div key={i} className="text-xs font-mono">
+                      <span className="text-red-400">[{e.severity.toUpperCase()}]</span>{" "}
+                      <span className="text-muted-foreground">{e.sim_date}</span>{" "}
+                      <span className="text-yellow-400">{e.stage}:</span>{" "}
+                      <span>{e.error_type}: {e.error_msg}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Hot-patch log */}
+            {simProgress && simProgress.patch_log && simProgress.patch_log.length > 0 && (
+              <div className="rounded-md border border-yellow-500/30 bg-yellow-500/5 p-3">
+                <p className="text-xs font-medium text-yellow-400 mb-2">🔧 Live Hot-Patches ({simProgress.patch_log.length})</p>
+                <div className="space-y-1">
+                  {simProgress.patch_log.map((p, i) => (
+                    <div key={i} className="text-xs">
+                      <span className="font-mono text-yellow-400">#{p.bug_id}</span>{" "}
+                      <span className="text-muted-foreground">Day {p.sim_day}</span>{" "}
+                      <span>{p.fix_description}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* ── Temporal Simulation Results ── */}
       {temporal && (

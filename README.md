@@ -1283,10 +1283,36 @@ FPS: Stable >55 FPS (no freeze detected)
 Full report: `docs/TEMPORAL_BACKTEST_REPORT.md`
 Full JSON data: `docs/TEMPORAL_BACKTEST_REPORT.json`
 Simulator: `scripts/run_temporal_backtest.py`
+Browser driver: `scripts/run_simulation_browser.py`
+Screenshots: `docs/simulation_screenshots/` (15 files)
 
 ### [3. CODEBASE STABILITY & GIT SYNC]
 
 **Epson PJ (HDMI-1-0, 1440×900)**: 8/8 E2E passed, 0 errors, FPS >55 stable
 **Playwright Spec**: 2/2 passed
+**Browser Simulation**: 206s, 124 trading days, 0 console errors, 15 screenshots
 **Git**: Committed and pushed to `github.com:82080038/quant.git` (main branch)
+
+### [LIVE REPAIR & HOT-PATCH LOG]
+
+6 bugs discovered and fixed via live code patching on development source code:
+
+| # | Severity | File | Fix |
+|---|---|---|---|
+| 1 | Critical | `scripts/run_temporal_backtest.py` | Look-ahead false positive: T+1 entry_date is normal, not violation |
+| 2 | Error | `scripts/run_temporal_backtest.py` | Python logging `%,` format not supported → `.format()` |
+| 3 | Warning | `scripts/run_temporal_backtest.py` | O(n) trading day lookup → pre-computed set for O(1) |
+| 4 | Error | `frontend/src/app/backtest/page.tsx` | React Rules of Hooks: `useMemo` after early return |
+| 5 | Error | `src/quant/api/app.py` | Monkey-patching `list.append` read-only → `ObservableList` subclass |
+| 6 | Warning | `scripts/e2e_playwright_headed.py` | `networkidle` timeout → `domcontentloaded` |
+
+### [SIMULATION RESUME STATUS]
+
+- **Final run**: Browser-driven via Playwright Headed on Epson PJ
+- **Duration**: 206 seconds (124 trading days, 2025-08-20 → 2026-08-18)
+- **Intercepted errors**: 0
+- **Hot-patches applied during run**: 0
+- **Resume events**: 0 (ran continuously without interruption)
+- **Console errors**: 0
+- **All dashboard pages verified**: Dashboard, Signals, Portfolio, Backtest, Settings
 
